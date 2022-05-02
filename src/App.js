@@ -1,24 +1,25 @@
 import React from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
-import { Container, AppBar, Typography, Grow, Grid } from '@mui/material';
+import { Container, AppBar, Typography, Grid, CssBaseline } from '@mui/material';
 
 import { Navbar, Header, Dashboard, Projects, Tickets} from './components';
 
 const App = () => {
     return (
-        <div className="app">
-            <div className="navbar">
+        <CssBaseline>
+        <Grid container direction="row">
+            <Grid item sm={3} md={2}>
                 <Navbar />
-            </div>
-            <div className="header">
+            </Grid>
+            <Grid item sm={9} md={10}>
                 <Header />
-            </div>
-            <div className="main">
                 <Container >
                     {/* Place holder for all the routes */}
+                    this is the container
                 </Container>
-            </div>
-        </div>
+            </Grid>
+        </Grid>
+        </CssBaseline>
     )
 }
 

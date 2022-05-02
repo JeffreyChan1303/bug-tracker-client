@@ -7,8 +7,8 @@ const Navbar = () => {
     return (
         <div className="nav-container">
             <div className="logo-container">
-                <Typography variant="h1">
-                    THIS WORKS!
+                <Typography variant="h4">
+                    Navbar
                 </Typography>
             </div>
         </div>

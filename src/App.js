@@ -1,25 +1,63 @@
 import React from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
-import { Container, AppBar, Typography, Grid, CssBaseline } from '@mui/material';
+import { Drawer, CssBaseline, Box} from '@mui/material';
 
 import { Navbar, Header, Dashboard, Projects, Tickets} from './components';
+import useStyles from './styles.js';
+
+
+const drawerWidth = 260;
 
 const App = () => {
+    const classes = useStyles();
+
+    const [mobileOpen, setMobileOpen] = React.useState(false);
+
+    const handleDrawerToggle = () => {
+        setMobileOpen(!mobileOpen);
+    };
+
     return (
-        <CssBaseline>
-        <Grid container direction="row">
-            <Grid item sm={3} md={2}>
-                <Navbar />
-            </Grid>
-            <Grid item sm={9} md={10}>
-                <Header />
-                <Container >
-                    {/* Place holder for all the routes */}
-                    this is the container
-                </Container>
-            </Grid>
-        </Grid>
-        </CssBaseline>
+        <Box sx={{ display: 'flex' }}>
+            <CssBaseline />
+                <Header
+                    drawerWidth={drawerWidth}
+                    handleDrawerToggle={handleDrawerToggle}
+                />
+            <Box
+                component="nav"
+                sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+                aria-label="mailbox folders"
+            >
+                {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+                <Drawer
+                    variant="temporary"
+                    open={mobileOpen}
+                    onClose={handleDrawerToggle}
+                    ModalProps={{
+                        keepMounted: true, // Better open performance on mobile.
+                    }}
+                    sx={{
+                        display: { xs: 'block', sm: 'none' },
+                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                    }}
+                >
+                    <Navbar />
+                </Drawer>
+
+                <Drawer
+                    variant="permanent"
+                    sx={{
+                        display: { xs: 'none', sm: 'block' }, // hides in mobile view
+                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                    }}
+                    open
+                >
+                    <Navbar />
+                </Drawer>
+            </Box>
+                <Dashboard drawerWidth={drawerWidth} />
+        </Box>
     )
 }
 

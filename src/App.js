@@ -20,13 +20,13 @@ const App = () => {
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-                <Header
-                    drawerWidth={drawerWidth}
-                    handleDrawerToggle={handleDrawerToggle}
-                />
+            <Header
+                drawerWidth={drawerWidth}
+                handleDrawerToggle={handleDrawerToggle}
+            />
             <Box
                 component="nav"
-                sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+                sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
                 aria-label="mailbox folders"
             >
                 {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
@@ -38,7 +38,7 @@ const App = () => {
                         keepMounted: true, // Better open performance on mobile.
                     }}
                     sx={{
-                        display: { xs: 'block', sm: 'none' },
+                        display: { xs: 'block', md: 'none' },
                         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
                     }}
                 >
@@ -48,7 +48,7 @@ const App = () => {
                 <Drawer
                     variant="permanent"
                     sx={{
-                        display: { xs: 'none', sm: 'block' }, // hides in mobile view
+                        display: { xs: 'none', md: 'block' }, // hides in mobile view
                         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
                     }}
                     open
@@ -56,7 +56,9 @@ const App = () => {
                     <Navbar />
                 </Drawer>
             </Box>
-                <Dashboard drawerWidth={drawerWidth} />
+
+            {/* Here is the content and the routes */}
+            <Dashboard drawerWidth={drawerWidth} />
         </Box>
     )
 }

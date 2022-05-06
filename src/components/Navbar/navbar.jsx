@@ -5,16 +5,35 @@ import MailIcon from '@mui/icons-material/Mail';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Link } from 'react-router-dom';
 
-import useStyles from './styles';
+import { styled } from '@mui/system';
 
+const StyledAccordion = styled(Accordion)(({ theme }) => ({
+    "&.Mui-expanded:before": {
+        opacity: '1',
+        backgroundColor: '',
+    },
+}));
+
+const StyledAccordionSummary = styled(AccordionSummary)(({ theme }) => ({
+    "&:hover": {
+        backgroundColor: theme.palette.grey[100],
+    }
+}));
+
+const StyledLink = styled(Link)(({ theme }) => ({
+    textDecoration: "none",
+    color: theme.palette.common.black,
+}));
 
 const Navbar = () => {
-    const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false); // shows which nav item is expanded
 
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
+
+    // 1. link url 2. link text 3. 
+
     
     return ( // this should be changed to navbar 
         <div>
@@ -34,105 +53,128 @@ const Navbar = () => {
             ))}
         </List>
 
+
+
+
         <List>
             <Divider />
-            <Link to="/">
-                <ListItem button key={"Dashboard"} className={classes.listItem}>
+            <StyledLink to="/">
+                <ListItem button key={"Dashboard"} >
                     <ListItemIcon>
                         <InboxIcon />
                     </ListItemIcon>
                     <ListItemText primary="Dashboard" />
                 </ListItem>
-            </Link>
+            </StyledLink>
 
             <Divider />
-            <Link to="/notifications">
+            <StyledLink to="/notifications">
                 <ListItem button key={"Notification Inbox"}>
                     <ListItemIcon>
                         <InboxIcon />
                     </ListItemIcon>
                     <ListItemText primary="Notification Inbox" />
                 </ListItem>
-            </Link>
+            </StyledLink>
 
-            <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')} disableGutters={true} square={true}>
-                <Link to="/form">
-                    <ListItem button key={"Form"}>
-                        <ListItemIcon>
-                            <InboxIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Form" />
-                    </ListItem>
-                </Link>
-            </Accordion>
+            <Divider />
+
             {/* Nav Projects */}
-            <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')} disableGutters={true} className={classes.accordion}>
-                <AccordionSummary
-                    className={classes.accordionSummary}
-                    expandIcon={<ExpandMoreIcon />}
-                >
+            <StyledAccordion 
+                expanded={expanded === 'panel1'} 
+                onChange={handleChange('panel1')} 
+                disableGutters={true}
+                elevation={0}
+            >
+                <StyledAccordionSummary expandIcon={<ExpandMoreIcon />} >
+                    <ListItemIcon>
+                        <InboxIcon />
+                    </ListItemIcon>
                     <Typography sx={{ width: '33%', flexShrink: 0 }}>
                         Projects 
                     </Typography>
-                </AccordionSummary>
+                </StyledAccordionSummary>
 
-                <AccordionDetails className={classes.accordionDetails} style={{ padding: "0"}}
-
-                >
-                    <Link to="/projects">
-                        <ListItem button key={"All Projects"} style={{ paddingLeft: "32px" }}>
+                <AccordionDetails sx={{ padding: "0"}} >
+                    <StyledLink to="/projects">
+                        <ListItem button key={"All Projects"} sx={{ paddingLeft: "32px" }}>
                             <ListItemIcon>
                                 <InboxIcon />
                             </ListItemIcon>
                             <ListItemText primary="All Projects" />
                         </ListItem>
-                    </Link>
+                    </StyledLink>
                 </AccordionDetails>
-            </Accordion>
+            </StyledAccordion>
 
             {/* Nav Tickets */}
 
-            <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')} disableGutters={true}>
-                <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                >
+            <StyledAccordion 
+                expanded={expanded === 'panel2'} 
+                onChange={handleChange('panel2')} 
+                disableGutters={true}
+                elevation={0}
+            >
+                <StyledAccordionSummary expandIcon={<ExpandMoreIcon />} >
+                    <ListItemIcon>
+                        <InboxIcon />
+                    </ListItemIcon>
                     <Typography sx={{ width: '33%', flexShrink: 0 }}>
                         Tickets
                     </Typography>
-                </AccordionSummary>
+                </StyledAccordionSummary>
 
-                <AccordionDetails>
-                    <Link to="/tickets">
-                        <ListItem button key={"All Tickets"}>
+                <AccordionDetails sx={{ padding: "0" }}>
+                    <StyledLink to="/tickets">
+                        <ListItem button key={"All Tickets"} sx={{ paddingLeft: "32px" }}>
                             <ListItemIcon>
                                 <InboxIcon />
                             </ListItemIcon>
                             <ListItemText primary="All Tickets" />
                         </ListItem>
-                    </Link>
+                    </StyledLink>
                 </AccordionDetails>
-            </Accordion>
+            </StyledAccordion>
 
-            <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')} disableGutters={true} square={true} elevation={0} >
-                <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                >
+            <StyledAccordion 
+                expanded={expanded === 'panel3'} 
+                onChange={handleChange('panel3')} 
+                disableGutters={true} 
+                square={true} 
+                elevation={0} 
+            >
+                <StyledAccordionSummary expandIcon={<ExpandMoreIcon />} >
+                    <ListItemIcon>
+                        <InboxIcon />
+                    </ListItemIcon>
                     <Typography sx={{ width: '33%', flexShrink: 0 }}>
                         Admin 
                     </Typography>
-                </AccordionSummary>
+                </StyledAccordionSummary>
 
-                <AccordionDetails>
-                    <Link to="/user">
-                        <ListItem button key={"Role"}>
+                <AccordionDetails sx={{ padding: "0" }}>
+                    <StyledLink to="/user">
+                        <ListItem button key={"Role"} sx={{ paddingLeft: "32px" }}>
                             <ListItemIcon>
                                 <InboxIcon />
                             </ListItemIcon>
                             <ListItemText primary="Role" />
                         </ListItem>
-                    </Link>
+                    </StyledLink>
                 </AccordionDetails>
-            </Accordion>
+
+                <AccordionDetails sx={{ padding: "0" }}>
+                    <StyledLink to="/user">
+                        <ListItem button key={"Role"} sx={{ paddingLeft: "32px" }}>
+                            <ListItemIcon>
+                                <InboxIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Role" />
+                        </ListItem>
+                    </StyledLink>
+                </AccordionDetails>
+            </StyledAccordion>
+            <Divider />
         </List>
 
 

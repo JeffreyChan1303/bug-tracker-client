@@ -3,13 +3,11 @@ import { Routes, Route, Link } from 'react-router-dom';
 import { Drawer, CssBaseline, Box} from '@mui/material';
 
 import { Navbar, Header, Dashboard, Projects, Tickets} from './components';
-import useStyles from './styles.js';
 
 
 const drawerWidth = 260;
 
 const App = () => {
-    const classes = useStyles();
 
     const [mobileOpen, setMobileOpen] = React.useState(false);
 

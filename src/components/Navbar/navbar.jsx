@@ -32,10 +32,8 @@ const Navbar = () => {
         setExpanded(isExpanded ? panel : false);
     };
 
-    // 1. link url 2. link text 3. 
-
     
-    return ( // this should be changed to navbar 
+    return ( 
         <div>
         <Toolbar>
             <Typography variant="h5">Juicy Bug Tracker</Typography>
@@ -105,6 +103,39 @@ const Navbar = () => {
                         </ListItem>
                     </StyledLink>
                 </AccordionDetails>
+
+                <AccordionDetails sx={{ padding: "0"}} >
+                    <StyledLink to="/myProjects">
+                        <ListItem button key={"My Projects"} sx={{ paddingLeft: "32px" }}>
+                            <ListItemIcon>
+                                <InboxIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="My Projects" />
+                        </ListItem>
+                    </StyledLink>
+                </AccordionDetails>
+
+                <AccordionDetails sx={{ padding: "0"}} >
+                    <StyledLink to="/addProject">
+                        <ListItem button key={"Add Project"} sx={{ paddingLeft: "32px" }}>
+                            <ListItemIcon>
+                                <InboxIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Add Project" />
+                        </ListItem>
+                    </StyledLink>
+                </AccordionDetails>
+
+                <AccordionDetails sx={{ padding: "0"}} >
+                    <StyledLink to="/projectArchive">
+                        <ListItem button key={"Project Archive"} sx={{ paddingLeft: "32px" }}>
+                            <ListItemIcon>
+                                <InboxIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Project Archive" />
+                        </ListItem>
+                    </StyledLink>
+                </AccordionDetails>
             </StyledAccordion>
 
             {/* Nav Tickets */}
@@ -134,7 +165,44 @@ const Navbar = () => {
                         </ListItem>
                     </StyledLink>
                 </AccordionDetails>
+
+                <AccordionDetails sx={{ padding: "0" }}>
+                    <StyledLink to="/myTickets">
+                        <ListItem button key={"My Tickets"} sx={{ paddingLeft: "32px" }}>
+                            <ListItemIcon>
+                                <InboxIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="My Tickets" />
+                        </ListItem>
+                    </StyledLink>
+                </AccordionDetails>
+
+                <AccordionDetails sx={{ padding: "0" }}>
+                    <StyledLink to="/addTickets">
+                        <ListItem button key={"Add Ticket"} sx={{ paddingLeft: "32px" }}>
+                            <ListItemIcon>
+                                <InboxIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Add Ticket" />
+                        </ListItem>
+                    </StyledLink>
+                </AccordionDetails>
+
+                <AccordionDetails sx={{ padding: "0" }}>
+                    <StyledLink to="/ticketArchive">
+                        <ListItem button key={"Ticket Archive"} sx={{ paddingLeft: "32px" }}>
+                            <ListItemIcon>
+                                <InboxIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Ticket Archive" />
+                        </ListItem>
+                    </StyledLink>
+                </AccordionDetails>
+
             </StyledAccordion>
+            
+
+            {/* Nav User */}
 
             <StyledAccordion 
                 expanded={expanded === 'panel3'} 

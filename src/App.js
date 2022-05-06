@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { Drawer, CssBaseline, Box} from '@mui/material';
 
 import { Navbar, Header, Dashboard, Projects, Tickets} from './components';
@@ -18,10 +18,7 @@ const App = () => {
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <Header
-                drawerWidth={drawerWidth}
-                handleDrawerToggle={handleDrawerToggle}
-            />
+            <Header drawerWidth={drawerWidth} handleDrawerToggle={handleDrawerToggle} />
             <Box
                 component="nav"
                 sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
@@ -56,7 +53,15 @@ const App = () => {
             </Box>
 
             {/* Here is the content and the routes */}
-            <Dashboard drawerWidth={drawerWidth} />
+            {/* <Box> */}
+                <Routes>
+                    {/* <Route exact path="" element={<Dashboard drawerWidth={drawerWidth} />}/> */}
+                    <Route exact path="/" element={<Dashboard drawerWidth={drawerWidth} />}/>
+                    {/* <Route exact path="/" element={} /> */}
+                </Routes>
+            {/* </Box> */}
+
+            {/* <Dashboard drawerWidth={drawerWidth} /> */}
         </Box>
     )
 }

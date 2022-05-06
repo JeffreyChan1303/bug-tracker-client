@@ -156,7 +156,7 @@ const Navbar = () => {
                 </StyledAccordionSummary>
 
                 <AccordionDetails sx={{ padding: "0" }}>
-                    <StyledLink to="/tickets">
+                    <StyledLink to="/allTickets">
                         <ListItem button key={"All Tickets"} sx={{ paddingLeft: "32px" }}>
                             <ListItemIcon>
                                 <InboxIcon />

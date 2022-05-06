@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Drawer, CssBaseline, Box} from '@mui/material';
+import { useDispatch } from 'react-redux';
 
-import { Navbar, Header, Dashboard, Projects, Tickets} from './components';
+import { Navbar, Header, Dashboard, Projects, AllTickets, MyTickets} from './components';
+import { getTickets } from './actions/tickets'
 
 
 const drawerWidth = 260;
 
 const App = () => {
-
     const [mobileOpen, setMobileOpen] = React.useState(false);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getTickets());
+    }, [dispatch]);
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -57,7 +63,8 @@ const App = () => {
                 <Routes>
                     {/* <Route exact path="" element={<Dashboard drawerWidth={drawerWidth} />}/> */}
                     <Route exact path="/" element={<Dashboard drawerWidth={drawerWidth} />}/>
-                    {/* <Route exact path="/" element={} /> */}
+                    <Route exact path="/allTickets" element={<AllTickets drawerWidth={drawerWidth} />} />
+                    <Route exact path="/myTickets" element={<MyTickets drawerWidth={drawerWidth} />} />
                 </Routes>
             {/* </Box> */}
 

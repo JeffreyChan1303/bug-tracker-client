@@ -1,15 +1,13 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-
 import { Box, Typography, Toolbar } from '@mui/material';
-
 import { Link } from 'react-router-dom';
+
+import { useGetAllTicketsQuery } from '../../services/api';
 
 
 const AllTickets = ({ drawerWidth }) => {
-    const tickets = useSelector((state) => state.tickets);
-
-    console.log(tickets);
+    const { data, isFetching } = useGetAllTicketsQuery();
+    console.log(data);
 
     return (
         <Box

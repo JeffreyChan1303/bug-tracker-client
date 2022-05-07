@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { Drawer, CssBaseline, Box} from '@mui/material';
 import { useDispatch } from 'react-redux';
 
-import { Navbar, Header, Dashboard, Projects, AllTickets, MyTickets} from './components';
+import { Header, Navbar, Dashboard, AddProject, AllProjects, EditProject, MyProjects, ProjectArchive, ProjectDetails, AddTicket, AllTickets, EditTicket, MyTickets, TicketArchive, TicketDetails } from './components';
 
 
 const drawerWidth = 260;
@@ -58,8 +58,21 @@ const App = () => {
                 <Routes>
                     {/* <Route exact path="" element={<Dashboard drawerWidth={drawerWidth} />}/> */}
                     <Route exact path="/" element={<Dashboard drawerWidth={drawerWidth} />}/>
+
+                    <Route exact path="/allProjects" element={<AllProjects drawerWidth={drawerWidth} />}/>
+                    <Route exact path="/myProjects" element={<MyProjects drawerWidth={drawerWidth} />}/>
+                    <Route exact path="/addProject" element={<AddProject drawerWidth={drawerWidth} />}/>
+                    <Route exact path="/projectArchive" element={<ProjectArchive drawerWidth={drawerWidth} />}/>
+                    <Route exact path="/editProject" element={<EditProject drawerWidth={drawerWidth} />}/>
+                    <Route exact path="/projectDetails" element={<ProjectDetails drawerWidth={drawerWidth} />}/>
+
                     <Route exact path="/allTickets" element={<AllTickets drawerWidth={drawerWidth} />} />
                     <Route exact path="/myTickets" element={<MyTickets drawerWidth={drawerWidth} />} />
+                    <Route exact path="/addTicket" element={<AddTicket drawerWidth={drawerWidth} />} />
+                    <Route exact path="/ticketArchive" element={<TicketArchive drawerWidth={drawerWidth} />} />
+                    <Route exact path="/editTicket" element={<EditTicket drawerWidth={drawerWidth} />} />
+                    <Route exact path="/ticketDetails" element={<TicketDetails drawerWidth={drawerWidth} />} />
+
                 </Routes>
             {/* </Box> */}
 

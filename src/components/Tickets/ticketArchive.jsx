@@ -1,16 +1,16 @@
 import React from 'react';
 import { Box, Typography, Toolbar } from '@mui/material';
 
-const MyTickets = ({ drawerWidth }) => {
+const TicketArchive = ({ drawerWidth }) => {
 
     return (
         <Box sx={{ p: 3, width: { md: `calc(100% - ${drawerWidth}px)` } }} >
             <Toolbar />
             <Typography paragraph>
-                My Tickets
+                Ticket Archive
             </Typography>
         </Box>
     )
 };
 
-export default MyTickets;
+export default TicketArchive;

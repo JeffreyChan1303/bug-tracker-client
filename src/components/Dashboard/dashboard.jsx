@@ -4,10 +4,7 @@ import { Toolbar, Typography, Box } from '@mui/material';
 const Dashboard = ({ drawerWidth }) => {
 
     return (
-        <Box
-        component="main"
-        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
-        >
+        <Box sx={{ flexGrow: 1, p: 3, width: { md: `calc(100% - ${drawerWidth}px)` } }} >
             <Toolbar />
             <Typography paragraph>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod

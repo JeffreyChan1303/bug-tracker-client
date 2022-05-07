@@ -14,9 +14,7 @@ const AllTickets = ({ drawerWidth }) => {
     }
 
     return (
-        <Box
-        sx={{ p: 3, width: { md: `calc(100% - ${drawerWidth}px)` } }}
-        >
+        <Box sx={{ flexGrow: 1, p: 3, width: { md: `calc(100% - ${drawerWidth}px)` } }} >
             <Toolbar />
             <Typography paragraph>
                 All Tickets

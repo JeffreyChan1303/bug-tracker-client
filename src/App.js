@@ -4,18 +4,13 @@ import { Drawer, CssBaseline, Box} from '@mui/material';
 import { useDispatch } from 'react-redux';
 
 import { Navbar, Header, Dashboard, Projects, AllTickets, MyTickets} from './components';
-import { getTickets } from './actions/tickets'
 
 
 const drawerWidth = 260;
 
 const App = () => {
     const [mobileOpen, setMobileOpen] = React.useState(false);
-    const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(getTickets());
-    }, [dispatch]);
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);

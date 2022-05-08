@@ -1,19 +1,44 @@
 import React, { useState } from 'react';
-import { Box, Typography, Toolbar, TextField, Button, Paper } from '@mui/material';
-import { spacing } from '@mui/system';
+import { Box, Typography, Toolbar, TextField, Button, Paper, Select, MenuItem } from '@mui/material';
+import { spacing, styled } from '@mui/system';
+
+const StyledTextField = styled(TextField)(({theme}) => ({
+    marginBottom: "15px",
+}));
+
+
 
 const AddTicket = ({ drawerWidth }) => {
     const [postData, setPostData] = useState({
-        creator: '',
+        creator: '', // this state will be taken from the redux store where Login information is stored
         title: '',
         description: '',
-        priority: '',
-        status: '',
+        priority: 'High',
+        status: 'New',
     });
 
-    const handleSubmit = () => {
+    const handlePriorityChange = (event) => {
+        setPostData({ ...postData, priority: event.target.value });
+    };
+    const handleStatusChange = (event) => {
+        setPostData({ ...postData, status: event.target.value });
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault(); // this stops the page from it's default refrash setting when clicking a button on the react form.
+
+        if (postData.title === '') { // this should be changed to a shake and notification using mui error to indicate one of the text fields are wrong
+            alert("invalid title"); 
+        }
+
+        if (postData.description === '') {
+            alert("invalid description");
+        }
+        
+
+
         console.log(postData);
-    }
+    };
 
     return (
         <Box sx={{ flexGrow: 1, p: 3, width: { md: `calc(100% - ${drawerWidth}px)` } }} >
@@ -22,58 +47,72 @@ const AddTicket = ({ drawerWidth }) => {
                 Add Ticket
             </Typography>
             
-            <Paper sx={{ p: 3, maxWidth: "800px" }} >
-                <form autocomplete="off" noValidate onSubmit={handleSubmit} style={{  }}>
-                    <Typography variant="body1" fontWeight={700}>Title</Typography>
+            <Paper sx={{ p: 3, maxWidth: { md: "700px" }}} elevation={3} >
+                <form autoComplete="off" noValidate onSubmit={handleSubmit} style={{  }}>
+                    <Typography variant="body1" fontWeight={700}>Ticket Title</Typography>
                     <TextField 
                         name="title" 
                         variant="outlined" 
-                        label="Title" 
                         fullWidth
-                        value={postData.crator}
-                        onChange={(e) => setPostData({ ...postData, creator: e.target.value })}
+                        multiline
+                        size="small"
+                        sx={{ mb: 2 }}
+                        value={postData.title}
+                        onChange={(e) => setPostData({ ...postData, title: e.target.value })}
                     />
 
-                    <Typography variant="body1" fontWeight={700}>Description</Typography>
+                    <Typography variant="body1" fontWeight={700}>Ticket Description</Typography>
                     <TextField 
                         name="description" 
                         variant="outlined" 
-                        label="Ticket Description" 
                         fullWidth
-                        value={postData.crator}
-                        onChange={(e) => setPostData({ ...postData, creator: e.target.value })}
+                        multiline
+                        size="small"
+                        sx={{ mb: 2 }}
+                        rows={4}
+                        value={postData.description}
+                        onChange={(e) => setPostData({ ...postData, description: e.target.value })}
                     />
 
                     <Typography variant="body1" fontWeight={700}>Ticket Priority</Typography>
-                    <TextField 
-                        name="priority" 
-                        variant="outlined" 
-                        label="Ticket Priority" 
+                    <Select
+                        value={postData.priority}
+                        onChange={handlePriorityChange}
+                        sx={{ mb: 2 }}
                         fullWidth
-                        value={postData.crator}
-                        onChange={(e) => setPostData({ ...postData, creator: e.target.value })}
-                    />
+                    >
+                        <MenuItem value={"Low"}>Low Priority</MenuItem>
+                        <MenuItem value={"Medium"}>Medium Priority</MenuItem>
+                        <MenuItem value={"High"}>High Priority</MenuItem>
+                    </Select>
+
                     <Typography variant="body1" fontWeight={700}>Ticket Status</Typography>
-                    <TextField 
-                        name="status" 
-                        variant="outlined" 
-                        label="Ticket Status" 
+                    <Select
+                        value={postData.status}
+                        onChange={handleStatusChange}
+                        sx={{ mb: 2 }}
                         fullWidth
-                        value={postData.crator}
-                        onChange={(e) => setPostData({ ...postData, creator: e.target.value })}
-                    />
+                        size="small"
+                    >
+                        <MenuItem value={"Archived"}>Archived</MenuItem>
+                        <MenuItem value={"Resolved"}>Resolved</MenuItem>
+                        <MenuItem value={"Testing"}>Testing</MenuItem>
+                        <MenuItem value={"Development"}>Development</MenuItem>
+                        <MenuItem value={"Unassigned"}>Unassigned</MenuItem>
+                        <MenuItem value={"New"}>New</MenuItem>
+
+                    </Select>
                     
 
-                    <Button sx={{}} variant="contained" color="primary" size="large" type="submit" >
-                        Submit
+                    <Button sx={{ mr: 1 }} variant="contained" color="primary" size="small" type="submit" >
+                        Save
                     </Button>
-                    <Button sx={{}} variant="outlined" color="primary" size="large" type="cancel">
+                    <Button sx={{}} variant="outlined" color="primary" size="small" type="cancel">
                         Cancel
                     </Button>
 
                 </form>
             </Paper>
-
         </Box>
     )
 };

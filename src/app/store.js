@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import { api } from '../services/api';
+import { ticketApi } from '../services/ticketApi';
 
 export default configureStore({
     reducer: {
-        [api.reducerPath]: api.reducer,
+        [ticketApi.reducerPath]: ticketApi.reducer,
     },
 });

@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
 import { Box, Typography, Toolbar, TextField, Button, Paper, Select, MenuItem } from '@mui/material';
-import { spacing, styled } from '@mui/system';
 
-const StyledTextField = styled(TextField)(({theme}) => ({
-    marginBottom: "15px",
-}));
-
-
+import { useCreateTicketMutation } from '../../services/ticketApi';
 
 const AddTicket = ({ drawerWidth }) => {
+    const [createTicket, responseInfo] = useCreateTicketMutation();
     const [postData, setPostData] = useState({
         creator: '', // this state will be taken from the redux store where Login information is stored
         title: '',
@@ -24,20 +20,19 @@ const AddTicket = ({ drawerWidth }) => {
         setPostData({ ...postData, status: event.target.value });
     };
 
+
     const handleSubmit = (event) => {
         event.preventDefault(); // this stops the page from it's default refrash setting when clicking a button on the react form.
 
         if (postData.title === '') { // this should be changed to a shake and notification using mui error to indicate one of the text fields are wrong
             alert("invalid title"); 
         }
-
         if (postData.description === '') {
             alert("invalid description");
         }
-        
 
-
-        console.log(postData);
+        createTicket(postData);
+        responseInfo.isError && alert("failed creating ticket");
     };
 
     return (
@@ -107,7 +102,7 @@ const AddTicket = ({ drawerWidth }) => {
                     <Button sx={{ mr: 1 }} variant="contained" color="primary" size="small" type="submit" >
                         Save
                     </Button>
-                    <Button sx={{}} variant="outlined" color="primary" size="small" type="cancel">
+                    <Button sx={{}} variant="outlined" color="secondary" size="small" type="cancel" onClick={() => ({})}>
                         Cancel
                     </Button>
 

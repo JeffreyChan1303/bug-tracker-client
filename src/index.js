@@ -26,3 +26,6 @@ root.render(
         </BrowserRouter>
     </StrictMode>
 );
+
+
+// idea. a landing page that says. Universal ticket tracking software that you can use to track anything from problems to people checking into your store!!!

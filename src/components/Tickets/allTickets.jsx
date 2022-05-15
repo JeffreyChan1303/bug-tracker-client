@@ -64,9 +64,9 @@ const AllTickets = ({ drawerWidth }) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                    {data && data.map((ticket) => (
+                    {data && data.map((ticket, i) => (
                         <TableRow
-                        key={ticket.name}
+                        key={i}
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <ContentTableCell component="th" scope="row">

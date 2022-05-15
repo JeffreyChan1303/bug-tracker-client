@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { Box, Typography, Toolbar, TextField, Button, Paper, Select, MenuItem } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 import { useCreateTicketMutation } from '../../services/ticketApi';
 
 const AddTicket = ({ drawerWidth }) => {
+    const navigate = useNavigate();
     const [createTicket, responseInfo] = useCreateTicketMutation();
+
     const [postData, setPostData] = useState({
         creator: '', // this state will be taken from the redux store where Login information is stored
         title: '',
@@ -31,8 +34,11 @@ const AddTicket = ({ drawerWidth }) => {
             alert("invalid description");
         }
 
-        createTicket(postData);
+        createTicket(postData); 
         responseInfo.isError && alert("failed creating ticket");
+        
+        navigate("/allTickets");
+
     };
 
     return (

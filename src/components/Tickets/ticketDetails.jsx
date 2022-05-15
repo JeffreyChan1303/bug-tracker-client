@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Toolbar } from '@mui/material';
+import { Box, Typography, Toolbar, Paper } from '@mui/material';
 
 const TicketDetails = ({ drawerWidth }) => {
 
@@ -9,6 +9,10 @@ const TicketDetails = ({ drawerWidth }) => {
             <Typography paragraph>
                 Ticket Details
             </Typography>
+
+            <Paper sx={{ p: 3 }} elevation={3}>
+                
+            </Paper>
         </Box>
     )
 };

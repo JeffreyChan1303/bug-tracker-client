@@ -69,8 +69,8 @@ const App = () => {
                     <Route exact path="/myTickets" element={<MyTickets drawerWidth={drawerWidth} />} />
                     <Route exact path="/addTicket" element={<AddTicket drawerWidth={drawerWidth} />} />
                     <Route exact path="/ticketArchive" element={<TicketArchive drawerWidth={drawerWidth} />} />
-                    <Route exact path="/editTicket" element={<EditTicket drawerWidth={drawerWidth} />} />
-                    <Route exact path="/ticketDetails" element={<TicketDetails drawerWidth={drawerWidth} />} />
+                    <Route exact path="/editTicket/:id" element={<EditTicket drawerWidth={drawerWidth} />} />
+                    <Route exact path="/ticketDetails/:id" element={<TicketDetails drawerWidth={drawerWidth} />} />
 
                 </Routes>
             {/* </Box> */}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Toolbar, Paper, Pagination, Table, TableHead, TableRow, TableCell, TableBody, Backdrop, CircularProgress, IconButton, Tooltip, TextField, TablePagination, Chip } from '@mui/material';
+import { Box, Typography, Toolbar, Paper, Pagination, Table, TableHead, TableRow, TableCell, TableBody, Backdrop, CircularProgress, IconButton, Tooltip, TextField, TablePagination, Chip, TableFooter } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/system';
 
@@ -60,7 +60,7 @@ const AllTickets = ({ drawerWidth }) => {
                             <BoldedTableCell align="right">Status</BoldedTableCell>
                             <BoldedTableCell align="right">Priority</BoldedTableCell>
                             <BoldedTableCell align="right">Last Updated</BoldedTableCell>
-                            <BoldedTableCell align="right">Actions</BoldedTableCell>
+                            <BoldedTableCell align="center">Actions</BoldedTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -83,12 +83,12 @@ const AllTickets = ({ drawerWidth }) => {
                             <ContentTableCell align="right">add last updated</ContentTableCell>
                             <ContentTableCell sx={{ display: "flex", justifyContent: "center" }}>
                                 <Tooltip title="View">
-                                    <IconButton href="/myTickets">
+                                    <IconButton href={`/ticketDetails/${ticket._id}`}>
                                         <VisibilityOutlinedIcon />
                                     </IconButton>
                                 </Tooltip>
                                 <Tooltip title="Edit">
-                                    <IconButton>
+                                    <IconButton href={`/editTicket/${ticket._id}`}>
                                         <EditOutlinedIcon />
                                     </IconButton>
                                 </Tooltip>
@@ -96,8 +96,11 @@ const AllTickets = ({ drawerWidth }) => {
                         </TableRow>
                     ))}
                     </TableBody>
-                    <Pagination count={10} variant="outlined"/>
                 </Table>
+
+                <Box justifyContent="center">
+                    <Pagination count={10} variant="outlined" sx={{ alignContent: "center" }}/>
+                </Box>
 
             </Paper>
         </Box>

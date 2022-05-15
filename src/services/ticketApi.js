@@ -4,7 +4,7 @@ const ticketApiHeaders = {
 
 }
 
-const createRequest = (url) => ({ url, headers: ticketApiHeaders })
+const createRequest = (url) => ({ url, method: 'GET', headers: ticketApiHeaders })
 
 const baseUrl = 'http://localhost:9000';
 
@@ -25,12 +25,28 @@ export const ticketApi = createApi({
                     headers: ticketApiHeaders,
                 }
             }
-        })
+        }),
+        updateTicket: builder.mutation({
+            query: (updatedTicket) => {
+                console.log("Updated Ticket: ", updatedTicket);
+                return {
+                    url: `/tickets/updateTicket/${updatedTicket._id}`,
+                    method: 'PUT',
+                    body: updatedTicket,
+                    headers: ticketApiHeaders,
+                }
+            }
+        }),
+        getTicketDetails: builder.query({
+            query: (id) => createRequest(`/tickets/ticketDetails/${id}`),
+        }),
     })
 });
 
 export const {
     useGetAllTicketsQuery,
     useCreateTicketMutation,
+    useUpdateTicketMutation,
+    useGetTicketDetailsQuery,
 } = ticketApi;
 

@@ -1,19 +1,29 @@
 import React from 'react';
 import { Box, Typography, Toolbar, Paper, Accordion, AccordionSummary, AccordionDetails, Grid, Button } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import { fontWeight, styled } from '@mui/system';
 
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useGetTicketDetailsQuery } from '../../services/ticketApi';
+import { useGetTicketDetailsQuery, useDeleteTicketMutation } from '../../services/ticketApi';
 
 const TicketDetails = ({ drawerWidth }) => {
     const { id } = useParams();
+    const navigate = useNavigate();
     const { data, isFetching } = useGetTicketDetailsQuery(id);
+    const [deleteTicket, responseInfo] = useDeleteTicketMutation();
     console.log(data)
 
       
+    const handleDeleteTicket = () => {
+        deleteTicket(id);
+        if (responseInfo.isError) {
+            alert("Ticket has failed to delete")
+        }
+        navigate("/allTickets")
+    }
+
 
     return (
         <Box sx={{ flexGrow: 1, p: 3, width: { md: `calc(100% - ${drawerWidth}px)` }, transition: "ease-in-out" }} >
@@ -46,7 +56,7 @@ const TicketDetails = ({ drawerWidth }) => {
                     <Typography>Status: {data?.status}</Typography>
                     <Grid container>
                         <Button variant="outlined">Edit</Button>
-                        <Button variant="outlined">Delete</Button>
+                        <Button variant="outlined" onClick={handleDeleteTicket}>Delete</Button>
                     </Grid>
                 </AccordionDetails>
             </Accordion>

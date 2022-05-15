@@ -40,6 +40,15 @@ export const ticketApi = createApi({
         getTicketDetails: builder.query({
             query: (id) => createRequest(`/tickets/ticketDetails/${id}`),
         }),
+        deleteTicket: builder.mutation({
+            query: (id) => {
+                console.log("Deleted Ticket Id: ", id);
+                return {
+                    url: `/tickets/deleteTicket/${id}`,
+                    method: 'DELETE',
+                }
+            }
+        })
     })
 });
 
@@ -48,5 +57,6 @@ export const {
     useCreateTicketMutation,
     useUpdateTicketMutation,
     useGetTicketDetailsQuery,
+    useDeleteTicketMutation,
 } = ticketApi;
 

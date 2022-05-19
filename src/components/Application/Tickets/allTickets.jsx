@@ -7,7 +7,7 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 
-import { useGetAllTicketsQuery } from '../../services/ticketApi';
+import { useGetAllTicketsQuery } from '../../../services/ticketApi';
 
 const BoldedTableCell = styled(TableCell)(({theme}) => ({
     fontWeight: theme.typography.fontWeightBold,

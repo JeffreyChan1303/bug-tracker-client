@@ -31,7 +31,7 @@ export const ticketApi = createApi({
                 console.log("Updated Ticket: ", updatedTicket);
                 return {
                     url: `/tickets/updateTicket/${updatedTicket._id}`,
-                    method: 'PUT',
+                    method: 'PATCH',
                     body: updatedTicket,
                     headers: ticketApiHeaders,
                 }

@@ -6,7 +6,7 @@ import { fontWeight, styled } from '@mui/system';
 
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useGetTicketDetailsQuery, useDeleteTicketMutation } from '../../services/ticketApi';
+import { useGetTicketDetailsQuery, useDeleteTicketMutation } from '../../../services/ticketApi';
 
 const TicketDetails = ({ drawerWidth }) => {
     const { id } = useParams();
@@ -45,7 +45,7 @@ const TicketDetails = ({ drawerWidth }) => {
                 >
                     <Grid container justifyContent="space-between">
                         <Typography fontWeight={700}>Change #3</Typography>
-                        <Typography fontWeight={700} sx={{ pr: "50px" }}>{data?.updatedAt}</Typography>
+                        <Typography fontWeight={700} sx={{ pr: "50px" }}>Date Updated: {data?.updatedAt}</Typography>
                     </Grid>
 
                 </AccordionSummary>

@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { Box, Typography, Toolbar, TextField, Button, Paper, Select, MenuItem } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
-import { useCreateProjectMutation } from '../../services/projectApi';
+import { useCreateTicketMutation } from '../../../services/ticketApi';
 
-const AddProject = ({ drawerWidth }) => {
-    const [createProject, responseInfo] = useCreateProjectMutation();
+const AddTicket = ({ drawerWidth }) => {
+    const navigate = useNavigate();
+    const [createTicket, responseInfo] = useCreateTicketMutation();
+
     const [postData, setPostData] = useState({
         creator: '', // this state will be taken from the redux store where Login information is stored
         title: '',
@@ -31,20 +34,23 @@ const AddProject = ({ drawerWidth }) => {
             alert("invalid description");
         }
 
-        createProject(postData);
-        responseInfo.isError && alert("failed creating project");
+        createTicket(postData); 
+        responseInfo.isError && alert("failed creating ticket");
+        
+        navigate("/allTickets");
+
     };
 
     return (
         <Box sx={{ flexGrow: 1, p: 3, width: { md: `calc(100% - ${drawerWidth}px)` } }} >
             <Toolbar />
             <Typography paragraph>
-                Add Project
+                Add Ticket
             </Typography>
             
             <Paper sx={{ p: 3, maxWidth: { md: "700px" }}} elevation={3} >
                 <form autoComplete="off" noValidate onSubmit={handleSubmit} style={{  }}>
-                    <Typography variant="body1" fontWeight={700}>Project Title</Typography>
+                    <Typography variant="body1" fontWeight={700}>Ticket Title</Typography>
                     <TextField 
                         name="title" 
                         variant="outlined" 
@@ -56,7 +62,7 @@ const AddProject = ({ drawerWidth }) => {
                         onChange={(e) => setPostData({ ...postData, title: e.target.value })}
                     />
 
-                    <Typography variant="body1" fontWeight={700}>Project Description</Typography>
+                    <Typography variant="body1" fontWeight={700}>Ticket Description</Typography>
                     <TextField 
                         name="description" 
                         variant="outlined" 
@@ -69,7 +75,7 @@ const AddProject = ({ drawerWidth }) => {
                         onChange={(e) => setPostData({ ...postData, description: e.target.value })}
                     />
 
-                    <Typography variant="body1" fontWeight={700}>Project Priority</Typography>
+                    <Typography variant="body1" fontWeight={700}>Ticket Priority</Typography>
                     <Select
                         value={postData.priority}
                         onChange={handlePriorityChange}
@@ -81,7 +87,7 @@ const AddProject = ({ drawerWidth }) => {
                         <MenuItem value={"High"}>High Priority</MenuItem>
                     </Select>
 
-                    <Typography variant="body1" fontWeight={700}>Project Status</Typography>
+                    <Typography variant="body1" fontWeight={700}>Ticket Status</Typography>
                     <Select
                         value={postData.status}
                         onChange={handleStatusChange}
@@ -112,4 +118,4 @@ const AddProject = ({ drawerWidth }) => {
     )
 };
 
-export default AddProject;
+export default AddTicket;

@@ -3,7 +3,7 @@ import { AppBar, Typography, Toolbar, IconButton, Avatar, Box } from '@mui/mater
 import MenuIcon from '@mui/icons-material/Menu'
 import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
 import SettingsIcon from '@mui/icons-material/Settings';
-import theme from '../theme';
+import theme from '../../theme';
 
 
 

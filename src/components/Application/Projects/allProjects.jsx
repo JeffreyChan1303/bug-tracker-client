@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
-import { useGetAllProjectsQuery } from '../../services/projectApi';
+import { useGetAllProjectsQuery } from '../../../services/projectApi';
 
 
 const AllProjects = ({ drawerWidth }) => {

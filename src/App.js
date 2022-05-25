@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import Application from './components/application';
-import Login from './components/Login/login';
+import Auth from './components/Auth/auth';
 
 
 const App = () => {
@@ -10,7 +10,7 @@ const App = () => {
     return (
         <Routes>
             <Route path="/*" element={<Application />} />
-            <Route exact path="/auth" element={<Login />} />
+            <Route exact path="/Auth" element={<Auth />} />
         </Routes>
     )
 }

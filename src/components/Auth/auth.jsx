@@ -1,0 +1,102 @@
+import React, { useState } from 'react';
+import { Box, Typography, Paper, Button, Avatar, Grid } from '@mui/material';
+
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+
+import Input from './input'
+
+import './background.css';
+import { spacing } from '@mui/system';
+
+const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
+
+const Auth = () => {
+    const [form, setForm] = useState(initialState);
+    const [isSignup, setIsSignup] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleShowPassword = () => setShowPassword(!showPassword);
+
+    const switchMode = () => {
+        setForm(initialState);
+        setIsSignup((prevIsSignup) => !prevIsSignup);
+        setShowPassword(false);
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+
+    };
+
+    // when input is typed in
+    const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+
+    return (
+        <>
+            <Box className="login-page-background" sx={{ p: "0 5vw" }}>
+                <Typography variant="h1" fontWeight={700} sx={{ color: "white" }}>
+                    THIS IS THE LOGIN PAGE!!
+                </Typography>
+
+
+                <Paper elevation={20} sx={{ p: 2, maxWidth: "350px" }}>
+                    <Box maxWidth sx={{ display: "flex", justifyContent: "center" }}>
+                        <Avatar >
+                            <LockOutlinedIcon />
+                        </Avatar>
+                    </Box>
+                    <Typography variant="h5" textAlign="center" >{isSignup? 'Sign Up' : 'Sign In' }</Typography>
+                    <form style={{ marginTop: "10px" }} onSubmit={handleSubmit}>
+                        <Grid container spacing={2}>
+                            { isSignup && (
+                            <>
+                            <Input name="firstName" label="First Name" handleChange={handleChange} autoFocus half />
+                            <Input name="lastName" label="Last Name" handleChange={handleChange} half />
+                            </>
+                            )}
+                            <Input name="email" label="Email Address" handleChange={handleChange} type="email" />
+                            <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
+                            { isSignup && <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password" /> }
+                            
+                        </Grid>
+                        <Button type="submit" fullWidth variant="contained" color="primary" sx={{ m: "20px 0 10px" }}>
+                            { isSignup ? 'Sign Up' : 'Sign In' }
+                        </Button>
+
+                        <Grid container justify="flex-end">
+                            <Grid item>
+                                <Button onClick={switchMode}>
+                                    { isSignup ? 'Already have an account? Sign in' : "Don't have an account? Sign Up" }
+                                </Button>
+                            </Grid>
+                        </Grid>
+
+                        {!isSignup &&
+                            <>
+                                <Typography textAlign="center">
+                                    OR
+                                </Typography>
+
+                                <Box sx={{display: "flex"}} justifyContent="space-evenly" >
+                                    <Button variant="outlined">Demo 1</Button>
+                                    <Button variant="outlined">Demo 2</Button>
+                                    <Button variant="outlined">Demo 3</Button>
+                                </Box>
+                                <Box sx={{display: "flex"}} justifyContent="center" >
+                                    <Button variant="outlined">Demo 4</Button>
+                                    <Button variant="outlined">Demo 5</Button>
+                                </Box>
+                            </>
+                        }
+                    </form>
+                </Paper>
+
+
+
+            </Box>
+        </>
+    )
+}
+
+export default Auth;

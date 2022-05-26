@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { Box, Typography, Paper, Button, Avatar, Grid } from '@mui/material';
+/* global google */
+import React, { useState, useEffect } from 'react';
+import { Box, Typography, Paper, Button, Avatar, Grid, Icon } from '@mui/material';
+import { GoogleLogin } from 'react-google-login';
+
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-
 import Input from './input'
-
 import './background.css';
-import { spacing } from '@mui/system';
 
 const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
 
@@ -16,6 +16,16 @@ const Auth = () => {
     const [showPassword, setShowPassword] = useState(false);
 
     const handleShowPassword = () => setShowPassword(!showPassword);
+
+    useEffect(() => {
+        console.log("running use effect");
+        google.accounts.id.initialize({
+            client_id: "351304157120-mt2uc9pv4rqplrod4gkosjr8h8mqskj2.apps.googleusercontent.com",
+        });
+        google.accounts.id.prompt(notification => {
+            console.log("on prompt notification", notification);
+        })
+    }, []);
 
     const switchMode = () => {
         setForm(initialState);
@@ -32,6 +42,16 @@ const Auth = () => {
     // when input is typed in
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
+
+    const handleGoogleSuccess = async (res) => {
+        console.log(res)
+    }
+
+    const handleGoogleFailure = (error) => {
+        console.log("Google sign in failed")
+        console.log(error)
+    }
+
     return (
         <>
             <Box className="login-page-background" sx={{ p: "0 5vw" }}>
@@ -42,7 +62,7 @@ const Auth = () => {
 
                 <Paper elevation={20} sx={{ p: 2, maxWidth: "350px" }}>
                     <Box maxWidth sx={{ display: "flex", justifyContent: "center" }}>
-                        <Avatar >
+                        <Avatar sx={{ bgcolor: "primary.main"}}>
                             <LockOutlinedIcon />
                         </Avatar>
                     </Box>
@@ -60,13 +80,34 @@ const Auth = () => {
                             { isSignup && <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password" /> }
                             
                         </Grid>
-                        <Button type="submit" fullWidth variant="contained" color="primary" sx={{ m: "20px 0 10px" }}>
+
+                        <GoogleLogin 
+                            clientId="351304157120-mt2uc9pv4rqplrod4gkosjr8h8mqskj2.apps.googleusercontent.com"
+                            render={(renderProps) => (
+                                <Button 
+                                    sx={{}} 
+                                    variant="contained"
+                                    color="primary" 
+                                    fullWidth 
+                                    onClick={renderProps.onClick}
+                                    disabled={renderProps.disabled}
+                                    startIcon={<Icon />}
+                                >
+                                    Google Sign In
+                                </Button>
+                            )}
+                            onSuccess={handleGoogleSuccess}
+                            onFailure={handleGoogleFailure}
+                            cookiePolicy="single_host_origin"
+                        />
+
+                        <Button type="submit" fullWidth variant="contained" color="primary" size="small" sx={{ m: "20px 0 10px" }}>
                             { isSignup ? 'Sign Up' : 'Sign In' }
                         </Button>
 
                         <Grid container justify="flex-end">
                             <Grid item>
-                                <Button onClick={switchMode}>
+                                <Button onClick={switchMode} >
                                     { isSignup ? 'Already have an account? Sign in' : "Don't have an account? Sign Up" }
                                 </Button>
                             </Grid>
@@ -78,12 +119,12 @@ const Auth = () => {
                                     OR
                                 </Typography>
 
-                                <Box sx={{display: "flex"}} justifyContent="space-evenly" >
+                                <Box sx={{display: "flex", m: "10px 0"}} justifyContent="space-evenly" >
                                     <Button variant="outlined">Demo 1</Button>
                                     <Button variant="outlined">Demo 2</Button>
                                     <Button variant="outlined">Demo 3</Button>
                                 </Box>
-                                <Box sx={{display: "flex"}} justifyContent="center" >
+                                <Box sx={{display: "flex"}} justifyContent="center" gap={3}>
                                     <Button variant="outlined">Demo 4</Button>
                                     <Button variant="outlined">Demo 5</Button>
                                 </Box>

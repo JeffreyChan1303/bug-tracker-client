@@ -1,7 +1,9 @@
-/* global google */
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, Paper, Button, Avatar, Grid, Icon } from '@mui/material';
+import jwt_decode from 'jwt-decode';
 
+import store from '../../app/store';
+import { userActions } from '../../services/userSlice';
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Input from './input'
@@ -13,23 +15,38 @@ const Auth = () => {
     const [form, setForm] = useState(initialState);
     const [isSignup, setIsSignup] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const [user, setUser] = useState({}); // this should be put in redux
 
     const handleShowPassword = () => setShowPassword(!showPassword);
 
+
+    const unsubscribe = store.subscribe(() => {
+        console.log('Updated state ', store.getState())
+    })
+
     function handleCallbackResponse(response) {
         console.log("Embedded JWT Token: " + response.credential)
+        const userObject = jwt_decode(response.credential)
+        const token = response.credential
+        console.log(userObject);
+        console.log(response)
+        store.dispatch(userActions.logIn({ userObject, token }))
+        unsubscribe();
     }
 
+    // uses google identity services
     useEffect(() => {
+        /* global google */
         console.log("running use effect");
         google.accounts.id.initialize({
             client_id: "351304157120-mt2uc9pv4rqplrod4gkosjr8h8mqskj2.apps.googleusercontent.com",
             callback: handleCallbackResponse,
         });
         google.accounts.id.renderButton(
-            document.getElementById("signInDiv"),
-            { theme: "outline", size: "large" },
+            document.getElementById("googleSignIn"),
+            { type: "standard", theme: "outline", size: "medium", shape: "circle", text: "signin_with" },
         );
+        google.accounts.id.prompt();
     }, []);
 
     const switchMode = () => {
@@ -46,15 +63,6 @@ const Auth = () => {
     // when input is typed in
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-
-    const handleGoogleSuccess = async (res) => {
-        console.log(res)
-    }
-
-    const handleGoogleFailure = (error) => {
-        console.log("Google sign in failed")
-        console.log(error)
-    }
 
     return (
         <>
@@ -85,11 +93,11 @@ const Auth = () => {
                             
                         </Grid>
 
-                        <div id="signInDiv"></div>
-
                         <Button type="submit" fullWidth variant="contained" color="primary" size="small" sx={{ m: "20px 0 10px" }}>
                             { isSignup ? 'Sign Up' : 'Sign In' }
                         </Button>
+
+                        <Box sx={{ display: "flex", justifyContent: "center" }} id="googleSignIn"></Box>
 
                         <Grid container justify="flex-end">
                             <Grid item>

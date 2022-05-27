@@ -6,6 +6,10 @@ import Auth from './components/Auth/auth';
 
 
 const App = () => {
+    /*
+        if we have a user, navigate to path, if we dont have a user, navigate to auth!!!
+        User should be stored in Redux!!
+    */
 
     return (
         <Routes>

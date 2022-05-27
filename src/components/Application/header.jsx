@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { AppBar, Typography, Toolbar, IconButton, Avatar, Box } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu'
 import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
@@ -9,6 +9,9 @@ import theme from '../../theme';
 
 
 const Header = ({ drawerWidth, handleDrawerToggle }) => {
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+
+    console.log(user.userObject.name)
 
     return ( 
         <AppBar
@@ -41,6 +44,7 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
                 </IconButton>
                 <IconButton >
                     <Avatar />
+                    {user.userObject.name}
                 </IconButton>
             </Box>
         </Toolbar>

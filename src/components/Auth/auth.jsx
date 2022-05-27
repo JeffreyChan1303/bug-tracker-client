@@ -1,7 +1,6 @@
 /* global google */
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, Paper, Button, Avatar, Grid, Icon } from '@mui/material';
-import { GoogleLogin } from 'react-google-login';
 
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -17,14 +16,20 @@ const Auth = () => {
 
     const handleShowPassword = () => setShowPassword(!showPassword);
 
+    function handleCallbackResponse(response) {
+        console.log("Embedded JWT Token: " + response.credential)
+    }
+
     useEffect(() => {
         console.log("running use effect");
         google.accounts.id.initialize({
             client_id: "351304157120-mt2uc9pv4rqplrod4gkosjr8h8mqskj2.apps.googleusercontent.com",
+            callback: handleCallbackResponse,
         });
-        google.accounts.id.prompt(notification => {
-            console.log("on prompt notification", notification);
-        })
+        google.accounts.id.renderButton(
+            document.getElementById("signInDiv"),
+            { theme: "outline", size: "large" },
+        );
     }, []);
 
     const switchMode = () => {
@@ -35,7 +40,6 @@ const Auth = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
 
     };
 
@@ -81,25 +85,7 @@ const Auth = () => {
                             
                         </Grid>
 
-                        <GoogleLogin 
-                            clientId="351304157120-mt2uc9pv4rqplrod4gkosjr8h8mqskj2.apps.googleusercontent.com"
-                            render={(renderProps) => (
-                                <Button 
-                                    sx={{}} 
-                                    variant="contained"
-                                    color="primary" 
-                                    fullWidth 
-                                    onClick={renderProps.onClick}
-                                    disabled={renderProps.disabled}
-                                    startIcon={<Icon />}
-                                >
-                                    Google Sign In
-                                </Button>
-                            )}
-                            onSuccess={handleGoogleSuccess}
-                            onFailure={handleGoogleFailure}
-                            cookiePolicy="single_host_origin"
-                        />
+                        <div id="signInDiv"></div>
 
                         <Button type="submit" fullWidth variant="contained" color="primary" size="small" sx={{ m: "20px 0 10px" }}>
                             { isSignup ? 'Sign Up' : 'Sign In' }

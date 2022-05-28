@@ -1,17 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { AppBar, Typography, Toolbar, IconButton, Avatar, Box } from '@mui/material';
+import { AppBar, Typography, Toolbar, IconButton, Avatar, Box, Menu, MenuItem } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu'
 import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
 import SettingsIcon from '@mui/icons-material/Settings';
-import theme from '../../theme';
-
 
 
 
 const Header = ({ drawerWidth, handleDrawerToggle }) => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    const [avatarOpen, setAvatarOpen] = useState(null);
 
-    console.log(user.userObject.name)
+    console.log(user?.userObject.name)
+
+    const handleAvatarOpen = (event) => {
+        setAvatarOpen(event.currentTarget);
+    }
+    const handleAvatarClose = () => {
+        setAvatarOpen(null);
+    }
+    const handleLogOut = () => {
+        localStorage.clear();
+        window.location.reload();
+    }
 
     return ( 
         <AppBar
@@ -42,10 +52,24 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
                 <IconButton sx={{ color: "white" }} >
                     <SettingsIcon />
                 </IconButton>
-                <IconButton >
+                <IconButton
+                    onClick={handleAvatarOpen}
+                >
                     <Avatar />
-                    {user.userObject.name}
                 </IconButton>
+                <Menu
+                    id="basic-menu"
+                    anchorEl={avatarOpen}
+                    open={Boolean(avatarOpen)}
+                    onClose={handleAvatarClose}
+                    MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                    }}
+                >
+                    <MenuItem onClick={handleAvatarClose}>Profile</MenuItem>
+                    <MenuItem onClick={handleAvatarClose}>My account</MenuItem>
+                    <MenuItem onClick={handleLogOut}>Logout</MenuItem>
+                </Menu>
             </Box>
         </Toolbar>
         </AppBar>

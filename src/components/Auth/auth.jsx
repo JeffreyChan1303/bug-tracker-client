@@ -32,21 +32,24 @@ const Auth = () => {
         console.log(response)
         store.dispatch(userActions.logIn({ userObject, token }))
         unsubscribe();
+        window.location.reload();
     }
 
     // uses google identity services
     useEffect(() => {
         /* global google */
         console.log("running use effect");
-        google.accounts.id.initialize({
+
+
+        google?.accounts.id.initialize({
             client_id: "351304157120-mt2uc9pv4rqplrod4gkosjr8h8mqskj2.apps.googleusercontent.com",
             callback: handleCallbackResponse,
         });
-        google.accounts.id.renderButton(
+        google?.accounts.id.renderButton(
             document.getElementById("googleSignIn"),
             { type: "standard", theme: "outline", size: "medium", shape: "circle", text: "signin_with" },
         );
-        google.accounts.id.prompt();
+        google?.accounts.id.prompt();
     }, []);
 
     const switchMode = () => {

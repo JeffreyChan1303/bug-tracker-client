@@ -4,6 +4,9 @@ import MenuIcon from '@mui/icons-material/Menu'
 import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
 import SettingsIcon from '@mui/icons-material/Settings';
 
+import store from '../../app/store';
+import { userActions } from '../../services/userSlice';
+
 
 
 const Header = ({ drawerWidth, handleDrawerToggle }) => {
@@ -19,7 +22,7 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
         setAvatarOpen(null);
     }
     const handleLogOut = () => {
-        localStorage.clear();
+        store.dispatch(userActions.logOut())
         window.location.reload();
     }
 

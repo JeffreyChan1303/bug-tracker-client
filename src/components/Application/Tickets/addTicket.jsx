@@ -2,19 +2,21 @@ import React, { useState } from 'react';
 import { Box, Typography, Toolbar, TextField, Button, Paper, Select, MenuItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-import { useCreateTicketMutation } from '../../../services/ticketApi';
+import { useCreateTicketMutation } from '../../../services/ticket/ticketApi';
+
+const initialPostData = {
+    creator: '', // this state will be taken from the redux store where Login information is stored
+    title: '',
+    description: '',
+    priority: 'High',
+    status: 'New',
+};
 
 const AddTicket = ({ drawerWidth }) => {
     const navigate = useNavigate();
     const [createTicket, responseInfo] = useCreateTicketMutation();
 
-    const [postData, setPostData] = useState({
-        creator: '', // this state will be taken from the redux store where Login information is stored
-        title: '',
-        description: '',
-        priority: 'High',
-        status: 'New',
-    });
+    const [postData, setPostData] = useState(initialPostData);
 
     const handlePriorityChange = (event) => {
         setPostData({ ...postData, priority: event.target.value });
@@ -40,6 +42,10 @@ const AddTicket = ({ drawerWidth }) => {
         navigate("/allTickets");
 
     };
+
+    const handleClear = () => {
+        setPostData(initialPostData);
+    }
 
     return (
         <Box sx={{ flexGrow: 1, p: 3, width: { md: `calc(100% - ${drawerWidth}px)` } }} >
@@ -103,16 +109,14 @@ const AddTicket = ({ drawerWidth }) => {
                         <MenuItem value={"New"}>New</MenuItem>
 
                     </Select>
-                    
+                </form>
 
-                    <Button sx={{ mr: 1 }} variant="contained" color="primary" size="small" type="submit" >
+                <Button sx={{ mr: 1 }} variant="contained" color="primary" size="small" onClick={handleSubmit} >
                         Save
                     </Button>
-                    <Button sx={{}} variant="outlined" color="secondary" size="small" type="cancel" onClick={() => ({})}>
-                        Cancel
+                    <Button sx={{}} variant="outlined" color="secondary" size="small" onClick={handleClear}>
+                        Clear
                     </Button>
-
-                </form>
             </Paper>
         </Box>
     )

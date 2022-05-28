@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, Typography, Toolbar, TextField, Button, Paper, Select, MenuItem, Backdrop, CircularProgress } from '@mui/material';
 import { useParams } from 'react-router-dom';
 
-import { useGetTicketDetailsQuery, useUpdateTicketMutation } from '../../../services/ticketApi';
+import { useGetTicketDetailsQuery, useUpdateTicketMutation } from '../../../services/ticket/ticketApi';
 
 const EditTicket = ({ drawerWidth }) => {
     const { id } = useParams()

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, Paper, Button, Avatar, Grid, Icon } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 
 import store from '../../app/store';
@@ -12,10 +13,11 @@ import './background.css';
 const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
 
 const Auth = () => {
-    const [form, setForm] = useState(initialState);
+    const [formData, setFormData] = useState(initialState);
     const [isSignup, setIsSignup] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [user, setUser] = useState({}); // this should be put in redux
+    const navigate = useNavigate();
 
     const handleShowPassword = () => setShowPassword(!showPassword);
 
@@ -40,7 +42,6 @@ const Auth = () => {
         /* global google */
         console.log("running use effect");
 
-
         google?.accounts.id.initialize({
             client_id: "351304157120-mt2uc9pv4rqplrod4gkosjr8h8mqskj2.apps.googleusercontent.com",
             callback: handleCallbackResponse,
@@ -53,7 +54,7 @@ const Auth = () => {
     }, []);
 
     const switchMode = () => {
-        setForm(initialState);
+        setFormData(initialState);
         setIsSignup((prevIsSignup) => !prevIsSignup);
         setShowPassword(false);
     };
@@ -61,10 +62,15 @@ const Auth = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        if (isSignup) {
+            store.dispatch(userActions.signUp(formData, navigate));
+        } else {
+            store.dispatch(userActions.signIn(formData, navigate));
+        }
     };
 
     // when input is typed in
-    const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+    const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
 
     return (

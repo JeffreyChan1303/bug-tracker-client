@@ -15,8 +15,22 @@ export const userSlice = createSlice({
             return { ...state, authData: action?.payload };
         },
         logOut: (state, action) => {
-            console.log(state, action);
-            state = {};
+            localStorage.clear();
+            return { ...state, authData: null };
+        },
+        signIn: (formData, navigate) => {
+            try {
+
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        signUp: (formData, navigate) => {
+            try {
+                
+            } catch (error) {
+               console.log(error) 
+            }
         }
     }
 })

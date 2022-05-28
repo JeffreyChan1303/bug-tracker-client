@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import { ticketApi } from '../services/ticketApi';
-import { projectApi } from '../services/projectApi';
+import { ticketApi } from '../services/ticket/ticketApi';
+import { projectApi } from '../services/project/projectApi';
 import userReducer from '../services/userSlice';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
 

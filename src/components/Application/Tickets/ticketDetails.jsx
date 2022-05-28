@@ -6,7 +6,7 @@ import { fontWeight, styled } from '@mui/system';
 
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useGetTicketDetailsQuery, useDeleteTicketMutation } from '../../../services/ticketApi';
+import { useGetTicketDetailsQuery, useDeleteTicketMutation } from '../../../services/ticket/ticketApi';
 
 const TicketDetails = ({ drawerWidth }) => {
     const { id } = useParams();

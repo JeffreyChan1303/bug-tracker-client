@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Typography, Toolbar, TextField, Button, Paper, Select, MenuItem } from '@mui/material';
 
-import { useCreateProjectMutation } from '../../../services/projectApi';
+import { useCreateProjectMutation } from '../../../services/project/projectApi';
 
 const AddProject = ({ drawerWidth }) => {
     const [createProject, responseInfo] = useCreateProjectMutation();

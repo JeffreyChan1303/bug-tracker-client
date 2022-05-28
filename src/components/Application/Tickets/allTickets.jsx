@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Typography, Toolbar, Paper, Pagination, Table, TableHead, TableRow, TableCell, TableBody, Backdrop, CircularProgress, IconButton, Tooltip, TextField, TablePagination, Chip, TableFooter } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { styled } from '@mui/system';
 
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 
-import { useGetAllTicketsQuery } from '../../../services/ticketApi';
+import { useGetAllTicketsQuery } from '../../../services/ticket/ticketApi';
 
 const BoldedTableCell = styled(TableCell)(({theme}) => ({
     fontWeight: theme.typography.fontWeightBold,
@@ -22,6 +22,16 @@ const ContentTableCell = styled(TableCell)(({theme}) => ({
 
 const AllTickets = ({ drawerWidth }) => {
     const { data, isFetching } = useGetAllTicketsQuery();
+    const location = useLocation();
+
+    useEffect(() => {
+        /* 
+        put the api fetch data function in here so every time the location or the user routes,
+        the fetch data will be called and the new tickts will be updated every time you come back to the page!!
+        The current, hook useGetAllTicketQuery is not working since we cann't put react hooks into a useEffect!!.
+        */
+    }, [location])
+
     console.log(data, isFetching);
 
 

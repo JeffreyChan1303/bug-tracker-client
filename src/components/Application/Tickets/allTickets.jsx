@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Box, Typography, Toolbar, Paper, Pagination, Table, TableHead, TableRow, TableCell, TableBody, Backdrop, CircularProgress, IconButton, Tooltip, TextField, TablePagination, Chip, TableFooter } from '@mui/material';
+import { Box, Typography, Toolbar, Paper, Pagination, Table, TableHead, TableRow, TableCell, TableBody, Backdrop, CircularProgress, IconButton, Tooltip, TextField, Chip } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import { styled } from '@mui/system';
 
@@ -8,6 +8,9 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 
 import { useGetAllTicketsQuery } from '../../../services/ticket/ticketApi';
+import { fetchAllTickets } from '../../../services/ticket/allTicketsSlice';
+import store from '../../../app/store';
+import { useSelector, useDispatch } from 'react-redux';
 
 const BoldedTableCell = styled(TableCell)(({theme}) => ({
     fontWeight: theme.typography.fontWeightBold,
@@ -23,6 +26,20 @@ const ContentTableCell = styled(TableCell)(({theme}) => ({
 const AllTickets = ({ drawerWidth }) => {
     const { data, isFetching } = useGetAllTicketsQuery();
     const location = useLocation();
+    // useSelector may be useful when we implement the dashboard which requires multiple api calls
+    const ALLTICKETS = useSelector((state) => state.allTickets)
+    console.log(ALLTICKETS)
+
+    const dispatch = useDispatch();
+
+    const unsubscribe = store.subscribe(() => {
+        // console.log('updated state: ', store.getState().allTickets.tickets)
+    })
+
+    // store.dispatch(fetchAllTickets())
+
+
+    // console.log(aTickets)
 
     useEffect(() => {
         /* 
@@ -30,9 +47,10 @@ const AllTickets = ({ drawerWidth }) => {
         the fetch data will be called and the new tickts will be updated every time you come back to the page!!
         The current, hook useGetAllTicketQuery is not working since we cann't put react hooks into a useEffect!!.
         */
-    }, [location])
+       dispatch(fetchAllTickets());
+    }, [])
 
-    console.log(data, isFetching);
+    // console.log(data, isFetching);
 
 
 
@@ -53,6 +71,8 @@ const AllTickets = ({ drawerWidth }) => {
     return (
         <Box sx={{ flexGrow: 1, p: 3, width: { md: `calc(100% - ${drawerWidth}px)` } }} >
             <Toolbar />
+
+            asdfasda
 
             <Paper sx={{ p: 3 }} elevation={3}>
 

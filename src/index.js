@@ -17,13 +17,13 @@ console.log(theme);
 
 root.render(
     <StrictMode>
-        <BrowserRouter>
-            <ThemeProvider theme={theme}>
-                <Provider store={store}>
-                    <App />
-                </Provider>
-            </ThemeProvider>
-        </BrowserRouter>
+        <Provider store={store}>
+            <BrowserRouter>
+                <ThemeProvider theme={theme}>
+                        <App />
+                </ThemeProvider>
+            </BrowserRouter>
+        </Provider>
     </StrictMode>
 );
 

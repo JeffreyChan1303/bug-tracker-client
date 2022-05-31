@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 
 import store from '../../app/store';
-import { userActions } from '../../services/userSlice';
+import { userActions } from '../../services/user/userSlice';
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Input from './input'
@@ -32,7 +32,7 @@ const Auth = () => {
         const token = response.credential
         console.log(userObject);
         console.log(response)
-        store.dispatch(userActions.logIn({ userObject, token }))
+        store.dispatch(userActions.googleLogIn({ userObject, token }))
         unsubscribe();
         window.location.reload();
     }

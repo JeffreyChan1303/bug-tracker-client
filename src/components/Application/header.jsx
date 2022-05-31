@@ -5,7 +5,7 @@ import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
 import SettingsIcon from '@mui/icons-material/Settings';
 
 import store from '../../app/store';
-import { userActions } from '../../services/userSlice';
+import { userActions } from '../../services/user/userSlice';
 
 
 

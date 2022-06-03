@@ -1,38 +1,29 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";
 import axios from 'axios';
 
-const initialState = {};
+
+// state is the state of the whole USER!! that is online!!
+const initialState = {
+
+};
 
 
 export const userSlice = createSlice({
     name: "User",
     initialState,
     reducers: {
-        googleLogIn: (state = { authData: null }, action) => {
+        auth: (state = { authData: null }, action) => {
             // put into local storage so computer remembers device
             localStorage.setItem('profile', JSON.stringify({ ...action?.payload }))
             console.log(action?.payload);
             // change the current state
             return { ...state, authData: action?.payload };
         },
-        googleLogOut: (state, action) => {
+        logout: (state, action) => {
             localStorage.clear();
             return { ...state, authData: null };
         },
-        signIn: (formData, navigate) => {
-            try {
-
-            } catch (error) {
-                console.log(error)
-            }
-        },
-        signUp: (formData, navigate) => {
-            try {
-                
-            } catch (error) {
-               console.log(error) 
-            }
-        }
     }
 })
 

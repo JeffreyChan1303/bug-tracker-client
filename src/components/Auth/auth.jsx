@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, Typography, Paper, Button, Avatar, Grid, Icon } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
+import { useDispatch } from 'react-redux';
 
 import store from '../../app/store';
 import { userActions } from '../../services/user/userSlice';
@@ -18,6 +19,7 @@ const Auth = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [user, setUser] = useState({}); // this should be put in redux
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleShowPassword = () => setShowPassword(!showPassword);
 
@@ -32,7 +34,7 @@ const Auth = () => {
         const token = response.credential
         console.log(userObject);
         console.log(response)
-        store.dispatch(userActions.googleLogIn({ userObject, token }))
+        store.dispatch(userActions.auth({ userObject, token }))
         unsubscribe();
         window.location.reload();
     }
@@ -63,9 +65,9 @@ const Auth = () => {
         e.preventDefault();
 
         if (isSignup) {
-            store.dispatch(userActions.signUp(formData, navigate));
+            dispatch(userActions.signUp(formData, navigate));
         } else {
-            store.dispatch(userActions.signIn(formData, navigate));
+            dispatch(userActions.signIn(formData, navigate));
         }
     };
 

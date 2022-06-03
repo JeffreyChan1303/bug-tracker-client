@@ -22,7 +22,7 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
         setAvatarOpen(null);
     }
     const handleLogOut = () => {
-        store.dispatch(userActions.logOut())
+        store.dispatch(userActions.logout())
         window.location.reload();
     }
 

@@ -33,7 +33,7 @@ const AllTickets = ({ drawerWidth }) => {
     const dispatch = useDispatch();
 
     const unsubscribe = store.subscribe(() => {
-        // console.log('updated state: ', store.getState().allTickets.tickets)
+        console.log('updated state: ', store.getState().allTickets.tickets)
     })
 
     // store.dispatch(fetchAllTickets())

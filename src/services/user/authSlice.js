@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from 'axios';
+import * as api from '../../api/index'
 import { userActions } from "./userSlice";
 
 const initialState = {
@@ -11,9 +11,11 @@ const initialState = {
 // generates pending, fulfilled, and rejected action types
 export const signIn = createAsyncThunk('users/signin', async (formData, {dispatch}) => {
     try {
-        const { data } = await axios.post('http://localhost:9000/users/signin', formData);
+        const { data } = await api.signIn(formData);
 
         dispatch(userActions.auth(data));
+
+        window.location.reload();
     } catch (error) {
         console.log(error);
     }
@@ -21,10 +23,12 @@ export const signIn = createAsyncThunk('users/signin', async (formData, {dispatc
 
 export const signUp = createAsyncThunk('users/signup', async (formData, {dispatch}) => {
     try {
-        const { data } = await axios.post('http://localhost:9000/users/signup', formData);
+        const { data } = await api.signUp(formData);
         console.log(data)
 
         dispatch(userActions.auth(data));
+
+        window.location.reload();
     } catch (error) {
         console.log(error);  
     }

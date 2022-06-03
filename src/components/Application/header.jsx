@@ -4,6 +4,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
 import SettingsIcon from '@mui/icons-material/Settings';
 
+
 import store from '../../app/store';
 import { userActions } from '../../services/user/userSlice';
 
@@ -13,7 +14,7 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     const [avatarOpen, setAvatarOpen] = useState(null);
 
-    console.log(user?.userObject.name)
+    // console.log(user?.userObject.name)
 
     const handleAvatarOpen = (event) => {
         setAvatarOpen(event.currentTarget);
@@ -71,7 +72,7 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
                 >
                     <MenuItem onClick={handleAvatarClose}>Profile</MenuItem>
                     <MenuItem onClick={handleAvatarClose}>My account</MenuItem>
-                    <MenuItem onClick={handleAvatarClose}>{user?.userObject.name}</MenuItem>
+                    {/* <MenuItem onClick={handleAvatarClose}>{user?.userObject.name}</MenuItem> */}
                     <MenuItem onClick={handleLogOut}>Logout</MenuItem>
                 </Menu>
             </Box>

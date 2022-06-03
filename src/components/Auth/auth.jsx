@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, Paper, Button, Avatar, Grid, Icon } from '@mui/material';
+import { Box, Typography, Paper, Button, Avatar, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import { useDispatch } from 'react-redux';

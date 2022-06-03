@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 
 import store from '../../app/store';
 import { userActions } from '../../services/user/userSlice';
+import { signIn, signUp } from '../../services/user/authSlice';
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Input from './input'
@@ -23,11 +24,6 @@ const Auth = () => {
 
     const handleShowPassword = () => setShowPassword(!showPassword);
 
-
-    const unsubscribe = store.subscribe(() => {
-        console.log('Updated state ', store.getState())
-    })
-
     function handleCallbackResponse(response) {
         console.log("Embedded JWT Token: " + response.credential)
         const userObject = jwt_decode(response.credential)
@@ -35,7 +31,6 @@ const Auth = () => {
         console.log(userObject);
         console.log(response)
         store.dispatch(userActions.auth({ userObject, token }))
-        unsubscribe();
         window.location.reload();
     }
 
@@ -65,9 +60,9 @@ const Auth = () => {
         e.preventDefault();
 
         if (isSignup) {
-            dispatch(userActions.signUp(formData, navigate));
+            dispatch(signUp(formData));
         } else {
-            dispatch(userActions.signIn(formData, navigate));
+            dispatch(signIn(formData));
         }
     };
 

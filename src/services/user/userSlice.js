@@ -1,6 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";
-import axios from 'axios';
+import { createSlice } from "@reduxjs/toolkit";
 
 
 // state is the state of the whole USER!! that is online!!

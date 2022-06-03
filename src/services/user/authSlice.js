@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
-import { useDispatch } from "react-redux";
 import { userActions } from "./userSlice";
 
 const initialState = {
@@ -8,12 +7,11 @@ const initialState = {
     error: '',
 };
 
-const dispatch = useDispatch();
 
 // generates pending, fulfilled, and rejected action types
-export const signIn = createAsyncThunk('users/signin', () => {
+export const signIn = createAsyncThunk('users/signin', async (formData, {dispatch}) => {
     try {
-        const { data } = await axios.get('http://localhost:9000/users/signin');
+        const { data } = await axios.post('http://localhost:9000/users/signin', formData);
 
         dispatch(userActions.auth(data));
     } catch (error) {
@@ -21,11 +19,12 @@ export const signIn = createAsyncThunk('users/signin', () => {
     }
 });
 
-export const signUp = createAsyncThunk('users/signup', (dispatch) => {
+export const signUp = createAsyncThunk('users/signup', async (formData, {dispatch}) => {
     try {
-        const { data } = await axios.get('http://localhost:9000/users/signup');
+        const { data } = await axios.post('http://localhost:9000/users/signup', formData);
+        console.log(data)
 
-        dispatch(userActions.logout(data));
+        dispatch(userActions.auth(data));
     } catch (error) {
         console.log(error);  
     }
@@ -64,6 +63,4 @@ const authSlice = createSlice({
 
 
 export default authSlice.reducer;
-
-
 export const authActions = authSlice.actions;

@@ -71,6 +71,7 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
                 >
                     <MenuItem onClick={handleAvatarClose}>Profile</MenuItem>
                     <MenuItem onClick={handleAvatarClose}>My account</MenuItem>
+                    <MenuItem onClick={handleAvatarClose}>{user?.userObject.name}</MenuItem>
                     <MenuItem onClick={handleLogOut}>Logout</MenuItem>
                 </Menu>
             </Box>

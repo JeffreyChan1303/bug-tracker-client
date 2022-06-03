@@ -4,6 +4,7 @@ import { setupListeners } from '@reduxjs/toolkit/dist/query';
 import { ticketApi } from '../services/ticket/ticketApi';
 import { projectApi } from '../services/project/projectApi';
 import userReducer from '../services/user/userSlice';
+import authReducer from '../services/user/authSlice';
 import allTicketsReducer from '../services/ticket/allTicketsSlice';
 
 export const store = configureStore({
@@ -11,6 +12,7 @@ export const store = configureStore({
         [ticketApi.reducerPath]: ticketApi.reducer,
         [projectApi.reducerPath]: projectApi.reducer,
         user: userReducer,
+        auth: authReducer,
         allTickets: allTicketsReducer,
     },
 

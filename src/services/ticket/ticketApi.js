@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const ticketApiHeaders = {
-
+    Authorization: `Bearer ${JSON.parse(localStorage.getItem('profile'))?.token}`,
 }
 
 const createRequest = (url) => ({ url, method: 'GET', headers: ticketApiHeaders })
@@ -46,6 +46,7 @@ export const ticketApi = createApi({
                 return {
                     url: `/tickets/deleteTicket/${id}`,
                     method: 'DELETE',
+                    headers: ticketApiHeaders,
                 }
             }
         })

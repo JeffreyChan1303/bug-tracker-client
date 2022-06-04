@@ -33,7 +33,7 @@ const AllTickets = ({ drawerWidth }) => {
     const dispatch = useDispatch();
 
     const unsubscribe = store.subscribe(() => {
-        console.log('updated state: ', store.getState().allTickets.tickets)
+        // console.log('updated state: ', store.getState().allTickets.tickets)
     })
 
     // store.dispatch(fetchAllTickets())
@@ -102,7 +102,7 @@ const AllTickets = ({ drawerWidth }) => {
                             <ContentTableCell component="th" scope="row">
                                 {ticket.title}
                             </ContentTableCell>
-                            <ContentTableCell align="right">{ticket.creator}</ContentTableCell>
+                            <ContentTableCell align="right">{ticket.name}</ContentTableCell>
                             <ContentTableCell align="right">add ticket developer</ContentTableCell>
                             <ContentTableCell align="right">
                                 <Chip label={ticket.status} variant="outlined" color="secondary" />

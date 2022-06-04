@@ -17,6 +17,7 @@ const AddTicket = ({ drawerWidth }) => {
     const [createTicket, responseInfo] = useCreateTicketMutation();
 
     const [postData, setPostData] = useState(initialPostData);
+    const user = JSON.parse(localStorage.getItem('profile'))
 
     const handlePriorityChange = (event) => {
         setPostData({ ...postData, priority: event.target.value });
@@ -36,7 +37,7 @@ const AddTicket = ({ drawerWidth }) => {
             alert("invalid description");
         }
 
-        createTicket(postData); 
+        createTicket({ ...postData, name: user?.userObject?.name }); 
         responseInfo.isError && alert("failed creating ticket");
         
         navigate("/allTickets");

@@ -3,6 +3,7 @@ import { AppBar, Typography, Toolbar, IconButton, Avatar, Box, Menu, MenuItem } 
 import MenuIcon from '@mui/icons-material/Menu'
 import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
 import SettingsIcon from '@mui/icons-material/Settings';
+import decode from 'jwt-decode';
 
 
 import store from '../../app/store';
@@ -15,16 +16,27 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
     const [avatarOpen, setAvatarOpen] = useState(null);
 
     // console.log(user?.userObject.name)
+    const handleLogOut = () => {
+        store.dispatch(userActions.logout())
+    }
+
+    useEffect(() => {
+        const token = user?.token;
+
+        if (token) {
+            const decodedToken = decode(token);
+
+            if (decodedToken.exp * 1000 < new Date().getTime()) {
+                handleLogOut();
+            }
+        }
+    })
 
     const handleAvatarOpen = (event) => {
         setAvatarOpen(event.currentTarget);
     }
     const handleAvatarClose = () => {
         setAvatarOpen(null);
-    }
-    const handleLogOut = () => {
-        store.dispatch(userActions.logout())
-        window.location.reload();
     }
 
     return ( 

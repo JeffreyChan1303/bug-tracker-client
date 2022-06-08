@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { Backdrop, CircularProgress } from '@mui/material'
 
 import Application from './components/application';
 import Auth from './components/Auth/auth';
@@ -23,20 +21,6 @@ const App = () => {
         User should be stored in Redux!!
     */
 
-    /* global google */
-    if(!google) {
-        return (
-            // <Box sx={{ flexGrow: 1, p: 3, width: { md: `calc(100% - ${drawerWidth}px)` } }} >
-                // {/* <Toolbar /> */}
-                <Backdrop
-                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                    open
-                >
-                    <CircularProgress color="inherit" />
-                </Backdrop>
-            // </Box>
-        )
-    }
 
 
     return (
@@ -48,9 +32,7 @@ const App = () => {
             {user? (
                 <Application />
             ) : (
-                <>
-                {google && <Auth />}
-                </>
+                <Auth />
             )}
         </>
     )

@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { Box, Typography, Toolbar, Paper, Pagination, Table, TableHead, TableRow, TableCell, TableBody, Backdrop, CircularProgress, IconButton, Tooltip, TextField, Chip } from '@mui/material';
+import { Box, Typography, Toolbar, Paper, Table, TableHead, TableRow, TableCell, TableBody, Backdrop, CircularProgress, IconButton, Tooltip, TextField, Chip } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import { styled } from '@mui/system';
+import { useSelector, useDispatch } from 'react-redux';
 
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
@@ -10,7 +11,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { useGetAllTicketsQuery } from '../../../services/ticket/ticketApi';
 import { fetchAllTickets } from '../../../services/ticket/allTicketsSlice';
 import store from '../../../app/store';
-import { useSelector, useDispatch } from 'react-redux';
+import Pagination from '../pagination';
 
 const BoldedTableCell = styled(TableCell)(({theme}) => ({
     fontWeight: theme.typography.fontWeightBold,
@@ -128,10 +129,11 @@ const AllTickets = ({ drawerWidth }) => {
                     </TableBody>
                 </Table>
 
-                <Box justifyContent="center">
-                    <Pagination count={10} variant="outlined" sx={{ alignContent: "center" }}/>
-                </Box>
+            </Paper>
 
+
+            <Paper elevation={6} >
+                <Pagination path="/allTickets"/>
             </Paper>
         </Box>
     )

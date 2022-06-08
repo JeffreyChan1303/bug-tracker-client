@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import { Box, Typography, Toolbar, Paper, Table, TableHead, TableRow, TableCell, TableBody, Backdrop, CircularProgress, IconButton, Tooltip, TextField, Chip } from '@mui/material';
-import { useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Box, Typography, Toolbar, Paper, Table, TableHead, TableRow, TableCell, TableBody, Backdrop, CircularProgress, IconButton, Tooltip, TextField, Chip, AppBar } from '@mui/material';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { styled } from '@mui/system';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -22,11 +22,19 @@ const ContentTableCell = styled(TableCell)(({theme}) => ({
     padding: "5px",
 }));
 
+function useQuery() {
+    return new URLSearchParams(useLocation().search);
+}
 
 
 const AllTickets = ({ drawerWidth }) => {
     const { data, isFetching } = useGetAllTicketsQuery();
+    const query = useQuery();
+    const navigate = useNavigate();
     const location = useLocation();
+    const page = query.get('page');
+    const searchQuery = query.get('searchQuery');
+    const [search, setSearch] = useState('');
     // useSelector may be useful when we implement the dashboard which requires multiple api calls
     const ALLTICKETS = useSelector((state) => state.allTickets)
     console.log(ALLTICKETS)
@@ -69,18 +77,40 @@ const AllTickets = ({ drawerWidth }) => {
         )
     }
 
+    const searchAllTickets = () => {
+        if (search.trim()) {
+            //dispatch an action
+        } else {
+            navigate('/allTickets')
+        }
+    }
+
+    const handleKeyPress = (e) => {
+        if (e.keyCode === 13) {
+            // search for post... probably a dispatch or something here
+            searchAllTickets();
+        }
+    }
+
     return (
         <Box sx={{ flexGrow: 1, p: 3, width: { md: `calc(100% - ${drawerWidth}px)` } }} >
             <Toolbar />
 
             asdfasda
 
-            <Paper sx={{ p: 3 }} elevation={3}>
+            <Paper sx={{ p: 3, overflowX: 'scroll' }} elevation={3}>
 
                 <Typography variant="h5" fontWeight={700}> All Tickets </Typography>
                 <Box sx={{ display: "flex", justifyContent: "right" }}>
                     <Typography align="right" variant="body1"> Search:&nbsp; </Typography>
-                    <TextField size="small" variant="standard" />
+                    <TextField 
+                        size="small" 
+                        variant="standard"
+                        name="search"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        onKeyDown={handleKeyPress}
+                    />
                 </Box>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table" size="small" >
                     <TableHead>

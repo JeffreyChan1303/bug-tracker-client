@@ -56,7 +56,7 @@ const Navbar = () => {
 
         <List>
             <Divider />
-            <StyledLink to="/">
+            <StyledLink to="/dashboard">
                 <ListItem button key={"Dashboard"} >
                     <ListItemIcon>
                         <InboxIcon />

@@ -9,7 +9,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 
 import { useGetAllTicketsQuery } from '../../../services/ticket/ticketApi';
-import { fetchAllTickets } from '../../../services/ticket/allTicketsSlice';
+import { getAllTickets, getAllTicketsBySearch } from '../../../services/ticket/allTicketsSlice';
 import store from '../../../app/store';
 import Pagination from '../pagination';
 
@@ -56,7 +56,7 @@ const AllTickets = ({ drawerWidth }) => {
         the fetch data will be called and the new tickts will be updated every time you come back to the page!!
         The current, hook useGetAllTicketQuery is not working since we cann't put react hooks into a useEffect!!.
         */
-       dispatch(fetchAllTickets());
+       dispatch(getAllTickets());
     }, [])
 
     // console.log(data, isFetching);
@@ -80,6 +80,7 @@ const AllTickets = ({ drawerWidth }) => {
     const searchAllTickets = () => {
         if (search.trim()) {
             //dispatch an action
+            dispatch(getAllTicketsBySearch(search))
         } else {
             navigate('/allTickets')
         }

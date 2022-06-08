@@ -13,3 +13,6 @@ API.interceptors.request.use((req) => {
 
 export const signIn = (formData) => API.post('users/signin', formData);
 export const signUp = (formData) => API.post('users/signup', formData);
+
+export const getAllTickets = () => API.get('tickets/allTickets');
+export const getAllTicketsBySearch = (searchQuery) => API.get(`/tickets/allTickets/search?searchQuery=${searchQuery.search || 'none'}`);

@@ -81,6 +81,8 @@ const AllTickets = ({ drawerWidth }) => {
         if (search.trim()) {
             //dispatch an action
             dispatch(getAllTicketsBySearch(search))
+
+            navigate(`/allTickets/search?searchQuery=${search || 'none'}`);
         } else {
             navigate('/allTickets')
         }

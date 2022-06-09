@@ -34,34 +34,30 @@ export const signUp = createAsyncThunk('users/signup', async (formData, {dispatc
     }
 })
 
+const isPending = (state) => {
+    state.loading = true;
+};
+const isFulfilled = (state, action) => {
+    state.loading = false;
+    state.error = '';
+};
+const isRejected = (state, action) => {
+    state.loading = false;
+    state.error = action.error.message;
+};
+
 const authSlice = createSlice({
     name: 'Auth',
     initialState,
     extraReducers: builder => {
         //sign in cases
-        builder.addCase(signIn.pending, state => {
-            state.loading = true;
-        })
-        builder.addCase(signIn.fulfilled, (state, action) => {
-            state.loading = false;
-            state.error = '';
-        })
-        builder.addCase(signIn.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.error.message;
-        })
+        builder.addCase(signIn.pending, (state) => isPending(state))
+        builder.addCase(signIn.fulfilled, (state, action) => isFulfilled(state, action))
+        builder.addCase(signIn.rejected, (state, action) => isRejected(state, action))
         // sign up cases
-        builder.addCase(signUp.pending, state => {
-            state.loading = true;
-        })
-        builder.addCase(signUp.fulfilled, (state, action) => {
-            state.loading = false;
-            state.error = '';
-        })
-        builder.addCase(signUp.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.error.message;
-        })
+        builder.addCase(signUp.pending, (state) => isPending(state))
+        builder.addCase(signUp.fulfilled, (state, action) => isFulfilled(state, action))
+        builder.addCase(signUp.rejected, (state, action) => isRejected(state, action))
     },
 })
 

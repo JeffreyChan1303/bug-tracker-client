@@ -7,8 +7,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
-
-import { useGetAllTicketsQuery } from '../../../services/ticket/ticketApi';
 import { getAllTickets, getAllTicketsBySearch } from '../../../services/ticket/allTicketsSlice';
 import store from '../../../app/store';
 import Pagination from '../pagination';
@@ -28,7 +26,6 @@ function useQuery() {
 
 
 const AllTickets = ({ drawerWidth }) => {
-    const { data, isFetching } = useGetAllTicketsQuery();
     const query = useQuery();
     const navigate = useNavigate();
     const location = useLocation();
@@ -36,19 +33,14 @@ const AllTickets = ({ drawerWidth }) => {
     const searchQuery = query.get('searchQuery');
     const [search, setSearch] = useState('');
     // useSelector may be useful when we implement the dashboard which requires multiple api calls
-    const ALLTICKETS = useSelector((state) => state.allTickets)
-    console.log(ALLTICKETS)
+    const { error, loading, tickets } = useSelector((state) => state.allTickets);
 
     const dispatch = useDispatch();
 
-    const unsubscribe = store.subscribe(() => {
-        // console.log('updated state: ', store.getState().allTickets.tickets)
-    })
+    // const unsubscribe = store.subscribe(() => {
+    //     // console.log('updated state: ', store.getState().allTickets.tickets)
+    // })
 
-    // store.dispatch(fetchAllTickets())
-
-
-    // console.log(aTickets)
 
     useEffect(() => {
         /* 
@@ -59,11 +51,9 @@ const AllTickets = ({ drawerWidth }) => {
        dispatch(getAllTickets());
     }, [])
 
-    // console.log(data, isFetching);
 
 
-
-    if(isFetching) {
+    if(loading) {
         return (
             <Box sx={{ flexGrow: 1, p: 3, width: { md: `calc(100% - ${drawerWidth}px)` } }} >
                 <Toolbar />
@@ -128,7 +118,7 @@ const AllTickets = ({ drawerWidth }) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                    {data && data.map((ticket, i) => (
+                    {tickets && tickets.map((ticket, i) => (
                         <TableRow
                         key={i}
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

@@ -6,14 +6,14 @@ import Auth from './components/Auth/auth';
 
 const App = () => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-    console.log(user)
+    // console.log(user)
 
 
     if (user) {
-        console.log("there is a user in local storage")
+        // console.log("there is a user in local storage")
         // navigate('/');
     } else {
-        console.log("there is no user in local storage")
+        // console.log("there is no user in local storage")
         // navigate('/auth');
     }
     /*

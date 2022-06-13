@@ -11,8 +11,8 @@ API.interceptors.request.use((req) => {
     return req;
 });
 
-export const signIn = (formData) => API.post('users/signin', formData);
-export const signUp = (formData) => API.post('users/signup', formData);
+export const signIn = (formData) => API.post('/users/signin', formData);
+export const signUp = (formData) => API.post('/users/signup', formData);
 
-export const getAllTickets = () => API.get('tickets/allTickets');
-export const getAllTicketsBySearch = (searchQuery) => API.get(`/tickets/allTickets/search?searchQuery=${searchQuery || 'none'}`);
+export const getAllTickets = (page) => API.get(`/tickets/allTickets?page=${page}`);
+export const getAllTicketsBySearch = (searchQuery, page) => API.get(`/tickets/allTickets/search?searchQuery=${searchQuery || 'none'}&page=${page}`);

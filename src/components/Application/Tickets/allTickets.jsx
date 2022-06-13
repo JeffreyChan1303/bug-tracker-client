@@ -9,7 +9,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 import { getAllTickets, getAllTicketsBySearch } from '../../../services/ticket/allTicketsSlice';
 import store from '../../../app/store';
-import Pagination from '../pagination';
+import CustomPagination from '../pagination';
 
 const BoldedTableCell = styled(TableCell)(({theme}) => ({
     fontWeight: theme.typography.fontWeightBold,
@@ -33,13 +33,13 @@ const AllTickets = ({ drawerWidth }) => {
     const searchQuery = query.get('searchQuery');
     const [search, setSearch] = useState('');
     // useSelector may be useful when we implement the dashboard which requires multiple api calls
-    const { error, loading, tickets } = useSelector((state) => state.allTickets);
+    const { loading, tickets, currentPage, numberOfPages } = useSelector((state) => state.allTickets);
 
     const dispatch = useDispatch();
 
-    // const unsubscribe = store.subscribe(() => {
-    //     // console.log('updated state: ', store.getState().allTickets.tickets)
-    // })
+    const unsubscribe = store.subscribe(() => {
+        // console.log('updated state: ', store.getState().allTickets)
+    })
 
 
     useEffect(() => {
@@ -48,8 +48,13 @@ const AllTickets = ({ drawerWidth }) => {
         the fetch data will be called and the new tickts will be updated every time you come back to the page!!
         The current, hook useGetAllTicketQuery is not working since we cann't put react hooks into a useEffect!!.
         */
-       dispatch(getAllTickets());
-    }, [])
+       if (search.trim()) {
+           dispatch(getAllTicketsBySearch({ search, page }));
+       } else {
+           dispatch(getAllTickets(page));
+       }
+    //    dispatch(getAllTickets(page));
+    }, [page])
 
 
 
@@ -70,9 +75,10 @@ const AllTickets = ({ drawerWidth }) => {
     const searchAllTickets = () => {
         if (search.trim()) {
             //dispatch an action
-            dispatch(getAllTicketsBySearch(search))
+            
+            dispatch(getAllTicketsBySearch({ search, page: 1 }))
 
-            navigate(`/allTickets/search?searchQuery=${search || 'none'}`);
+            navigate(`/allTickets/search?searchQuery=${search || 'none'}&page=1`);
         } else {
             navigate('/allTickets')
         }
@@ -156,7 +162,12 @@ const AllTickets = ({ drawerWidth }) => {
 
 
             <Paper elevation={6} >
-                <Pagination path="/allTickets"/>
+                <CustomPagination 
+                    path={`/allTickets${search.trim()? `/search?searchQuery=${search}&` : `?`}`}
+                    page={page}
+                    currentPage={currentPage}
+                    numberOfPages={numberOfPages}
+            />
             </Paper>
         </Box>
     )

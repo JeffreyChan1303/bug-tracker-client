@@ -72,6 +72,8 @@ const Application = () => {
                     <Route exact path="/allTickets/search" element={<AllTickets drawerWidth={drawerWidth} />} />
 
                     <Route exact path="/myTickets" element={<MyTickets drawerWidth={drawerWidth} />} />
+                    <Route exact path="/myTickets/search" element={<MyTickets drawerWidth={drawerWidth} />} />
+
                     <Route exact path="/addTicket" element={<AddTicket drawerWidth={drawerWidth} />} />
                     <Route exact path="/ticketArchive" element={<TicketArchive drawerWidth={drawerWidth} />} />
                     <Route exact path="/editTicket/:id" element={<EditTicket drawerWidth={drawerWidth} />} />

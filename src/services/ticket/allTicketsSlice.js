@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from 'axios';
 import * as api from '../../api/index';
 
 const initialState = {
@@ -10,7 +9,6 @@ const initialState = {
     numberOfPages: null,
 };
 
-const baseURL = 'http://localhost:9000';
 
 // generates pending, fulfilled, and rejected action types
 export const getAllTickets = createAsyncThunk('ticket/getAllTickets', async (page) => {

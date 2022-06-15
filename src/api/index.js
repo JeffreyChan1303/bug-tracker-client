@@ -16,3 +16,5 @@ export const signUp = (formData) => API.post('/users/signup', formData);
 
 export const getAllTickets = (page) => API.get(`/tickets/allTickets?page=${page}`);
 export const getAllTicketsBySearch = (searchQuery, page) => API.get(`/tickets/allTickets/search?searchQuery=${searchQuery || 'none'}&page=${page}`);
+export const getMyTickets = (page) => API.get(`/tickets/myTickets?page=${page}`);
+export const getMyTicketsBySearch = (searchQuery, page) => API.get(`/tickets/myTickets/search?searchQuery=${searchQuery || 'none'}&page=${page}`);

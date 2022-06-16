@@ -1,15 +1,14 @@
 import React from 'react';
-import { Box, Typography, Toolbar } from '@mui/material';
+import { Typography } from '@mui/material';
 
-const EditProject = ({ drawerWidth }) => {
+const EditProject = () => {
 
     return (
-        <Box sx={{ flexGrow: 1, p: 3, width: { md: `calc(100% - ${drawerWidth}px)` } }} >
-            <Toolbar />
+        <>
             <Typography paragraph>
                 Edit Project
             </Typography>
-        </Box>
+        </>
     )
 };
 

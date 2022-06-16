@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Drawer, CssBaseline, Box } from '@mui/material';
+import { Drawer, CssBaseline, Box, Toolbar } from '@mui/material';
 
 import { Header, Navbar, Dashboard, AddProject, AllProjects, EditProject, MyProjects, ProjectArchive, ProjectDetails, AddTicket, AllTickets, EditTicket, MyTickets, TicketArchive, TicketDetails } from './Application/index';
 
@@ -53,34 +53,35 @@ const Application = () => {
             </Box>
 
             {/* Here is the content and the routes */}
-            {/* <Box> */}
-                <Routes>
-                    {/* <Route exact path="" element={<Dashboard drawerWidth={drawerWidth} />}/> */}
-                    <Route exact path="/*" element={<Navigate to="/dashboard" replace />} />
-                    <Route exact path="/dashboard" element={<Dashboard drawerWidth={drawerWidth} />} />
+            <Box sx={{ flexGrow: 1, p: 3, width: { md: `calc(100% - ${drawerWidth}px)` } }} >
+                <Toolbar />
+                    <Routes>
+                        {/* <Route exact path="" element={<Dashboard drawerWidth={drawerWidth} />}/> */}
+                        <Route exact path="/*" element={<Navigate to="/dashboard" replace />} />
+                        <Route exact path="/dashboard" element={<Dashboard drawerWidth={drawerWidth} />} />
 
-                    <Route exact path="/allProjects" element={<AllProjects drawerWidth={drawerWidth} />} />
-                    <Route exact path="/myProjects" element={<MyProjects drawerWidth={drawerWidth} />} />
-                    <Route exact path="/addProject" element={<AddProject drawerWidth={drawerWidth} />} />
-                    <Route exact path="/projectArchive" element={<ProjectArchive drawerWidth={drawerWidth} />} />
-                    <Route exact path="/editProject" element={<EditProject drawerWidth={drawerWidth} />} />
-                    <Route exact path="/projectDetails" element={<ProjectDetails drawerWidth={drawerWidth} />} />
+                        <Route exact path="/allProjects" element={<AllProjects drawerWidth={drawerWidth} />} />
+                        <Route exact path="/myProjects" element={<MyProjects drawerWidth={drawerWidth} />} />
+                        <Route exact path="/addProject" element={<AddProject drawerWidth={drawerWidth} />} />
+                        <Route exact path="/projectArchive" element={<ProjectArchive drawerWidth={drawerWidth} />} />
+                        <Route exact path="/editProject" element={<EditProject drawerWidth={drawerWidth} />} />
+                        <Route exact path="/projectDetails" element={<ProjectDetails drawerWidth={drawerWidth} />} />
 
 
-                    {/* Ticket Routes */}
-                    <Route exact path="/allTickets" element={<AllTickets drawerWidth={drawerWidth} />} />
-                    <Route exact path="/allTickets/search" element={<AllTickets drawerWidth={drawerWidth} />} />
+                        {/* Ticket Routes */}
+                        <Route exact path="/allTickets" element={<AllTickets drawerWidth={drawerWidth} />} />
+                        <Route exact path="/allTickets/search" element={<AllTickets drawerWidth={drawerWidth} />} />
 
-                    <Route exact path="/myTickets" element={<MyTickets drawerWidth={drawerWidth} />} />
-                    <Route exact path="/myTickets/search" element={<MyTickets drawerWidth={drawerWidth} />} />
+                        <Route exact path="/myTickets" element={<MyTickets drawerWidth={drawerWidth} />} />
+                        <Route exact path="/myTickets/search" element={<MyTickets drawerWidth={drawerWidth} />} />
 
-                    <Route exact path="/addTicket" element={<AddTicket drawerWidth={drawerWidth} />} />
-                    <Route exact path="/ticketArchive" element={<TicketArchive drawerWidth={drawerWidth} />} />
-                    <Route exact path="/editTicket/:id" element={<EditTicket drawerWidth={drawerWidth} />} />
-                    <Route exact path="/ticketDetails/:id" element={<TicketDetails drawerWidth={drawerWidth} />} />
+                        <Route exact path="/addTicket" element={<AddTicket drawerWidth={drawerWidth} />} />
+                        <Route exact path="/ticketArchive" element={<TicketArchive drawerWidth={drawerWidth} />} />
+                        <Route exact path="/editTicket/:id" element={<EditTicket drawerWidth={drawerWidth} />} />
+                        <Route exact path="/ticketDetails/:id" element={<TicketDetails drawerWidth={drawerWidth} />} />
 
-                </Routes>
-            {/* </Box> */}
+                    </Routes>
+            </Box>
 
             {/* <Dashboard drawerWidth={drawerWidth} /> */}
         </Box>

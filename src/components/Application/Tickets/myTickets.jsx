@@ -25,7 +25,7 @@ function useQuery() {
 }
 
 
-const MyTickets = ({ drawerWidth }) => {
+const MyTickets = () => {
     const query = useQuery();
     const navigate = useNavigate();
     const page = query.get('page');
@@ -51,6 +51,7 @@ const MyTickets = ({ drawerWidth }) => {
            dispatch(getMyTicketsBySearch({ search, page }));
        } else {
            dispatch(getMyTickets(page));
+           navigate('/myTickets')
        }
     //    dispatch(getMyTickets(page));
     }, [page])
@@ -59,17 +60,19 @@ const MyTickets = ({ drawerWidth }) => {
 
     if(loading) {
         return (
-            <Box sx={{ flexGrow: 1, p: 3, width: { md: `calc(100% - ${drawerWidth}px)` } }} >
-                <Toolbar />
-                <Backdrop
+            <>
+                {/* <Backdrop
                     sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                     open
-                >
+                > */}
                     <CircularProgress color="inherit" />
-                </Backdrop>
-            </Box>
+                {/* </Backdrop> */}
+            </>
         )
     }
+
+    if (!tickets.length && !loading) return (<Typography variant="h1">NO TICKEts</Typography>)
+
 
     const searchMyTickets = () => {
         if (search.trim()) {
@@ -91,11 +94,7 @@ const MyTickets = ({ drawerWidth }) => {
     }
 
     return (
-        <Box sx={{ flexGrow: 1, p: 3, width: { md: `calc(100% - ${drawerWidth}px)` } }} >
-            <Toolbar />
-
-            asdfasda
-
+        <>
             <Paper sx={{ p: 3, overflowX: 'scroll' }} elevation={3}>
 
                 <Typography variant="h5" fontWeight={700}> My Tickets </Typography>
@@ -168,7 +167,7 @@ const MyTickets = ({ drawerWidth }) => {
                     numberOfPages={numberOfPages}
             />
             </Paper>
-        </Box>
+        </>
     )
 };
 

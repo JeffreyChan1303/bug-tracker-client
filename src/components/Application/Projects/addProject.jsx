@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Box, Typography, Toolbar, TextField, Button, Paper, Select, MenuItem } from '@mui/material';
+import { Box, Typography, TextField, Button, Paper, Select, MenuItem } from '@mui/material';
 
 import { useCreateProjectMutation } from '../../../services/project/projectApi';
 
-const AddProject = ({ drawerWidth }) => {
+const AddProject = () => {
     const [createProject, responseInfo] = useCreateProjectMutation();
     const [postData, setPostData] = useState({
         creator: '', // this state will be taken from the redux store where Login information is stored
@@ -36,8 +36,7 @@ const AddProject = ({ drawerWidth }) => {
     };
 
     return (
-        <Box sx={{ flexGrow: 1, p: 3, width: { md: `calc(100% - ${drawerWidth}px)` } }} >
-            <Toolbar />
+        <>
             <Typography paragraph>
                 Add Project
             </Typography>
@@ -108,7 +107,7 @@ const AddProject = ({ drawerWidth }) => {
 
                 </form>
             </Paper>
-        </Box>
+        </>
     )
 };
 

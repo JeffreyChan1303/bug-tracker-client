@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Typography, Toolbar, Paper, Table, TableHead, TableRow, TableCell, TableBody, Backdrop, CircularProgress, IconButton, Tooltip, TextField, Chip, AppBar } from '@mui/material';
+import { Box, Typography, Paper, Table, TableHead, TableRow, TableCell, TableBody, Backdrop, CircularProgress, IconButton, Tooltip, TextField, Chip, AppBar } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { styled } from '@mui/system';
 import { useSelector, useDispatch } from 'react-redux';
@@ -25,7 +25,7 @@ function useQuery() {
 }
 
 
-const AllTickets = ({ drawerWidth }) => {
+const AllTickets = () => {
     const query = useQuery();
     const navigate = useNavigate();
     const location = useLocation();
@@ -60,15 +60,14 @@ const AllTickets = ({ drawerWidth }) => {
 
     if(loading) {
         return (
-            <Box sx={{ flexGrow: 1, p: 3, width: { md: `calc(100% - ${drawerWidth}px)` } }} >
-                <Toolbar />
+            <>
                 <Backdrop
                     sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                     open
                 >
                     <CircularProgress color="inherit" />
                 </Backdrop>
-            </Box>
+            </>
         )
     }
 
@@ -92,11 +91,7 @@ const AllTickets = ({ drawerWidth }) => {
     }
 
     return (
-        <Box sx={{ flexGrow: 1, p: 3, width: { md: `calc(100% - ${drawerWidth}px)` } }} >
-            <Toolbar />
-
-            asdfasda
-
+        <>
             <Paper sx={{ p: 3, overflowX: 'scroll' }} elevation={3}>
 
                 <Typography variant="h5" fontWeight={700}> All Tickets </Typography>
@@ -169,7 +164,7 @@ const AllTickets = ({ drawerWidth }) => {
                     numberOfPages={numberOfPages}
             />
             </Paper>
-        </Box>
+        </>
     )
 };
 

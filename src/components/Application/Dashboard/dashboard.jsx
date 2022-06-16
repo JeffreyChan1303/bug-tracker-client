@@ -1,11 +1,10 @@
 import React from 'react';
-import { Toolbar, Typography, Box } from '@mui/material';
+import { Typography } from '@mui/material';
 
-const Dashboard = ({ drawerWidth }) => {
+const Dashboard = () => {
 
     return (
-        <Box sx={{ flexGrow: 1, p: 3, width: { md: `calc(100% - ${drawerWidth}px)` } }} >
-            <Toolbar />
+        <>
             <Typography paragraph>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
             tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
@@ -36,7 +35,7 @@ const Dashboard = ({ drawerWidth }) => {
                 posuere sollicitudin aliquam ultrices sagittis orci a.
                 </Typography>
             ))}
-    </Box>
+    </>
     )
 };
 

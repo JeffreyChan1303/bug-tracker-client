@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Typography, Toolbar, TextField, Button, Paper, Select, MenuItem } from '@mui/material';
+import { Typography, TextField, Button, Paper, Select, MenuItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 import { useCreateTicketMutation } from '../../../services/ticket/ticketApi';
@@ -12,7 +12,7 @@ const initialPostData = {
     status: 'New',
 };
 
-const AddTicket = ({ drawerWidth }) => {
+const AddTicket = () => {
     const navigate = useNavigate();
     const [createTicket, responseInfo] = useCreateTicketMutation();
 
@@ -49,8 +49,7 @@ const AddTicket = ({ drawerWidth }) => {
     }
 
     return (
-        <Box sx={{ flexGrow: 1, p: 3, width: { md: `calc(100% - ${drawerWidth}px)` } }} >
-            <Toolbar />
+        <>
             <Typography paragraph>
                 Add Ticket
             </Typography>
@@ -119,7 +118,7 @@ const AddTicket = ({ drawerWidth }) => {
                         Clear
                     </Button>
             </Paper>
-        </Box>
+        </>
     )
 };
 

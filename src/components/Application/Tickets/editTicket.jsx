@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Typography, Toolbar, TextField, Button, Paper, Select, MenuItem, Backdrop, CircularProgress } from '@mui/material';
+import { Typography, TextField, Button, Paper, Select, MenuItem, Backdrop, CircularProgress } from '@mui/material';
 import { useParams } from 'react-router-dom';
 
 import { useGetTicketDetailsQuery, useUpdateTicketMutation } from '../../../services/ticket/ticketApi';
 
-const EditTicket = ({ drawerWidth }) => {
+const EditTicket = () => {
     const { id } = useParams()
     // QUERY A TICKET AND GET THE INFORMATION AND PUT IT INTO THE STATE for people to change
 
@@ -26,15 +26,14 @@ const EditTicket = ({ drawerWidth }) => {
 
     if(isFetching) {
         return (
-            <Box sx={{ flexGrow: 1, p: 3, width: { md: `calc(100% - ${drawerWidth}px)` } }} >
-                <Toolbar />
+            <>
                 <Backdrop
                     sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                     open
                 >
                     <CircularProgress color="inherit" />
                 </Backdrop>
-            </Box>
+            </>
         )
     }
     
@@ -74,8 +73,7 @@ const EditTicket = ({ drawerWidth }) => {
     }
 
     return (
-        <Box sx={{ flexGrow: 1, p: 3, width: { md: `calc(100% - ${drawerWidth}px)` } }} >
-            <Toolbar />
+        <>
             <Typography paragraph>
                 Editing Ticket, { id }
             </Typography>
@@ -149,7 +147,7 @@ const EditTicket = ({ drawerWidth }) => {
 
                 </form>
             </Paper>
-        </Box>
+        </>
     )
 };
 

@@ -1,14 +1,13 @@
 import React from 'react';
-import { Box, Typography, Toolbar, Paper, Accordion, AccordionSummary, AccordionDetails, Grid, Button } from '@mui/material';
+import { Typography, Paper, Accordion, AccordionSummary, AccordionDetails, Grid, Button } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 
-import { fontWeight, styled } from '@mui/system';
 
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useGetTicketDetailsQuery, useDeleteTicketMutation } from '../../../services/ticket/ticketApi';
 
-const TicketDetails = ({ drawerWidth }) => {
+const TicketDetails = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const { data, isFetching } = useGetTicketDetailsQuery(id);
@@ -26,8 +25,7 @@ const TicketDetails = ({ drawerWidth }) => {
 
 
     return (
-        <Box sx={{ flexGrow: 1, p: 3, width: { md: `calc(100% - ${drawerWidth}px)` }, transition: "ease-in-out" }} >
-            <Toolbar />
+        <>
             <Typography paragraph>
                 Ticket Details
             </Typography>
@@ -92,7 +90,7 @@ const TicketDetails = ({ drawerWidth }) => {
             </Accordion>
 
             </Paper>
-        </Box>
+        </>
     )
 };
 

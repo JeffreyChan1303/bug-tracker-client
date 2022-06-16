@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Toolbar, Paper, Pagination, Table, TableHead, TableRow, TableCell, TableBody, Backdrop, CircularProgress, IconButton, Tooltip } from '@mui/material';
+import { Typography, Paper, Pagination, Table, TableHead, TableRow, TableCell, TableBody, Backdrop, CircularProgress, IconButton, Tooltip } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
@@ -8,7 +8,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { useGetAllProjectsQuery } from '../../../services/project/projectApi';
 
 
-const AllProjects = ({ drawerWidth }) => {
+const AllProjects = () => {
     const { data, isFetching } = useGetAllProjectsQuery();
     console.log(data, isFetching);
 
@@ -16,15 +16,14 @@ const AllProjects = ({ drawerWidth }) => {
 
     if(isFetching) {
         return (
-            <Box sx={{ flexGrow: 1, p: 3, width: { md: `calc(100% - ${drawerWidth}px)` } }} >
-                <Toolbar />
+            <>
                 <Backdrop
                     sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                     open
                 >
                     <CircularProgress color="inherit" />
                 </Backdrop>
-            </Box>
+            </>
         )
     }
     
@@ -33,8 +32,7 @@ const AllProjects = ({ drawerWidth }) => {
     };
 
     return (
-        <Box sx={{ flexGrow: 1, p: 3, width: { md: `calc(100% - ${drawerWidth}px)` } }} >
-            <Toolbar />
+        <>
             <Typography paragraph>
                 All Projects
             </Typography>
@@ -84,7 +82,7 @@ const AllProjects = ({ drawerWidth }) => {
 
                 <Pagination count={10} variant="outlined" color="primary" onChange={handlePageChange}/>
             </Paper>
-        </Box>
+        </>
     )
 };
 

@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { Typography, TextField, Button, Paper, Select, MenuItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { crudFeedbackSuccess, crudFeedbackFailure } from '../../../services/crudFeedbackSlice';
+
+import CrudAlert from '../CrudFeedback/crudAlert';
 import { useCreateTicketMutation } from '../../../services/ticket/ticketApi';
 
 const initialPostData = {
@@ -12,7 +16,11 @@ const initialPostData = {
     status: 'New',
 };
 
+
 const AddTicket = () => {
+    const dispatch = useDispatch();
+    const crudFeedback = useSelector((state) => state.crudFeedback);
+
     const navigate = useNavigate();
     const [createTicket, responseInfo] = useCreateTicketMutation();
 
@@ -25,6 +33,7 @@ const AddTicket = () => {
     const handleStatusChange = (event) => {
         setPostData({ ...postData, status: event.target.value });
     };
+
 
 
     const handleSubmit = (event) => {
@@ -118,6 +127,8 @@ const AddTicket = () => {
                         Clear
                     </Button>
             </Paper>
+
+            <CrudAlert />
         </>
     )
 };

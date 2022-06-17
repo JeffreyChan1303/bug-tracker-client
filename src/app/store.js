@@ -7,6 +7,7 @@ import userReducer from '../services/user/userSlice';
 import authReducer from '../services/user/authSlice';
 import allTicketsReducer from '../services/ticket/allTicketsSlice';
 import myTicketsReducer from '../services/ticket/myTicketsSlice';
+import crudFeedbackReducer from '../services/crudFeedbackSlice';
 
 export const store = configureStore({
     reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
         auth: authReducer,
         allTickets: allTicketsReducer,
         myTickets: myTicketsReducer,
+        crudFeedback: crudFeedbackReducer,
     },
 
 

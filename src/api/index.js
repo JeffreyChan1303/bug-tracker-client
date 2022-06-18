@@ -21,4 +21,5 @@ export const getMyTicketsBySearch = (searchQuery, page) => API.get(`/tickets/myT
 
 export const createTicket = (newTicket) => API.post('/tickets/createTicket', newTicket);
 
+export const getTicketDetails = (id) => API.get(`tickets/ticketDetails/${id}`)
 export const deleteTicket = (id) => API.delete(`/tickets/deleteTicket/${id}`);

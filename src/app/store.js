@@ -10,6 +10,7 @@ import myTicketsReducer from '../services/ticket/myTicketsSlice';
 import crudFeedbackReducer from '../services/crudFeedbackSlice';
 import addTicketReducer from '../services/ticket/addTicketSlice';
 import deleteTicketReducer from '../services/ticket/deleteTicketSlice';
+import ticketDetailsReducer from '../services/ticket/ticketDetailsSlice';
 
 export const store = configureStore({
     reducer: {
@@ -22,6 +23,7 @@ export const store = configureStore({
         crudFeedback: crudFeedbackReducer,
         addTicket: addTicketReducer,
         deleteTicket: deleteTicketReducer,
+        ticketDetails: ticketDetailsReducer,
     },
 
 

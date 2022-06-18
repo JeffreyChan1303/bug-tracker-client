@@ -1,11 +1,22 @@
-import { createSlice } from "@reduxjs/toolkit";
-
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
-    isShown: false,
-    severity: null,
-    message: "",
+    alerts: [],
 };
+
+
+export const handleAlerts = createAsyncThunk( 'alert/handleAlert', async ( params, {dispatch, getState}) => {
+    dispatch(crudFeedbackSuccess());
+    const { crudFeedback: { alerts } } = getState()
+    const { id } = alerts[alerts.length - 1]
+    console.log(id);
+    setTimeout(() => {
+        dispatch(closeCrudFeedbackById(id));
+        console.log("wee wee handled alerts")
+    }, 3000)
+})
+
+// we need to have unique id numbers to delete cirtain object
 
 export const crudFeedbackSlice = createSlice({
     name: "Crud Feedback",
@@ -13,28 +24,38 @@ export const crudFeedbackSlice = createSlice({
     reducers: {
         crudFeedbackSuccess: (state, action) => {
             console.log("CRUDFEEDBACKSUCCESS!!")
-            state.isShown = true;
-            state.severity = "success";
-            state.message = action?.payload;
-
-            setTimeout(() => {
-                console.log("fix this please")
-                state.isShown = false;
-            }, 3000)
+            let id = Math.floor(Math.random() * 100 + 1)
+            while (state.alerts.findIndex(e => e.id === id) != -1) {
+                id = Math.floor(Math.random() * 100 + 1);
+            }
+            state.alerts.push({
+                // gets a random number as the key for the alert
+                id: id,
+                isShown: true,
+                severity: "success",
+                message: action?.payload,
+            })
         },
         crudFeedbackFailure: (state, action) => {
-            state.isShown = true;
-            state.severity = "error";
-            state.message = action?.payload;
-
-            setTimeout(() => {
-                // state.isShown = false;
-            }, 3000)
-            state.isShown = false;
+            state.alerts.push({
+                isShown: true,
+                severity: "error",
+                message: action?.payload,
+            })
 
         },
         closeCrudFeedback: (state, action) => {
-            state.isShown = false;
+            console.log("close crud")
+            state.alerts.shift()
+        },
+        closeCrudFeedbackById: (state, action) => {
+            console.log("close crud by id")
+            console.log(action?.payload)
+            const index = state.alerts.findIndex(e => e.id === action?.payload)
+            // only if the id is in the array
+            if (index != -1) {
+                state.alerts.splice(index, 1);
+            }
         },
     }
 })
@@ -44,4 +65,6 @@ export const {
     crudFeedbackSuccess,
     crudFeedbackFailure,
     closeCrudFeedback,
+    fadeCrudFeedback,
+    closeCrudFeedbackById,
 } = crudFeedbackSlice.actions;

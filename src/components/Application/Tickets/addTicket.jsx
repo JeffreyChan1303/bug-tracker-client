@@ -3,10 +3,11 @@ import { Typography, TextField, Button, Paper, Select, MenuItem } from '@mui/mat
 import { useNavigate } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { crudFeedbackSuccess, crudFeedbackFailure } from '../../../services/crudFeedbackSlice';
 
 import CrudAlert from '../CrudFeedback/crudAlert';
 import { useCreateTicketMutation } from '../../../services/ticket/ticketApi';
+import { crudFeedbackSuccess } from '../../../services/crudFeedbackSlice';
+import { closeCrudFeedback, handleAlerts } from '../../../services/crudFeedbackSlice';
 
 const initialPostData = {
     creator: '', // this state will be taken from the redux store where Login information is stored
@@ -20,8 +21,11 @@ const initialPostData = {
 const AddTicket = () => {
     const dispatch = useDispatch();
     const crudFeedback = useSelector((state) => state.crudFeedback);
-
     const navigate = useNavigate();
+
+
+    // we should put this as a async function in the crudFeedBack slice so all components can use it and dispatch it!!
+
     const [createTicket, responseInfo] = useCreateTicketMutation();
 
     const [postData, setPostData] = useState(initialPostData);
@@ -128,7 +132,12 @@ const AddTicket = () => {
                     </Button>
             </Paper>
 
-            <CrudAlert />
+            <Button variant="contained" onClick={() => dispatch(crudFeedbackSuccess("TESTSETS 1"))}>Success</Button>
+
+            <Typography>spasdni</Typography>
+
+            <Button variant="contained" onClick={() => dispatch(handleAlerts())}><Typography variang="h2">BUtton</Typography></Button>
+
         </>
     )
 };

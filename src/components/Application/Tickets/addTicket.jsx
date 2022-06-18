@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { Typography, TextField, Button, Paper, Select, MenuItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { useCreateTicketMutation } from '../../../services/ticket/ticketApi';
 import { handleAlerts } from '../../../services/crudFeedbackSlice';
+import { createTicket } from '../../../services/ticket/addTicketSlice';
 
 const initialPostData = {
     creator: '', // this state will be taken from the redux store where Login information is stored
@@ -18,13 +19,12 @@ const initialPostData = {
 
 const AddTicket = () => {
     const dispatch = useDispatch();
-    const crudFeedback = useSelector((state) => state.crudFeedback);
     const navigate = useNavigate();
 
 
     // we should put this as a async function in the crudFeedBack slice so all components can use it and dispatch it!!
 
-    const [createTicket, responseInfo] = useCreateTicketMutation();
+    // const [createTicket, responseInfo] = useCreateTicketMutation();
 
     const [postData, setPostData] = useState(initialPostData);
     const user = JSON.parse(localStorage.getItem('profile'))
@@ -48,8 +48,7 @@ const AddTicket = () => {
             alert("invalid description");
         }
 
-        createTicket({ ...postData, name: user?.userObject?.name }); 
-        responseInfo.isError && alert("failed creating ticket");
+        dispatch(createTicket({ ...postData, name: user?.userObject?.name })); 
         
         navigate("/allTickets");
 
@@ -148,6 +147,12 @@ const AddTicket = () => {
                     message: "Ticket has been successfully added",
             }))}>
                 <Typography variang="h2">NOT A BUTTON</Typography>
+            </Button>
+
+            <Button
+                variant="contained"
+                onClick={() => dispatch(createTicket(postData))}>
+                <Typography variang="h2">TEST BUTTON FOR NEW addTicket Slice</Typography>
             </Button>
 
         </>

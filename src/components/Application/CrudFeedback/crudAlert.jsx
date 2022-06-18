@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Alert, Button, Container, Fade, IconButton, Box } from "@mui/material";
+import { Alert, Fade, IconButton, Box } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { crudFeedbackSuccess, closeCrudFeedback, closeCrudFeedbackById } from '../../../services/crudFeedbackSlice';
+import { closeCrudFeedbackById } from '../../../services/crudFeedbackSlice';
 
 
 
@@ -28,12 +28,11 @@ const CrudAlert = () => {
                     key={element.id}
                     timeout={700}
                 >
-                    {/* {console.log(element)} */}
                     <Alert 
                         sx={{
                             mt: "5px"
                         }}
-                        severity="success" 
+                        severity={element.severity} 
                         variant="filled"
                         action={
                             <IconButton
@@ -45,11 +44,11 @@ const CrudAlert = () => {
                                 dispatch(closeCrudFeedbackById(element.id));
                             }}
                             >
-                                <CloseIcon fontSize="inherit" />
+                                <CloseIcon fontSize="small" />
                             </IconButton>
                         }
                     >
-                        This is a test alert
+                        {element.message}
                     </Alert>
                 </Fade>
             ))}

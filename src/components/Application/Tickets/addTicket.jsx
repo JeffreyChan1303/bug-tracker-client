@@ -4,10 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import CrudAlert from '../CrudFeedback/crudAlert';
 import { useCreateTicketMutation } from '../../../services/ticket/ticketApi';
-import { crudFeedbackSuccess } from '../../../services/crudFeedbackSlice';
-import { closeCrudFeedback, handleAlerts } from '../../../services/crudFeedbackSlice';
+import { handleAlerts } from '../../../services/crudFeedbackSlice';
 
 const initialPostData = {
     creator: '', // this state will be taken from the redux store where Login information is stored
@@ -132,11 +130,25 @@ const AddTicket = () => {
                     </Button>
             </Paper>
 
-            <Button variant="contained" onClick={() => dispatch(crudFeedbackSuccess("TESTSETS 1"))}>Success</Button>
-
             <Typography>spasdni</Typography>
 
-            <Button variant="contained" onClick={() => dispatch(handleAlerts())}><Typography variang="h2">BUtton</Typography></Button>
+            <Button
+                variant="contained"
+                onClick={() => dispatch(handleAlerts({
+                    severity: "success",
+                    message: "Ticket has been successfully added",
+            }))}>
+                <Typography variang="h2">BUtton</Typography>
+            </Button>
+
+            <Button
+                variant="contained"
+                onClick={() => dispatch(handleAlerts({
+                    severity: "error",
+                    message: "Ticket has been successfully added",
+            }))}>
+                <Typography variang="h2">NOT A BUTTON</Typography>
+            </Button>
 
         </>
     )

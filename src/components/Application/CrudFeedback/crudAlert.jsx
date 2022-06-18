@@ -39,7 +39,6 @@ const CrudAlert = () => {
                             color="inherit"
                             size="small"
                             onClick={() => {
-                                console.log(element.id)
                                 dispatch(closeCrudFeedbackById(element.id));
                             }}
                             >

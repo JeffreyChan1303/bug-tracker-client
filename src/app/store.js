@@ -8,6 +8,8 @@ import authReducer from '../services/user/authSlice';
 import allTicketsReducer from '../services/ticket/allTicketsSlice';
 import myTicketsReducer from '../services/ticket/myTicketsSlice';
 import crudFeedbackReducer from '../services/crudFeedbackSlice';
+import addTicketReducer from '../services/ticket/addTicketSlice';
+import deleteTicketReducer from '../services/ticket/deleteTicketSlice';
 
 export const store = configureStore({
     reducer: {
@@ -18,6 +20,8 @@ export const store = configureStore({
         allTickets: allTicketsReducer,
         myTickets: myTicketsReducer,
         crudFeedback: crudFeedbackReducer,
+        addTicket: addTicketReducer,
+        deleteTicket: deleteTicketReducer,
     },
 
 

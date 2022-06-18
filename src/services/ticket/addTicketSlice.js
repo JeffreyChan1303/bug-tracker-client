@@ -7,15 +7,16 @@ const initialState = {
     error: '',
 }
 
-export const createTicket = createAsyncThunk('ticket/createTicket', async (newTicket, { dispatch }) => {
+export const createTicket = createAsyncThunk('ticket/createTicket', async (newTicket, { dispatch, rejectWithValue }) => {
     try {
         const { data } = await api.createTicket(newTicket);
         console.log(data)
 
         dispatch(handleAlerts({ severity: "success", message: "Ticket was successfully created!" }))
-        // return data
+        return data
     } catch (error) {
         dispatch(handleAlerts({ severity: "error", message: `Ticket was not created. Error: ${error.message}` }));
+        return rejectWithValue(error);
     }
 })
 
@@ -31,7 +32,7 @@ const addTicketSlice = createSlice({
         })
         builder.addCase(createTicket.rejected, (state, action) => {
             state.loading = false;
-            state.error = action.error.message;
+            state.error = action.payload.message;
         })
     }
 })

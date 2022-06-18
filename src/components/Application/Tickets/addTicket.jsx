@@ -41,17 +41,18 @@ const AddTicket = () => {
     const handleSubmit = (event) => {
         event.preventDefault(); // this stops the page from it's default refrash setting when clicking a button on the react form.
 
-        if (postData.title === '') { // this should be changed to a shake and notification using mui error to indicate one of the text fields are wrong
-            alert("invalid title"); 
+        if (postData.title === '') { 
+            dispatch(handleAlerts({ severity: "warning", message: "Invalid title" }));
         }
         if (postData.description === '') {
             alert("invalid description");
+            dispatch(handleAlerts({ severity: "warning", message: "Invalid description" }));
         }
 
-        dispatch(createTicket({ ...postData, name: user?.userObject?.name })); 
-        
-        navigate("/allTickets");
-
+        if (postData.title !== '' && postData.description !== '') {
+            dispatch(createTicket({ ...postData, name: user?.userObject?.name }));
+            navigate("/allTickets");
+        }
     };
 
     const handleClear = () => {
@@ -128,33 +129,6 @@ const AddTicket = () => {
                         Clear
                     </Button>
             </Paper>
-
-            <Typography>spasdni</Typography>
-
-            <Button
-                variant="contained"
-                onClick={() => dispatch(handleAlerts({
-                    severity: "success",
-                    message: "Ticket has been successfully added",
-            }))}>
-                <Typography variang="h2">BUtton</Typography>
-            </Button>
-
-            <Button
-                variant="contained"
-                onClick={() => dispatch(handleAlerts({
-                    severity: "error",
-                    message: "Ticket has been successfully added",
-            }))}>
-                <Typography variang="h2">NOT A BUTTON</Typography>
-            </Button>
-
-            <Button
-                variant="contained"
-                onClick={() => dispatch(createTicket(postData))}>
-                <Typography variang="h2">TEST BUTTON FOR NEW addTicket Slice</Typography>
-            </Button>
-
         </>
     )
 };

@@ -10,10 +10,8 @@ export const handleAlerts = createAsyncThunk( 'alert/handleAlert', async ({ seve
     const { crudFeedback: { alerts } } = getState()
     const { id } = alerts[alerts.length - 1]
 
-    console.log(id);
     setTimeout(() => {
         dispatch(closeCrudFeedbackById(id));
-        console.log("wee wee handled alerts")
     }, 6000)
 })
 

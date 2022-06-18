@@ -1,25 +1,30 @@
 import React from 'react';
 import { Typography, Paper, Accordion, AccordionSummary, AccordionDetails, Grid, Button } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useGetTicketDetailsQuery, useDeleteTicketMutation } from '../../../services/ticket/ticketApi';
+import { useGetTicketDetailsQuery } from '../../../services/ticket/ticketApi';
+import { deleteTicket } from '../../../services/ticket/deleteTicketSlice';
 
 const TicketDetails = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const { data, isFetching } = useGetTicketDetailsQuery(id);
-    const [deleteTicket, responseInfo] = useDeleteTicketMutation();
-    console.log(data)
+    console.log(data);
+
+    const dispatch = useDispatch();
 
       
     const handleDeleteTicket = () => {
-        deleteTicket(id);
-        if (responseInfo.isError) {
-            alert("Ticket has failed to delete")
-        }
+        // deleteTicket(id);
+        // if (responseInfo.isError) {
+        //     alert("Ticket has failed to delete")
+        // }
+
+        dispatch(deleteTicket(id))
         navigate("/allTickets")
     }
 

@@ -45,7 +45,6 @@ const AddTicket = () => {
             dispatch(handleAlerts({ severity: "warning", message: "Invalid title" }));
         }
         if (postData.description === '') {
-            alert("invalid description");
             dispatch(handleAlerts({ severity: "warning", message: "Invalid description" }));
         }
 

@@ -43,17 +43,11 @@ const AllTickets = () => {
 
 
     useEffect(() => {
-        /* 
-        put the api fetch data function in here so every time the location or the user routes,
-        the fetch data will be called and the new tickts will be updated every time you come back to the page!!
-        The current, hook useGetAllTicketQuery is not working since we cann't put react hooks into a useEffect!!.
-        */
        if (search.trim()) {
            dispatch(getAllTicketsBySearch({ search, page }));
        } else {
            dispatch(getAllTickets(page));
        }
-    //    dispatch(getAllTickets(page));
     }, [page])
 
 
@@ -85,7 +79,6 @@ const AllTickets = () => {
 
     const handleKeyPress = (e) => {
         if (e.keyCode === 13) {
-            // search for post... probably a dispatch or something here
             searchAllTickets();
         }
     }
@@ -138,12 +131,12 @@ const AllTickets = () => {
                             <ContentTableCell align="right">add last updated</ContentTableCell>
                             <ContentTableCell sx={{ display: "flex", justifyContent: "center" }}>
                                 <Tooltip title="View">
-                                    <IconButton href={`/ticketDetails/${ticket._id}`}>
+                                    <IconButton onClick={() => navigate(`/ticketDetails/${ticket._id}`)}>
                                         <VisibilityOutlinedIcon />
                                     </IconButton>
                                 </Tooltip>
                                 <Tooltip title="Edit">
-                                    <IconButton href={`/editTicket/${ticket._id}`}>
+                                    <IconButton onClick={() => navigate(`/editTicket/${ticket._id}`)}>
                                         <EditOutlinedIcon />
                                     </IconButton>
                                 </Tooltip>

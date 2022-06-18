@@ -7,15 +7,16 @@ const initialState = {
     error: '',
 }
 
-export const deleteTicket = createAsyncThunk('ticket/deleteTicket', async (params, {dispatch, getState, rejectWithValue}) => {
+export const deleteTicket = createAsyncThunk('ticket/deleteTicket', async (id, {dispatch, rejectWithValue}) => {
     try {
-        const { data } = await api.deleteTicket(params.id);
+        const { data } = await api.deleteTicket(id);
 
-        dispatch(handleAlerts({ severity: 'success', message: `Ticket id: ${params.id} has been successfully deleted.` }))
+        dispatch(handleAlerts({ severity: 'success', message: `Ticket id: ${id} has been successfully deleted.` }))
         return data
     } catch (error) {
         console.log(error)
-        dispatch(handleAlerts({ severity: 'error', message: `Ticket was not deleted. Error: ${error.message}`}))
+        dispatch(handleAlerts({ severity: 'error', message: `Ticket failed to delete. Error: ${error.message}`}))
+
         return rejectWithValue(error)
     }
 })

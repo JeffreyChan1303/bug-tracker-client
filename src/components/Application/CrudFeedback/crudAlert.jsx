@@ -11,7 +11,6 @@ const CrudAlert = () => {
 
     const dispatch = useDispatch();
     const { alerts } = useSelector((state) => state.crudFeedback);
-    console.log(alerts)
 
     return (
         <>

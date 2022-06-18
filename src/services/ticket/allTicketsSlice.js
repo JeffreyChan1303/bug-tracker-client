@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from '../../api/index';
+import { handleAlerts } from '../crudFeedbackSlice';
 
 const initialState = {
     loading: false,
@@ -11,7 +12,7 @@ const initialState = {
 
 
 // generates pending, fulfilled, and rejected action types
-export const getAllTickets = createAsyncThunk('ticket/getAllTickets', async (page) => {
+export const getAllTickets = createAsyncThunk('ticket/getAllTickets', async (page, {dispatch, getState}) => {
     try {
         const { data } = await api.getAllTickets(page);
 
@@ -20,10 +21,19 @@ export const getAllTickets = createAsyncThunk('ticket/getAllTickets', async (pag
         return data
     } catch (error) {
         console.log(error);
+
+        const { allTickets } = getState()
+        // console.log(loading)
+        dispatch(handleAlerts({ severity: 'error', message: `All Tickets Page: ${error.message}` }))
+        allTickets.loading = false; // WHY DOES THIS make the dispatch below not run????QQ??
+        // This state change seems to end the function for some reason??? I dont know how this works...
+
+        console.log(allTickets.loading)
+
     }
 })
 
-export const getAllTicketsBySearch = createAsyncThunk('ticket/getAllTicketsBySearch', async ({ search, page } , {dispatch}) => {
+export const getAllTicketsBySearch = createAsyncThunk('ticket/getAllTicketsBySearch', async ({ search, page } , {dispatch, getState}) => {
     const searchQuery = search;
     // console.log(searchQuery, page)
     try {
@@ -32,7 +42,13 @@ export const getAllTicketsBySearch = createAsyncThunk('ticket/getAllTicketsBySea
         // console.log(data);
         return data
     } catch (error) {
-        console.log(error);   
+        console.log(error);
+
+        const { allTickets } = getState()
+        // console.log(loading)
+        dispatch(handleAlerts({ severity: 'error', message: `All Tickets Page: ${error.message}` }))
+        allTickets.loading = false; // WHY DOES THIS make the dispatch below not run????QQ??
+        // This state change seems to end the function for some reason??? I dont know how this works...
     }
 })
 

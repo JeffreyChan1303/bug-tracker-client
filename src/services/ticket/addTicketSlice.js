@@ -12,10 +12,10 @@ export const createTicket = createAsyncThunk('ticket/createTicket', async (newTi
         const { data } = await api.createTicket(newTicket);
         console.log(data)
 
-        dispatch(handleAlerts({ severity: "success", message: "The createTicket async function works " }))
-        return data
+        dispatch(handleAlerts({ severity: "success", message: "Ticket was successfully created!" }))
+        // return data
     } catch (error) {
-        console.log(error)
+        dispatch(handleAlerts({ severity: "error", message: `Ticket was not created. Error: ${error.message}` }));
     }
 })
 

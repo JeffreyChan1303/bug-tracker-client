@@ -60,14 +60,7 @@ const MyTickets = () => {
 
     if(loading) {
         return (
-            <>
-                {/* <Backdrop
-                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                    open
-                > */}
-                    <CircularProgress color="inherit" />
-                {/* </Backdrop> */}
-            </>
+            <CircularProgress color="inherit" />
         )
     }
 
@@ -141,12 +134,12 @@ const MyTickets = () => {
                             <ContentTableCell align="right">add last updated</ContentTableCell>
                             <ContentTableCell sx={{ display: "flex", justifyContent: "center" }}>
                                 <Tooltip title="View">
-                                    <IconButton href={`/ticketDetails/${ticket._id}`}>
+                                    <IconButton onClick={() => navigate(`/ticketDetails/${ticket._id}`)}>
                                         <VisibilityOutlinedIcon />
                                     </IconButton>
                                 </Tooltip>
                                 <Tooltip title="Edit">
-                                    <IconButton href={`/editTicket/${ticket._id}`}>
+                                    <IconButton onClick={() => navigate(`/editTicket/${ticket._id}`)}>
                                         <EditOutlinedIcon />
                                     </IconButton>
                                 </Tooltip>

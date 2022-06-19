@@ -20,7 +20,7 @@ export const getMyTickets = (page) => API.get(`/tickets/myTickets?page=${page}`)
 export const getMyTicketsBySearch = (searchQuery, page) => API.get(`/tickets/myTickets/search?searchQuery=${searchQuery || 'none'}&page=${page}`);
 
 export const createTicket = (newTicket) => API.post('/tickets/createTicket', newTicket);
-export const editTicket = (newTicket) => API.patch(`tickets/updateTicket/${newTicket._id}`, newTicket);
+export const updateTicket = (newTicket) => API.patch(`tickets/updateTicket/${newTicket._id}`, newTicket);
 
 export const getTicketDetails = (id) => API.get(`tickets/ticketDetails/${id}`)
 

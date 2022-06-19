@@ -3,30 +3,28 @@ import { Typography, TextField, Button, Paper, Select, MenuItem, Backdrop, Circu
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { useGetTicketDetailsQuery, useUpdateTicketMutation } from '../../../services/ticket/ticketApi';
 import { getTicketDetails } from '../../../services/ticket/ticketDetailsSlice';
 import { updateTicket } from '../../../services/ticket/editTicketSlice';
+
+const initialTicketData = {
+    creator: '',
+    title: '',
+    description: '',
+    priority: 'High',
+    status: 'New',
+}
 
 const EditTicket = () => {
     const { id } = useParams()
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { loading, ticket} = useSelector(state => state.ticketDetails);    
-
-
-    const [postData, setPostData] = useState({
-        creator: '', // this state will be taken from the redux store where Login information is stored
-        title: '',
-        description: '',
-        priority: 'High',
-        status: 'New',
-        _id: id,
-    });
+    const [ticketData, setTicketData] = useState(initialTicketData);
+    // console.log(ticket)
 
     useEffect(() => {
         dispatch(getTicketDetails(id));
     }, [])
-  
 
     if(loading) {
         return (
@@ -44,30 +42,34 @@ const EditTicket = () => {
 
 
     const handlePriorityChange = (event) => {
-        setPostData({ ...postData, priority: event.target.value });
+        setTicketData({ ...ticketData, priority: event.target.value });
     };
     const handleStatusChange = (event) => {
-        setPostData({ ...postData, status: event.target.value });
+        setTicketData({ ...ticketData, status: event.target.value });
     };
 
 
     const handleSubmit = (event) => {
         event.preventDefault(); // this stops the page from it's default refrash setting when clicking a button on the react form.
 
-        if (postData.title === '') { // this should be changed to a shake and notification using mui error to indicate one of the text fields are wrong
+        if (ticketData.title === '') { // this should be changed to a shake and notification using mui error to indicate one of the text fields are wrong
             alert("invalid title"); 
         }
-        if (postData.description === '') {
+        if (ticketData.description === '') {
             alert("invalid description");
         }
 
-        dispatch(updateTicket(postData));
+        dispatch(updateTicket({ ...ticketData, _id: id }));
         navigate('/allTickets');
     };
 
+    const handleClear = () => {
+        setTicketData(initialTicketData);
+    }
+
     const handleUsePrevTicketValues = () => {
-        setPostData({
-            ...postData,
+        setTicketData({
+            ...ticketData,
             title: ticket.title,
             description: ticket.description,
             priority: ticket.priority,
@@ -94,8 +96,8 @@ const EditTicket = () => {
                         multiline
                         size="small"
                         sx={{ mb: 2 }}
-                        value={postData.title}
-                        onChange={(e) => setPostData({ ...postData, title: e.target.value })}
+                        value={ticketData.title}
+                        onChange={(e) => setTicketData({ ...ticketData, title: e.target.value })}
                     />
 
                     <Typography variant="body1" fontWeight={700}>Ticket Description</Typography>
@@ -107,13 +109,13 @@ const EditTicket = () => {
                         size="small"
                         sx={{ mb: 2 }}
                         rows={4}
-                        value={postData.description}
-                        onChange={(e) => setPostData({ ...postData, description: e.target.value })}
+                        value={ticketData.description}
+                        onChange={(e) => setTicketData({ ...ticketData, description: e.target.value })}
                     />
 
                     <Typography variant="body1" fontWeight={700}>Ticket Priority</Typography>
                     <Select
-                        value={postData.priority}
+                        value={ticketData.priority}
                         onChange={handlePriorityChange}
                         sx={{ mb: 2 }}
                         fullWidth
@@ -125,7 +127,7 @@ const EditTicket = () => {
 
                     <Typography variant="body1" fontWeight={700}>Ticket Status</Typography>
                     <Select
-                        value={postData.status}
+                        value={ticketData.status}
                         onChange={handleStatusChange}
                         sx={{ mb: 2 }}
                         fullWidth
@@ -144,8 +146,8 @@ const EditTicket = () => {
                     <Button sx={{ mr: 1 }} variant="contained" color="primary" size="small" onClick={handleSubmit} >
                         Save
                     </Button>
-                    <Button sx={{}} variant="outlined" color="secondary" size="small" type="cancel" onClick={() => ({})}>
-                        Cancel
+                    <Button sx={{}} variant="outlined" color="secondary" size="small" onClick={handleClear}>
+                        Clear
                     </Button>
 
                 </form>

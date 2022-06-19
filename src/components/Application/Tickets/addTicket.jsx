@@ -4,11 +4,10 @@ import { useNavigate } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 
-import { useCreateTicketMutation } from '../../../services/ticket/ticketApi';
 import { handleAlerts } from '../../../services/crudFeedbackSlice';
 import { createTicket } from '../../../services/ticket/addTicketSlice';
 
-const initialPostData = {
+const initialTicketData = {
     creator: '', // this state will be taken from the redux store where Login information is stored
     title: '',
     description: '',
@@ -20,20 +19,14 @@ const initialPostData = {
 const AddTicket = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
-
-    // we should put this as a async function in the crudFeedBack slice so all components can use it and dispatch it!!
-
-    // const [createTicket, responseInfo] = useCreateTicketMutation();
-
-    const [postData, setPostData] = useState(initialPostData);
+    const [ticketData, setTicketData] = useState(initialTicketData);
     const user = JSON.parse(localStorage.getItem('profile'))
 
     const handlePriorityChange = (event) => {
-        setPostData({ ...postData, priority: event.target.value });
+        setTicketData({ ...ticketData, priority: event.target.value });
     };
     const handleStatusChange = (event) => {
-        setPostData({ ...postData, status: event.target.value });
+        setTicketData({ ...ticketData, status: event.target.value });
     };
 
 
@@ -41,21 +34,21 @@ const AddTicket = () => {
     const handleSubmit = (event) => {
         event.preventDefault(); // this stops the page from it's default refrash setting when clicking a button on the react form.
 
-        if (postData.title === '') { 
+        if (ticketData.title === '') { 
             dispatch(handleAlerts({ severity: "warning", message: "Invalid title" }));
         }
-        if (postData.description === '') {
+        if (ticketData.description === '') {
             dispatch(handleAlerts({ severity: "warning", message: "Invalid description" }));
         }
 
-        if (postData.title !== '' && postData.description !== '') {
-            dispatch(createTicket({ ...postData, name: user?.userObject?.name }));
+        if (ticketData.title !== '' && ticketData.description !== '') {
+            dispatch(createTicket({ ...ticketData, name: user?.userObject?.name }));
             navigate("/allTickets");
         }
     };
 
     const handleClear = () => {
-        setPostData(initialPostData);
+        setTicketData(initialTicketData);
     }
 
     return (
@@ -74,8 +67,8 @@ const AddTicket = () => {
                         multiline
                         size="small"
                         sx={{ mb: 2 }}
-                        value={postData.title}
-                        onChange={(e) => setPostData({ ...postData, title: e.target.value })}
+                        value={ticketData.title}
+                        onChange={(e) => setTicketData({ ...ticketData, title: e.target.value })}
                     />
 
                     <Typography variant="body1" fontWeight={700}>Ticket Description</Typography>
@@ -87,13 +80,13 @@ const AddTicket = () => {
                         size="small"
                         sx={{ mb: 2 }}
                         rows={4}
-                        value={postData.description}
-                        onChange={(e) => setPostData({ ...postData, description: e.target.value })}
+                        value={ticketData.description}
+                        onChange={(e) => setTicketData({ ...ticketData, description: e.target.value })}
                     />
 
                     <Typography variant="body1" fontWeight={700}>Ticket Priority</Typography>
                     <Select
-                        value={postData.priority}
+                        value={ticketData.priority}
                         onChange={handlePriorityChange}
                         sx={{ mb: 2 }}
                         fullWidth
@@ -105,7 +98,7 @@ const AddTicket = () => {
 
                     <Typography variant="body1" fontWeight={700}>Ticket Status</Typography>
                     <Select
-                        value={postData.status}
+                        value={ticketData.status}
                         onChange={handleStatusChange}
                         sx={{ mb: 2 }}
                         fullWidth

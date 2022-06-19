@@ -10,7 +10,7 @@ const initialState = {
 export const updateTicket = createAsyncThunk('ticket/updateTicket', async (newTicket, { dispatch, rejectWithValue }) => {
     try {
         console.log("updatedTicket :", newTicket);
-        const { data } = await api.editTicket(newTicket);
+        const { data } = await api.updateTicket(newTicket);
         console.log(data)
 
         dispatch(handleAlerts({ severity: 'success', message: 'Ticket was successfully updated' }));

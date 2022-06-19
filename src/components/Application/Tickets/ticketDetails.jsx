@@ -33,8 +33,8 @@ const TicketDetails = () => {
             </Typography>
 
             <Paper sx={{ p: 3 }} elevation={3}>
-                <Typography>Ticket ID: {id}</Typography>
-                <Typography>Created By: {ticket.creator}</Typography>
+                <Typography>Ticket ID: {ticket._id}</Typography>
+                <Typography>Created By: {ticket.name}</Typography>
                 <Typography>Created At: {ticket.createdAt}</Typography>
 
             <Accordion defaultExpanded={true} elevation={3} >

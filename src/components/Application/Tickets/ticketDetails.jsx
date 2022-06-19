@@ -55,7 +55,7 @@ const TicketDetails = () => {
                     <Typography>Priority: {ticket.priority}</Typography>
                     <Typography>Status: {ticket.status}</Typography>
                     <Grid container>
-                        <Button variant="outlined">Edit</Button>
+                        <Button variant="outlined" onClick={() => navigate(`/editTicket/${id}`)}>Edit</Button>
                         <Button variant="outlined" onClick={handleDeleteTicket}>Delete</Button>
                     </Grid>
                 </AccordionDetails>

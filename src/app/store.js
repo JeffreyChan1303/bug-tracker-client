@@ -11,6 +11,7 @@ import crudFeedbackReducer from '../services/crudFeedbackSlice';
 import addTicketReducer from '../services/ticket/addTicketSlice';
 import deleteTicketReducer from '../services/ticket/deleteTicketSlice';
 import ticketDetailsReducer from '../services/ticket/ticketDetailsSlice';
+import editTicketReducer from '../services/ticket/editTicketSlice';
 
 export const store = configureStore({
     reducer: {
@@ -24,8 +25,10 @@ export const store = configureStore({
         addTicket: addTicketReducer,
         deleteTicket: deleteTicketReducer,
         ticketDetails: ticketDetailsReducer,
+        editTicket: editTicketReducer,
     },
 
+    
 
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(ticketApi.middleware),

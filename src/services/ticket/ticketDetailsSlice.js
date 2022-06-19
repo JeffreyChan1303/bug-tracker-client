@@ -16,13 +16,13 @@ export const getTicketDetails = createAsyncThunk('ticket/getTicketDetails', asyn
         return data;
     } catch (error) {
         console.log(error);
-        dispatch(handleAlerts({ severity: 'error', message: `Failed to get ticket details of ticket ${id}`}));
-        return rejectWithValue(error)
+        dispatch(handleAlerts({ severity: 'error', message: `Failed to get ticket details of ticket id: ${id}`}));
+        return rejectWithValue(error);
     }
 });
 
-const getTicketDetailsSlice = createSlice({
-    name: 'getTicketDetails',
+const ticketDetailsSlice = createSlice({
+    name: 'ticketDetails',
     initialState,
     extraReducers: builder => {
         builder.addCase(getTicketDetails.pending, (state) => {
@@ -39,5 +39,5 @@ const getTicketDetailsSlice = createSlice({
     }
 })
 
-export default getTicketDetailsSlice.reducer;
+export default ticketDetailsSlice.reducer;
 

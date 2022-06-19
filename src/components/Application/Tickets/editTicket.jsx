@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Typography, TextField, Button, Paper, Select, MenuItem, Backdrop, CircularProgress } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { useGetTicketDetailsQuery, useUpdateTicketMutation } from '../../../services/ticket/ticketApi';
+import { getTicketDetails } from '../../../services/ticket/ticketDetailsSlice';
+import { updateTicket } from '../../../services/ticket/editTicketSlice';
 
 const EditTicket = () => {
     const { id } = useParams()
-    // QUERY A TICKET AND GET THE INFORMATION AND PUT IT INTO THE STATE for people to change
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { loading, ticket} = useSelector(state => state.ticketDetails);    
 
-    // get ticket information
-    // update ticket information
-    const [updateTicket, responseInfo] = useUpdateTicketMutation();
 
     const [postData, setPostData] = useState({
         creator: '', // this state will be taken from the redux store where Login information is stored
@@ -21,10 +23,12 @@ const EditTicket = () => {
         _id: id,
     });
 
-    const { data, isFetching } = useGetTicketDetailsQuery(id);
-    
+    useEffect(() => {
+        dispatch(getTicketDetails(id));
+    }, [])
+  
 
-    if(isFetching) {
+    if(loading) {
         return (
             <>
                 <Backdrop
@@ -57,25 +61,24 @@ const EditTicket = () => {
             alert("invalid description");
         }
 
-        updateTicket(postData);
-        console.log(responseInfo);
-        responseInfo.isError && alert("failed creating ticket");
+        dispatch(updateTicket(postData));
+        navigate('/allTickets');
     };
 
     const handleUsePrevTicketValues = () => {
         setPostData({
             ...postData,
-            title: data? data.title : '',
-            description: data? data.description : '',
-            priority: data? data.priority : 'High',
-            status: data? data.status : 'New',
+            title: ticket.title,
+            description: ticket.description,
+            priority: ticket.priority,
+            status: ticket.status,
         })
     }
 
     return (
         <>
             <Typography paragraph>
-                Editing Ticket, { id }
+                Editing Ticket Id: { id }
             </Typography>
             <Button sx={{}} variant="outlined" color="secondary" size="small" type="cancel" onClick={handleUsePrevTicketValues}>
                     use default tick values
@@ -138,7 +141,7 @@ const EditTicket = () => {
                     </Select>
                     
 
-                    <Button sx={{ mr: 1 }} variant="contained" color="primary" size="small" type="submit" >
+                    <Button sx={{ mr: 1 }} variant="contained" color="primary" size="small" onClick={handleSubmit} >
                         Save
                     </Button>
                     <Button sx={{}} variant="outlined" color="secondary" size="small" type="cancel" onClick={() => ({})}>

@@ -12,43 +12,29 @@ const initialState = {
 
 
 // generates pending, fulfilled, and rejected action types
-export const getAllTickets = createAsyncThunk('ticket/getAllTickets', async (page, {dispatch, getState}) => {
+export const getAllTickets = createAsyncThunk('ticket/getAllTickets', async (page, {dispatch, rejectWithValue}) => {
     try {
         const { data } = await api.getAllTickets(page);
 
-        // console.log(data);
-
         return data
     } catch (error) {
         console.log(error);
-
-        const { allTickets } = getState()
-        // console.log(loading)
         dispatch(handleAlerts({ severity: 'error', message: `All Tickets Page: ${error.message}` }))
-        allTickets.loading = false; // WHY DOES THIS make the dispatch below not run????QQ??
-        // This state change seems to end the function for some reason??? I dont know how this works...
-
-        console.log(allTickets.loading)
-
+        return rejectWithValue(error)
     }
 })
 
-export const getAllTicketsBySearch = createAsyncThunk('ticket/getAllTicketsBySearch', async ({ search, page } , {dispatch, getState}) => {
+export const getAllTicketsBySearch = createAsyncThunk('ticket/getAllTicketsBySearch', async ({ search, page } , {dispatch, rejectWithValue}) => {
     const searchQuery = search;
-    // console.log(searchQuery, page)
+
     try {
         const { data } = await api.getAllTicketsBySearch(searchQuery, page);
 
-        // console.log(data);
         return data
     } catch (error) {
         console.log(error);
-
-        const { allTickets } = getState()
-        // console.log(loading)
         dispatch(handleAlerts({ severity: 'error', message: `All Tickets Page: ${error.message}` }))
-        allTickets.loading = false; // WHY DOES THIS make the dispatch below not run????QQ??
-        // This state change seems to end the function for some reason??? I dont know how this works...
+        return rejectWithValue(error)
     }
 })
 
@@ -65,7 +51,7 @@ const isFulfilled = (state, action) => {
 const isRejected = (state, action) => {
     state.loading = false;
     state.tickets = [];
-    state.error = action.error.message;
+    state.error = action.payload.message;
 };
 
 const allTicketsSlice = createSlice({

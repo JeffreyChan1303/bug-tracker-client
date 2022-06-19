@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
-import { getAllTickets, getAllTicketsBySearch } from '../../../services/ticket/allTicketsSlice';
+import { getArchivedTickets, getArchivedTicketsBySearch } from '../../../services/ticket/ticketArchiveSlice';
 import CustomPagination from '../pagination';
 
 const BoldedTableCell = styled(TableCell) (({theme}) => ({
@@ -31,29 +31,29 @@ const TicketArchive = () => {
     const page = query.get('page');
     // const searchQuery = query.get('searchQuery');
     const [search, setSearch] = useState('');
-    const { loading, tickets, currentPage, numberOfPages } = useSelector((state) => state.allTickets);
+    const { loading, tickets, currentPage, numberOfPages } = useSelector((state) => state.ticketArchive);
     const dispatch = useDispatch();
 
     useEffect(() => {
        if (search.trim()) {
-           dispatch(getAllTicketsBySearch({ search, page }));
+           dispatch(getArchivedTicketsBySearch({ search, page }));
        } else {
-           dispatch(getAllTickets(page));
+           dispatch(getArchivedTickets(page));
        }
     }, [page])
 
-    const searchAllTickets = () => {
+    const searchArchivedTickets = () => {
         if (search.trim()) {
-            dispatch(getAllTicketsBySearch({ search, page: 1 }))
-            navigate(`/allTickets/search?searchQuery=${search || 'none'}&page=1`);
+            dispatch(getArchivedTicketsBySearch({ search, page: 1 }))
+            navigate(`/archivedTickets/search?searchQuery=${search || 'none'}&page=1`);
         } else {
-            navigate('/allTickets')
+            navigate('/archivedTickets')
         }
     }
 
     const handleKeyPress = (e) => {
         if (e.keyCode === 13) {
-            searchAllTickets();
+            searchArchivedTickets();
         }
     }
 
@@ -125,7 +125,7 @@ const TicketArchive = () => {
 
             <Paper elevation={6} >
                 <CustomPagination 
-                    path={`/allTickets${search.trim()? `/search?searchQuery=${search}&` : `?`}`}
+                    path={`/archivedTickets${search.trim()? `/search?searchQuery=${search}&` : `?`}`}
                     page={page}
                     currentPage={currentPage}
                     numberOfPages={numberOfPages}

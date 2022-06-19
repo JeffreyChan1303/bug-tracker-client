@@ -27,7 +27,7 @@ export const getMyTicketsBySearch = createAsyncThunk('ticket/getMyTicketsBySearc
     const searchQuery = search;
     // console.log(searchQuery, page)
     try {
-        const { data } = await api.getMyTicketsBySearch(searchQuery, page);
+        const { data } = await api.getMyTicketsBySearch(page, searchQuery);
 
         // console.log(data);
         return data

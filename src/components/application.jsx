@@ -62,6 +62,7 @@ const Application = () => {
                             <Route exact path="/*" element={<Navigate to="/dashboard" replace />} />
                             <Route exact path="/dashboard" element={<Dashboard />} />
 
+                            {/* Project Routes */}
                             <Route exact path="/allProjects" element={<AllProjects />} />
                             <Route exact path="/myProjects" element={<MyProjects />} />
                             <Route exact path="/addProject" element={<AddProject />} />
@@ -77,8 +78,10 @@ const Application = () => {
                             <Route exact path="/myTickets" element={<MyTickets />} />
                             <Route exact path="/myTickets/search" element={<MyTickets />} />
 
-                            <Route exact path="/addTicket" element={<AddTicket />} />
                             <Route exact path="/ticketArchive" element={<TicketArchive />} />
+                            <Route exact path="/ticketArchive/search" element={<TicketArchive />} />
+
+                            <Route exact path="/addTicket" element={<AddTicket />} />
                             <Route exact path="/editTicket/:id" element={<EditTicket />} />
                             <Route exact path="/ticketDetails/:id" element={<TicketDetails />} />
 

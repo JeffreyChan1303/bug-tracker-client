@@ -45,9 +45,9 @@ const TicketArchive = () => {
     const searchArchivedTickets = () => {
         if (search.trim()) {
             dispatch(getArchivedTicketsBySearch({ search, page: 1 }))
-            navigate(`/archivedTickets/search?searchQuery=${search || 'none'}&page=1`);
+            navigate(`/ticketArchive/search?searchQuery=${search || 'none'}&page=1`);
         } else {
-            navigate('/archivedTickets')
+            navigate('/ticketArchive')
         }
     }
 

@@ -12,9 +12,10 @@ const initialState = {
 
 export const getArchivedTickets = createAsyncThunk('ticket/getArchivedTickets', async ( page, { dispatch, rejectWithValue }) => {
     try {
+        const { data } = await api.getArchivedTickets(page);
 
         dispatch(handleAlerts({ severity: 'success', message: `All archived tickets were retrieved successfully` }));
-        // return data
+        return data
         return
     } catch (error) {
         console.log(error);
@@ -26,14 +27,25 @@ export const getArchivedTickets = createAsyncThunk('ticket/getArchivedTickets', 
 export const getArchivedTicketsBySearch = createAsyncThunk('ticket/getArchivedTicketsBySearch', async ({ page, search }, { dispatch, rejectWithValue }) => {
     const searchQuery = search;
     try {
+        const { data } = await api.getArchivedTicketsBySearch(page, searchQuery);
 
         dispatch(handleAlerts({ severity: 'success', message: `All archived tickets were retrieved successfully` }));
+
+        return data;
     } catch (error) {
         console.log(error);
         dispatch(handleAlerts({ severity: 'error', message: `getArchivedTicketsBySearch failed with error: ${error.message}`}));
         return rejectWithValue(error)
     }
 })
+
+// export const deleteFromArchive = createAsyncThunk('ticket/deleteFromArchive', async (params, { dispatch }) => {
+//     try {
+
+//     } catch (error) {
+
+//     }
+// })
 
 const isPending = (state) => {
     state.loading = true;

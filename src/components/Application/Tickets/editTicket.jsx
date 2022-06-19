@@ -20,26 +20,20 @@ const EditTicket = () => {
     const dispatch = useDispatch();
     const { loading, ticket} = useSelector(state => state.ticketDetails);    
     const [ticketData, setTicketData] = useState(initialTicketData);
-    // console.log(ticket)
+
+    const handleUsePrevTicketValues = () => {
+        setTicketData({
+            ...ticketData,
+            title: ticket.title,
+            description: ticket.description,
+            priority: ticket.priority,
+            status: ticket.status,
+        })
+    }
 
     useEffect(() => {
         dispatch(getTicketDetails(id));
     }, [])
-
-    if(loading) {
-        return (
-            <>
-                <Backdrop
-                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                    open
-                >
-                    <CircularProgress color="inherit" />
-                </Backdrop>
-            </>
-        )
-    }
-    
-
 
     const handlePriorityChange = (event) => {
         setTicketData({ ...ticketData, priority: event.target.value });
@@ -48,11 +42,10 @@ const EditTicket = () => {
         setTicketData({ ...ticketData, status: event.target.value });
     };
 
-
     const handleSubmit = (event) => {
-        event.preventDefault(); // this stops the page from it's default refrash setting when clicking a button on the react form.
+        event.preventDefault();
 
-        if (ticketData.title === '') { // this should be changed to a shake and notification using mui error to indicate one of the text fields are wrong
+        if (ticketData.title === '') { 
             alert("invalid title"); 
         }
         if (ticketData.description === '') {
@@ -67,17 +60,8 @@ const EditTicket = () => {
         setTicketData(initialTicketData);
     }
 
-    const handleUsePrevTicketValues = () => {
-        setTicketData({
-            ...ticketData,
-            title: ticket.title,
-            description: ticket.description,
-            priority: ticket.priority,
-            status: ticket.status,
-        })
-    }
-
     return (
+        loading ? <CircularProgress color="inherit" /> : (
         <>
             <Typography paragraph>
                 Editing Ticket Id: { id }
@@ -139,10 +123,8 @@ const EditTicket = () => {
                         <MenuItem value={"Development"}>Development</MenuItem>
                         <MenuItem value={"Unassigned"}>Unassigned</MenuItem>
                         <MenuItem value={"New"}>New</MenuItem>
-
                     </Select>
                     
-
                     <Button sx={{ mr: 1 }} variant="contained" color="primary" size="small" onClick={handleSubmit} >
                         Save
                     </Button>
@@ -153,6 +135,7 @@ const EditTicket = () => {
                 </form>
             </Paper>
         </>
+        )
     )
 };
 

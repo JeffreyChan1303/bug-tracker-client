@@ -8,7 +8,6 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 import { getAllTickets, getAllTicketsBySearch } from '../../../services/ticket/allTicketsSlice';
-import store from '../../../app/store';
 import CustomPagination from '../pagination';
 
 const BoldedTableCell = styled(TableCell)(({theme}) => ({
@@ -32,15 +31,8 @@ const AllTickets = () => {
     const page = query.get('page');
     const searchQuery = query.get('searchQuery');
     const [search, setSearch] = useState('');
-    // useSelector may be useful when we implement the dashboard which requires multiple api calls
     const { loading, tickets, currentPage, numberOfPages } = useSelector((state) => state.allTickets);
-
     const dispatch = useDispatch();
-
-    const unsubscribe = store.subscribe(() => {
-        // console.log('updated state: ', store.getState().allTickets)
-    })
-
 
     useEffect(() => {
        if (search.trim()) {
@@ -50,27 +42,9 @@ const AllTickets = () => {
        }
     }, [page])
 
-
-
-    if(loading) {
-        return (
-            <>
-                <Backdrop
-                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                    open
-                >
-                    <CircularProgress color="inherit" />
-                </Backdrop>
-            </>
-        )
-    }
-
     const searchAllTickets = () => {
         if (search.trim()) {
-            //dispatch an action
-            
             dispatch(getAllTicketsBySearch({ search, page: 1 }))
-
             navigate(`/allTickets/search?searchQuery=${search || 'none'}&page=1`);
         } else {
             navigate('/allTickets')
@@ -84,6 +58,7 @@ const AllTickets = () => {
     }
 
     return (
+        loading ? <CircularProgress color="inherit" /> : (
         <>
             <Paper sx={{ p: 3, overflowX: 'scroll' }} elevation={3}>
 
@@ -158,6 +133,7 @@ const AllTickets = () => {
             />
             </Paper>
         </>
+        )
     )
 };
 

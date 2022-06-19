@@ -42,30 +42,15 @@ const MyTickets = () => {
 
 
     useEffect(() => {
-        /* 
-        put the api fetch data function in here so every time the location or the user routes,
-        the fetch data will be called and the new tickts will be updated every time you come back to the page!!
-        The current, hook useGetAllTicketQuery is not working since we cann't put react hooks into a useEffect!!.
-        */
-       if (search.trim()) {
-           dispatch(getMyTicketsBySearch({ search, page }));
-       } else {
-           dispatch(getMyTickets(page));
-           navigate('/myTickets')
-       }
+        // this fetches data every time the page is changed
+        if (search.trim()) {
+            dispatch(getMyTicketsBySearch({ search, page }));
+        } else {
+            dispatch(getMyTickets(page));
+            navigate('/myTickets')
+        }
     //    dispatch(getMyTickets(page));
     }, [page])
-
-
-
-    if(loading) {
-        return (
-            <CircularProgress color="inherit" />
-        )
-    }
-
-    if (!tickets.length && !loading) return (<Typography variant="h1">NO TICKEts</Typography>)
-
 
     const searchMyTickets = () => {
         if (search.trim()) {
@@ -87,6 +72,7 @@ const MyTickets = () => {
     }
 
     return (
+        loading ? <CircularProgress color="inherit" /> : (
         <>
             <Paper sx={{ p: 3, overflowX: 'scroll' }} elevation={3}>
 
@@ -161,6 +147,7 @@ const MyTickets = () => {
             />
             </Paper>
         </>
+        )
     )
 };
 

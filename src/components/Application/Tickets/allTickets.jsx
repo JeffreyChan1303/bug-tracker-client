@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Typography, Paper, Table, TableHead, TableRow, TableCell, TableBody, Backdrop, CircularProgress, IconButton, Tooltip, TextField, Chip, AppBar } from '@mui/material';
+import { Box, Typography, Paper, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress, IconButton, Tooltip, TextField, Chip } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { styled } from '@mui/system';
 import { useSelector, useDispatch } from 'react-redux';
@@ -10,12 +10,12 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { getAllTickets, getAllTicketsBySearch } from '../../../services/ticket/allTicketsSlice';
 import CustomPagination from '../pagination';
 
-const BoldedTableCell = styled(TableCell)(({theme}) => ({
+const BoldedTableCell = styled(TableCell) (({theme}) => ({
     fontWeight: theme.typography.fontWeightBold,
     padding: "8px 5px",
 }));
 
-const ContentTableCell = styled(TableCell)(({theme}) => ({
+const ContentTableCell = styled(TableCell) (({theme}) => ({
     padding: "5px",
 }));
 
@@ -27,9 +27,9 @@ function useQuery() {
 const AllTickets = () => {
     const query = useQuery();
     const navigate = useNavigate();
-    const location = useLocation();
+    // const location = useLocation();
     const page = query.get('page');
-    const searchQuery = query.get('searchQuery');
+    // const searchQuery = query.get('searchQuery');
     const [search, setSearch] = useState('');
     const { loading, tickets, currentPage, numberOfPages } = useSelector((state) => state.allTickets);
     const dispatch = useDispatch();

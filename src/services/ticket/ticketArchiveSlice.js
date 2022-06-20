@@ -36,7 +36,7 @@ export const getArchivedTicketsBySearch = createAsyncThunk('ticket/getArchivedTi
     }
 })
 
-// export const deleteFromArchive = createAsyncThunk('ticket/deleteFromArchive', async (params, { dispatch }) => {
+// export const deleteTicketFromArchive = createAsyncThunk('ticket/deleteFromArchive', async (params, { dispatch }) => {
 //     try {
 
 //     } catch (error) {

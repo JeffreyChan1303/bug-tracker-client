@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from '../../api/index';
-import { useNavigate } from "react-router-dom";
 
 const initialState = {
     loading: false,

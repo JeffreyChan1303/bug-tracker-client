@@ -5,6 +5,8 @@ import { ticketApi } from '../services/ticket/ticketApi';
 import { projectApi } from '../services/project/projectApi';
 import userReducer from '../services/user/userSlice';
 import authReducer from '../services/user/authSlice';
+
+// Ticket Imports
 import allTicketsReducer from '../services/ticket/allTicketsSlice';
 import myTicketsReducer from '../services/ticket/myTicketsSlice';
 import crudFeedbackReducer from '../services/crudFeedbackSlice';
@@ -14,8 +16,11 @@ import ticketDetailsReducer from '../services/ticket/ticketDetailsSlice';
 import editTicketReducer from '../services/ticket/editTicketSlice';
 import ticketArchiveReducer from '../services/ticket/ticketArchiveSlice';
 
-// project imports
+// Project Imports
 import allProjectsReducer from '../services/project/allProjectsSlice';
+import myProjectsReducer from '../services/project/myProjectsSlice';
+import projectArchiveReducer from '../services/project/projectArchiveSlice';
+
 
 
 import addProjectReducer from '../services/project/addProjectSlice';
@@ -43,9 +48,12 @@ export const store = configureStore({
 
         // Project stores
         allProjects: allProjectsReducer,
+        myProjects: myProjectsReducer,
+        projectArchive: projectArchiveReducer,
 
 
         addProject: addProjectReducer,
+        
     },
 
     

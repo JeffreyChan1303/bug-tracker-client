@@ -33,7 +33,11 @@ export const deleteTicket = (id) => API.delete(`/tickets/deleteTicket/${id}`);
 // Project APIs
 
 export const getAllProjects = (page) => API.get(`/projects/allProjects?page=${page}`);
-export const getAllProjectsBySearch = (page, searchQuery) => API. get(`/projects/allProjects/search?searchQuery=${searchQuery || 'none'}&page=${page}`);
+export const getAllProjectsBySearch = (page, searchQuery) => API.get(`/projects/allProjects/search?searchQuery=${searchQuery || 'none'}&page=${page}`);
+export const getMyProjects = (page) => API.get(`/projects/myProjects?page=${page}`);
+export const getMyProjectsBySearch = (page, searchQuery) => API.get(`/projects/myProjects/search?searchQuery=${searchQuery || 'none'}&page=${page}`);
+export const getArchivedProjects = (page) => API.get(`/projects/archivedProjects?page=${page}`);
+export const getArchivedProjectsBySearch = (page, searchQuery) => API.get(`/projects/archivedProjects/search?searchQuery=${searchQuery || 'none'}&page=${page}`)
 
 
 export const createProject = (newProject) => API.post('/projects/createProject', newProject);

@@ -1,88 +1,137 @@
-import React from 'react';
-import { Typography, Paper, Pagination, Table, TableHead, TableRow, TableCell, TableBody, Backdrop, CircularProgress, IconButton, Tooltip } from '@mui/material';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Box, Typography, Paper, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress, IconButton, Tooltip, TextField, Chip } from '@mui/material';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { styled } from '@mui/system';
+import { useSelector, useDispatch } from 'react-redux';
 
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
-import { useGetAllProjectsQuery } from '../../../services/project/projectApi';
+import { getAllProjects, getAllProjectsBySearch } from '../../../services/project/allProjectsSlice';
+import CustomPagination from '../pagination';
+
+const BoldedTableCell = styled(TableCell) (({theme}) => ({
+    fontWeight: theme.typography.fontWeightBold,
+    padding: "8px 5px",
+}));
+
+const ContentTableCell = styled(TableCell) (({theme}) => ({
+    padding: "5px",
+}));
+
+function useQuery() {
+    return new URLSearchParams(useLocation().search);
+}
 
 
 const AllProjects = () => {
-    const { data, isFetching } = useGetAllProjectsQuery();
-    console.log(data, isFetching);
+    const query = useQuery();
+    const navigate = useNavigate();
+    // const location = useLocation();
+    const page = query.get('page');
+    // const searchQuery = query.get('searchQuery');
+    const [search, setSearch] = useState('');
+    const { loading, projects, currentPage, numberOfPages } = useSelector((state) => state.allProjects);
+    const dispatch = useDispatch();
 
+    useEffect(() => {
+       if (search.trim()) {
+           dispatch(getAllProjectsBySearch({ search, page }));
+       } else {
+           dispatch(getAllProjects(page));
+       }
+    }, [page])
 
-
-    if(isFetching) {
-        return (
-            <>
-                <Backdrop
-                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                    open
-                >
-                    <CircularProgress color="inherit" />
-                </Backdrop>
-            </>
-        )
+    const searchAllProjects = () => {
+        if (search.trim()) {
+            dispatch(getAllProjectsBySearch({ search, page: 1 }))
+            navigate(`/allProjects/search?searchQuery=${search || 'none'}&page=1`);
+        } else {
+            navigate('/allProjects')
+        }
     }
-    
-    const handlePageChange = (event) => {
 
-    };
+    const handleKeyPress = (e) => {
+        if (e.keyCode === 13) {
+            searchAllProjects();
+        }
+    }
 
     return (
+        loading ? <CircularProgress color="inherit" /> : (
         <>
-            <Typography paragraph>
-                All Projects
-            </Typography>
+            <Paper sx={{ p: 3, overflowX: 'scroll' }} elevation={3}>
 
-            <Paper sx={{ p: 3 }} elevation={3}>
-            {/* <TableContainer component={Paper}> */}
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <Typography variant="h5" fontWeight={700}> All Projects </Typography>
+                <Box sx={{ display: "flex", justifyContent: "right" }}>
+                    <Typography align="right" variant="body1"> Search:&nbsp; </Typography>
+                    <TextField 
+                        size="small" 
+                        variant="standard"
+                        name="search"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        onKeyDown={handleKeyPress}
+                    />
+                </Box>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table" size="small" >
                     <TableHead>
-                    <TableRow >
-                        <TableCell>Title</TableCell>
-                        <TableCell align="right">Submitted By</TableCell>
-                        <TableCell align="right">Priority</TableCell>
-                        <TableCell align="right">Status</TableCell>
-                        <TableCell align="right">Actions</TableCell>
-                    </TableRow>
+                        <TableRow >
+                            <BoldedTableCell>Title</BoldedTableCell>
+                            <BoldedTableCell sx={{ fontWeight: 600 }} align="right">Submitted By</BoldedTableCell>
+                            <BoldedTableCell align="right">Status</BoldedTableCell>
+                            <BoldedTableCell align="right">Priority</BoldedTableCell>
+                            <BoldedTableCell align="right">Created At</BoldedTableCell>
+                            <BoldedTableCell align="center">Actions</BoldedTableCell>
+                        </TableRow>
                     </TableHead>
                     <TableBody>
-                    {data && data.map((project) => (
+                    {projects && projects.map((project, i) => (
                         <TableRow
-                        key={project.name}
+                        key={i}
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
-                        <TableCell component="th" scope="row">
-                            {project.title}
-                        </TableCell>
-                        <TableCell align="right">{project.creator}</TableCell>
-                        <TableCell align="right">{project.priority}</TableCell>
-                        <TableCell align="right">{project.status}</TableCell>
-                        <TableCell sx={{ display: "flex", justifyContent: "center" }}>
-                            <Tooltip title="View">
-                                <IconButton href="/myProjects">
-                                    <VisibilityOutlinedIcon />
-                                </IconButton>
-                            </Tooltip>
-                            <Tooltip title="Edit">
-                                <IconButton>
-                                    <EditOutlinedIcon />
-                                </IconButton>
-                            </Tooltip>
-                        </TableCell>
+                            <ContentTableCell component="th" scope="row">
+                                {project.title}
+                            </ContentTableCell>
+                            <ContentTableCell align="right">{project.name}</ContentTableCell>
+                            <ContentTableCell align="right">
+                                <Chip label={project.status} variant="outlined" color="secondary" />
+                            </ContentTableCell>
+                            <ContentTableCell align="right">
+                                <Chip label={project.priority} variant="outlined" color="secondary" />
+                            </ContentTableCell>
+                            <ContentTableCell align="right">add the data created</ContentTableCell>
+                            <ContentTableCell sx={{ display: "flex", justifyContent: "center" }}>
+                                <Tooltip title="View">
+                                    <IconButton onClick={() => navigate(`/projectDetails/${project._id}`)}>
+                                        <VisibilityOutlinedIcon />
+                                    </IconButton>
+                                </Tooltip>
+                                <Tooltip title="Edit">
+                                    <IconButton onClick={() => navigate(`/editTicket/${project._id}`)}>
+                                        <EditOutlinedIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            </ContentTableCell>
                         </TableRow>
                     ))}
                     </TableBody>
                 </Table>
-                {/* </TableContainer> */}
+
+            </Paper>
 
 
-                <Pagination count={10} variant="outlined" color="primary" onChange={handlePageChange}/>
+            <Paper elevation={6} >
+                <CustomPagination 
+                    path={`/allProjects${search.trim()? `/search?searchQuery=${search}&` : `?`}`}
+                    page={page}
+                    currentPage={currentPage}
+                    numberOfPages={numberOfPages}
+                />
             </Paper>
         </>
+        )
     )
 };
 

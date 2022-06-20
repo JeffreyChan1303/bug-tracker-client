@@ -14,9 +14,7 @@ export const getArchivedTickets = createAsyncThunk('ticket/getArchivedTickets', 
     try {
         const { data } = await api.getArchivedTickets(page);
 
-        dispatch(handleAlerts({ severity: 'success', message: `All archived tickets were retrieved successfully` }));
         return data
-        return
     } catch (error) {
         console.log(error);
         dispatch(handleAlerts({ severity: 'error', message: `Archived tickets were not able to be retrieved. Error: ${error.message}` }));
@@ -30,7 +28,6 @@ export const getArchivedTicketsBySearch = createAsyncThunk('ticket/getArchivedTi
         const { data } = await api.getArchivedTicketsBySearch(page, searchQuery);
 
         dispatch(handleAlerts({ severity: 'success', message: `All archived tickets were retrieved successfully` }));
-
         return data;
     } catch (error) {
         console.log(error);

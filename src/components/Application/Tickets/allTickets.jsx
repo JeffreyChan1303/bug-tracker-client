@@ -130,7 +130,7 @@ const AllTickets = () => {
                     page={page}
                     currentPage={currentPage}
                     numberOfPages={numberOfPages}
-            />
+                />
             </Paper>
         </>
         )

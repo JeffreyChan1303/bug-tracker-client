@@ -31,3 +31,6 @@ export const getTicketDetails = (id) => API.get(`tickets/ticketDetails/${id}`)
 export const deleteTicket = (id) => API.delete(`/tickets/deleteTicket/${id}`);
 
 // Project APIs
+
+export const getAllProjects = (page) => API.get(`/projects/allProjects?page=${page}`);
+export const getAllProjectsBySearch = (page, searchQuery) => API. get(`/projects/allProjects/search?searchQuery=${searchQuery || 'none'}&page=${page}`);

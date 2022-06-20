@@ -6,7 +6,7 @@ const CustomPagination = ({ path, page, numberOfPages }) => {
 
     return (
         <Pagination
-            sx={{ ul: {justifyContent: "space-around" } }}
+            sx={{ ul: {justifyContent: "space-around" }, mt: "20px" }}
             count={Number(numberOfPages)}
             page={Number(page) || 1}
             variant="outlined"

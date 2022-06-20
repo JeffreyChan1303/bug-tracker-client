@@ -60,69 +60,64 @@ const AllProjects = () => {
     return (
         loading ? <CircularProgress color="inherit" /> : (
         <>
-            <Paper sx={{ p: 3, overflowX: 'scroll' }} elevation={3}>
+            <Paper sx={{ p: 3 }} elevation={3} >
+                <Box sx={{  overflowX: 'scroll' }} >
 
-                <Typography variant="h5" fontWeight={700}> All Projects </Typography>
-                <Box sx={{ display: "flex", justifyContent: "right" }}>
-                    <Typography align="right" variant="body1"> Search:&nbsp; </Typography>
-                    <TextField 
-                        size="small" 
-                        variant="standard"
-                        name="search"
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                        onKeyDown={handleKeyPress}
-                    />
+                    <Typography variant="h5" fontWeight={700}> All Projects </Typography>
+                    <Box sx={{ display: "flex", justifyContent: "right" }}>
+                        <Typography align="right" variant="body1"> Search:&nbsp; </Typography>
+                        <TextField 
+                            size="small" 
+                            variant="standard"
+                            name="search"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            onKeyDown={handleKeyPress}
+                        />
+                    </Box>
+                    <Table sx={{ minWidth: 650 }} aria-label="simple table" size="small" >
+                        <TableHead>
+                            <TableRow >
+                                <BoldedTableCell>Title</BoldedTableCell>
+                                <BoldedTableCell sx={{ fontWeight: 600 }} align="right">Submitted By</BoldedTableCell>
+                                <BoldedTableCell align="right">Status</BoldedTableCell>
+                                <BoldedTableCell align="right">Created At</BoldedTableCell>
+                                <BoldedTableCell align="center">Actions</BoldedTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                        {projects && projects.map((project, i) => (
+                            <TableRow
+                            key={i}
+                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                                <ContentTableCell component="th" scope="row">
+                                    {project.title}
+                                </ContentTableCell>
+                                <ContentTableCell align="right">{project.name}</ContentTableCell>
+                                <ContentTableCell align="right">
+                                    <Chip label={project.status} variant="outlined" color="secondary" />
+                                </ContentTableCell>
+                                <ContentTableCell align="right">add the data created</ContentTableCell>
+                                <ContentTableCell sx={{ display: "flex", justifyContent: "center" }}>
+                                    <Tooltip title="View">
+                                        <IconButton onClick={() => navigate(`/projectDetails/${project._id}`)}>
+                                            <VisibilityOutlinedIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                    <Tooltip title="Edit">
+                                        <IconButton onClick={() => navigate(`/editProject/${project._id}`)}>
+                                            <EditOutlinedIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                </ContentTableCell>
+                            </TableRow>
+                        ))}
+                        </TableBody>
+                    </Table>
+
                 </Box>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table" size="small" >
-                    <TableHead>
-                        <TableRow >
-                            <BoldedTableCell>Title</BoldedTableCell>
-                            <BoldedTableCell sx={{ fontWeight: 600 }} align="right">Submitted By</BoldedTableCell>
-                            <BoldedTableCell align="right">Status</BoldedTableCell>
-                            <BoldedTableCell align="right">Priority</BoldedTableCell>
-                            <BoldedTableCell align="right">Created At</BoldedTableCell>
-                            <BoldedTableCell align="center">Actions</BoldedTableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                    {projects && projects.map((project, i) => (
-                        <TableRow
-                        key={i}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                            <ContentTableCell component="th" scope="row">
-                                {project.title}
-                            </ContentTableCell>
-                            <ContentTableCell align="right">{project.name}</ContentTableCell>
-                            <ContentTableCell align="right">
-                                <Chip label={project.status} variant="outlined" color="secondary" />
-                            </ContentTableCell>
-                            <ContentTableCell align="right">
-                                <Chip label={project.priority} variant="outlined" color="secondary" />
-                            </ContentTableCell>
-                            <ContentTableCell align="right">add the data created</ContentTableCell>
-                            <ContentTableCell sx={{ display: "flex", justifyContent: "center" }}>
-                                <Tooltip title="View">
-                                    <IconButton onClick={() => navigate(`/projectDetails/${project._id}`)}>
-                                        <VisibilityOutlinedIcon />
-                                    </IconButton>
-                                </Tooltip>
-                                <Tooltip title="Edit">
-                                    <IconButton onClick={() => navigate(`/editTicket/${project._id}`)}>
-                                        <EditOutlinedIcon />
-                                    </IconButton>
-                                </Tooltip>
-                            </ContentTableCell>
-                        </TableRow>
-                    ))}
-                    </TableBody>
-                </Table>
 
-            </Paper>
-
-
-            <Paper elevation={6} >
                 <CustomPagination 
                     path={`/allProjects${search.trim()? `/search?searchQuery=${search}&` : `?`}`}
                     page={page}

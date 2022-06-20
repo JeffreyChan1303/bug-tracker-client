@@ -64,6 +64,8 @@ const Application = () => {
 
                             {/* Project Routes */}
                             <Route exact path="/allProjects" element={<AllProjects />} />
+                            <Route exact path="/allProjects/search" element={<AllProjects />} />
+
                             <Route exact path="/myProjects" element={<MyProjects />} />
                             <Route exact path="/addProject" element={<AddProject />} />
                             <Route exact path="/projectArchive" element={<ProjectArchive />} />

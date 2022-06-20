@@ -14,8 +14,13 @@ import ticketDetailsReducer from '../services/ticket/ticketDetailsSlice';
 import editTicketReducer from '../services/ticket/editTicketSlice';
 import ticketArchiveReducer from '../services/ticket/ticketArchiveSlice';
 
-import allProjectReducer from '../services/project/allProjectsSlice';
-import allProjectsSlice from '../services/project/allProjectsSlice';
+// project imports
+import allProjectsReducer from '../services/project/allProjectsSlice';
+
+
+import addProjectReducer from '../services/project/addProjectSlice';
+
+
 
 export const store = configureStore({
     reducer: {
@@ -37,7 +42,10 @@ export const store = configureStore({
         ticketArchive: ticketArchiveReducer,
 
         // Project stores
-        allProjects: allProjectsSlice,
+        allProjects: allProjectsReducer,
+
+
+        addProject: addProjectReducer,
     },
 
     

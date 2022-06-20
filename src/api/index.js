@@ -34,3 +34,6 @@ export const deleteTicket = (id) => API.delete(`/tickets/deleteTicket/${id}`);
 
 export const getAllProjects = (page) => API.get(`/projects/allProjects?page=${page}`);
 export const getAllProjectsBySearch = (page, searchQuery) => API. get(`/projects/allProjects/search?searchQuery=${searchQuery || 'none'}&page=${page}`);
+
+
+export const createProject = (newProject) => API.post('/projects/createProject', newProject);

@@ -40,7 +40,7 @@ export const getArchivedProjectsBySearch = (page, searchQuery) => API.get(`/proj
 
 
 export const createProject = (newProject) => API.post('/projects/createProject', newProject);
-export const updateProject = (newProject) => API.post(`/projects/updateProject/${newProject._id}`, newProject);
+export const updateProject = (newProject) => API.patch(`/projects/updateProject/${newProject._id}`, newProject);
 
 export const getProjectDetails = (id) => API.get(`projects/projectDetails/${id}`);
 export const moveProjectToArchive = (id) => API.put(`/projects/moveProjectToArchive/${id}`);

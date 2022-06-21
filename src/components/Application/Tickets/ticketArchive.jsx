@@ -110,7 +110,8 @@ const TicketArchive = () => {
                                             <VisibilityOutlinedIcon />
                                         </IconButton>
                                     </Tooltip>
-                                    <Tooltip title="Edit">
+                                    {/* This should be changed to retrieve */}
+                                    <Tooltip title="Retrieve">
                                         <IconButton onClick={() => navigate(`/editTicket/${ticket._id}`)}>
                                             <EditOutlinedIcon />
                                         </IconButton>

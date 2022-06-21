@@ -43,4 +43,5 @@ export const createProject = (newProject) => API.post('/projects/createProject',
 export const updateProject = (newProject) => API.post(`/projects/updateProject/${newProject._id}`, newProject);
 
 export const getProjectDetails = (id) => API.get(`projects/projectDetails/${id}`);
-export const deleteProject = (id) => API.delete(`/projects/deleteProject/${id}`);
+export const moveProjectToArchive = (id) => API.put(`/projects/moveProjectToArchive/${id}`);
+export const deleteProjectFromArchive = (id) => API.delete(`/projects/deleteProjectFromArchive/${id}`);

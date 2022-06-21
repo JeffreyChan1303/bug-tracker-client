@@ -36,13 +36,6 @@ export const getArchivedProjectsBySearch = createAsyncThunk('project/getArchived
     }
 })
 
-// export const deleteProjectFromArchive = createAsyncThunk('project/deleteFromArchive', async (params, { dispatch }) => {
-//     try {
-
-//     } catch (error) {
-
-//     }
-// })
 
 const isPending = (state) => {
     state.loading = true;

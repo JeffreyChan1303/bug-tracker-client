@@ -18,6 +18,7 @@ import myProjectsReducer from '../services/project/myProjectsSlice';
 import projectArchiveReducer from '../services/project/projectArchiveSlice';
 
 import addProjectReducer from '../services/project/addProjectSlice';
+import projectDetailsReducer from '../services/project/projectDetailsSlice';
 
 
 
@@ -37,10 +38,9 @@ export const store = configureStore({
         // Project stores
         allProjects: allProjectsReducer,
         myProjects: myProjectsReducer,
-        projectArchive: projectArchiveReducer,
-
-
         addProject: addProjectReducer,
+        projectDetails: projectDetailsReducer,
+        projectArchive: projectArchiveReducer,
 
 
         // Other stores

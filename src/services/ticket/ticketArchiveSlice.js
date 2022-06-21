@@ -36,14 +36,6 @@ export const getArchivedTicketsBySearch = createAsyncThunk('ticket/getArchivedTi
     }
 })
 
-// export const deleteTicketFromArchive = createAsyncThunk('ticket/deleteFromArchive', async (params, { dispatch }) => {
-//     try {
-
-//     } catch (error) {
-
-//     }
-// })
-
 const isPending = (state) => {
     state.loading = true;
 };

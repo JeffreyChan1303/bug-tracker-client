@@ -62,7 +62,7 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
 
 
                 <Typography variant="h6" noWrap>
-                    Responsive drawer asdlinflasdnflnasdklfnaklsdnfklnasldnfiadsfieihilfgjeruhtiorhewotih348927thr84ojriowehntiowerhi
+                    Responsive drawer 
                 </Typography>
 
                 <Box maxWidth sx={{  justifySelf: "right", display: "flex" }} justifyContent="right">

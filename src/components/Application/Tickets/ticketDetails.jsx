@@ -1,20 +1,19 @@
 import React, { useEffect } from 'react';
-import { Typography, Paper, Accordion, AccordionSummary, AccordionDetails, Grid, Button } from '@mui/material';
+import { Typography, Paper, Accordion, AccordionSummary, AccordionDetails, Grid, Button, CircularProgress } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { deleteTicket } from '../../../services/ticket/deleteTicketSlice';
-import { getTicketDetails } from '../../../services/ticket/ticketDetailsSlice';
+import { getTicketDetails, deleteTicket } from '../../../services/ticket/ticketDetailsSlice';
 
 const TicketDetails = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const { ticket } = useSelector(state => state.ticketDetails);
+    const { getTicketDetails: { loading }, ticket } = useSelector(state => state.ticketDetails);
 
     useEffect(() => {
         dispatch(getTicketDetails(id))
@@ -27,6 +26,7 @@ const TicketDetails = () => {
 
 
     return (
+        loading ? <CircularProgress color="inherit" /> :
         <>
             <Typography paragraph>
                 Ticket Details

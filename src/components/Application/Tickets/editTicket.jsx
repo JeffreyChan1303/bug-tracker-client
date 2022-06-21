@@ -3,8 +3,7 @@ import { Typography, TextField, Button, Paper, Select, MenuItem, Backdrop, Circu
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getTicketDetails } from '../../../services/ticket/ticketDetailsSlice';
-import { updateTicket } from '../../../services/ticket/editTicketSlice';
+import { getTicketDetails, updateTicket } from '../../../services/ticket/ticketDetailsSlice';
 
 const initialTicketData = {
     creator: '',
@@ -18,7 +17,7 @@ const EditTicket = () => {
     const { id } = useParams()
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { loading, ticket} = useSelector(state => state.ticketDetails);    
+    const { updateTicket: { loading }, ticket} = useSelector(state => state.ticketDetails);    
     const [ticketData, setTicketData] = useState(initialTicketData);
 
     const handleUsePrevTicketValues = () => {

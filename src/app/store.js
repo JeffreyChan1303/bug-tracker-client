@@ -1,8 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
 
-import { ticketApi } from '../services/ticket/ticketApi';
-import { projectApi } from '../services/project/projectApi';
 import userReducer from '../services/user/userSlice';
 import authReducer from '../services/user/authSlice';
 
@@ -19,17 +17,12 @@ import allProjectsReducer from '../services/project/allProjectsSlice';
 import myProjectsReducer from '../services/project/myProjectsSlice';
 import projectArchiveReducer from '../services/project/projectArchiveSlice';
 
-
-
 import addProjectReducer from '../services/project/addProjectSlice';
 
 
 
 export const store = configureStore({
     reducer: {
-        [ticketApi.reducerPath]: ticketApi.reducer,
-        [projectApi.reducerPath]: projectApi.reducer,
-
         // User stores
         user: userReducer,
         auth: authReducer,
@@ -52,10 +45,6 @@ export const store = configureStore({
         
     },
 
-    
-
-    middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(ticketApi.middleware),
 });
 
 export default store;

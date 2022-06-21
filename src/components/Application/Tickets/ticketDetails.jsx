@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { getTicketDetails, deleteTicket } from '../../../services/ticket/ticketDetailsSlice';
+import { getTicketDetails, moveTicketToArchive } from '../../../services/ticket/ticketDetailsSlice';
 
 const TicketDetails = () => {
     const { id } = useParams();
@@ -20,7 +20,7 @@ const TicketDetails = () => {
     }, [])
       
     const handleDeleteTicket = () => {
-        dispatch(deleteTicket(id))
+        dispatch(moveTicketToArchive(id))
         navigate("/allTickets")
     }
 

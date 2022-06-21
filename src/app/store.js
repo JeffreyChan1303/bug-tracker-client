@@ -30,7 +30,6 @@ export const store = configureStore({
         // Ticket stores
         allTickets: allTicketsReducer,
         myTickets: myTicketsReducer,
-        crudFeedback: crudFeedbackReducer,
         addTicket: addTicketReducer,
         ticketDetails: ticketDetailsReducer,
         ticketArchive: ticketArchiveReducer,
@@ -42,6 +41,11 @@ export const store = configureStore({
 
 
         addProject: addProjectReducer,
+
+
+        // Other stores
+        crudFeedback: crudFeedbackReducer,
+
         
     },
 

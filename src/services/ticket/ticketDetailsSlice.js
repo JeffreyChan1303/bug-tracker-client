@@ -11,7 +11,7 @@ const initialState = {
         loading: false,
         error: '',
     },
-    deleteTicket: {
+    moveTicketToArchive: {
         loading: false,
         error: '',
     },
@@ -46,11 +46,11 @@ export const updateTicket = createAsyncThunk('ticket/updateTicket', async (newTi
     }
 })
 
-export const deleteTicket = createAsyncThunk('ticket/deleteTicket', async (id, {dispatch, rejectWithValue}) => {
+export const moveTicketToArchive = createAsyncThunk('ticket/moveTicketToArchive', async (id, {dispatch, rejectWithValue}) => {
     try {
-        const { data } = await api.deleteTicket(id);
+        const { data } = await api.moveTicketToArchive(id);
 
-        dispatch(handleAlerts({ severity: 'success', message: `Ticket id: ${id} has been successfully deleted.` }))
+        dispatch(handleAlerts({ severity: 'success', message: `Ticket has been successfully deleted and moved to the Ticket Archive.` }))
         return data
     } catch (error) {
         console.log(error)
@@ -89,16 +89,16 @@ const ticketDetailsSlice = createSlice({
             state.updateTicket.error = action.payload.message;
         })
 
-        // Delete Ticket
-        builder.addCase(deleteTicket.pending, (state) => {
-            state.deleteTicket.loading = true;
+        // Move Ticket To Archive
+        builder.addCase(moveTicketToArchive.pending, (state) => {
+            state.moveTicketToArchive.loading = true;
         })
-        builder.addCase(deleteTicket.fulfilled, (state) => {
-            state.deleteTicket.loading = false;
+        builder.addCase(moveTicketToArchive.fulfilled, (state) => {
+            state.moveTicketToArchive.loading = false;
         })
-        builder.addCase(deleteTicket.rejected, (state, action) => {
-            state.deleteTicket.loading = false;
-            state.deleteTicket.error = action.payload.message;
+        builder.addCase(moveTicketToArchive.rejected, (state, action) => {
+            state.moveTicketToArchive.loading = false;
+            state.moveTicketToArchive.error = action.payload.message;
         })
     }
 })

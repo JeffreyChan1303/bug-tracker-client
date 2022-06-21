@@ -14,6 +14,8 @@ export const getArchivedProjects = createAsyncThunk('project/getArchivedProjects
     try {
         const { data } = await api.getArchivedProjects(page);
 
+        dispatch(handleAlerts({ severity: 'success', message: 'successfully fetched archived projects! '}))
+
         return data
     } catch (error) {
         console.log(error);

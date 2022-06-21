@@ -21,7 +21,7 @@ const Application = () => {
         <>
             <Box sx={{ display: 'flex' }}>
                 <CssBaseline />
-                <Header handleDrawerToggle={handleDrawerToggle} />
+                <Header handleDrawerToggle={handleDrawerToggle} drawerWidth={drawerWidth} />
                 <Box
                     component="nav"
                     sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}

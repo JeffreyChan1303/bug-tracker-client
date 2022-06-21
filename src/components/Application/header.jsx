@@ -20,6 +20,7 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
         store.dispatch(userActions.logout())
     }
 
+    // this is the guard for a user that doesn't have a valid token while on the app.
     useEffect(() => {
         const token = user?.token;
 
@@ -41,54 +42,57 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
 
     return ( 
         <AppBar
-        position="fixed"
-        sx={{
-            width: { md: `calc(100% - ${drawerWidth}px)` },
-            ml: { md: `${drawerWidth}px` }, // ml == margin left
-        }}
-        elevation={3}
+            position="fixed"
+            sx={{
+                width: { md: `calc(100% - ${drawerWidth}px)` },
+                ml: { md: `${drawerWidth}px` }, // ml == margin left
+            }}
+            elevation={3}
         >
-        <Toolbar sx={{ justifyContent: "space-between" }} >
-            <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                edge="start"
-                onClick={handleDrawerToggle}
-                sx={{ mr: 2, display: { md: 'none' } }}
-            >
-            <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" noWrap >
-                Responsive drawer
-            </Typography>
-            <Box maxWidth sx={{  justifySelf: "right", display: "flex" }} justifyContent="right">
-                <IconButton sx={{ color: "white" }} >
-                    <NotificationsRoundedIcon  />
-                </IconButton>
-                <IconButton sx={{ color: "white" }} >
-                    <SettingsIcon />
-                </IconButton>
+            <Toolbar sx={{ justifyContent: "space-between" }} >
                 <IconButton
-                    onClick={handleAvatarOpen}
+                    color="inherit"
+                    aria-label="open drawer"
+                    edge="start"
+                    onClick={handleDrawerToggle}
+                    sx={{ mr: 2, display: { md: 'none' } }}
                 >
-                    <Avatar />
+                    <MenuIcon />
                 </IconButton>
-                <Menu
-                    id="basic-menu"
-                    anchorEl={avatarOpen}
-                    open={Boolean(avatarOpen)}
-                    onClose={handleAvatarClose}
-                    MenuListProps={{
-                    'aria-labelledby': 'basic-button',
-                    }}
-                >
-                    <MenuItem onClick={handleAvatarClose}>Profile</MenuItem>
-                    <MenuItem onClick={handleAvatarClose}>My account</MenuItem>
-                    {/* <MenuItem onClick={handleAvatarClose}>{user?.userObject.name}</MenuItem> */}
-                    <MenuItem onClick={handleLogOut}>Logout</MenuItem>
-                </Menu>
-            </Box>
-        </Toolbar>
+
+
+                <Typography variant="h6" noWrap>
+                    Responsive drawer asdlinflasdnflnasdklfnaklsdnfklnasldnfiadsfieihilfgjeruhtiorhewotih348927thr84ojriowehntiowerhi
+                </Typography>
+
+                <Box maxWidth sx={{  justifySelf: "right", display: "flex" }} justifyContent="right">
+                    <IconButton sx={{ color: "white" }} >
+                        <NotificationsRoundedIcon  />
+                    </IconButton>
+                    <IconButton sx={{ color: "white" }} >
+                        <SettingsIcon />
+                    </IconButton>
+                    <IconButton
+                        onClick={handleAvatarOpen}
+                    >
+                        <Avatar />
+                    </IconButton>
+                    <Menu
+                        id="basic-menu"
+                        anchorEl={avatarOpen}
+                        open={Boolean(avatarOpen)}
+                        onClose={handleAvatarClose}
+                        MenuListProps={{
+                        'aria-labelledby': 'basic-button',
+                        }}
+                    >
+                        <MenuItem onClick={handleAvatarClose}>Profile</MenuItem>
+                        <MenuItem onClick={handleAvatarClose}>My account</MenuItem>
+                        {/* <MenuItem onClick={handleAvatarClose}>{user?.userObject.name}</MenuItem> */}
+                        <MenuItem onClick={handleLogOut}>Logout</MenuItem>
+                    </Menu>
+                </Box>
+            </Toolbar>
         </AppBar>
     )
 };

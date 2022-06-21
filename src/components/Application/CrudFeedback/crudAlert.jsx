@@ -17,7 +17,7 @@ const CrudAlert = () => {
             <Box
                 sx={{
                     position: "fixed",
-                    left: "calc((3vh + 3vw) / 2)",
+                    right: "calc((3vh + 3vw) / 2)",
                     bottom: "calc((3vh + 3vw) / 2)",
                     zIndex: (theme) => theme.zIndex.drawer + 1,
                 }}

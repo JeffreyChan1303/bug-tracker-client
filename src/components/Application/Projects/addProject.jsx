@@ -1,39 +1,55 @@
 import React, { useState } from 'react';
-import { Box, Typography, TextField, Button, Paper, Select, MenuItem } from '@mui/material';
+import { Typography, TextField, Button, Paper, Select, MenuItem } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
-import { useCreateProjectMutation } from '../../../services/project/projectApi';
+import { useDispatch } from 'react-redux';
+
+import { handleAlerts } from '../../../services/crudFeedbackSlice';
+import { createProject } from '../../../services/project/addProjectSlice';
+
+const initialProjectData = {
+    creator: '', // this state will be taken from the redux store where Login information is stored
+    title: '',
+    description: '',
+    priority: 'High',
+    status: 'New',
+};
+
 
 const AddProject = () => {
-    const [createProject, responseInfo] = useCreateProjectMutation();
-    const [postData, setPostData] = useState({
-        creator: '', // this state will be taken from the redux store where Login information is stored
-        title: '',
-        description: '',
-        priority: 'High',
-        status: 'New',
-    });
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [projectData, setProjectData] = useState(initialProjectData);
+    const user = JSON.parse(localStorage.getItem('profile'))
 
     const handlePriorityChange = (event) => {
-        setPostData({ ...postData, priority: event.target.value });
+        setProjectData({ ...projectData, priority: event.target.value });
     };
     const handleStatusChange = (event) => {
-        setPostData({ ...postData, status: event.target.value });
+        setProjectData({ ...projectData, status: event.target.value });
     };
+
 
 
     const handleSubmit = (event) => {
         event.preventDefault(); // this stops the page from it's default refrash setting when clicking a button on the react form.
 
-        if (postData.title === '') { // this should be changed to a shake and notification using mui error to indicate one of the text fields are wrong
-            alert("invalid title"); 
+        if (projectData.title === '') { 
+            dispatch(handleAlerts({ severity: "warning", message: "Invalid title" }));
         }
-        if (postData.description === '') {
-            alert("invalid description");
+        if (projectData.description === '') {
+            dispatch(handleAlerts({ severity: "warning", message: "Invalid description" }));
         }
 
-        createProject(postData);
-        responseInfo.isError && alert("failed creating project");
+        if (projectData.title !== '' && projectData.description !== '') {
+            dispatch(createProject({ ...projectData, name: user?.userObject?.name }));
+            navigate("/allProjects");
+        }
     };
+
+    const handleClear = () => {
+        setProjectData(initialProjectData);
+    }
 
     return (
         <>
@@ -51,8 +67,8 @@ const AddProject = () => {
                         multiline
                         size="small"
                         sx={{ mb: 2 }}
-                        value={postData.title}
-                        onChange={(e) => setPostData({ ...postData, title: e.target.value })}
+                        value={projectData.title}
+                        onChange={(e) => setProjectData({ ...projectData, title: e.target.value })}
                     />
 
                     <Typography variant="body1" fontWeight={700}>Project Description</Typography>
@@ -64,13 +80,13 @@ const AddProject = () => {
                         size="small"
                         sx={{ mb: 2 }}
                         rows={4}
-                        value={postData.description}
-                        onChange={(e) => setPostData({ ...postData, description: e.target.value })}
+                        value={projectData.description}
+                        onChange={(e) => setProjectData({ ...projectData, description: e.target.value })}
                     />
 
                     <Typography variant="body1" fontWeight={700}>Project Priority</Typography>
                     <Select
-                        value={postData.priority}
+                        value={projectData.priority}
                         onChange={handlePriorityChange}
                         sx={{ mb: 2 }}
                         fullWidth
@@ -82,7 +98,7 @@ const AddProject = () => {
 
                     <Typography variant="body1" fontWeight={700}>Project Status</Typography>
                     <Select
-                        value={postData.status}
+                        value={projectData.status}
                         onChange={handleStatusChange}
                         sx={{ mb: 2 }}
                         fullWidth
@@ -96,16 +112,14 @@ const AddProject = () => {
                         <MenuItem value={"New"}>New</MenuItem>
 
                     </Select>
-                    
+                </form>
 
-                    <Button sx={{ mr: 1 }} variant="contained" color="primary" size="small" type="submit" >
+                <Button sx={{ mr: 1 }} variant="contained" color="primary" size="small" onClick={handleSubmit} >
                         Save
                     </Button>
-                    <Button sx={{}} variant="outlined" color="secondary" size="small" type="cancel" onClick={() => ({})}>
-                        Cancel
+                    <Button sx={{}} variant="outlined" color="secondary" size="small" onClick={handleClear}>
+                        Clear
                     </Button>
-
-                </form>
             </Paper>
         </>
     )

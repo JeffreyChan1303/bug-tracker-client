@@ -60,71 +60,69 @@ const AllTickets = () => {
     return (
         loading ? <CircularProgress color="inherit" /> : (
         <>
-            <Paper sx={{ p: 3, overflowX: 'scroll' }} elevation={3}>
+            <Paper sx={{ p: 3 }} elevation={3} >
+                <Box sx={{  overflowX: 'scroll' }} >
 
-                <Typography variant="h5" fontWeight={700}> All Tickets </Typography>
-                <Box sx={{ display: "flex", justifyContent: "right" }}>
-                    <Typography align="right" variant="body1"> Search:&nbsp; </Typography>
-                    <TextField 
-                        size="small" 
-                        variant="standard"
-                        name="search"
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                        onKeyDown={handleKeyPress}
-                    />
+                    <Typography variant="h5" fontWeight={700}> All Tickets </Typography>
+                    <Box sx={{ display: "flex", justifyContent: "right" }}>
+                        <Typography align="right" variant="body1"> Search:&nbsp; </Typography>
+                        <TextField 
+                            size="small" 
+                            variant="standard"
+                            name="search"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            onKeyDown={handleKeyPress}
+                        />
+                    </Box>
+                    <Table sx={{ minWidth: 650 }} aria-label="simple table" size="small" >
+                        <TableHead>
+                            <TableRow >
+                                <BoldedTableCell>Title</BoldedTableCell>
+                                <BoldedTableCell sx={{ fontWeight: 600 }} align="right">Submitted By</BoldedTableCell>
+                                <BoldedTableCell align="right">Developer</BoldedTableCell>
+                                <BoldedTableCell align="right">Status</BoldedTableCell>
+                                <BoldedTableCell align="right">Priority</BoldedTableCell>
+                                <BoldedTableCell align="right">Last Updated</BoldedTableCell>
+                                <BoldedTableCell align="center">Actions</BoldedTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                        {tickets && tickets.map((ticket, i) => (
+                            <TableRow
+                            key={i}
+                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                                <ContentTableCell component="th" scope="row">
+                                    {ticket.title}
+                                </ContentTableCell>
+                                <ContentTableCell align="right">{ticket.name}</ContentTableCell>
+                                <ContentTableCell align="right">add ticket developer</ContentTableCell>
+                                <ContentTableCell align="right">
+                                    <Chip label={ticket.status} variant="outlined" color="secondary" />
+                                </ContentTableCell>
+                                <ContentTableCell align="right">
+                                    <Chip label={ticket.priority} variant="outlined" color="secondary" />
+                                </ContentTableCell>
+                                <ContentTableCell align="right">add last updated</ContentTableCell>
+                                <ContentTableCell sx={{ display: "flex", justifyContent: "center" }}>
+                                    <Tooltip title="View">
+                                        <IconButton onClick={() => navigate(`/ticketDetails/${ticket._id}`)}>
+                                            <VisibilityOutlinedIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                    <Tooltip title="Edit">
+                                        <IconButton onClick={() => navigate(`/editTicket/${ticket._id}`)}>
+                                            <EditOutlinedIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                </ContentTableCell>
+                            </TableRow>
+                        ))}
+                        </TableBody>
+                    </Table>
                 </Box>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table" size="small" >
-                    <TableHead>
-                        <TableRow >
-                            <BoldedTableCell>Title</BoldedTableCell>
-                            <BoldedTableCell sx={{ fontWeight: 600 }} align="right">Submitted By</BoldedTableCell>
-                            <BoldedTableCell align="right">Developer</BoldedTableCell>
-                            <BoldedTableCell align="right">Status</BoldedTableCell>
-                            <BoldedTableCell align="right">Priority</BoldedTableCell>
-                            <BoldedTableCell align="right">Last Updated</BoldedTableCell>
-                            <BoldedTableCell align="center">Actions</BoldedTableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                    {tickets && tickets.map((ticket, i) => (
-                        <TableRow
-                        key={i}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                            <ContentTableCell component="th" scope="row">
-                                {ticket.title}
-                            </ContentTableCell>
-                            <ContentTableCell align="right">{ticket.name}</ContentTableCell>
-                            <ContentTableCell align="right">add ticket developer</ContentTableCell>
-                            <ContentTableCell align="right">
-                                <Chip label={ticket.status} variant="outlined" color="secondary" />
-                            </ContentTableCell>
-                            <ContentTableCell align="right">
-                                <Chip label={ticket.priority} variant="outlined" color="secondary" />
-                            </ContentTableCell>
-                            <ContentTableCell align="right">add last updated</ContentTableCell>
-                            <ContentTableCell sx={{ display: "flex", justifyContent: "center" }}>
-                                <Tooltip title="View">
-                                    <IconButton onClick={() => navigate(`/ticketDetails/${ticket._id}`)}>
-                                        <VisibilityOutlinedIcon />
-                                    </IconButton>
-                                </Tooltip>
-                                <Tooltip title="Edit">
-                                    <IconButton onClick={() => navigate(`/editTicket/${ticket._id}`)}>
-                                        <EditOutlinedIcon />
-                                    </IconButton>
-                                </Tooltip>
-                            </ContentTableCell>
-                        </TableRow>
-                    ))}
-                    </TableBody>
-                </Table>
 
-            </Paper>
-
-
-            <Paper elevation={6} >
                 <CustomPagination 
                     path={`/allTickets${search.trim()? `/search?searchQuery=${search}&` : `?`}`}
                     page={page}

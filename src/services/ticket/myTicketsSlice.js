@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from '../../api/index';
+import { handleAlerts } from '../crudFeedbackSlice';
 
 const initialState = {
     loading: false,
@@ -10,7 +11,7 @@ const initialState = {
 };
 
 // generates pending, fulfilled, and rejected action types
-export const getMyTickets = createAsyncThunk('ticket/getMyTickets', async (page) => {
+export const getMyTickets = createAsyncThunk('ticket/getMyTickets', async (page, { dispatch, rejectWithValue }) => {
     try {
         const { data } = await api.getMyTickets(page);
 
@@ -19,10 +20,12 @@ export const getMyTickets = createAsyncThunk('ticket/getMyTickets', async (page)
         return data
     } catch (error) {
         console.log(error);
+        dispatch(handleAlerts({ severity: 'error', message: `My tickets were not able to be fetched. Error: ${error.message}`}));
+        return rejectWithValue(error)
     }
 })
 
-export const getMyTicketsBySearch = createAsyncThunk('ticket/getMyTicketsBySearch', async ({ search, page } , {dispatch}) => {
+export const getMyTicketsBySearch = createAsyncThunk('ticket/getMyTicketsBySearch', async ({ search, page } , { dispatch, rejectWithValue }) => {
     const searchQuery = search;
     // console.log(searchQuery, page)
     try {
@@ -31,7 +34,9 @@ export const getMyTicketsBySearch = createAsyncThunk('ticket/getMyTicketsBySearc
         // console.log(data);
         return data
     } catch (error) {
-        console.log(error);   
+        console.log(error);
+        dispatch(handleAlerts({ severity: 'error', message: `My tickets were not able to be fetched. Error: ${error.message}`}));
+        return rejectWithValue(error)
     }
 })
 

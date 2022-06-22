@@ -5,6 +5,7 @@ import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
 import SettingsIcon from '@mui/icons-material/Settings';
 import decode from 'jwt-decode';
 
+import { useLocation } from 'react-router-dom';
 
 import store from '../../app/store';
 import { userActions } from '../../services/user/userSlice';
@@ -14,6 +15,7 @@ import { userActions } from '../../services/user/userSlice';
 const Header = ({ drawerWidth, handleDrawerToggle }) => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     const [avatarOpen, setAvatarOpen] = useState(null);
+    const location = useLocation();
 
     // console.log(user?.userObject.name)
     const handleLogOut = () => {
@@ -31,7 +33,7 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
                 handleLogOut();
             }
         }
-    })
+    }, [location])
 
     const handleAvatarOpen = (event) => {
         setAvatarOpen(event.currentTarget);

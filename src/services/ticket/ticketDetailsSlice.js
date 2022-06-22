@@ -15,6 +15,10 @@ const initialState = {
         loading: false,
         error: '',
     },
+    deleteTicketFromArchive: {
+        loading: false,
+        error: '',
+    },
     ticket: {},
 }
 
@@ -60,6 +64,18 @@ export const moveTicketToArchive = createAsyncThunk('ticket/moveTicketToArchive'
     }
 })
 
+export const deleteTicketFromArchive = createAsyncThunk('ticket/deleteTicketFromArchive', async (id, {dispatch, rejectWithValue}) => {
+    try {
+        const { data } = await api.deleteTicketFromArchive(id);
+
+        dispatch(handleAlerts({ severity: 'success', message: `Ticket has been successfully deleted from the Ticket Archive.` }))
+        return data
+    } catch (error) {
+        console.log(error)
+        dispatch(handleAlerts({ severity: 'error', message: `Ticket failed to delete. Error: ${error.message}`}))
+        return rejectWithValue(error)
+    }
+})
 
 const ticketDetailsSlice = createSlice({
     name: 'ticketDetails',
@@ -99,6 +115,18 @@ const ticketDetailsSlice = createSlice({
         builder.addCase(moveTicketToArchive.rejected, (state, action) => {
             state.moveTicketToArchive.loading = false;
             state.moveTicketToArchive.error = action.payload.message;
+        })
+
+        // Delete Ticket From Archive
+        builder.addCase(deleteTicketFromArchive.pending, (state) => {
+            state.deleteTicketFromArchive.loading = true;
+        })
+        builder.addCase(deleteTicketFromArchive.fulfilled, (state) => {
+            state.deleteTicketFromArchive.loading = false;
+        })
+        builder.addCase(deleteTicketFromArchive.rejected, (state, action) => {
+            state.deleteTicketFromArchive.loading = false;
+            state.deleteTicketFromArchive.error = action.payload.message;
         })
     }
 })

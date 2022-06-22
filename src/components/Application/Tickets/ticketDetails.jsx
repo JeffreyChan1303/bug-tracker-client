@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { getTicketDetails, moveTicketToArchive } from '../../../services/ticket/ticketDetailsSlice';
+import { getTicketDetails, moveTicketToArchive, deleteTicketFromArchive } from '../../../services/ticket/ticketDetailsSlice';
 
 const TicketDetails = () => {
     const { id } = useParams();
@@ -20,8 +20,13 @@ const TicketDetails = () => {
     }, [])
       
     const handleDeleteTicket = () => {
-        dispatch(moveTicketToArchive(id))
-        navigate("/allTickets")
+        if (ticket.status === 'Archived') {
+            dispatch(deleteTicketFromArchive(id));
+            navigate("/ticketArchive")
+        } else {
+            dispatch(moveTicketToArchive(id))
+            navigate("/allTickets")
+        }
     }
 
 

@@ -28,7 +28,8 @@ export const updateTicket = (newTicket) => API.patch(`tickets/updateTicket/${new
 
 export const getTicketDetails = (id) => API.get(`tickets/ticketDetails/${id}`);
 export const moveTicketToArchive = (id) => API.put(`/tickets/moveTicketToArchive/${id}`);
-export const deleteTicketFromArchive = (id) => API.delete(`/tickets/deleteTicketFromArchive/${id}`)
+export const restoreTicketFromArchive = (id) => API.put(`/tickets/restoreTicketFromArchive/${id}`);
+export const deleteTicketFromArchive = (id) => API.delete(`/tickets/deleteTicketFromArchive/${id}`);
 
 // Project APIs
 export const getAllProjects = (page) => API.get(`/projects/allProjects?page=${page}`);

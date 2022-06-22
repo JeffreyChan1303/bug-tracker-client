@@ -15,6 +15,10 @@ const initialState = {
         loading: false,
         error: '',
     },
+    restoreTicketFromArchive: {
+        loading: false,
+        error: '',
+    },
     deleteTicketFromArchive: {
         loading: false,
         error: '',
@@ -59,6 +63,20 @@ export const moveTicketToArchive = createAsyncThunk('ticket/moveTicketToArchive'
     } catch (error) {
         console.log(error)
         dispatch(handleAlerts({ severity: 'error', message: `Ticket failed to delete. Error: ${error.message}`}))
+
+        return rejectWithValue(error)
+    }
+})
+
+export const restoreTicketFromArchive = createAsyncThunk('ticket/restoreTicketFromArchiveTicketFromArchive', async (id, { dispatch, rejectWithValue }) => {
+    try {
+        const { data } = await api.restoreTicketFromArchive(id);
+
+        dispatch(handleAlerts({ severity: 'success', message: `Ticket has been successfully restoreTicketFromArchiveed from the Ticket Archive.` }))
+        return data
+    } catch (error) {
+        console.log(error)
+        dispatch(handleAlerts({ severity: 'error', message: `Ticket failed to be restore ticket from archive. Error: ${error.message}`}))
 
         return rejectWithValue(error)
     }
@@ -115,6 +133,18 @@ const ticketDetailsSlice = createSlice({
         builder.addCase(moveTicketToArchive.rejected, (state, action) => {
             state.moveTicketToArchive.loading = false;
             state.moveTicketToArchive.error = action.payload.message;
+        })
+
+        // Restore Ticket From Archive
+        builder.addCase(restoreTicketFromArchive.pending, (state) => {
+            state.restoreTicketFromArchive.loading = true;
+        })
+        builder.addCase(restoreTicketFromArchive.fulfilled, (state) => {
+            state.restoreTicketFromArchive.loading = false;
+        })
+        builder.addCase(restoreTicketFromArchive.rejected, (state, action) => {
+            state.restoreTicketFromArchive.loading = false;
+            state.restoreTicketFromArchive.error = action.payload.message;
         })
 
         // Delete Ticket From Archive

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { getTicketDetails, moveTicketToArchive, deleteTicketFromArchive } from '../../../services/ticket/ticketDetailsSlice';
+import { getTicketDetails, moveTicketToArchive, deleteTicketFromArchive, restoreTicketFromArchive } from '../../../services/ticket/ticketDetailsSlice';
 
 const TicketDetails = () => {
     const { id } = useParams();
@@ -18,15 +18,22 @@ const TicketDetails = () => {
     useEffect(() => {
         dispatch(getTicketDetails(id))
     }, [])
-      
+    
+    const isArchived = ticket.status === 'Archived';
+
     const handleDeleteTicket = () => {
-        if (ticket.status === 'Archived') {
+        if (isArchived) {
             dispatch(deleteTicketFromArchive(id));
             navigate("/ticketArchive")
         } else {
             dispatch(moveTicketToArchive(id))
             navigate("/allTickets")
         }
+    }
+
+    const handleRecoverTicket = () => {
+        dispatch(restoreTicketFromArchive(id));
+        navigate("/allTickets");
     }
 
 
@@ -60,7 +67,11 @@ const TicketDetails = () => {
                     <Typography>Priority: {ticket.priority}</Typography>
                     <Typography>Status: {ticket.status}</Typography>
                     <Grid container>
-                        <Button variant="outlined" onClick={() => navigate(`/editTicket/${id}`)}>Edit</Button>
+                        { isArchived ? (
+                            <Button variant="outlined" onClick={handleRecoverTicket}>Recover</Button>
+                        ) : (
+                            <Button variant="outlined" onClick={() => navigate(`/editTicket/${id}`)}>Edit</Button>
+                        )}
                         <Button variant="outlined" onClick={handleDeleteTicket}>Delete</Button>
                     </Grid>
                 </AccordionDetails>

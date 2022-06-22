@@ -5,9 +5,10 @@ import { styled } from '@mui/system';
 import { useSelector, useDispatch } from 'react-redux';
 
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import RestoreIcon from '@mui/icons-material/Restore';
 
 import { getArchivedTickets, getArchivedTicketsBySearch } from '../../../services/ticket/ticketArchiveSlice';
+import { restoreTicketFromArchive } from '../../../services/ticket/ticketDetailsSlice';
 import CustomPagination from '../pagination';
 
 const BoldedTableCell = styled(TableCell) (({theme}) => ({
@@ -55,6 +56,11 @@ const TicketArchive = () => {
         if (e.keyCode === 13) {
             searchArchivedTickets();
         }
+    }
+
+    const handleRestoreTicket = (id) => {
+        dispatch(restoreTicketFromArchive(id));
+        navigate('/allTickets')
     }
 
     return (
@@ -111,9 +117,9 @@ const TicketArchive = () => {
                                         </IconButton>
                                     </Tooltip>
                                     {/* This should be changed to retrieve */}
-                                    <Tooltip title="Retrieve">
-                                        <IconButton onClick={() => navigate(`/editTicket/${ticket._id}`)}>
-                                            <EditOutlinedIcon />
+                                    <Tooltip title="Restore">
+                                        <IconButton onClick={() => handleRestoreTicket(ticket._id)}>
+                                            <RestoreIcon />
                                         </IconButton>
                                     </Tooltip>
                                 </ContentTableCell>

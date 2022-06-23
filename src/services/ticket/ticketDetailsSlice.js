@@ -30,6 +30,8 @@ export const getTicketDetails = createAsyncThunk('ticket/getTicketDetails', asyn
     try {
         const { data } = await api.getTicketDetails(id);
         // console.log(data);
+        // sorts the ticket history from newest to oldest
+        data.ticketHistory.reverse();
         
         return data;
     } catch (error) {

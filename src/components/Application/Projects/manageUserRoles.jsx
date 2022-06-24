@@ -1,11 +1,11 @@
 import react, { useState, useEffect } from 'react';
-import { Paper, Grid, Table, TableCell, Typography, Box, TableRow, TableHead, TableBody, TextField, CircularProgress } from '@mui/material';
+import { Paper, Grid, Table, TableCell, Typography, Box, TableRow, TableHead, TableBody, TextField, CircularProgress, Divider, Select, MenuItem, Chip, Button } from '@mui/material';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { styled } from '@mui/system';
 import { useSelector, useDispatch } from 'react-redux'
 
 import { getAllUsers, getAllUsersBySearch } from '../../../services/user/manageUserRolesSlice';
-import { getProjectDetails } from '../../../services/project/projectDetailsSlice';
+import projectDetailsSlice, { getProjectDetails } from '../../../services/project/projectDetailsSlice';
 import CustomPagination from '../pagination';
 
 const BoldedTableCell = styled(TableCell) (({theme}) => ({
@@ -21,14 +21,20 @@ function useQuery() {
     return new URLSearchParams(useLocation().search);
 }
 
-const ManageUserRoles = () => {
+const ManageUserRoles = (currentProjectUsers) => {
     const { id } = useParams();
     const query = useQuery();
     const page = query.get('page');
     const navigate = useNavigate();
     const [search, setSearch] = useState('');
+    const [role, setRole] = useState('developer');
     const dispatch = useDispatch();
     const { users, loading, currentPage, numberOfPages } = useSelector(state => state.manageUserRoles)
+
+    const [selectedUsers, setSelectedUsers] = useState([{
+        name: 'jeff',
+    }]);
+
 
     useEffect(() => {
         if (search.trim()) {
@@ -53,15 +59,62 @@ const ManageUserRoles = () => {
         }
     }
 
+    const handleRoleChange = (e) => {
+        setRole(e.target.value);
+    }
+
+    const handleDelete = () => {
+
+    }
+
+    const handleSave = () => {
+
+    }
+
 
     return (
         loading ? <CircularProgress coloe="inherit" /> : 
         <>
-            This is the Manage User Roles Page
-            <Grid container >
+            <Grid container spacing="30px" >
                 <Grid item xs={12} md={5} >
+                    <Typography fontWeight={700}>Current Project Users</Typography>
+                    <Box sx={{ border: 1, borderColor: "black", borderRadius: "1px", p: "10px" }}>
+                        {/* {currentProjectUsers.map((user, index) => (
+                            <Typography variant="body1">
+                                {user.name}
+                            </Typography>
+                        ))} */}
+                        <Button size="small" fullWidth sx={{ justifyContent: "flex-start", p: "0 5px" }}>
+                                andy
+                        </Button>
+                        <Button size="small" fullWidth sx={{ justifyContent: "flex-start", p: "0 5px" }}>
+                                andy
+                        </Button>
+                    </Box>
+                    <Divider sx={{ m: "20px" }} />
+                    <Typography variant="h6">Selected Users</Typography>
 
+                    <Box >
+                        {selectedUsers.map((user, index) => (
+                            <Chip key={index} variant="outlined" label={user.name} onDelete={handleDelete} color="primary" />
+                        ))}
+                    </Box>
+
+                    <Typography variant="body1" fontWeight={700}>Assign Role</Typography>
+                    <Select
+                        value={role}
+                        onChange={handleRoleChange}
+                        sx={{ mb: 2 }}
+                        fullWidth
+                    >
+                        <MenuItem value={"High"}>Admin</MenuItem>
+                        <MenuItem value={"Low"}>Developer</MenuItem>
+                        <MenuItem value={"Medium"}>Project Manager</MenuItem>
+                    </Select>
+
+                    <Button variant="contained" onClick={handleSave}>Save</Button>
                 </Grid>
+
                 <Grid item xs={12} md={7}>
                     <Paper sx={{ p: 3 }} elevation={1} >
                         <Box sx={{  overflowX: 'scroll' }} >

@@ -80,7 +80,6 @@ const AllProjects = () => {
                             <TableRow >
                                 <BoldedTableCell>Title</BoldedTableCell>
                                 <BoldedTableCell sx={{ fontWeight: 600 }} align="right">Submitted By</BoldedTableCell>
-                                <BoldedTableCell align="right">Status</BoldedTableCell>
                                 <BoldedTableCell align="right">Created At</BoldedTableCell>
                                 <BoldedTableCell align="center">Actions</BoldedTableCell>
                             </TableRow>
@@ -95,9 +94,6 @@ const AllProjects = () => {
                                     {project.title}
                                 </ContentTableCell>
                                 <ContentTableCell align="right">{project.name}</ContentTableCell>
-                                <ContentTableCell align="right">
-                                    <Chip label={project.status} variant="outlined" color="secondary" />
-                                </ContentTableCell>
                                 <ContentTableCell align="right">add the data created</ContentTableCell>
                                 <ContentTableCell sx={{ display: "flex", justifyContent: "center" }}>
                                     <Tooltip title="View">

@@ -3,6 +3,7 @@ import { setupListeners } from '@reduxjs/toolkit/dist/query';
 
 import userReducer from '../services/user/userSlice';
 import authReducer from '../services/user/authSlice';
+import manageUserRolesReducer from '../services/user/manageUserRolesSlice';
 
 // Ticket Imports
 import allTicketsReducer from '../services/ticket/allTicketsSlice';
@@ -27,6 +28,7 @@ export const store = configureStore({
         // User stores
         user: userReducer,
         auth: authReducer,
+        manageUserRoles: manageUserRolesReducer,
 
         // Ticket stores
         allTickets: allTicketsReducer,

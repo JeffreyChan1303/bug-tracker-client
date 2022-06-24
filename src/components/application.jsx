@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Drawer, CssBaseline, Box, Toolbar } from '@mui/material';
 
-import { Header, Navbar, Dashboard, AddProject, AllProjects, EditProject, MyProjects, ProjectArchive, ProjectDetails, AddTicket, AllTickets, EditTicket, MyTickets, TicketArchive, TicketDetails } from './Application/index';
+import { Header, Navbar, Dashboard, AddProject, AllProjects, EditProject, MyProjects, ProjectArchive, ProjectDetails, AddTicket, AllTickets, EditTicket, MyTickets, TicketArchive, TicketDetails, ManageUserRoles } from './Application/index';
 import CrudAlert from './Application/CrudFeedback/crudAlert';
 
 
@@ -76,6 +76,9 @@ const Application = () => {
                             <Route exact path="/editProject/:id" element={<EditProject />} />
                             <Route exact path="/projectDetails/:id" element={<ProjectDetails />} />
 
+                            <Route exact path="/projectDetails/manageUserRoles/:id" element={<ManageUserRoles />} />
+                            <Route exact path="/projectDetails/manageUserRoles/:id/search" element={<ManageUserRoles />} />
+
 
                             {/* Ticket Routes */}
                             <Route exact path="/allTickets" element={<AllTickets />} />
@@ -90,6 +93,8 @@ const Application = () => {
                             <Route exact path="/addTicket" element={<AddTicket />} />
                             <Route exact path="/editTicket/:id" element={<EditTicket />} />
                             <Route exact path="/ticketDetails/:id" element={<TicketDetails />} />
+
+                            {/* User Routes */}
 
                         </Routes>
                 </Box>

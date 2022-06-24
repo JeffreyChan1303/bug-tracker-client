@@ -14,6 +14,8 @@ API.interceptors.request.use((req) => {
 // User APIs
 export const signIn = (formData) => API.post('/users/signin', formData);
 export const signUp = (formData) => API.post('/users/signup', formData);
+export const getAllUsers = (page) => API.get(`/users/allUsers?page=${page}`);
+export const getAllUsersBySearch = (page) => API.get(`/users/allUsers?page=${page}`);
 
 // Ticket APIs
 export const getAllTickets = (page) => API.get(`/tickets/allTickets?page=${page}`);

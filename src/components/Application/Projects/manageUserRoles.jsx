@@ -1,11 +1,13 @@
 import react, { useState, useEffect } from 'react';
-import { Paper, Grid, Table, TableCell, Typography, Box, TableRow, TableHead, TableBody, TextField, CircularProgress, Divider, Select, MenuItem, Chip, Button } from '@mui/material';
+import { Paper, Grid, Table, TableCell, Typography, Box, TableRow, TableHead, TableBody, TextField, CircularProgress, Divider, Select, MenuItem, Chip, Button, IconButton } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { styled } from '@mui/system';
 import { useSelector, useDispatch } from 'react-redux'
 
 import { getAllUsers, getAllUsersBySearch } from '../../../services/user/manageUserRolesSlice';
-import projectDetailsSlice, { getProjectDetails } from '../../../services/project/projectDetailsSlice';
+import { getProjectDetails } from '../../../services/project/projectDetailsSlice';
+import { handleAlerts } from '../../../services/crudFeedbackSlice';
 import CustomPagination from '../pagination';
 
 const BoldedTableCell = styled(TableCell) (({theme}) => ({
@@ -27,13 +29,11 @@ const ManageUserRoles = (currentProjectUsers) => {
     const page = query.get('page');
     const navigate = useNavigate();
     const [search, setSearch] = useState('');
-    const [role, setRole] = useState('developer');
+    const [role, setRole] = useState('Developer');
     const dispatch = useDispatch();
     const { users, loading, currentPage, numberOfPages } = useSelector(state => state.manageUserRoles)
 
-    const [selectedUsers, setSelectedUsers] = useState([{
-        name: 'jeff',
-    }]);
+    const [selectedUsers, setSelectedUsers] = useState([]);
 
 
     useEffect(() => {
@@ -63,12 +63,30 @@ const ManageUserRoles = (currentProjectUsers) => {
         setRole(e.target.value);
     }
 
-    const handleDelete = () => {
-
+    const handleDelete = (index) => {
+        // if the index is not equal, we filter that item out
+        setSelectedUsers(selectedUsers.filter((user, i) => i != index));
     }
 
     const handleSave = () => {
 
+    }
+
+    const handleClear = () => {
+        setSelectedUsers([]);
+    }
+
+    const handleAddUser = (name, id) => {
+        let isSelected = false;
+        for (let i = 0; i < selectedUsers.length; i++) {
+            if (selectedUsers[i].id === id) {
+                dispatch(handleAlerts({ severity: "warning", message: "This user has already been selected" }))
+                isSelected = true;
+            }
+        }
+        if (!isSelected) {
+            setSelectedUsers([...selectedUsers, { id: id, name: name }]);
+        }
     }
 
 
@@ -78,12 +96,18 @@ const ManageUserRoles = (currentProjectUsers) => {
             <Grid container spacing="30px" >
                 <Grid item xs={12} md={5} >
                     <Typography fontWeight={700}>Current Project Users</Typography>
-                    <Box sx={{ border: 1, borderColor: "black", borderRadius: "1px", p: "10px" }}>
+                    <Box sx={{ border: 1, borderColor: "black", borderRadius: "1px", p: "10px" }} maxHeight="200px">
                         {/* {currentProjectUsers.map((user, index) => (
                             <Typography variant="body1">
                                 {user.name}
                             </Typography>
                         ))} */}
+                        <Box sx={{  }}>
+                            <Button size="small" fullWidth sx={{ justifyContent: "space-between", p: "0 5px" }}>
+                                    <Typography variant="inherit">Name: andy</Typography>
+                                    <Typography variant="inherit">Role: Developer</Typography>
+                            </Button>
+                        </Box>
                         <Button size="small" fullWidth sx={{ justifyContent: "flex-start", p: "0 5px" }}>
                                 andy
                         </Button>
@@ -91,12 +115,19 @@ const ManageUserRoles = (currentProjectUsers) => {
                                 andy
                         </Button>
                     </Box>
-                    <Divider sx={{ m: "20px" }} />
-                    <Typography variant="h6">Selected Users</Typography>
 
-                    <Box >
+                    <Divider sx={{ m: "20px" }} />
+
+                    <Typography variant="body1" fontWeight={700}>Selected Users</Typography>
+                    <Box sx={{ border: 1, borderColor: "black", borderRadius: "1px", p: "10px" }}>
                         {selectedUsers.map((user, index) => (
-                            <Chip key={index} variant="outlined" label={user.name} onDelete={handleDelete} color="primary" />
+                            <Chip 
+                                key={index} 
+                                variant="outlined" 
+                                label={user.name} 
+                                onDelete={() => handleDelete(index)} 
+                                color="primary" 
+                            />
                         ))}
                     </Box>
 
@@ -105,16 +136,19 @@ const ManageUserRoles = (currentProjectUsers) => {
                         value={role}
                         onChange={handleRoleChange}
                         sx={{ mb: 2 }}
+                        size="small"
                         fullWidth
                     >
-                        <MenuItem value={"High"}>Admin</MenuItem>
-                        <MenuItem value={"Low"}>Developer</MenuItem>
-                        <MenuItem value={"Medium"}>Project Manager</MenuItem>
+                        <MenuItem value={"Admin"}>Admin</MenuItem>
+                        <MenuItem value={"Developer"}>Developer</MenuItem>
+                        <MenuItem value={"Project Manager"}>Project Manager</MenuItem>
                     </Select>
 
                     <Button variant="contained" onClick={handleSave}>Save</Button>
+                    <Button variant="outlined" onClick={handleClear}>Clear</Button>
                 </Grid>
 
+                {/* All Users Section */}
                 <Grid item xs={12} md={7}>
                     <Paper sx={{ p: 3 }} elevation={1} >
                         <Box sx={{  overflowX: 'scroll' }} >
@@ -136,7 +170,7 @@ const ManageUserRoles = (currentProjectUsers) => {
                                     <TableRow >
                                         <BoldedTableCell>User Name</BoldedTableCell>
                                         <BoldedTableCell align="left">Email</BoldedTableCell>
-                                        <BoldedTableCell align="left">Roles</BoldedTableCell>
+                                        <BoldedTableCell align="center">Actions</BoldedTableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -149,7 +183,11 @@ const ManageUserRoles = (currentProjectUsers) => {
                                             {user.name}
                                         </ContentTableCell>
                                         <ContentTableCell align="left">{user.email}</ContentTableCell>
-                                        <ContentTableCell align="left">role??</ContentTableCell>
+                                        <ContentTableCell align="center">
+                                            <IconButton onClick={() => handleAddUser(user.name, user._id)}>
+                                                <AddIcon />
+                                            </IconButton>
+                                        </ContentTableCell>
                                     </TableRow>
                                 ))}
                                 </TableBody>

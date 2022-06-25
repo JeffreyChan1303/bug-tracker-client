@@ -23,7 +23,7 @@ function useQuery() {
     return new URLSearchParams(useLocation().search);
 }
 
-const ManageUserRoles = (currentProjectUsers) => {
+const ManageUserRoles = () => {
     const { id } = useParams();
     const query = useQuery();
     const page = query.get('page');
@@ -31,10 +31,14 @@ const ManageUserRoles = (currentProjectUsers) => {
     const [search, setSearch] = useState('');
     const [role, setRole] = useState('Developer');
     const dispatch = useDispatch();
-    const { users, loading, currentPage, numberOfPages } = useSelector(state => state.manageUserRoles)
+    const { users: allUsers, loading: getAllUsersLoading, currentPage, numberOfPages } = useSelector(state => state.manageUserRoles)
+    const { project: { users: currentProjectUsers }, loading: getProjectDetailsLoading } = useSelector(state => state.projectDetails)
 
     const [selectedUsers, setSelectedUsers] = useState([]);
 
+    useEffect(() => {
+        dispatch(getProjectDetails(id));
+    }, [])
 
     useEffect(() => {
         if (search.trim()) {
@@ -91,17 +95,21 @@ const ManageUserRoles = (currentProjectUsers) => {
 
 
     return (
-        loading ? <CircularProgress coloe="inherit" /> : 
+        getAllUsersLoading || getProjectDetailsLoading ? <CircularProgress coloe="inherit" /> : 
         <>
             <Grid container spacing="30px" >
                 <Grid item xs={12} md={5} >
                     <Typography fontWeight={700}>Current Project Users</Typography>
                     <Box sx={{ border: 1, borderColor: "black", borderRadius: "1px", p: "10px" }} maxHeight="200px">
-                        {/* {currentProjectUsers.map((user, index) => (
+                        
+                        {currentProjectUsers.map((user, index) => (
                             <Typography variant="body1">
-                                {user.name}
+                                {user.name} 
+                                {/* MAKE THIS NOW!!! make the api calls that add and delete users adn how they interact witht he project!! */}
+                                {/* Objects in here should have a name, id, email, data added, and role. this object is stored in the project.users section!! */}
                             </Typography>
-                        ))} */}
+                        ))}
+
                         <Box sx={{  }}>
                             <Button size="small" fullWidth sx={{ justifyContent: "space-between", p: "0 5px" }}>
                                     <Typography variant="inherit">Name: andy</Typography>
@@ -174,7 +182,7 @@ const ManageUserRoles = (currentProjectUsers) => {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                {users && users.map((user, i) => (
+                                {allUsers && allUsers.map((user, i) => (
                                     <TableRow
                                         key={i}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

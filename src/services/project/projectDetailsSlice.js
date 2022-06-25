@@ -15,7 +15,9 @@ const initialState = {
         loading: false,
         error: '',
     },
-    project: {},
+    project: {
+        users: [],
+    },
 }
 
 export const getProjectDetails = createAsyncThunk('project/getProjectDetails', async (id, {dispatch, rejectWithValue}) => {

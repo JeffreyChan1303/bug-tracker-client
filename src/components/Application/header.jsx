@@ -4,11 +4,14 @@ import MenuIcon from '@mui/icons-material/Menu'
 import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
 import SettingsIcon from '@mui/icons-material/Settings';
 import decode from 'jwt-decode';
+import { useDispatch } from 'react-redux';
 
 import { useLocation } from 'react-router-dom';
 
+
 import store from '../../app/store';
 import { userActions } from '../../services/user/userSlice';
+import { handleAlerts } from '../../services/crudFeedbackSlice';
 
 
 
@@ -16,6 +19,7 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     const [avatarOpen, setAvatarOpen] = useState(null);
     const location = useLocation();
+    const dispatch = useDispatch();
 
     // console.log(user?.userObject.name)
     const handleLogOut = () => {
@@ -30,6 +34,7 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
             const decodedToken = decode(token);
 
             if (decodedToken.exp * 1000 < new Date().getTime()) {
+                dispatch(handleAlerts({ severity: 'info', message: 'Your login session has expired. Please login again.'}));
                 handleLogOut();
             }
         }

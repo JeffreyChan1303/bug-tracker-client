@@ -5,8 +5,8 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { styled } from '@mui/system';
 import { useSelector, useDispatch } from 'react-redux'
 
-import { getAllUsers, getAllUsersBySearch } from '../../../services/user/manageUserRolesSlice';
-import { getProjectDetails } from '../../../services/project/projectDetailsSlice';
+import { getAllUsers, getAllUsersBySearch } from '../../../services/user/allUsersSlice';
+import { getProjectDetails, updateUsersRoles } from '../../../services/project/projectDetailsSlice';
 import { handleAlerts } from '../../../services/crudFeedbackSlice';
 import CustomPagination from '../pagination';
 
@@ -31,7 +31,7 @@ const ManageUserRoles = () => {
     const [search, setSearch] = useState('');
     const [role, setRole] = useState('Developer');
     const dispatch = useDispatch();
-    const { users: allUsers, loading: getAllUsersLoading, currentPage, numberOfPages } = useSelector(state => state.manageUserRoles)
+    const { users: allUsers, loading: getAllUsersLoading, currentPage, numberOfPages } = useSelector(state => state.allUsers)
     const { project: { users: currentProjectUsers }, loading: getProjectDetailsLoading } = useSelector(state => state.projectDetails)
 
     const [selectedUsers, setSelectedUsers] = useState([]);

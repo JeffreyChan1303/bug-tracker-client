@@ -48,3 +48,5 @@ export const updateProject = (newProject) => API.patch(`/projects/updateProject/
 export const getProjectDetails = (id) => API.get(`projects/projectDetails/${id}`);
 export const moveProjectToArchive = (id) => API.put(`/projects/moveProjectToArchive/${id}`);
 export const deleteProjectFromArchive = (id) => API.delete(`/projects/deleteProjectFromArchive/${id}`);
+
+export const updateUsersRoles = (projectId, users) => API.put(`/projects/updateUserRoles/${projectId}`, users)

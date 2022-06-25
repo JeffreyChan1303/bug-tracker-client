@@ -15,6 +15,10 @@ const initialState = {
         loading: false,
         error: '',
     },
+    updateUsersRoles: {
+        loading: false,
+        error: '',
+    },
     project: {
         users: [],
     },
@@ -59,6 +63,19 @@ export const moveProjectToArchive = createAsyncThunk('project/moveProjectToArchi
         dispatch(handleAlerts({ severity: 'error', message: `Project failed to delete. Error: ${error.message}`}))
 
         return rejectWithValue(error)
+    }
+})
+
+export const updateUsersRoles = createAsyncThunk('project/updateUsersRoles', async ({ projectId, users }, { dispatch, rejectWithValue }) => {
+    try {
+        const { data } = await api.updateUsersRoles(projectId, users);
+
+        dispatch(handleAlerts({ severity: 'success', message: `Users' roles were successfully updated` }))
+        return data
+    } catch (error) {
+        console.log(error);
+        dispatch(handleAlerts({ severity: 'error', message: `User's roles failed to update. Error ${error.message}` }));
+        return rejectWithValue(error);
     }
 })
 

@@ -20,7 +20,7 @@ const initialState = {
         error: '',
     },
     project: {
-        users: [],
+        users: {},
     },
 }
 
@@ -118,6 +118,18 @@ const projectDetailsSlice = createSlice({
         builder.addCase(moveProjectToArchive.rejected, (state, action) => {
             state.moveProjectToArchive.loading = false;
             state.moveProjectToArchive.error = action.payload.message;
+        })
+
+        // Update Users Roles
+        builder.addCase(updateUsersRoles.pending, (state) => {
+            state.updateUsersRoles.loading = true;
+        })
+        builder.addCase(updateUsersRoles.fulfilled, (state) => {
+            state.updateUsersRoles.loading = false;
+        })
+        builder.addCase(updateUsersRoles.rejected, (state, action) => {
+            state.updateUsersRoles.loading = false;
+            state.updateUsersRoles.error = action.payload.message;
         })
     }
 })

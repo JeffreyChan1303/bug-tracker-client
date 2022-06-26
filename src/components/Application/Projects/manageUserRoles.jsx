@@ -32,9 +32,8 @@ const ManageUserRoles = () => {
     const [role, setRole] = useState('Developer');
     const dispatch = useDispatch();
     const { users: allUsers, loading: getAllUsersLoading, currentPage, numberOfPages } = useSelector(state => state.allUsers)
-    const { project: { users: currentProjectUsers }, loading: getProjectDetailsLoading } = useSelector(state => state.projectDetails)
-
-    const [selectedUsers, setSelectedUsers] = useState([]);
+    const { project: { users: currentProjectUsers, _id: projectId }, loading: getProjectDetailsLoading } = useSelector(state => state.projectDetails)
+    const [selectedUsers, setSelectedUsers] = useState({});
 
     useEffect(() => {
         dispatch(getProjectDetails(id));
@@ -67,55 +66,54 @@ const ManageUserRoles = () => {
         setRole(e.target.value);
     }
 
-    const handleDelete = (index) => {
+    const handleDelete = (id) => {
         // if the index is not equal, we filter that item out
-        setSelectedUsers(selectedUsers.filter((user, i) => i != index));
+        // setSelectedUsers(selectedUsers.filter((user, i) => i != index));
+
+        setSelectedUsers(current => {
+            const copy = { ...current }; // we need to do this because not spreading and just using 'current' will make it configure or mutate the original state of the app
+            delete copy[id];
+            return copy
+        })
     }
 
     const handleSave = () => {
-
+        dispatch(updateUsersRoles({ projectId: id, users: selectedUsers}))
     }
 
     const handleClear = () => {
-        setSelectedUsers([]);
+        setSelectedUsers({});
     }
 
     const handleAddUser = (name, id) => {
-        let isSelected = false;
-        for (let i = 0; i < selectedUsers.length; i++) {
-            if (selectedUsers[i].id === id) {
-                dispatch(handleAlerts({ severity: "warning", message: "This user has already been selected" }))
-                isSelected = true;
-            }
-        }
-        if (!isSelected) {
-            setSelectedUsers([...selectedUsers, { id: id, name: name }]);
+        if (selectedUsers[id]) {
+            dispatch(handleAlerts({ severity: "warning", message: "This user has already been selected" }))
+        } else {
+            setSelectedUsers({...selectedUsers, [id]: { name } });
         }
     }
 
 
     return (
-        getAllUsersLoading || getProjectDetailsLoading ? <CircularProgress coloe="inherit" /> : 
+        getAllUsersLoading || getProjectDetailsLoading ? <CircularProgress color="inherit" /> : 
         <>
             <Grid container spacing="30px" >
                 <Grid item xs={12} md={5} >
                     <Typography fontWeight={700}>Current Project Users</Typography>
                     <Box sx={{ border: 1, borderColor: "black", borderRadius: "1px", p: "10px" }} maxHeight="200px">
                         
-                        {currentProjectUsers.map((user, index) => (
-                            <Typography variant="body1">
-                                {user.name} 
-                                {/* MAKE THIS NOW!!! make the api calls that add and delete users adn how they interact witht he project!! */}
-                                {/* Objects in here should have a name, id, email, data added, and role. this object is stored in the project.users section!! */}
-                            </Typography>
-                        ))}
+                        {Object.keys(currentProjectUsers).map((id, index) => (
+                            <Button key={index} size="small" fullWidth sx={{ justifyContent: "space-between", p: "0 5px" }}>
+                                <Typography variant="inherit">Name: {currentProjectUsers[id].name}</Typography>
+                                <Typography variant="inherit">Role: {currentProjectUsers[id].role}</Typography>
+                            </Button>
+                            
+                        ))} 
 
-                        <Box sx={{  }}>
                             <Button size="small" fullWidth sx={{ justifyContent: "space-between", p: "0 5px" }}>
                                     <Typography variant="inherit">Name: andy</Typography>
                                     <Typography variant="inherit">Role: Developer</Typography>
                             </Button>
-                        </Box>
                         <Button size="small" fullWidth sx={{ justifyContent: "flex-start", p: "0 5px" }}>
                                 andy
                         </Button>
@@ -128,12 +126,12 @@ const ManageUserRoles = () => {
 
                     <Typography variant="body1" fontWeight={700}>Selected Users</Typography>
                     <Box sx={{ border: 1, borderColor: "black", borderRadius: "1px", p: "10px" }}>
-                        {selectedUsers.map((user, index) => (
+                        {Object.keys(selectedUsers).map((id, index) => (
                             <Chip 
                                 key={index} 
                                 variant="outlined" 
-                                label={user.name} 
-                                onDelete={() => handleDelete(index)} 
+                                label={selectedUsers[id].name} 
+                                onDelete={() => handleDelete(id)} 
                                 color="primary" 
                             />
                         ))}

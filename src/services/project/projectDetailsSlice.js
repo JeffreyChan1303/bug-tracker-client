@@ -66,8 +66,14 @@ export const moveProjectToArchive = createAsyncThunk('project/moveProjectToArchi
     }
 })
 
-export const updateUsersRoles = createAsyncThunk('project/updateUsersRoles', async ({ projectId, users }, { dispatch, rejectWithValue }) => {
+export const updateUsersRoles = createAsyncThunk('project/updateUsersRoles', async ({ projectId, users, role }, { dispatch, rejectWithValue }) => {
     try {
+        // this loop sets the role of all the user objects
+        Object.keys(users).map((element) => {
+            users[element].role = role;
+        })
+        console.log(users)
+
         const { data } = await api.updateUsersRoles(projectId, users);
 
         dispatch(handleAlerts({ severity: 'success', message: `Users' roles were successfully updated` }))

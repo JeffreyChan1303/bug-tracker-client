@@ -29,7 +29,7 @@ const ManageUserRoles = () => {
     const page = query.get('page');
     const navigate = useNavigate();
     const [search, setSearch] = useState('');
-    const [role, setRole] = useState('Developer');
+    const [role, setRole] = useState('');
     const dispatch = useDispatch();
     const { users: allUsers, loading: getAllUsersLoading, currentPage, numberOfPages } = useSelector(state => state.allUsers)
     const { project: { users: currentProjectUsers, _id: projectId }, loading: getProjectDetailsLoading } = useSelector(state => state.projectDetails)
@@ -78,18 +78,22 @@ const ManageUserRoles = () => {
     }
 
     const handleSave = () => {
-        dispatch(updateUsersRoles({ projectId: id, users: selectedUsers}))
+        if (role === '' || Object.keys(selectedUsers).length <= 0) {
+            dispatch(handleAlerts({ severity: 'warning', message: 'Plase select valid users and a specific role to assign the users'}));
+        } else {
+            dispatch(updateUsersRoles({ projectId: id, users: selectedUsers, role: role }))
+        }
     }
 
     const handleClear = () => {
         setSelectedUsers({});
     }
 
-    const handleAddUser = (name, id) => {
+    const handleAddUser = (id, name, email) => {
         if (selectedUsers[id]) {
             dispatch(handleAlerts({ severity: "warning", message: "This user has already been selected" }))
         } else {
-            setSelectedUsers({...selectedUsers, [id]: { name } });
+            setSelectedUsers({...selectedUsers, [id]: { name: name, email: email } });
         }
     }
 
@@ -103,7 +107,11 @@ const ManageUserRoles = () => {
                     <Box sx={{ border: 1, borderColor: "black", borderRadius: "1px", p: "10px" }} maxHeight="200px">
                         
                         {Object.keys(currentProjectUsers).map((id, index) => (
-                            <Button key={index} size="small" fullWidth sx={{ justifyContent: "space-between", p: "0 5px" }}>
+                            <Button key={index} 
+                                size="small" fullWidth  
+                                sx={{ justifyContent: "space-between", p: "0 5px" }}
+                                onClick={() => handleAddUser(id, currentProjectUsers[id].name, currentProjectUsers[id].email)}
+                            >
                                 <Typography variant="inherit">Name: {currentProjectUsers[id].name}</Typography>
                                 <Typography variant="inherit">Role: {currentProjectUsers[id].role}</Typography>
                             </Button>
@@ -190,7 +198,7 @@ const ManageUserRoles = () => {
                                         </ContentTableCell>
                                         <ContentTableCell align="left">{user.email}</ContentTableCell>
                                         <ContentTableCell align="center">
-                                            <IconButton onClick={() => handleAddUser(user.name, user._id)}>
+                                            <IconButton onClick={() => handleAddUser(user._id, user.name, user.email)}>
                                                 <AddIcon />
                                             </IconButton>
                                         </ContentTableCell>

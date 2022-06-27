@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import * as api from '../../api/index';
-import { handleAlerts } from '../crudFeedbackSlice';
+import { handleAlerts } from '../alertsSlice';
 
 const initialState = {
     getTicketDetails: {

@@ -3,14 +3,14 @@ import { Alert, Fade, IconButton, Box } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { closeCrudFeedbackById } from '../../../services/crudFeedbackSlice';
+import { closeAlertById } from '../../services/alertsSlice';
 
 
 
 const CrudAlert = () => {
 
     const dispatch = useDispatch();
-    const { alerts } = useSelector((state) => state.crudFeedback);
+    const { alerts } = useSelector((state) => state.alerts);
 
     return (
         <>
@@ -39,7 +39,7 @@ const CrudAlert = () => {
                             color="inherit"
                             size="small"
                             onClick={() => {
-                                dispatch(closeCrudFeedbackById(element.id));
+                                dispatch(closeAlertById(element.id));
                             }}
                             >
                                 <CloseIcon fontSize="small" />

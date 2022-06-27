@@ -5,23 +5,24 @@ const initialState = {
 };
 
 export const handleAlerts = createAsyncThunk( 'alert/handleAlert', async ({ severity, message }, {dispatch, getState}) => {
-    dispatch(addCrudFeedback({ severity: severity, message: message }));
+    dispatch(addAlert({ severity: severity, message: message }));
 
-    const { crudFeedback: { alerts } } = getState()
+    // gets the alerts property from the alerts store!
+    const { alerts } = getState().alerts
     const { id } = alerts[alerts.length - 1]
 
     setTimeout(() => {
-        dispatch(closeCrudFeedbackById(id));
+        dispatch(closeAlertById(id));
     }, 6000)
 })
 
 // we need to have unique id numbers to delete cirtain object
 
-export const crudFeedbackSlice = createSlice({
-    name: "Crud Feedback",
+export const alertsSlice = createSlice({
+    name: "Alert",
     initialState,
     reducers: {
-        addCrudFeedback: (state, action) => {
+        addAlert: (state, action) => {
             var id = Math.floor(Math.random() * 100 + 1)
             // while the new id is the same as an id in the array, find another id
             while (state.alerts.findIndex(e => e.id === id) !== -1) {
@@ -36,7 +37,7 @@ export const crudFeedbackSlice = createSlice({
                 message: action?.payload.message,
             })
         },
-        closeCrudFeedbackById: (state, action) => {
+        closeAlertById: (state, action) => {
             const index = state.alerts.findIndex(e => e.id === action?.payload)
             // only if the id is in the array
             if (index !== -1) {
@@ -46,8 +47,8 @@ export const crudFeedbackSlice = createSlice({
     }
 })
 
-export default crudFeedbackSlice.reducer;
+export default alertsSlice.reducer;
 export const {
-    addCrudFeedback,
-    closeCrudFeedbackById,
-} = crudFeedbackSlice.actions;
+    addAlert,
+    closeAlertById,
+} = alertsSlice.actions;

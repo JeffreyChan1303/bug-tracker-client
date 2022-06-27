@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { Drawer, CssBaseline, Box, Toolbar } from '@mui/material';
 
 import { Header, Navbar, Dashboard, AddProject, AllProjects, EditProject, MyProjects, ProjectArchive, ProjectDetails, AddTicket, AllTickets, EditTicket, MyTickets, TicketArchive, TicketDetails, ManageUserRoles, NotificationsPage } from './Application/index';
-import CrudAlert from './Application/CrudFeedback/crudAlert';
+import Alert from './Application/alert';
 
 
 const drawerWidth = 260;
@@ -103,7 +103,7 @@ const Application = () => {
 
             {/* Notifications */}
 
-            <CrudAlert />
+            <Alert />
         </>
     )
 }

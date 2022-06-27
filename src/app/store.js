@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
 
 
-import crudFeedbackReducer from '../services/crudFeedbackSlice';
+import alertsReducer from '../services/alertsSlice';
 // User Imports
 import userReducer from '../services/user/userSlice';
 import authReducer from '../services/user/authSlice';
@@ -49,7 +49,7 @@ export const store = configureStore({
 
 
         // Other stores
-        crudFeedback: crudFeedbackReducer,
+        alerts: alertsReducer,
 
         
     },

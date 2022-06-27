@@ -11,7 +11,7 @@ import { useLocation } from 'react-router-dom';
 
 import store from '../../app/store';
 import { userActions } from '../../services/user/userSlice';
-import { handleAlerts } from '../../services/crudFeedbackSlice';
+import { handleAlerts } from '../../services/alertsSlice';
 
 
 
@@ -71,7 +71,7 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
                 <Typography variant="h6" noWrap>
                     Responsive drawer 
                 </Typography>
-                
+
                 {user.userObject.name}
 
                 <Box maxWidth sx={{  justifySelf: "right", display: "flex" }} justifyContent="right">

@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { getAllUsers, getAllUsersBySearch } from '../../../services/user/allUsersSlice';
 import { getProjectDetails, updateUsersRoles } from '../../../services/project/projectDetailsSlice';
-import { handleAlerts } from '../../../services/crudFeedbackSlice';
+import { handleAlerts } from '../../../services/alertsSlice';
 import CustomPagination from '../pagination';
 
 const BoldedTableCell = styled(TableCell) (({theme}) => ({

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 
-import { handleAlerts } from '../../../services/crudFeedbackSlice';
+import { handleAlerts } from '../../../services/alertsSlice';
 import { createTicket } from '../../../services/ticket/addTicketSlice';
 
 const initialTicketData = {

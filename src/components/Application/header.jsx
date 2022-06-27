@@ -71,6 +71,8 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
                 <Typography variant="h6" noWrap>
                     Responsive drawer 
                 </Typography>
+                
+                {user.userObject.name}
 
                 <Box maxWidth sx={{  justifySelf: "right", display: "flex" }} justifyContent="right">
                     <IconButton sx={{ color: "white" }} >

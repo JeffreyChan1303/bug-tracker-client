@@ -69,6 +69,10 @@ const Auth = () => {
     // when input is typed in
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
+    // demo logins
+    const loginToDemoAdmin = () => dispatch(signIn({ email: 'Demo_Admin@bugtracker.com', password: 'DemoAdminPassword' }));
+    const loginToDemoDeveloper = () => dispatch(signIn({ email: 'Demo_Developer@bugtracker.com', password: 'DemoDeveloperPassword' }));
+    const loginToDemoProductManager = () => dispatch(signIn({ email: 'Demo_Product_Manager@bugtracker.com', password: 'DemoProductManagerPassword' }));
 
     return (
         <>
@@ -120,13 +124,11 @@ const Auth = () => {
                                 </Typography>
 
                                 <Box sx={{display: "flex", m: "10px 0"}} justifyContent="space-evenly" >
-                                    <Button variant="outlined">Demo 1</Button>
-                                    <Button variant="outlined">Demo 2</Button>
-                                    <Button variant="outlined">Demo 3</Button>
+                                    <Button variant="outlined" onClick={loginToDemoAdmin}>Demo Admin</Button>
+                                    <Button variant="outlined" onClick={loginToDemoDeveloper}>Demo Developer</Button>
                                 </Box>
                                 <Box sx={{display: "flex"}} justifyContent="center" gap={3}>
-                                    <Button variant="outlined">Demo 4</Button>
-                                    <Button variant="outlined">Demo 5</Button>
+                                    <Button variant="outlined" onClick={loginToDemoProductManager}>Demo Product Manager</Button>
                                 </Box>
                             </>
                         }

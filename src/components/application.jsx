@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Drawer, CssBaseline, Box, Toolbar } from '@mui/material';
 
-import { Header, Navbar, Dashboard, AddProject, AllProjects, EditProject, MyProjects, ProjectArchive, ProjectDetails, AddTicket, AllTickets, EditTicket, MyTickets, TicketArchive, TicketDetails, ManageUserRoles } from './Application/index';
+import { Header, Navbar, Dashboard, AddProject, AllProjects, EditProject, MyProjects, ProjectArchive, ProjectDetails, AddTicket, AllTickets, EditTicket, MyTickets, TicketArchive, TicketDetails, ManageUserRoles, NotificationsPage } from './Application/index';
 import CrudAlert from './Application/CrudFeedback/crudAlert';
 
 
@@ -61,6 +61,7 @@ const Application = () => {
                         <Routes>
                             <Route exact path="/*" element={<Navigate to="/dashboard" replace />} />
                             <Route exact path="/dashboard" element={<Dashboard />} />
+                            <Route exact path="/notifications" element={<NotificationsPage />} />
 
                             {/* Project Routes */}
                             <Route exact path="/allProjects" element={<AllProjects />} />

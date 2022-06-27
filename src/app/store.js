@@ -1,14 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
 
+
+import crudFeedbackReducer from '../services/crudFeedbackSlice';
+// User Imports
 import userReducer from '../services/user/userSlice';
 import authReducer from '../services/user/authSlice';
 import allUsersReducer from '../services/user/allUsersSlice';
+import notificationsReducer from '../services/user/notificationsSlice';
 
 // Ticket Imports
 import allTicketsReducer from '../services/ticket/allTicketsSlice';
 import myTicketsReducer from '../services/ticket/myTicketsSlice';
-import crudFeedbackReducer from '../services/crudFeedbackSlice';
 import addTicketReducer from '../services/ticket/addTicketSlice';
 import ticketDetailsReducer from '../services/ticket/ticketDetailsSlice';
 import ticketArchiveReducer from '../services/ticket/ticketArchiveSlice';
@@ -17,7 +20,6 @@ import ticketArchiveReducer from '../services/ticket/ticketArchiveSlice';
 import allProjectsReducer from '../services/project/allProjectsSlice';
 import myProjectsReducer from '../services/project/myProjectsSlice';
 import projectArchiveReducer from '../services/project/projectArchiveSlice';
-
 import addProjectReducer from '../services/project/addProjectSlice';
 import projectDetailsReducer from '../services/project/projectDetailsSlice';
 
@@ -29,6 +31,7 @@ export const store = configureStore({
         user: userReducer,
         auth: authReducer,
         allUsers: allUsersReducer,
+        notifications: notificationsReducer,
 
         // Ticket stores
         allTickets: allTicketsReducer,

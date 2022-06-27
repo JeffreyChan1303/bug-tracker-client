@@ -117,17 +117,6 @@ const ManageUserRoles = () => {
                             </Button>
                             
                         ))} 
-
-                            <Button size="small" fullWidth sx={{ justifyContent: "space-between", p: "0 5px" }}>
-                                    <Typography variant="inherit">Name: andy</Typography>
-                                    <Typography variant="inherit">Role: Developer</Typography>
-                            </Button>
-                        <Button size="small" fullWidth sx={{ justifyContent: "flex-start", p: "0 5px" }}>
-                                andy
-                        </Button>
-                        <Button size="small" fullWidth sx={{ justifyContent: "flex-start", p: "0 5px" }}>
-                                andy
-                        </Button>
                     </Box>
 
                     <Divider sx={{ m: "20px" }} />

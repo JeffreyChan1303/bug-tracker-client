@@ -1,6 +1,7 @@
 export { default as Header } from './header';
 export { default as Navbar } from './Navbar/navbar';
 export { default as Dashboard } from './Dashboard/dashboard';
+export { default as NotificationsPage } from './notificationsPage';
 
 export { default as AddProject } from './Projects/addProject';
 export { default as AllProjects } from './Projects/allProjects';
@@ -19,3 +20,4 @@ export { default as TicketDetails } from './Tickets/ticketDetails';
 
 
 export { default as ManageUserRoles } from './Projects/manageUserRoles';
+

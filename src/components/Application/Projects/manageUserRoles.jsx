@@ -148,7 +148,7 @@ const ManageUserRoles = () => {
                     </Select>
 
                     <Button variant="contained" onClick={handleSave}>Save</Button>
-                    <Button variant="outlined" onClick={handleClear}>Clear</Button>
+                    <Button variant="outlined" onClick={handleClear} sx={{ ml: "17px"}}>Clear Selected Users</Button>
                 </Grid>
 
                 {/* All Users Section */}

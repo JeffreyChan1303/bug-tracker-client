@@ -48,10 +48,11 @@ const NotificationPage = () => {
             description: 'Test Message',
         }))
     }
-    const handleDeleteNotification = () => {
+    const handleDeleteNotification = (createdAt) => {
         // we will just use an array method and shift from the bottom for now!!! 
         // we wil need to implement specific ids for the notifications soon though
-        dispatch(deleteUserNotification())
+        dispatch(deleteUserNotification({ createdAt: createdAt }))
+        window.location.reload();
     }
 
  
@@ -75,7 +76,6 @@ const NotificationPage = () => {
         <>
             <Typography variant="body1">Notifications Page</Typography>
             <Button variant="outlined" onClick={() => handleCreateNotification()}>Create Notification</Button>
-            <Button variant="outlined" onClick={() => handleDeleteNotification()}>Delete Notification</Button>
 
             <Paper sx={{ p: 3 }} elevation={3} >
                 <Box sx={{  overflowX: 'scroll' }} >
@@ -97,7 +97,7 @@ const NotificationPage = () => {
                             <TableRow >
                                 <BoldedTableCell>Title</BoldedTableCell>
                                 <BoldedTableCell align="right">Created At</BoldedTableCell>
-                                <BoldedTableCell align="center">Actions</BoldedTableCell>
+                                <BoldedTableCell align="center">Delete</BoldedTableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -111,8 +111,8 @@ const NotificationPage = () => {
                                     </ContentTableCell>
                                     <ContentTableCell align="right">{notification.createdAt}</ContentTableCell>
                                     <ContentTableCell sx={{ display: "flex", justifyContent: "center" }}>
-                                        <Tooltip title="Edit">
-                                            <IconButton onClick={() => handleDeleteNotification}>
+                                        <Tooltip title="Delete">
+                                            <IconButton onClick={() => handleDeleteNotification(notification.createdAt)}>
                                                 <DeleteIcon />
                                             </IconButton>
                                         </Tooltip>

@@ -59,9 +59,12 @@ export const createUsersNotification = createAsyncThunk('user/createUsersNotific
     }
 })
 
-export const deleteUserNotification = createAsyncThunk('user/deleteUserNotification', async (params, { dispatch, rejectWithValue }) => {
+export const deleteUserNotification = createAsyncThunk('user/deleteUserNotification', async (createdAt, { dispatch, rejectWithValue }) => {
     try {
+        const { data } = api.deleteUserNotification(createdAt);
 
+
+        return data;
     } catch (error) {
         console.log(error);
         dispatch(handleAlerts({ severity: 'error', message: `User notification was not able to be deleted. Error: ${error.message}` }));

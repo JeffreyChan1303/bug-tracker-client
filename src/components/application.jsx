@@ -62,6 +62,7 @@ const Application = () => {
                             <Route exact path="/*" element={<Navigate to="/dashboard" replace />} />
                             <Route exact path="/dashboard" element={<Dashboard />} />
                             <Route exact path="/notifications" element={<NotificationsPage />} />
+                            <Route exact path="/notifications/search" element={<NotificationsPage />} />
 
                             {/* Project Routes */}
                             <Route exact path="/allProjects" element={<AllProjects />} />

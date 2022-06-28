@@ -16,7 +16,7 @@ export const signIn = (formData) => API.post('/users/signin', formData);
 export const signUp = (formData) => API.post('/users/signup', formData);
 export const getAllUsers = (page) => API.get(`/users/allUsers?page=${page}`);
 export const getAllUsersBySearch = (page, searchQuery) => API.get(`/users/allUsers/search?searchQuery=${searchQuery || 'none'}&page=${page}`);
-export const getUserNotifications = () => API.get(`/users/notifications`);
+export const getUserNotifications = (page) => API.get(`/users/notifications?page=${page}`);
 export const createUsersNotification = (payload) => API.put(`/users/createUsersNotification`, payload);
 
 // Ticket APIs

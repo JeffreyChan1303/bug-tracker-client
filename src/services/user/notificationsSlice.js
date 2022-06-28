@@ -16,12 +16,15 @@ const initialState = {
         error: '',
     },
     notifications: [],
+    currentPage: null,
+    numberOfPages: null,
 }
 
-export const getUserNotifications = createAsyncThunk('user/getUserNotifications', async (params, { dispatch, rejectWithValue }) => {
+export const getUserNotifications = createAsyncThunk('user/getUserNotifications', async (page, { dispatch, rejectWithValue }) => {
     try {
-        const { data } = await api.getUserNotifications();
+        const { data } = await api.getUserNotifications(page);
 
+        console.log(data)
         return data
     } catch (error) {
         console.log(error);
@@ -64,7 +67,9 @@ const notificationsSlice = createSlice({
         })
         builder.addCase(getUserNotifications.fulfilled, (state, action) => {
             state.getUserNotifications.loading = false;
-            state.notifications = action.payload;
+            state.notifications = action.payload.data;
+            state.currentPage = action.payload.currentPage;
+            state.numberOfPages = action.payload.numberOfPages;
         })
         builder.addCase(getUserNotifications.rejected, (state, action) => {
             state.getUserNotifications.loading = false;

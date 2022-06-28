@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserNotifications, createUsersNotification, deleteUserNotification } from '../../services/user/notificationsSlice';
+import { getUserNotifications, getUserNotificationsBySearch, createUsersNotification, deleteUserNotification } from '../../services/user/notificationsSlice';
 import CustomPagination from './pagination';
 
 const BoldedTableCell = styled(TableCell) (({theme}) => ({
@@ -32,7 +32,7 @@ const NotificationPage = () => {
 
     useEffect(() => {
         if (search.trim()) {
-            // dispatch(getUserNotificationsBySearch({ search, page }))
+            dispatch(getUserNotificationsBySearch({ search, page }))
         } else {
             dispatch(getUserNotifications(page));
         }
@@ -57,10 +57,10 @@ const NotificationPage = () => {
  
      const searchAllNotifications = () => {
          if (search.trim()) {
-            //  dispatch(getUserNotificationsBySearch({ search, page: 1 }))
-             navigate(`/allNotifications/search?searchQuery=${search || 'none'}&page=1`);
+             dispatch(getUserNotificationsBySearch({ search, page: 1 }))
+             navigate(`/notifications/search?searchQuery=${search || 'none'}&page=1`);
          } else {
-             navigate('/allNotifications')
+             navigate('/notifications')
          }
      }
  

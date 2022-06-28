@@ -33,6 +33,20 @@ export const getUserNotifications = createAsyncThunk('user/getUserNotifications'
     }
 })
 
+export const getUserNotificationsBySearch = createAsyncThunk('user/getUserNotificationsBySearch', async ({ page, search }, { dispatch, rejectWithValue }) => {
+    const searchQuery = search;
+    try {
+        const { data } = await api.getUserNotificationsBySearch(page, searchQuery);
+
+        console.log(data)
+        return data
+    } catch (error) {
+        console.log(error);
+        dispatch(handleAlerts({ severity: 'error', message:`User notifications were not able to be fetched. Error: ${error.message}` }));
+        return rejectWithValue(error);
+    }
+})
+
 export const createUsersNotification = createAsyncThunk('user/createUsersNotifications', async (params, { dispatch, rejectWithValue }) => {
     try {
         const { data } = api.createUsersNotification(params);
@@ -73,8 +87,24 @@ const notificationsSlice = createSlice({
         })
         builder.addCase(getUserNotifications.rejected, (state, action) => {
             state.getUserNotifications.loading = false;
-            state.error = action.payload.message;
+            state.getUserNotifications.error = action.payload.message;
         })
+
+        // Get User Notifications By Search
+
+        builder.addCase(getUserNotificationsBySearch.pending, (state) => {
+            state.getUserNotifications.loading = true;
+        })
+        builder.addCase(getUserNotificationsBySearch.fulfilled, (state, action) => {
+            state.getUserNotifications.loading = false;
+            state.notifications = action.payload.data;
+            state.currentPage = action.payload.currentPage;
+            state.numberOfPages = action.payload.numberOfPages;
+        })
+        builder.addCase(getUserNotificationsBySearch.rejected, (state, action) => {
+            state.getUserNotificationsBySearch.loading = false;
+            state.getUserNotificationsBySearch.error = action.payload.message;
+        })        
 
         // Create Users Notification
         builder.addCase(createUsersNotification.pending, (state) => {

@@ -20,7 +20,11 @@ const initialState = {
         error: '',
     },
     project: {
+        name: '',
+        title: '',
+        createdAt: '',
         users: {},
+        tickets: [],
     },
 }
 

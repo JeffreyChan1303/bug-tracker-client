@@ -41,9 +41,7 @@ const ProjectDetails = () => {
     }, [usersSearch])
 
     useEffect(() => {
-        if (ticketsSearch.trim()) {
-            dispatch(searchProjectTickets(ticketsSearch));
-        }
+        dispatch(searchProjectTickets(ticketsSearch));
     }, [ticketsSearch])
       
     const handleDeleteProject = () => {

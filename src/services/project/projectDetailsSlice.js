@@ -26,6 +26,7 @@ const initialState = {
         users: {},
         searchedUsers: {},
         tickets: [],
+        searchedTickets: [],
     },
 }
 
@@ -106,7 +107,7 @@ const projectDetailsSlice = createSlice({
                 let userDetails = current(state.project.users[id])
 
                 // if the search is in the name or the email of the user, add to object
-                if (userDetails.name.includes(search.toLowerCase()) || userDetails.email.toLowerCase().includes(search)) {
+                if (userDetails.name.toLowerCase().includes(search.toLowerCase()) || userDetails.email.toLowerCase().includes(search)) {
                     newUsers[id] = userDetails
                 }
             }
@@ -115,7 +116,22 @@ const projectDetailsSlice = createSlice({
             return { ...state, project: { ...state.project, searchedUsers: newUsers }}
         },
         searchProjectTickets: (state, action) => {
-            
+            const search = action.payload.toLowerCase();
+            const ticketArr = state.project.tickets;
+            let newTickets = []
+
+            // loop through array to check for the contained string
+            for (let i = 0; i < ticketArr.length; i++) {
+                let id = ticketArr[i]
+                let ticketDetails = ticketArr[i];
+
+                // if the search is in the name or the email of the user, add to object
+                if (ticketDetails.title.toLowerCase().includes(search.toLowerCase())) {
+                    newTickets.push(ticketDetails);
+                }
+            }
+
+            return { ...state, project: { ...state.project, searchedTickets: newTickets }}
         }
     },
     extraReducers: builder => {

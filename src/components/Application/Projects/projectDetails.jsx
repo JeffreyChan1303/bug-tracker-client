@@ -5,7 +5,7 @@ import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 
-import { getProjectDetails, moveProjectToArchive } from '../../../services/project/projectDetailsSlice';
+import { getProjectDetails, moveProjectToArchive, searchProjectUsers, searchProjectTickets } from '../../../services/project/projectDetailsSlice';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 
 
@@ -30,24 +30,21 @@ const ProjectDetails = () => {
     const [usersSearch, setUsersSearch] = useState('');
     const [ticketsSearch, setTicketsSearch] = useState('');
 
-    const { getProjectDetails: { loading }, project: { users, tickets, ...project } } = useSelector(state => state.projectDetails);
-    console.log(users, tickets);
+    const { getProjectDetails: { loading }, project: { searchedUsers: users, tickets, ...project } } = useSelector(state => state.projectDetails);
 
     useEffect(() => {
         dispatch(getProjectDetails(id))
     }, [])
 
-    // useEffect(() => {
-    //     if (usersSearch.trim()) {
-    //         dispatch(searchAssignedUsers(usersSearch));
-    //     }
-    // }, [usersSearch])
+    useEffect(() => {
+        dispatch(searchProjectUsers(usersSearch));
+    }, [usersSearch])
 
-    // useEffect(() => {
-    //     if (ticketsSearch.trim()) {
-    //         dispatch(searchAssignedUsers(usersSearch));
-    //     }
-    // }, [ticketsSearch])
+    useEffect(() => {
+        if (ticketsSearch.trim()) {
+            dispatch(searchProjectTickets(ticketsSearch));
+        }
+    }, [ticketsSearch])
       
     const handleDeleteProject = () => {
         dispatch(moveProjectToArchive(id))

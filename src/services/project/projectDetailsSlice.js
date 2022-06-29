@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
 import * as api from '../../api/index';
 import { handleAlerts } from '../alertsSlice';
 
@@ -24,6 +24,7 @@ const initialState = {
         title: '',
         createdAt: '',
         users: {},
+        searchedUsers: {},
         tickets: [],
     },
 }
@@ -93,6 +94,30 @@ export const updateUsersRoles = createAsyncThunk('project/updateUsersRoles', asy
 const projectDetailsSlice = createSlice({
     name: 'projectDetails',
     initialState,
+    reducers: {
+        searchProjectUsers: (state, action) => {
+            const search = action.payload.toLowerCase();
+            let newUsers = {}
+            const userArr = Object.keys(state.project.users)
+
+            // loop through array to check for the contained string
+            for (let i = 0; i < userArr.length; i++) {
+                let id = userArr[i]
+                let userDetails = current(state.project.users[id])
+
+                // if the search is in the name or the email of the user, add to object
+                if (userDetails.name.includes(search.toLowerCase()) || userDetails.email.toLowerCase().includes(search)) {
+                    newUsers[id] = userDetails
+                }
+            }
+            console.log(newUsers)
+
+            return { ...state, project: { ...state.project, searchedUsers: newUsers }}
+        },
+        searchProjectTickets: (state, action) => {
+            
+        }
+    },
     extraReducers: builder => {
         // Get Project Details
         builder.addCase(getProjectDetails.pending, (state) => {
@@ -101,6 +126,8 @@ const projectDetailsSlice = createSlice({
         builder.addCase(getProjectDetails.fulfilled, (state, action) => {
             state.getProjectDetails.loading = false;
             state.project = action.payload;
+            state.project.searchedUsers = state.project.users;
+            console.log(state.project)
         })
         builder.addCase(getProjectDetails.rejected, (state, action) => {
             state.getProjectDetails.loading = false;
@@ -145,4 +172,5 @@ const projectDetailsSlice = createSlice({
 })
 
 export default projectDetailsSlice.reducer;
+export const { searchProjectUsers, searchProjectTickets } = projectDetailsSlice.actions;
 

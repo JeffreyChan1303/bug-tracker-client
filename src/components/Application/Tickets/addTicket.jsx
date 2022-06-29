@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { Typography, TextField, Button, Paper, Select, MenuItem } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Typography, TextField, Button, Paper, Select, MenuItem, CircularProgress } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { handleAlerts } from '../../../services/alertsSlice';
+import { getMyProjects } from '../../../services/project/myProjectsSlice';
 import { createTicket } from '../../../services/ticket/addTicketSlice';
+import { handleAlerts } from '../../../services/alertsSlice';
 
 const initialTicketData = {
     creator: '', // this state will be taken from the redux store where Login information is stored
@@ -13,6 +14,10 @@ const initialTicketData = {
     description: '',
     priority: 'High',
     status: 'New',
+    project: {
+        _id: null,
+        title: '',
+    }
 };
 
 
@@ -22,12 +27,26 @@ const AddTicket = () => {
     const [ticketData, setTicketData] = useState(initialTicketData);
     const user = JSON.parse(localStorage.getItem('profile'))
 
+    const { loading, projects } = useSelector(state => state.myProjects);
+
+
+    useEffect(() => {
+        // THIS IS IMPORTANT. WE NEED TO MAKE A GET ALL OF MY PROJECT FUNCTIONS WITHOUT THE PAGE. this is needed for this part of the project
+        // we may need to make a new function or competely refactor the old one!!!
+        dispatch(getMyProjects(1));
+    }, [])
+
+
+
     const handlePriorityChange = (event) => {
         setTicketData({ ...ticketData, priority: event.target.value });
     };
     const handleStatusChange = (event) => {
         setTicketData({ ...ticketData, status: event.target.value });
     };
+    const handleProjectChange = (id, title) => {
+        setTicketData({...ticketData, project: { _id: id, title: title } });
+    }
 
 
 
@@ -52,13 +71,33 @@ const AddTicket = () => {
     }
 
     return (
+        loading ? <CircularProgress color="inherit" /> :
         <>
-            <Typography paragraph>
+            <Typography variant="h5">
                 Add Ticket
             </Typography>
             
             <Paper sx={{ p: 3, maxWidth: { md: "700px" }}} elevation={3} >
                 <form autoComplete="off" noValidate onSubmit={handleSubmit} style={{  }}>
+
+                    <Typography variant="body1" fontWeight={700}>Project</Typography>
+                    <Select
+                        value={ticketData.project.title}
+                        sx={{ mb: 2 }}
+                        fullWidth
+                        size="small"
+                    >
+                        {projects && projects.map((project, index) => (
+                            <MenuItem 
+                                key={index} 
+                                value={project.title} 
+                                onClick={() => handleProjectChange(project._id, project.title)}
+                            >
+                                {project.title}
+                            </MenuItem>
+                        ))}
+                    </Select>
+
                     <Typography variant="body1" fontWeight={700}>Ticket Title</Typography>
                     <TextField 
                         name="title" 

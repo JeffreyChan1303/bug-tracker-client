@@ -53,6 +53,9 @@ const AddTicket = () => {
     const handleSubmit = (event) => {
         event.preventDefault(); // this stops the page from it's default refrash setting when clicking a button on the react form.
 
+        if (ticketData.project.title === '') {
+            dispatch(handleAlerts({ severity: "warning", message: "Invalid Project. Please choose a valid project." }));
+        }
         if (ticketData.title === '') { 
             dispatch(handleAlerts({ severity: "warning", message: "Invalid title" }));
         }

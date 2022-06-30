@@ -33,7 +33,9 @@ const initialState = {
 export const getProjectDetails = createAsyncThunk('project/getProjectDetails', async (id, {dispatch, rejectWithValue}) => {
     try {
         const { data } = await api.getProjectDetails(id);
-        // console.log(data);
+        console.log(data);
+        
+        data.tickets.reverse();
         
         return data;
     } catch (error) {

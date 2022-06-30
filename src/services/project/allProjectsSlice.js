@@ -16,7 +16,6 @@ export const getAllProjects = createAsyncThunk('project/getAllProjects', async (
     try {
         const { data } = await api.getAllProjects(page);
 
-        dispatch(handleAlerts({ severity: 'success', message: 'All Projects page successfully got the items'}))
         return data
     } catch (error) {
         console.log(error);

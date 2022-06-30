@@ -47,7 +47,6 @@ const MyProjects = () => {
             dispatch(getMyProjectsBySearch({ search, page }));
         } else {
             dispatch(getMyProjects(page));
-            navigate('/myProjects')
         }
     //    dispatch(getMyProjects(page));
     }, [page])
@@ -93,11 +92,8 @@ const MyProjects = () => {
                         <TableHead>
                             <TableRow >
                                 <BoldedTableCell>Title</BoldedTableCell>
-                                <BoldedTableCell sx={{ fontWeight: 600 }} align="right">Submitted By</BoldedTableCell>
-                                <BoldedTableCell align="right">Developer</BoldedTableCell>
-                                <BoldedTableCell align="right">Status</BoldedTableCell>
-                                <BoldedTableCell align="right">Priority</BoldedTableCell>
-                                <BoldedTableCell align="right">Last Updated</BoldedTableCell>
+                                <BoldedTableCell sx={{ fontWeight: 600 }} align="right">Created By</BoldedTableCell>
+                                <BoldedTableCell align="right">Created At</BoldedTableCell>
                                 <BoldedTableCell align="center">Actions</BoldedTableCell>
                             </TableRow>
                         </TableHead>
@@ -111,14 +107,7 @@ const MyProjects = () => {
                                     {project.title}
                                 </ContentTableCell>
                                 <ContentTableCell align="right">{project.name}</ContentTableCell>
-                                <ContentTableCell align="right">add project developer</ContentTableCell>
-                                <ContentTableCell align="right">
-                                    <Chip label={project.status} variant="outlined" color="secondary" />
-                                </ContentTableCell>
-                                <ContentTableCell align="right">
-                                    <Chip label={project.priority} variant="outlined" color="secondary" />
-                                </ContentTableCell>
-                                <ContentTableCell align="right">add last updated</ContentTableCell>
+                                <ContentTableCell align="right">{project.createdAt}</ContentTableCell>
                                 <ContentTableCell sx={{ display: "flex", justifyContent: "center" }}>
                                     <Tooltip title="View">
                                         <IconButton onClick={() => navigate(`/projectDetails/${project._id}`)}>

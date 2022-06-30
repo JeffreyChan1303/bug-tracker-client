@@ -18,6 +18,12 @@ const ContentTableCell = styled(TableCell) (({theme}) => ({
     padding: "5px",
 }));
 
+const getDateFromISODate = (ISODate) => {
+    const date = new Date(ISODate);
+    const string = `${date.getMonth()}-${date.getDate()}-${date.getFullYear()}:${date.getHours()}:${date.getMinutes()}`;
+    return string
+}
+
 function useQuery() {
     return new URLSearchParams(useLocation().search);
 }
@@ -64,7 +70,7 @@ const ProjectDetails = () => {
                         <Grid item xs={5} >
                             <Typography><strong>Project ID: </strong>{project._id}</Typography>
                             <Typography><strong>Created By: </strong>{project.name}</Typography>
-                            <Typography><strong>Created At: </strong>{project.createdAt}</Typography>
+                            <Typography><strong>Created At: </strong>{Date(project.createdAt)}</Typography>
                         </Grid>
                         <Grid item xs={7} >
                             <Typography variant="body1">
@@ -173,6 +179,9 @@ const ProjectDetails = () => {
                                             <ContentTableCell align="left">add Developer</ContentTableCell>
                                             <ContentTableCell align="left">
                                                 <Chip label={ticket.status} variant="outlined" color="secondary" />
+                                            </ContentTableCell>
+                                            <ContentTableCell align="left">
+                                                {getDateFromISODate(ticket.createdAt)}
                                             </ContentTableCell>
                                             <ContentTableCell sx={{ display: "flex", justifyContent: "center" }}>
                                                 <Tooltip title="View">

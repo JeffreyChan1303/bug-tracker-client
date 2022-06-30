@@ -8,7 +8,6 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 import { getMyTickets, getMyTicketsBySearch } from '../../../services/ticket/myTicketsSlice';
-import store from '../../../app/store';
 import CustomPagination from '../pagination';
 
 const BoldedTableCell = styled(TableCell)(({theme}) => ({
@@ -36,20 +35,13 @@ const MyTickets = () => {
 
     const dispatch = useDispatch();
 
-    const unsubscribe = store.subscribe(() => {
-        // console.log('updated state: ', store.getState().allTickets)
-    })
-
-
     useEffect(() => {
         // this fetches data every time the page is changed
         if (search.trim()) {
             dispatch(getMyTicketsBySearch({ search, page }));
         } else {
             dispatch(getMyTickets(page));
-            navigate('/myTickets')
         }
-    //    dispatch(getMyTickets(page));
     }, [page])
 
     const searchMyTickets = () => {
@@ -66,7 +58,6 @@ const MyTickets = () => {
 
     const handleKeyPress = (e) => {
         if (e.keyCode === 13) {
-            // search for post... probably a dispatch or something here
             searchMyTickets();
         }
     }

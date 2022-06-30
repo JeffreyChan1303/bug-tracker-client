@@ -24,10 +24,6 @@ const getDateFromISODate = (ISODate) => {
     return string
 }
 
-function useQuery() {
-    return new URLSearchParams(useLocation().search);
-}
-
 
 const ProjectDetails = () => {
     const { id } = useParams();

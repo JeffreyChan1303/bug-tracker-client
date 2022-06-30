@@ -130,7 +130,7 @@ const TicketArchive = () => {
                 </Box>
 
                 <CustomPagination 
-                    path={`/archivedTickets${search.trim()? `/search?searchQuery=${search}&` : `?`}`}
+                    path={`/ticketArchive${search.trim()? `/search?searchQuery=${search}&` : `?`}`}
                     page={page}
                     currentPage={currentPage}
                     numberOfPages={numberOfPages}

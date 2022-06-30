@@ -5,7 +5,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { getTicketDetails, moveTicketToArchive, deleteTicketFromArchive, restoreTicketFromArchive } from '../../../services/ticket/ticketDetailsSlice';
+import { getTicketDetails, moveTicketToArchive, deleteTicketFromArchive, restoreTicketFromArchive, addTicketComment } from '../../../services/ticket/ticketDetailsSlice';
 
 const BoldedTableCell = styled(TableCell) (({theme}) => ({
     fontWeight: theme.typography.fontWeightBold,
@@ -18,7 +18,7 @@ const ContentTableCell = styled(TableCell) (({theme}) => ({
 
 const getDateFromISODate = (ISODate) => {
     const date = new Date(ISODate);
-    const string = `${date.getMonth()}-${date.getDate()}-${date.getFullYear()}:${date.getHours()}:${date.getMinutes()}`;
+    const string = `${date.getMonth()}-${date.getDate()}-${date.getFullYear()}`;
     return string
 }
 
@@ -54,7 +54,7 @@ const TicketDetails = () => {
     }
 
     const handleSaveComment = () => {
-        dispatch();
+        dispatch(addTicketComment(id));
     }
 
     return (
@@ -89,7 +89,7 @@ const TicketDetails = () => {
                                         </Box>
                                         <Box sx={{ mb: 1 }}>
                                             <Typography fontWeight={600} variant="body2">Created</Typography>
-                                            <Typography paddingLeft={1} variant="body1">{ticket.createdAt}</Typography>
+                                            <Typography paddingLeft={1} variant="body1">{getDateFromISODate(ticket.createdAt)}</Typography>
                                         </Box>    
                                     </Grid>
 
@@ -112,7 +112,7 @@ const TicketDetails = () => {
                                         </Box>
                                         <Box sx={{ mb: 1 }}>
                                             <Typography fontWeight={600} variant="body2">Updated</Typography>
-                                            <Typography paddingLeft={1} variant="body1">{ticket.updatedAt}</Typography>
+                                            <Typography paddingLeft={1} variant="body1">{getDateFromISODate(ticket.updatedAt)}</Typography>
                                         </Box>
                                     </Grid>
 

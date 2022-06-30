@@ -23,6 +23,10 @@ const initialState = {
         loading: false,
         error: '',
     },
+    addTicketComment: {
+        loading: false,
+        error: '',
+    },
     ticket: {},
 }
 
@@ -97,6 +101,20 @@ export const deleteTicketFromArchive = createAsyncThunk('ticket/deleteTicketFrom
     }
 })
 
+export const addTicketComment = createAsyncThunk('ticket/addTicketComment', async (id, { dispatch, rejectWithValue }) => {
+    try {
+        const { data } = await api.addTicketComment(id);
+
+        dispatch(handleAlerts({ severity: 'success', message: 'Comment has been successfully added.' }));;
+
+        return data
+    } catch (error) {
+        console.log(error);
+        dispatch(handleAlerts({ severity: 'error', message: `Comment failed to save. Error: ${error.message}`}));
+        return rejectWithValue(error);
+    }
+})
+
 const ticketDetailsSlice = createSlice({
     name: 'ticketDetails',
     initialState,
@@ -160,6 +178,19 @@ const ticketDetailsSlice = createSlice({
             state.deleteTicketFromArchive.loading = false;
             state.deleteTicketFromArchive.error = action.payload.message;
         })
+
+        // Add Ticket Comment
+        builder.addCase(addTicketComment.pending, (state) => {
+            state.addTicketComment.loading = true;
+        })
+        builder.addCase(addTicketComment.fulfilled, (state) => {
+            state.addTicketComment.loading = false;
+        })
+        builder.addCase(addTicketComment.rejected, (state, action) => {
+            state.addTicketComment.loading = false;
+            state.addTicketComment.error = action.payload.message;
+        })
+
     }
 })
 

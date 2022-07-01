@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { getTicketDetails, moveTicketToArchive, deleteTicketFromArchive, restoreTicketFromArchive, addTicketComment, deleteTicketComment } from '../../../services/ticket/ticketDetailsSlice';
+import { handleAlerts } from '../../../services/alertsSlice';
 
 const BoldedTableCell = styled(TableCell) (({theme}) => ({
     fontWeight: theme.typography.fontWeightBold,
@@ -57,10 +58,16 @@ const TicketDetails = () => {
 
     // WE NEED TO PUT THIS USER OBJECT IN A REDUX GLOBAL STATE. this will make retrieving some user information a lot easier
     const userName = JSON.parse(localStorage.getItem('profile'))?.userObject?.name
+
     const handleSaveComment = () => {
-        console.log('hi')
-        dispatch(addTicketComment({ ticketId, comment: { name: userName, message: comment} }));
-        dispatch(getTicketDetails(ticketId));
+        let ticketComment = comment.trim();
+        if (ticketComment) {
+            dispatch(addTicketComment({ ticketId, comment: { name: userName, message: ticketComment} }));
+            dispatch(getTicketDetails(ticketId));
+            setComment('');
+        } else {
+            dispatch(handleAlerts({ severity: 'warning', message: 'Invalid Comment' }))   
+        }
     }
 
     const handleDeleteComment = (commentCreatedAt) => {

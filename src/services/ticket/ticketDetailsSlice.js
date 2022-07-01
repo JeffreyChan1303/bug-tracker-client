@@ -106,9 +106,9 @@ export const deleteTicketFromArchive = createAsyncThunk('ticket/deleteTicketFrom
     }
 })
 
-export const addTicketComment = createAsyncThunk('ticket/addTicketComment', async ({ id, comment }, { dispatch, rejectWithValue }) => {
+export const addTicketComment = createAsyncThunk('ticket/addTicketComment', async ({ ticketId, comment }, { dispatch, rejectWithValue }) => {
     try {
-        const { data } = await api.addTicketComment(id, comment);
+        const { data } = await api.addTicketComment(ticketId, comment);
 
         dispatch(handleAlerts({ severity: 'success', message: 'Comment has been successfully added.' }));;
 

@@ -37,7 +37,8 @@ export const moveTicketToArchive = (id) => API.put(`/tickets/moveTicketToArchive
 export const restoreTicketFromArchive = (id) => API.put(`/tickets/restoreTicketFromArchive/${id}`);
 export const deleteTicketFromArchive = (id) => API.delete(`/tickets/deleteTicketFromArchive/${id}`);
 
-export const addTicketComment = (id) => API.patch(`tickets/addTicketComment/${id}`);
+export const addTicketComment = (id, comment) => API.patch(`tickets/addTicketComment/${id}`, comment);
+export const deleteTicketComment = (ticketId, commentCreatedAt) => API.patch(`tickets/deleteTicketComment/${ticketId}`, commentCreatedAt);
 
 // Project APIs
 export const getAllProjects = (page) => API.get(`/projects/allProjects?page=${page}`);

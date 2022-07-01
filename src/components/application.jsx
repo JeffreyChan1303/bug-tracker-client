@@ -94,7 +94,7 @@ const Application = () => {
 
                             <Route exact path="/addTicket" element={<AddTicket />} />
                             <Route exact path="/editTicket/:id" element={<EditTicket />} />
-                            <Route exact path="/ticketDetails/:id" element={<TicketDetails />} />
+                            <Route exact path="/ticketDetails/:ticketId" element={<TicketDetails />} />
 
                             {/* User Routes */}
 

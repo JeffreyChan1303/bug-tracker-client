@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { styled } from '@mui/system';
-import { Typography, Paper, Accordion, AccordionSummary, AccordionDetails, Grid, Button, CircularProgress, Box, TextField, Table, TableHead, TableRow, TableBody, TableCell } from '@mui/material';
+import { Typography, Paper, Accordion, AccordionSummary, AccordionDetails, Grid, Button, CircularProgress, Box, TextField, Table, TableHead, TableRow, TableBody, TableCell, IconButton } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { getTicketDetails, moveTicketToArchive, deleteTicketFromArchive, restoreTicketFromArchive, addTicketComment } from '../../../services/ticket/ticketDetailsSlice';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { getTicketDetails, moveTicketToArchive, deleteTicketFromArchive, restoreTicketFromArchive, addTicketComment, deleteTicketComment } from '../../../services/ticket/ticketDetailsSlice';
 
 const BoldedTableCell = styled(TableCell) (({theme}) => ({
     fontWeight: theme.typography.fontWeightBold,
@@ -23,7 +24,7 @@ const getDateFromISODate = (ISODate) => {
 }
 
 const TicketDetails = () => {
-    const { id } = useParams();
+    const { ticketId } = useParams();
     const [search, setSearch] = useState('');
     const [comment, setComment] = useState('');
     const navigate = useNavigate();
@@ -33,28 +34,38 @@ const TicketDetails = () => {
     console.log(ticket)
 
     useEffect(() => {
-        dispatch(getTicketDetails(id))
+        dispatch(getTicketDetails(ticketId))
     }, [])
     
     const isArchived = ticket.status === 'Archived';
 
     const handleDeleteTicket = () => {
         if (isArchived) {
-            dispatch(deleteTicketFromArchive(id));
+            dispatch(deleteTicketFromArchive(ticketId));
             navigate("/ticketArchive")
         } else {
-            dispatch(moveTicketToArchive(id))
+            dispatch(moveTicketToArchive(ticketId))
             navigate("/allTickets")
         }
     }
 
+
     const handleRecoverTicket = () => {
-        dispatch(restoreTicketFromArchive(id));
+        dispatch(restoreTicketFromArchive(ticketId));
         navigate("/allTickets");
     }
 
+    // WE NEED TO PUT THIS USER OBJECT IN A REDUX GLOBAL STATE. this will make retrieving some user information a lot easier
+    const userName = JSON.parse(localStorage.getItem('profile'))?.userObject?.name
     const handleSaveComment = () => {
-        dispatch(addTicketComment(id));
+        console.log('hi')
+        dispatch(addTicketComment({ ticketId, comment: { name: userName, message: comment} }));
+        dispatch(getTicketDetails(ticketId));
+    }
+
+    const handleDeleteComment = (commentCreatedAt) => {
+        dispatch(deleteTicketComment({ ticketId: ticketId, commentCreatedAt: commentCreatedAt }))
+        dispatch(getTicketDetails(ticketId))
     }
 
     return (
@@ -120,7 +131,7 @@ const TicketDetails = () => {
                                         { isArchived ? (
                                             <Button variant="outlined" onClick={handleRecoverTicket}>Recover</Button>
                                         ) : (
-                                            <Button variant="outlined" onClick={() => navigate(`/editTicket/${id}`)}>Edit</Button>
+                                            <Button variant="outlined" onClick={() => navigate(`/editTicket/${ticketId}`)}>Edit</Button>
                                         )}
                                         <Button variant="outlined" onClick={handleDeleteTicket}>Delete</Button>
                                     </Grid>
@@ -134,8 +145,6 @@ const TicketDetails = () => {
                                 <Accordion elevation={0} disableGutters>
                                     <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
-                                        aria-controls="panel2a-content"
-                                        id="panel2a-header"
                                     >
                                         <Grid container justifyContent="space-between">
                                             <Typography fontWeight={700} >Ticket History</Typography>
@@ -163,24 +172,26 @@ const TicketDetails = () => {
                 <Grid item xs={12} lg={6}>
                     <Paper sx={{ p: 3 }} elevation={3} >
                         <Box sx={{  overflowX: 'scroll' }} >
-
-                            <Typography variant="h6" fontWeight={700}>Ticket Comments</Typography>
-                            <Box sx={{ display: "flex", justifyContent: "right" }}>
-                                <Typography align="right" variant="body1"> Search:&nbsp; </Typography>
-                                <TextField 
-                                    size="small" 
-                                    variant="standard"
-                                    name="search"
-                                    value={search}
-                                    onChange={(e) => setSearch(e.target.value)}
-                                />
-                            </Box>
-                            <Table sx={{ }} aria-label="simple table" size="small" >
+                            <Grid container justifyContent="space-between" >
+                                <Typography variant="h6" fontWeight={700}>Ticket Comments</Typography>
+                                <Box sx={{ display: "flex", justifyContent: "right" }}>
+                                    <Typography align="right" variant="body1"> Search:&nbsp; </Typography>
+                                    <TextField 
+                                        size="small" 
+                                        variant="standard"
+                                        name="search"
+                                        value={search}
+                                        onChange={(e) => setSearch(e.target.value)}
+                                    />
+                                </Box>
+                            </Grid>
+                            <Table aria-label="simple table" size="small" >
                                 <TableHead>
                                     <TableRow >
                                         <BoldedTableCell>User</BoldedTableCell>
                                         <BoldedTableCell align="left">Message</BoldedTableCell>
                                         <BoldedTableCell align="left">Created</BoldedTableCell>
+                                        <BoldedTableCell align="center">Delete</BoldedTableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -196,7 +207,12 @@ const TicketDetails = () => {
                                             {comment.message}
                                         </ContentTableCell>
                                         <ContentTableCell align="left">
-                                            {comment.createdAt}
+                                            {getDateFromISODate(comment.createdAt)}
+                                        </ContentTableCell>
+                                        <ContentTableCell align="center">
+                                            <IconButton onClick={() => handleDeleteComment(comment.createdAt)}>
+                                                <DeleteIcon />
+                                            </IconButton>
                                         </ContentTableCell>
                                     </TableRow>
                                 ))}
@@ -221,7 +237,6 @@ const TicketDetails = () => {
                                     size="small" 
                                     variant="outlined"
                                     multiline
-
                                     fullWidth
                                     value={comment}
                                     onChange={(e) => setComment(e.target.value)}
@@ -237,7 +252,6 @@ const TicketDetails = () => {
                     </Paper>
                 </Grid>
             </Grid>
-
         </>
     )
 };

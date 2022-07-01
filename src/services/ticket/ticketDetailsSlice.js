@@ -27,6 +27,10 @@ const initialState = {
         loading: false,
         error: '',
     },
+    deleteTicketComment: {
+        loading: false,
+        error: '',
+    },
     ticket: {},
 }
 
@@ -36,6 +40,7 @@ export const getTicketDetails = createAsyncThunk('ticket/getTicketDetails', asyn
         // console.log(data);
         // sorts the ticket history from newest to oldest
         data.ticketHistory.reverse();
+        data.comments.reverse();
         
         return data;
     } catch (error) {
@@ -101,9 +106,9 @@ export const deleteTicketFromArchive = createAsyncThunk('ticket/deleteTicketFrom
     }
 })
 
-export const addTicketComment = createAsyncThunk('ticket/addTicketComment', async (id, { dispatch, rejectWithValue }) => {
+export const addTicketComment = createAsyncThunk('ticket/addTicketComment', async ({ id, comment }, { dispatch, rejectWithValue }) => {
     try {
-        const { data } = await api.addTicketComment(id);
+        const { data } = await api.addTicketComment(id, comment);
 
         dispatch(handleAlerts({ severity: 'success', message: 'Comment has been successfully added.' }));;
 
@@ -115,9 +120,28 @@ export const addTicketComment = createAsyncThunk('ticket/addTicketComment', asyn
     }
 })
 
+export const deleteTicketComment = createAsyncThunk('ticket/deleteTicketComment', async ({ ticketId, commentCreatedAt }, { dispatch, rejectWithValue }) => {
+    try {
+        const { data } = api.deleteTicketComment(ticketId, { commentCreatedAt: commentCreatedAt });
+
+        dispatch(handleAlerts({ severity: 'success', message: 'Comment was deleted successfully.'}));
+
+        return data
+    } catch (error) {
+        console.log(error);
+        dispatch(handleAlerts({ severity: 'error', message: `Ticket comment was not able to be deleted. Error: ${error.message}` }));
+        return rejectWithValue(error)
+    }
+})
+
 const ticketDetailsSlice = createSlice({
     name: 'ticketDetails',
     initialState,
+    reducers: {
+        searchTicketComments: (searchQuery) => {
+
+        },
+    },
     extraReducers: builder => {
         // Get Ticket Details
         builder.addCase(getTicketDetails.pending, (state) => {
@@ -191,6 +215,17 @@ const ticketDetailsSlice = createSlice({
             state.addTicketComment.error = action.payload.message;
         })
 
+        // Delete Ticket Comment
+        builder.addCase(deleteTicketComment.pending, (state) => {
+            state.deleteTicketComment.loading = true;
+        })
+        builder.addCase(deleteTicketComment.fulfilled, (state) => {
+            state.deleteTicketComment.loading = false;
+        })
+        builder.addCase(deleteTicketComment.rejected, (state, action) => {
+            state.deleteTicketComment.loading = false;
+            state.deleteTicketComment.error = action.payload.message;
+        })
     }
 })
 

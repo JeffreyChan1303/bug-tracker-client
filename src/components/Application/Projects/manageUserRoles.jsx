@@ -82,6 +82,7 @@ const ManageUserRoles = () => {
             dispatch(handleAlerts({ severity: 'warning', message: 'Plase select valid users and a specific role to assign the users'}));
         } else {
             dispatch(updateUsersRoles({ projectId: id, users: selectedUsers, role: role }))
+            dispatch(getProjectDetails(id));
         }
     }
 

@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getTicketDetails, updateTicket } from '../../../services/ticket/ticketDetailsSlice';
+import { handleAlerts } from '../../../services/alertsSlice';
 
 const initialTicketData = {
     creator: '',
@@ -14,7 +15,7 @@ const initialTicketData = {
 }
 
 const EditTicket = () => {
-    const { id } = useParams()
+    const { ticketId } = useParams()
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { updateTicket: { loading }, ticket} = useSelector(state => state.ticketDetails);    
@@ -31,7 +32,7 @@ const EditTicket = () => {
     }
 
     useEffect(() => {
-        dispatch(getTicketDetails(id));
+        dispatch(getTicketDetails(ticketId));
     }, [])
 
     const handlePriorityChange = (event) => {
@@ -41,18 +42,21 @@ const EditTicket = () => {
         setTicketData({ ...ticketData, status: event.target.value });
     };
 
+
     const handleSubmit = (event) => {
         event.preventDefault();
 
         if (ticketData.title === '') { 
-            alert("invalid title"); 
+            dispatch(handleAlerts({ severity: 'warning', message: 'invalid title' }));
         }
         if (ticketData.description === '') {
-            alert("invalid description");
+            dispatch(handleAlerts({ severity: 'warning', message: 'invalid description' }));
         }
 
-        dispatch(updateTicket({ ...ticketData, _id: id }));
-        navigate('/allTickets');
+        if (ticketData.title !== '' && ticketData.description !== '') {
+            dispatch(updateTicket({ ...ticketData, ticketId: ticketId }));
+            navigate('/allTickets');
+        }
     };
 
     const handleClear = () => {
@@ -63,7 +67,7 @@ const EditTicket = () => {
         loading ? <CircularProgress color="inherit" /> : (
         <>
             <Typography paragraph>
-                Editing Ticket Id: { id }
+                Editing Ticket Id: { ticketId }
             </Typography>
             <Button sx={{}} variant="outlined" color="secondary" size="small" type="cancel" onClick={handleUsePrevTicketValues}>
                     use default tick values

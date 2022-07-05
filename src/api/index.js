@@ -30,7 +30,7 @@ export const getArchivedTickets = (page) => API.get(`/tickets/archivedTickets?pa
 export const getArchivedTicketsBySearch = (page, searchQuery) => API.get(`/tickets/archivedTickets/search?searchQuery=${searchQuery || 'none'}&page=${page}`);
 
 export const createTicket = (newTicket) => API.post('/tickets/createTicket', newTicket);
-export const updateTicket = (newTicket) => API.patch(`tickets/updateTicket/${newTicket._id}`, newTicket);
+export const updateTicket = (newTicket) => API.patch(`tickets/updateTicket/${newTicket.ticketId}`, newTicket);
 
 export const getTicketDetails = (id) => API.get(`tickets/ticketDetails/${id}`);
 export const moveTicketToArchive = (id) => API.put(`/tickets/moveTicketToArchive/${id}`);

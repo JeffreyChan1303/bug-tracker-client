@@ -103,7 +103,7 @@ const App = () => {
                                     <Route exact path="/ticketArchive/search" element={<TicketArchive />} />
 
                                     <Route exact path="/addTicket" element={<AddTicket />} />
-                                    <Route exact path="/editTicket/:id" element={<EditTicket />} />
+                                    <Route exact path="/editTicket/:ticketId" element={<EditTicket />} />
                                     <Route exact path="/ticketDetails/:ticketId" element={<TicketDetails />} />
 
                                     {/* User Routes */}

@@ -55,7 +55,7 @@ export const updateTicket = createAsyncThunk('ticket/updateTicket', async (newTi
         console.log("updatedTicket :", newTicket);
         const { data } = await api.updateTicket(newTicket);
 
-        dispatch(handleAlerts({ severity: 'success', message: `Ticket Id: ${newTicket._id} was successfully updated` }));
+        dispatch(handleAlerts({ severity: 'success', message: `Ticket Id: ${newTicket.ticketId} was successfully updated` }));
 
         return data
     } catch (error) {

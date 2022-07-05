@@ -111,8 +111,8 @@ const ManageUserRoles = () => {
                 <Grid item xs={12} md={5} >
                     <Typography fontWeight={700}>Current Project Users</Typography>
                     <Box sx={{ border: 1, borderColor: "black", borderRadius: "1px", p: "10px" }} maxHeight="200px">
-                        
-                        {Object.keys(currentProjectUsers).map((id, index) => (
+                        {currentProjectUsers &&
+                        Object.keys(currentProjectUsers).map((id, index) => (
                             <Button key={index} 
                                 size="small" fullWidth  
                                 sx={{ justifyContent: "space-between", p: "0 5px" }}
@@ -122,7 +122,7 @@ const ManageUserRoles = () => {
                                 <Typography variant="inherit">Role: {currentProjectUsers[id].role}</Typography>
                             </Button>
                             
-                        ))} 
+                        ))}
                     </Box>
 
                     <Divider sx={{ m: "20px" }} />

@@ -106,7 +106,8 @@ const ProjectDetails = () => {
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                    {Object.keys(users).map((userId, i) => (
+                                    {users &&
+                                    Object.keys(users).map((userId, i) => (
                                         <TableRow
                                             key={i}
                                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

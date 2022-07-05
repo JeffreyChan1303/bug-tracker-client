@@ -31,7 +31,10 @@ const initialState = {
         loading: false,
         error: '',
     },
-    ticket: {},
+    ticket: {
+        comments: [],
+        searchedComments: [],
+    },
 }
 
 export const getTicketDetails = createAsyncThunk('ticket/getTicketDetails', async (id, {dispatch, rejectWithValue}) => {
@@ -138,8 +141,19 @@ const ticketDetailsSlice = createSlice({
     name: 'ticketDetails',
     initialState,
     reducers: {
-        searchTicketComments: (searchQuery) => {
+        searchTicketComments: (state, action) => {
+            const search = action.payload.toLowerCase();
+            let newComments = []
 
+            for (let i = 0; i < state.ticket.comments.length; i++) {
+                let commentDetails = state.ticket.comments[i];
+
+                if (commentDetails.message.toLowerCase().includes(search.toLowerCase()) ||
+                commentDetails.name.toLowerCase().includes(search.toLowerCase())) {
+                    newComments.push(commentDetails);
+                }
+            }
+            return { ...state, ticket: { ...state.ticket, searchedComments: newComments }}
         },
     },
     extraReducers: builder => {
@@ -150,6 +164,7 @@ const ticketDetailsSlice = createSlice({
         builder.addCase(getTicketDetails.fulfilled, (state, action) => {
             state.getTicketDetails.loading = false;
             state.ticket = action.payload;
+            state.ticket.searchedComments = action.payload.comments;
         })
         builder.addCase(getTicketDetails.rejected, (state, action) => {
             state.getTicketDetails.loading = false;
@@ -230,4 +245,5 @@ const ticketDetailsSlice = createSlice({
 })
 
 export default ticketDetailsSlice.reducer;
+export const { searchTicketComments } = ticketDetailsSlice.actions
 

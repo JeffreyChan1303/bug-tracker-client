@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { getTicketDetails, moveTicketToArchive, deleteTicketFromArchive, restoreTicketFromArchive, addTicketComment, deleteTicketComment } from '../../../services/ticket/ticketDetailsSlice';
+import { getTicketDetails, moveTicketToArchive, deleteTicketFromArchive, restoreTicketFromArchive, addTicketComment, deleteTicketComment, searchTicketComments } from '../../../services/ticket/ticketDetailsSlice';
 import { handleAlerts } from '../../../services/alertsSlice';
 
 const BoldedTableCell = styled(TableCell) (({theme}) => ({
@@ -26,7 +26,7 @@ const getDateFromISODate = (ISODate) => {
 
 const TicketDetails = () => {
     const { ticketId } = useParams();
-    const [search, setSearch] = useState('');
+    const [commentsSearch, setCommentsSearch] = useState('');
     const [comment, setComment] = useState('');
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -37,6 +37,10 @@ const TicketDetails = () => {
     useEffect(() => {
         dispatch(getTicketDetails(ticketId))
     }, [])
+
+    useEffect(() => {
+        dispatch(searchTicketComments(commentsSearch))
+    }, [commentsSearch])
     
     const isArchived = ticket.status === 'Archived';
 
@@ -67,6 +71,11 @@ const TicketDetails = () => {
             setComment('');
         } else {
             dispatch(handleAlerts({ severity: 'warning', message: 'Invalid Comment' }))   
+        }
+    }
+    const handleAddCommentKeyPress = (e) => {
+        if (e.keyCode === 13) {
+            handleSaveComment()
         }
     }
 
@@ -187,8 +196,8 @@ const TicketDetails = () => {
                                         size="small" 
                                         variant="standard"
                                         name="search"
-                                        value={search}
-                                        onChange={(e) => setSearch(e.target.value)}
+                                        value={commentsSearch}
+                                        onChange={(e) => setCommentsSearch(e.target.value)}
                                     />
                                 </Box>
                             </Grid>
@@ -202,7 +211,7 @@ const TicketDetails = () => {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                {ticket.comments?.map((comment, i) => (
+                                {ticket.searchedComments?.map((comment, i) => (
                                     <TableRow
                                         key={i}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -243,10 +252,10 @@ const TicketDetails = () => {
                                 <TextField
                                     size="small" 
                                     variant="outlined"
-                                    multiline
                                     fullWidth
                                     value={comment}
                                     onChange={(e) => setComment(e.target.value)}
+                                    onKeyDown={handleAddCommentKeyPress}
                                 />
                             </Grid>
                             <Button

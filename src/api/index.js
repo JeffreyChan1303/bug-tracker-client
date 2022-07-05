@@ -57,3 +57,4 @@ export const moveProjectToArchive = (id) => API.put(`/projects/moveProjectToArch
 export const deleteProjectFromArchive = (id) => API.delete(`/projects/deleteProjectFromArchive/${id}`);
 
 export const updateUsersRoles = (projectId, users) => API.put(`/projects/updateUsersRoles/${projectId}`, users)
+export const deleteUsersFromProject = (projectId, users) => API.put(`/projects/deleteUsersFromProject/${projectId}`, users)

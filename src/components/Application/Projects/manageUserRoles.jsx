@@ -6,7 +6,7 @@ import { styled } from '@mui/system';
 import { useSelector, useDispatch } from 'react-redux'
 
 import { getAllUsers, getAllUsersBySearch } from '../../../services/user/allUsersSlice';
-import { getProjectDetails, updateUsersRoles } from '../../../services/project/projectDetailsSlice';
+import { getProjectDetails, updateUsersRoles, deleteUsersFromProject } from '../../../services/project/projectDetailsSlice';
 import { handleAlerts } from '../../../services/alertsSlice';
 import CustomPagination from '../pagination';
 
@@ -98,6 +98,11 @@ const ManageUserRoles = () => {
         }
     }
 
+    const handleDeleteUsersFromProject = () => {
+        dispatch(deleteUsersFromProject({ projectId: id, users: { ...selectedUsers }}))
+    }
+
+
 
     return (
         getAllUsersLoading || getProjectDetailsLoading ? <CircularProgress color="inherit" /> : 
@@ -149,7 +154,8 @@ const ManageUserRoles = () => {
                     </Select>
 
                     <Button variant="contained" onClick={handleSave}>Save</Button>
-                    <Button variant="outlined" onClick={handleClear} sx={{ ml: "17px"}}>Clear Selected Users</Button>
+                    <Button variant="outlined" onClick={handleClear} sx={{ m: "10px 17px" }}>Clear Selected Users</Button>
+                    <Button variant="outlined" color="warning" onClick={handleDeleteUsersFromProject}>Delete Users From Project</Button>
                 </Grid>
 
                 {/* All Users Section */}

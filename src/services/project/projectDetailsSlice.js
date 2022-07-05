@@ -19,6 +19,10 @@ const initialState = {
         loading: false,
         error: '',
     },
+    deleteUsersFromProject: {
+        loading: false,
+        error: '',
+    },
     project: {
         name: '',
         title: '',
@@ -84,11 +88,23 @@ export const updateUsersRoles = createAsyncThunk('project/updateUsersRoles', asy
 
         const { data } = await api.updateUsersRoles(projectId, users);
 
-        dispatch(handleAlerts({ severity: 'success', message: `Users' roles were successfully updated` }))
+        dispatch(handleAlerts({ severity: 'success', message: `Users' roles were successfully updated` }));
         return data
     } catch (error) {
         console.log(error);
         dispatch(handleAlerts({ severity: 'error', message: `User's roles failed to update. Error ${error.message}` }));
+        return rejectWithValue(error);
+    }
+})
+
+export const deleteUsersFromProject = createAsyncThunk('project/deleteUsersFromProject', async ({ projectId, users }, { dispatch, rejectWithValue }) => {
+    try {
+        const { data } = await api.deleteUsersFromProject(projectId, users);
+        dispatch(handleAlerts({ severity: 'success', message: `Users' were successfully deleted from the project` }));
+        return data
+    } catch (error) {
+        console.log(error);
+        dispatch(handleAlerts({ severity: 'error', message: `Users were unable to be deleted formt he project. Error: ${error.message}` }));
         return rejectWithValue(error);
     }
 })
@@ -185,6 +201,18 @@ const projectDetailsSlice = createSlice({
         builder.addCase(updateUsersRoles.rejected, (state, action) => {
             state.updateUsersRoles.loading = false;
             state.updateUsersRoles.error = action.payload.message;
+        })
+
+        // Delete Users From Project
+        builder.addCase(deleteUsersFromProject.pending, (state) => {
+            state.deleteUsersFromProject.loading = true;
+        })
+        builder.addCase(deleteUsersFromProject.fulfilled, (state) => {
+            state.deleteUsersFromProject.loading = false;
+        })
+        builder.addCase(deleteUsersFromProject.rejected, (state, action) => {
+            state.deleteUsersFromProject.loading = false;
+            state.deleteUsersFromProject.error = action.payload.message;
         })
     }
 })

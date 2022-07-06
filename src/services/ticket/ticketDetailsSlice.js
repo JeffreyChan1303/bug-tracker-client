@@ -142,9 +142,12 @@ const ticketDetailsSlice = createSlice({
     initialState,
     reducers: {
         searchTicketComments: (state, action) => {
-            const search = action.payload.toLowerCase();
-            let newComments = []
+            const { searchQuery, commentsCurrentPage, commentsItemsPerPage } = action.payload;
+            const search = searchQuery.toLowerCase();
+            console.log(" searching in the searchTicketComments Section:", searchQuery, commentsCurrentPage, commentsItemsPerPage);
 
+
+            let newComments = []
             for (let i = 0; i < state.ticket.comments.length; i++) {
                 let commentDetails = state.ticket.comments[i];
 
@@ -153,7 +156,12 @@ const ticketDetailsSlice = createSlice({
                     newComments.push(commentDetails);
                 }
             }
-            return { ...state, ticket: { ...state.ticket, searchedComments: newComments }}
+            // now we parse and only return array that the current item pagees are in
+
+            const numberOfPages = Math.ceil(newComments.length / commentsItemsPerPage);
+            newComments = newComments.splice((commentsCurrentPage - 1) * commentsItemsPerPage, commentsItemsPerPage)
+
+            return { ...state, ticket: { ...state.ticket, searchedComments: newComments, commentsNumberOfPages: numberOfPages }}
         },
     },
     extraReducers: builder => {
@@ -164,7 +172,7 @@ const ticketDetailsSlice = createSlice({
         builder.addCase(getTicketDetails.fulfilled, (state, action) => {
             state.getTicketDetails.loading = false;
             state.ticket = action.payload;
-            state.ticket.searchedComments = action.payload.comments;
+            // state.ticket.searchedComments = action.payload.comments; 
         })
         builder.addCase(getTicketDetails.rejected, (state, action) => {
             state.getTicketDetails.loading = false;

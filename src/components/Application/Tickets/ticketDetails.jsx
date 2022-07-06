@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { styled } from '@mui/system';
-import { Typography, Paper, Accordion, AccordionSummary, AccordionDetails, Grid, Button, CircularProgress, Box, TextField, Table, TableHead, TableRow, TableBody, TableCell, IconButton } from '@mui/material';
+import { Typography, Paper, Accordion, AccordionSummary, AccordionDetails, Grid, Button, CircularProgress, Box, TextField, Table, TableHead, TableRow, TableBody, TableCell, IconButton, Pagination, PaginationItem } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -26,24 +26,27 @@ const getDateFromISODate = (ISODate) => {
 
 const TicketDetails = () => {
     const { ticketId } = useParams();
-    const [commentsSearch, setCommentsSearch] = useState('');
     const [comment, setComment] = useState('');
+    const [commentsSearch, setCommentsSearch] = useState('');
+    const [commentsCurrentPage, setCommentsCurrentPage] = useState(1);
+    const [commentsItemsPerPage, setCommentsItemsPerPage] = useState(5);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const { getTicketDetails: { loading }, ticket, ticket: { ticketHistory } } = useSelector(state => state.ticketDetails);
-    console.log(ticket)
+    const { getTicketDetails: { loading }, ticket, ticket: { ticketHistory, commentsNumberOfPages } } = useSelector(state => state.ticketDetails);
 
+    console.log(ticket.searchedComments)
     useEffect(() => {
         dispatch(getTicketDetails(ticketId))
     }, [])
 
     useEffect(() => {
-        dispatch(searchTicketComments(commentsSearch))
-    }, [commentsSearch])
+        // this searches based on searchquery, currentPage, and the number of entries per page
+        dispatch(searchTicketComments({ searchQuery: commentsSearch, commentsCurrentPage, commentsItemsPerPage }))
+    }, [commentsSearch, commentsCurrentPage, commentsItemsPerPage, ticket.comments])
     
+    // checks to see if ticket is a archived ticket or not
     const isArchived = ticket.status === 'Archived';
-
     const handleDeleteTicket = () => {
         if (isArchived) {
             dispatch(deleteTicketFromArchive(ticketId));
@@ -84,6 +87,10 @@ const TicketDetails = () => {
         dispatch(getTicketDetails(ticketId))
     }
 
+    const handleCommentPageChange = (page) => {
+        setCommentsCurrentPage(page)
+    }
+
     return (
         loading ? <CircularProgress color="inherit" /> :
         <>
@@ -94,6 +101,8 @@ const TicketDetails = () => {
             <Grid container spacing={2} >
                 <Grid item xs={12} lg={6} >
                     <Grid container >
+
+                        {/* This is the ticket details section */}
                         <Grid item xs={12} >
                             <Paper sx={{ p: 3, mb: 2 }} elevation={3}>
                                 <Grid container>
@@ -156,6 +165,7 @@ const TicketDetails = () => {
                         </Grid>
 
 
+                        {/* This is the Ticket History section */}
                         <Grid item xs={12} >
                             <Paper elevation={3} >
                                 <Accordion elevation={0} disableGutters>
@@ -185,6 +195,7 @@ const TicketDetails = () => {
                     </Grid>
                 </Grid>
 
+                {/* This is the Ticket Comments Section */}
                 <Grid item xs={12} lg={6}>
                     <Paper sx={{ p: 3 }} elevation={3} >
                         <Box sx={{  overflowX: 'scroll' }} >
@@ -237,12 +248,20 @@ const TicketDetails = () => {
 
                         </Box>
 
-                        {/* <CustomPagination 
-                            path={`/allProjects${search.trim()? `/search?searchQuery=${search}&` : `?`}`}
-                            page={page}
-                            currentPage={currentPage}
-                            numberOfPages={numberOfPages}
-                        /> */}
+                        <Pagination
+                            sx={{ ul: {justifyContent: "space-around" }, mt: "20px" }}
+                            count={commentsNumberOfPages}
+                            page={commentsCurrentPage}
+                            variant="outlined"
+                            color="primary"
+                            renderItem={(item) => (
+                                <PaginationItem
+                                    { ...item }
+                                    component={Button}
+                                    onClick={() => handleCommentPageChange(item.page)}
+                                />
+                            )}
+                        />
                     </Paper>
 
                     <Paper elevation={3} sx={{ p: 2, mt: 2 }} >

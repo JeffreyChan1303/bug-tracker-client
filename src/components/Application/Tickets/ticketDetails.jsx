@@ -139,7 +139,7 @@ const TicketDetails = () => {
                                         </Box>
                                         <Box sx={{ mb: 1 }}>
                                             <Typography fontWeight={600} variant="body2">Ticket Type</Typography>
-                                            <Typography paddingLeft={1} variant="body1">{ticket.type}asdf</Typography>
+                                            <Typography paddingLeft={1} variant="body1">{ticket.type}</Typography>
                                         </Box>
                                         <Box sx={{ mb: 1 }}>
                                             <Typography fontWeight={600} variant="body2">Updated</Typography>

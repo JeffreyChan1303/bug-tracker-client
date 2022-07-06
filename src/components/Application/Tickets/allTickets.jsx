@@ -83,6 +83,7 @@ const AllTickets = () => {
                                 <BoldedTableCell align="right">Developer</BoldedTableCell>
                                 <BoldedTableCell align="right">Status</BoldedTableCell>
                                 <BoldedTableCell align="right">Priority</BoldedTableCell>
+                                <BoldedTableCell align="right">Type</BoldedTableCell>
                                 <BoldedTableCell align="right">Last Updated</BoldedTableCell>
                                 <BoldedTableCell align="center">Actions</BoldedTableCell>
                             </TableRow>
@@ -103,6 +104,9 @@ const AllTickets = () => {
                                 </ContentTableCell>
                                 <ContentTableCell align="right">
                                     <Chip label={ticket.priority} variant="outlined" color="secondary" />
+                                </ContentTableCell>
+                                <ContentTableCell align="right">
+                                    <Chip label={ticket.type} variant="outlined" color="secondary" />
                                 </ContentTableCell>
                                 <ContentTableCell align="right">add last updated</ContentTableCell>
                                 <ContentTableCell sx={{ display: "flex", justifyContent: "center" }}>

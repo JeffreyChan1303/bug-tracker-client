@@ -14,6 +14,7 @@ const initialTicketData = {
     description: '',
     priority: 'High',
     status: 'New',
+    type: 'Bug',
     project: {
         _id: null,
         title: '',
@@ -44,9 +45,12 @@ const AddTicket = () => {
     const handleStatusChange = (event) => {
         setTicketData({ ...ticketData, status: event.target.value });
     };
+    const handleTypeChange = (event) => {
+        setTicketData({ ...ticketData, type: event.target.value });
+    };
     const handleProjectChange = (id, title) => {
         setTicketData({...ticketData, project: { _id: id, title: title } });
-    }
+    };
 
 
 
@@ -132,6 +136,7 @@ const AddTicket = () => {
                         onChange={handlePriorityChange}
                         sx={{ mb: 2 }}
                         fullWidth
+                        size="small"
                     >
                         <MenuItem value={"Low"}>Low Priority</MenuItem>
                         <MenuItem value={"Medium"}>Medium Priority</MenuItem>
@@ -153,6 +158,18 @@ const AddTicket = () => {
                         <MenuItem value={"Unassigned"}>Unassigned</MenuItem>
                         <MenuItem value={"New"}>New</MenuItem>
 
+                    </Select>
+
+                    <Typography variant="body1" fontWeight={700}>Ticket Type</Typography>
+                    <Select
+                        value={ticketData.type}
+                        onChange={handleTypeChange}
+                        sx={{ mb: 2 }}
+                        fullWidth
+                        size="small"
+                    >
+                        <MenuItem value={"Bug"}>Bug</MenuItem>
+                        <MenuItem value={"Feature"}>Feature</MenuItem>
                     </Select>
                 </form>
 

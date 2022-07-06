@@ -12,6 +12,7 @@ const initialTicketData = {
     description: '',
     priority: 'High',
     status: 'New',
+    type: 'Bug'
 }
 
 const EditTicket = () => {
@@ -28,6 +29,7 @@ const EditTicket = () => {
             description: ticket.description,
             priority: ticket.priority,
             status: ticket.status,
+            type: ticket.type,
         })
     }
 
@@ -41,6 +43,9 @@ const EditTicket = () => {
     const handleStatusChange = (event) => {
         setTicketData({ ...ticketData, status: event.target.value });
     };
+    const handleTypeChange = (event) => {
+        setTicketData({ ...ticketData, type: event.target.value });
+    }
 
 
     const handleSubmit = (event) => {
@@ -126,6 +131,17 @@ const EditTicket = () => {
                         <MenuItem value={"Development"}>Development</MenuItem>
                         <MenuItem value={"Unassigned"}>Unassigned</MenuItem>
                         <MenuItem value={"New"}>New</MenuItem>
+                    </Select>
+
+                    <Select
+                        value={ticketData.type}
+                        onChange={handleTypeChange}
+                        sx={{ mb: 2 }}
+                        fullWidth
+                        size="small"
+                    >
+                        <MenuItem value={"Bug"}>Bug</MenuItem>
+                        <MenuItem value={"Feature"}>Feature</MenuItem>
                     </Select>
                     
                     <Button sx={{ mr: 1 }} variant="contained" color="primary" size="small" onClick={handleSubmit} >

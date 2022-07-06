@@ -41,7 +41,6 @@ const ProjectDetails = () => {
     })
 
     const { getProjectDetails: { loading }, project, project: { searchedUsers: users, searchedTickets: tickets } } = useSelector(state => state.projectDetails);
-    console.log(tickets)
 
     useEffect(() => {
         dispatch(getProjectDetails(id))

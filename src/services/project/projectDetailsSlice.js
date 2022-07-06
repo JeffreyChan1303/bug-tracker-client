@@ -123,7 +123,6 @@ const projectDetailsSlice = createSlice({
             let newUsers = []
 
             const userArr = Object.keys(state.project.users)
-            console.log(userArr)
 
             // loop through array to check for the contained string
             for (let i = 0; i < userArr.length; i++) {

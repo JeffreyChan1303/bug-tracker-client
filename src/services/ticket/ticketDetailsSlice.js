@@ -144,20 +144,17 @@ const ticketDetailsSlice = createSlice({
         searchTicketComments: (state, action) => {
             const { searchQuery, commentsCurrentPage, commentsItemsPerPage } = action.payload;
             const search = searchQuery.toLowerCase();
-            console.log(" searching in the searchTicketComments Section:", searchQuery, commentsCurrentPage, commentsItemsPerPage);
-
 
             let newComments = []
             for (let i = 0; i < state.ticket.comments.length; i++) {
                 let commentDetails = state.ticket.comments[i];
 
-                if (commentDetails.message.toLowerCase().includes(search.toLowerCase()) ||
-                commentDetails.name.toLowerCase().includes(search.toLowerCase())) {
+                if (commentDetails.message.toLowerCase().includes(search.toLowerCase()) || commentDetails.name.toLowerCase().includes(search.toLowerCase())) {
                     newComments.push(commentDetails);
                 }
             }
-            // now we parse and only return array that the current item pagees are in
-
+            
+            // parse and return array that the current item pagees are in
             const numberOfPages = Math.ceil(newComments.length / commentsItemsPerPage);
             newComments = newComments.splice((commentsCurrentPage - 1) * commentsItemsPerPage, commentsItemsPerPage)
 

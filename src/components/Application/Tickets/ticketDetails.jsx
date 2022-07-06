@@ -35,7 +35,6 @@ const TicketDetails = () => {
 
     const { getTicketDetails: { loading }, ticket, ticket: { ticketHistory, commentsNumberOfPages } } = useSelector(state => state.ticketDetails);
 
-    console.log(ticket.searchedComments)
     useEffect(() => {
         dispatch(getTicketDetails(ticketId))
     }, [])
@@ -94,10 +93,6 @@ const TicketDetails = () => {
     return (
         loading ? <CircularProgress color="inherit" /> :
         <>
-            <Typography paragraph>
-                Ticket Details
-            </Typography>
-
             <Grid container spacing={2} >
                 <Grid item xs={12} lg={6} >
                     <Grid container >

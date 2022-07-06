@@ -28,9 +28,11 @@ const initialState = {
         title: '',
         createdAt: '',
         users: {},
-        searchedUsers: {},
+        searchedUsers: [],
+        assignedUsersNumberOfPages: 1,
         tickets: [],
         searchedTickets: [],
+        assignedTicketsNumberOfPages: 1,
     },
 }
 
@@ -115,26 +117,35 @@ const projectDetailsSlice = createSlice({
     initialState,
     reducers: {
         searchProjectUsers: (state, action) => {
-            const search = action.payload.toLowerCase();
-            let newUsers = {}
+            const { searchQuery, currentPage, itemsPerPage } = action.payload;
+            const search = searchQuery.toLowerCase();
+
+            let newUsers = []
+
             const userArr = Object.keys(state.project.users)
+            console.log(userArr)
 
             // loop through array to check for the contained string
             for (let i = 0; i < userArr.length; i++) {
                 let id = userArr[i]
-                let userDetails = current(state.project.users[id])
+                let userDetails = { ...current(state.project.users[id]), _id: id }
 
-                // if the search is in the name or the email of the user, add to object
+                // if the search is in the name or the email of the user, add to array
                 if (userDetails.name.toLowerCase().includes(search.toLowerCase()) || userDetails.email.toLowerCase().includes(search)) {
-                    newUsers[id] = userDetails
+                    newUsers.push(userDetails);
                 }
             }
-            console.log(newUsers)
 
-            return { ...state, project: { ...state.project, searchedUsers: newUsers }}
+            // only return array that the page contains
+            const numberOfPages = Math.ceil(newUsers.length / itemsPerPage);
+            newUsers = newUsers.splice((currentPage - 1) * itemsPerPage, itemsPerPage)
+
+            return { ...state, project: { ...state.project, searchedUsers: newUsers, assignedUsersNumberOfPages: numberOfPages }}
         },
         searchProjectTickets: (state, action) => {
-            const search = action.payload.toLowerCase();
+            const { searchQuery, currentPage, itemsPerPage } = action.payload;
+            const search = searchQuery.toLowerCase();
+
             const ticketArr = state.project.tickets;
             let newTickets = []
 
@@ -149,7 +160,11 @@ const projectDetailsSlice = createSlice({
                 }
             }
 
-            return { ...state, project: { ...state.project, searchedTickets: newTickets }}
+            // only return array that the page contains
+            const numberOfPages = Math.ceil(newTickets.length / itemsPerPage);
+            newTickets = newTickets.splice((currentPage - 1) * itemsPerPage, itemsPerPage);
+
+            return { ...state, project: { ...state.project, searchedTickets: newTickets, assignedTicketsNumberOfPages: numberOfPages }}
         }
     },
     extraReducers: builder => {
@@ -160,8 +175,6 @@ const projectDetailsSlice = createSlice({
         builder.addCase(getProjectDetails.fulfilled, (state, action) => {
             state.getProjectDetails.loading = false;
             state.project = action.payload;
-            state.project.searchedUsers = state.project.users;
-            console.log(state.project)
         })
         builder.addCase(getProjectDetails.rejected, (state, action) => {
             state.getProjectDetails.loading = false;

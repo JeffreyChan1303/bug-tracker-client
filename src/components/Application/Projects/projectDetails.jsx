@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Typography, Paper, Grid, Button, CircularProgress, Divider, Box, TextField, Table, TableHead, TableRow, TableBody, TableCell, Chip, Tooltip, IconButton } from '@mui/material';
+import { Typography, Paper, Grid, Button, CircularProgress, Divider, Box, TextField, Table, TableHead, TableRow, TableBody, TableCell, Chip, Tooltip, IconButton, Pagination, PaginationItem } from '@mui/material';
 import { styled } from '@mui/system';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,7 +20,7 @@ const ContentTableCell = styled(TableCell) (({theme}) => ({
 
 const getDateFromISODate = (ISODate) => {
     const date = new Date(ISODate);
-    const string = `${date.getMonth()}-${date.getDate()}-${date.getFullYear()}:${date.getHours()}:${date.getMinutes()}`;
+    const string = `${date.getMonth()}-${date.getDate()}-${date.getFullYear()}  ${date.getHours()}:${date.getMinutes()}`;
     return string
 }
 
@@ -29,26 +29,53 @@ const ProjectDetails = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [usersSearch, setUsersSearch] = useState('');
-    const [ticketsSearch, setTicketsSearch] = useState('');
+    const [assignedUsers, setAssignedUsers] = useState({
+        searchQuery: '',
+        currentPage: 1,
+        itemsPerPage: 5,
+    });
+    const [assignedTickets, setAssignedTickets] = useState({
+        searchQuery: '',
+        currentPage: 1,
+        itemsPerPage: 5,
+    })
 
-    const { getProjectDetails: { loading }, project: { searchedUsers: users, tickets, ...project } } = useSelector(state => state.projectDetails);
+    const { getProjectDetails: { loading }, project, project: { searchedUsers: users, searchedTickets: tickets } } = useSelector(state => state.projectDetails);
+    console.log(tickets)
 
     useEffect(() => {
         dispatch(getProjectDetails(id))
     }, [])
 
+    // search for project Users
     useEffect(() => {
-        dispatch(searchProjectUsers(usersSearch));
-    }, [usersSearch])
+        dispatch(searchProjectUsers({
+            searchQuery: assignedUsers.searchQuery,
+            currentPage: assignedUsers.currentPage,
+            itemsPerPage: assignedUsers.itemsPerPage,
+        }));
+    }, [assignedUsers, project.users])
 
+    // search for project Tickets
     useEffect(() => {
-        dispatch(searchProjectTickets(ticketsSearch));
-    }, [ticketsSearch])
+        dispatch(searchProjectTickets({
+            searchQuery: assignedTickets.searchQuery,
+            currentPage: assignedTickets.currentPage,
+            itemsPerPage: assignedTickets.itemsPerPage,
+        }));
+    }, [assignedTickets, project.tickets])
       
     const handleDeleteProject = () => {
         dispatch(moveProjectToArchive(id))
         navigate("/allProjects")
+    }
+
+    const handleAssignedUsersPageChange = (page) => {
+        setAssignedTickets({ ...assignedUsers, currentPage: page });
+    }
+
+    const handleAssignedTicketsPageChange = (page) => {
+        setAssignedTickets({ ...assignedTickets, currentPage: page });
     }
 
 
@@ -66,7 +93,7 @@ const ProjectDetails = () => {
                         <Grid item xs={5} >
                             <Typography><strong>Project ID: </strong>{project._id}</Typography>
                             <Typography><strong>Created By: </strong>{project.name}</Typography>
-                            <Typography><strong>Created At: </strong>{Date(project.createdAt)}</Typography>
+                            <Typography><strong>Created At: </strong>{getDateFromISODate(project.createdAt)}</Typography>
                         </Grid>
                         <Grid item xs={7} >
                             <Typography variant="body1">
@@ -85,18 +112,19 @@ const ProjectDetails = () => {
                     <Grid item xs={12} lg={5} >
                         <Paper sx={{ p: 3 }} elevation={3} >
                             <Box sx={{  overflowX: 'scroll' }} >
-
-                                <Typography variant="h6" fontWeight={700}> Assigned Users </Typography>
-                                <Box sx={{ display: "flex", justifyContent: "right" }}>
-                                    <Typography align="right" variant="body1"> Search:&nbsp; </Typography>
-                                    <TextField 
-                                        size="small" 
-                                        variant="standard"
-                                        name="search"
-                                        value={usersSearch}
-                                        onChange={(e) => setUsersSearch(e.target.value)}
-                                    />
-                                </Box>
+                                <Grid container justifyContent='space-between' >
+                                    <Typography variant="h6" fontWeight={700}> Assigned Users </Typography>
+                                    <Box sx={{ display: "flex", justifyContent: "right" }}>
+                                        <Typography align="right" variant="body1"> Search:&nbsp; </Typography>
+                                        <TextField 
+                                            size="small" 
+                                            variant="standard"
+                                            name="search"
+                                            value={assignedUsers.searchQuery}
+                                            onChange={(e) => setAssignedUsers({ ...assignedUsers, searchQuery: e.target.value })}
+                                        />
+                                    </Box>
+                                </Grid>
                                 <Table sx={{ }} aria-label="simple table" size="small" >
                                     <TableHead>
                                         <TableRow >
@@ -107,19 +135,19 @@ const ProjectDetails = () => {
                                     </TableHead>
                                     <TableBody>
                                     {users &&
-                                    Object.keys(users).map((userId, i) => (
+                                    users.map((user, i) => (
                                         <TableRow
                                             key={i}
                                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                         >
                                             <ContentTableCell component="th" scope="row">
-                                                {users[userId].name}
+                                                {user.name}
                                             </ContentTableCell>
                                             <ContentTableCell align="left">
-                                                {users[userId].email}
+                                                {user.email}
                                             </ContentTableCell>
                                             <ContentTableCell align="left">
-                                                {users[userId].role}
+                                                {user.role}
                                             </ContentTableCell>
                                         </TableRow>
                                     ))}
@@ -128,30 +156,39 @@ const ProjectDetails = () => {
 
                             </Box>
 
-                            {/* <CustomPagination 
-                                path={`/allProjects${search.trim()? `/search?searchQuery=${search}&` : `?`}`}
-                                page={page}
-                                currentPage={currentPage}
-                                numberOfPages={numberOfPages}
-                            /> */}
+                            <Pagination
+                                sx={{ ul: {justifyContent: "space-around" }, mt: "20px" }}
+                                count={project.assignedUsersNumberOfPages}
+                                page={assignedUsers.currentPage}
+                                variant="outlined"
+                                color="primary"
+                                renderItem={(item) => (
+                                    <PaginationItem
+                                        { ...item }
+                                        component={Button}
+                                        onClick={() => handleAssignedUsersPageChange(item.page)}
+                                    />
+                                )}
+                            />
                         </Paper>
                     </Grid>
 
                     <Grid item xs={12} lg={7}>
                         <Paper sx={{ p: 3 }} elevation={3} >
                             <Box sx={{  overflowX: 'scroll' }} >
-
-                                <Typography variant="h6" fontWeight={700}> Assigned Tickets </Typography>
-                                <Box sx={{ display: "flex", justifyContent: "right" }}>
-                                    <Typography align="right" variant="body1"> Search:&nbsp; </Typography>
-                                    <TextField 
-                                        size="small" 
-                                        variant="standard"
-                                        name="ticketsSearch"
-                                        value={ticketsSearch}
-                                        onChange={(e) => setTicketsSearch(e.target.value)}
-                                    />
-                                </Box>
+                                <Grid container justifyContent='space-between' >
+                                    <Typography variant="h6" fontWeight={700}> Assigned Tickets </Typography>
+                                    <Box sx={{ display: "flex", justifyContent: "right" }}>
+                                        <Typography align="right" variant="body1"> Search:&nbsp; </Typography>
+                                        <TextField 
+                                            size="small" 
+                                            variant="standard"
+                                            name="Tickets search query"
+                                            value={assignedTickets.searchQuery}
+                                            onChange={(e) => setAssignedTickets({ ...assignedTickets, searchQuery: e.target.value })}
+                                        />
+                                    </Box>
+                                </Grid>
                                 <Table sx={{  }} aria-label="simple table" size="small" >
                                     <TableHead>
                                         <TableRow >
@@ -164,7 +201,8 @@ const ProjectDetails = () => {
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                    {tickets.map((ticket, i) => (
+                                    {tickets &&
+                                    tickets.map((ticket, i) => (
                                         <TableRow
                                             key={i}
                                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -194,12 +232,20 @@ const ProjectDetails = () => {
 
                             </Box>
 
-                            {/* <CustomPagination 
-                                path={`/allProjects${search.trim()? `/search?searchQuery=${search}&` : `?`}`}
-                                page={page}
-                                currentPage={currentPage}
-                                numberOfPages={numberOfPages}
-                            /> */}
+                            <Pagination
+                                sx={{ ul: {justifyContent: "space-around" }, mt: "20px" }}
+                                count={project.assignedTicketsNumberOfPages}
+                                page={assignedTickets.currentPage}
+                                variant="outlined"
+                                color="primary"
+                                renderItem={(item) => (
+                                    <PaginationItem
+                                        { ...item }
+                                        component={Button}
+                                        onClick={() => handleAssignedTicketsPageChange(item.page)}
+                                    />
+                                )}
+                            />
                         </Paper>
                     </Grid>
                 </Grid>

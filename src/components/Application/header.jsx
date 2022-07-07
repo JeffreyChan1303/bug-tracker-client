@@ -1,45 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { AppBar, Typography, Toolbar, IconButton, Avatar, Box, Menu, MenuItem, Button, Tooltip, Badge } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu'
 import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
 import SettingsIcon from '@mui/icons-material/Settings';
-import decode from 'jwt-decode';
-import { useDispatch } from 'react-redux';
 
-import { useNavigate, useLocation } from 'react-router-dom';
-
-
-import store from '../../app/store';
-import { userActions } from '../../services/user/userSlice';
-import { handleAlerts } from '../../services/alertsSlice';
+import { useNavigate } from 'react-router-dom';
 
 
 
-const Header = ({ drawerWidth, handleDrawerToggle }) => {
-    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+
+const Header = ({ drawerWidth, handleDrawerToggle, userObject, handleLogOut }) => {
+    const user = userObject
     const [avatarOpen, setAvatarOpen] = useState(null);
-    const location = useLocation();
-    const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    // console.log(user?.userObject.name)
-    const handleLogOut = () => {
-        store.dispatch(userActions.logout())
-    }
-
-    // this is the guard for a user that doesn't have a valid token while on the app.
-    useEffect(() => {
-        const token = user?.token;
-
-        if (token) {
-            const decodedToken = decode(token);
-
-            if (decodedToken.exp * 1000 < new Date().getTime()) {
-                dispatch(handleAlerts({ severity: 'info', message: 'Your login session has expired. Please login again.'}));
-                handleLogOut();
-            }
-        }
-    }, [location])
 
     const handleAvatarOpen = (event) => {
         setAvatarOpen(event.currentTarget);

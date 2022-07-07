@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
+import { useDispatch } from 'react-redux';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Drawer, CssBaseline, Box, Toolbar } from '@mui/material';
+import { useLocation } from 'react-router-dom'
 
 import { Header, Navbar, Dashboard, AddProject, AllProjects, EditProject, MyProjects, ProjectArchive, ProjectDetails, AddTicket, AllTickets, EditTicket, MyTickets, TicketArchive, TicketDetails, ManageUserRoles, NotificationsPage, Support } from './components/Application/index';
+import { userActions } from './services/user/userSlice';
+import { handleAlerts } from './services/alertsSlice';
+import decode from 'jwt-decode';
 import Alert from './components/Application/alert';
 import Auth from './components/Auth/auth';
 
@@ -13,15 +18,33 @@ const drawerWidth = 260;
 
 const App = () => {
     // maybe make the alerts in the file so it always shows even on the auth page,
-    // Make the global redux state here?? so it keeps check if the user is there or not or if its expired.
-    // I dont know if the redux subscribe function is efficient since it runs many calls every time something changes!! 
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    const dispatch = useDispatch();
+    const location = useLocation();
 
     const [mobileOpen, setMobileOpen] = React.useState(false);
-
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
+
+    const handleLogOut = () => {
+        dispatch(userActions.logout())
+    }
+
+    // this is the guard for a user that doesn't have a valid token while on the app.
+    useEffect(() => {
+        const token = user?.token;
+
+        if (token) {
+            const decodedToken = decode(token);
+            console.log(decodedToken)
+
+            if (decodedToken.exp * 1000 < new Date().getTime()) {
+                dispatch(handleAlerts({ severity: 'info', message: 'Your login session has expired. Please login again.'}));
+                handleLogOut();
+            }
+        }
+    }, [location])
 
     return (
         <>
@@ -31,7 +54,12 @@ const App = () => {
                 <>
                     <Box sx={{ display: 'flex' }}>
                         <CssBaseline />
-                        <Header handleDrawerToggle={handleDrawerToggle} drawerWidth={drawerWidth} />
+                        <Header 
+                            handleDrawerToggle={handleDrawerToggle} 
+                            drawerWidth={drawerWidth}
+                            userObject={user}
+                            handleLogOut={handleLogOut}
+                        />
                         
                         <Box
                             component="nav"

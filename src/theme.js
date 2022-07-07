@@ -3,8 +3,8 @@ import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 let theme = createTheme({
     palette: {
         background: {
-            paper: '#f5f5f5',
-            default: '#f5f5f5',
+            paper: 'rgb(245, 245, 245)',
+            default: 'rgb(241, 241, 241)',
         },
     }
 });

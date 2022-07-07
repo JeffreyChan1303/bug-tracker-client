@@ -1,6 +1,11 @@
 import React from 'react';
 import { Typography, Grid, Card, Box, Avatar } from '@mui/material';
 
+import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined';
+import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
+import BugReportIcon from '@mui/icons-material/BugReport';
+import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsActiveOutlined';
+
 const Dashboard = () => {
 
     return (
@@ -23,7 +28,9 @@ const Dashboard = () => {
                                 </Typography>
                             </Grid>
                             <Grid item >
-                                <Avatar sx={{ bgcolor: "primary.light" }} />
+                                <Avatar sx={{ bgcolor: "primary.light" }} >
+                                    <FolderOpenOutlinedIcon />
+                                </Avatar>
                             </Grid>
                         </Grid>
                         <Box >
@@ -47,7 +54,9 @@ const Dashboard = () => {
                                 </Typography>
                             </Grid>
                             <Grid item >
-                                <Avatar />
+                                <Avatar sx={{ bgcolor: "primary.light" }} >
+                                    <ConfirmationNumberIcon />
+                                </Avatar>
                             </Grid>
                         </Grid>
                         <Box >
@@ -71,7 +80,9 @@ const Dashboard = () => {
                                 </Typography>
                             </Grid>
                             <Grid item >
-                                <Avatar />
+                                <Avatar sx={{ bgcolor: "primary.light" }}>
+                                    <BugReportIcon />
+                                </Avatar>
                             </Grid>
                         </Grid>
                         <Box >
@@ -95,7 +106,9 @@ const Dashboard = () => {
                                 </Typography>
                             </Grid>
                             <Grid item >
-                                <Avatar />
+                                <Avatar sx={{ bgcolor: "primary.light" }} >
+                                    <NotificationsActiveOutlinedIcon />
+                                </Avatar>
                             </Grid>
                         </Grid>
                         <Box >

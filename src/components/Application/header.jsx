@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AppBar, Typography, Toolbar, IconButton, Avatar, Box, Menu, MenuItem, Button } from '@mui/material';
+import { AppBar, Typography, Toolbar, IconButton, Avatar, Box, Menu, MenuItem, Button, Tooltip, Badge } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu'
 import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -88,12 +88,20 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
                             New Ticket
                         </Typography>
                     </Button>
-                    <IconButton sx={{ color: "white" }} >
-                        <NotificationsRoundedIcon  />
+
+                    <IconButton sx={{ color: "white" }} onClick={() => navigate('/notifications')} >
+                        {/* Change the badge content to the user.unreadNotifications! I will need to implement this in the backend too */}
+                        <Badge color="error" badgeContent={1} >
+                            <NotificationsRoundedIcon  />
+                        </Badge>
                     </IconButton>
-                    <IconButton sx={{ color: "white" }} >
-                        <SettingsIcon />
-                    </IconButton>
+
+                    <Tooltip title="settings(in progress)" >
+                        <IconButton sx={{ color: "white" }} >
+                            <SettingsIcon />
+                        </IconButton>
+                    </Tooltip>
+
                     <IconButton
                         onClick={handleAvatarOpen}
                     >

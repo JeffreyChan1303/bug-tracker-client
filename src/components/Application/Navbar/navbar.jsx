@@ -5,6 +5,12 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Link } from 'react-router-dom';
 
 import { styled } from '@mui/system';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import FolderIcon from '@mui/icons-material/Folder';
+import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
+
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
 const StyledAccordion = styled(Accordion)(({ theme }) => ({
     "&.Mui-expanded:before": {
@@ -44,7 +50,7 @@ const Navbar = () => {
                 <StyledLink to="/dashboard">
                     <ListItem button key={"Dashboard"} >
                         <ListItemIcon>
-                            <InboxIcon />
+                            <DashboardIcon color="primary" />
                         </ListItemIcon>
                         <ListItemText primary="Dashboard" />
                     </ListItem>
@@ -54,7 +60,7 @@ const Navbar = () => {
                 <StyledLink to="/notifications">
                     <ListItem button key={"Notification Inbox"}>
                         <ListItemIcon>
-                            <InboxIcon />
+                            <NotificationsIcon color="primary" />
                         </ListItemIcon>
                         <ListItemText primary="Notification Inbox" />
                     </ListItem>
@@ -71,7 +77,7 @@ const Navbar = () => {
                 >
                     <StyledAccordionSummary expandIcon={<ExpandMoreIcon />} >
                         <ListItemIcon>
-                            <InboxIcon />
+                            <FolderIcon color="primary" />
                         </ListItemIcon>
                         <Typography sx={{ width: '33%', flexShrink: 0 }}>
                             Projects 
@@ -82,7 +88,7 @@ const Navbar = () => {
                         <StyledLink to="/allProjects">
                             <ListItem button key={"All Projects"} sx={{ paddingLeft: "32px" }}>
                                 <ListItemIcon>
-                                    <InboxIcon />
+                                    <ArrowRightAltIcon color="primary" />
                                 </ListItemIcon>
                                 <ListItemText primary="All Projects" />
                             </ListItem>
@@ -93,7 +99,7 @@ const Navbar = () => {
                         <StyledLink to="/myProjects">
                             <ListItem button key={"My Projects"} sx={{ paddingLeft: "32px" }}>
                                 <ListItemIcon>
-                                    <InboxIcon />
+                                    <ArrowRightAltIcon color="primary" />
                                 </ListItemIcon>
                                 <ListItemText primary="My Projects" />
                             </ListItem>
@@ -104,7 +110,7 @@ const Navbar = () => {
                         <StyledLink to="/addProject">
                             <ListItem button key={"Add Project"} sx={{ paddingLeft: "32px" }}>
                                 <ListItemIcon>
-                                    <InboxIcon />
+                                    <ArrowRightAltIcon color="primary" />
                                 </ListItemIcon>
                                 <ListItemText primary="Add Project" />
                             </ListItem>
@@ -115,7 +121,7 @@ const Navbar = () => {
                         <StyledLink to="/projectArchive">
                             <ListItem button key={"Project Archive"} sx={{ paddingLeft: "32px" }}>
                                 <ListItemIcon>
-                                    <InboxIcon />
+                                    <ArrowRightAltIcon color="primary" />
                                 </ListItemIcon>
                                 <ListItemText primary="Project Archive" />
                             </ListItem>
@@ -133,7 +139,7 @@ const Navbar = () => {
                 >
                     <StyledAccordionSummary expandIcon={<ExpandMoreIcon />} >
                         <ListItemIcon>
-                            <InboxIcon />
+                            <ConfirmationNumberIcon color="primary" />
                         </ListItemIcon>
                         <Typography sx={{ width: '33%', flexShrink: 0 }}>
                             Tickets
@@ -144,7 +150,7 @@ const Navbar = () => {
                         <StyledLink to="/allTickets">
                             <ListItem button key={"All Tickets"} sx={{ paddingLeft: "32px" }}>
                                 <ListItemIcon>
-                                    <InboxIcon />
+                                    <ArrowRightAltIcon color="primary" />
                                 </ListItemIcon>
                                 <ListItemText primary="All Tickets" />
                             </ListItem>
@@ -155,7 +161,7 @@ const Navbar = () => {
                         <StyledLink to="/myTickets">
                             <ListItem button key={"My Tickets"} sx={{ paddingLeft: "32px" }}>
                                 <ListItemIcon>
-                                    <InboxIcon />
+                                    <ArrowRightAltIcon color="primary" />
                                 </ListItemIcon>
                                 <ListItemText primary="My Tickets" />
                             </ListItem>
@@ -166,7 +172,7 @@ const Navbar = () => {
                         <StyledLink to="/addTicket">
                             <ListItem button key={"Add Ticket"} sx={{ paddingLeft: "32px" }}>
                                 <ListItemIcon>
-                                    <InboxIcon />
+                                    <ArrowRightAltIcon color="primary" />
                                 </ListItemIcon>
                                 <ListItemText primary="Add Ticket" />
                             </ListItem>
@@ -177,7 +183,7 @@ const Navbar = () => {
                         <StyledLink to="/ticketArchive">
                             <ListItem button key={"Ticket Archive"} sx={{ paddingLeft: "32px" }}>
                                 <ListItemIcon>
-                                    <InboxIcon />
+                                    <ArrowRightAltIcon color="primary" />
                                 </ListItemIcon>
                                 <ListItemText primary="Ticket Archive" />
                             </ListItem>
@@ -198,7 +204,7 @@ const Navbar = () => {
                 >
                     <StyledAccordionSummary expandIcon={<ExpandMoreIcon />} >
                         <ListItemIcon>
-                            <InboxIcon />
+                            <ArrowRightAltIcon color="primary" />
                         </ListItemIcon>
                         <Typography sx={{ width: '33%', flexShrink: 0 }}>
                             Admin 
@@ -209,7 +215,7 @@ const Navbar = () => {
                         <StyledLink to="/user">
                             <ListItem button key={"Role"} sx={{ paddingLeft: "32px" }}>
                                 <ListItemIcon>
-                                    <InboxIcon />
+                                    <ArrowRightAltIcon color="primary" />
                                 </ListItemIcon>
                                 <ListItemText primary="Role" />
                             </ListItem>
@@ -220,7 +226,7 @@ const Navbar = () => {
                         <StyledLink to="/user">
                             <ListItem button key={"Role"} sx={{ paddingLeft: "32px" }}>
                                 <ListItemIcon>
-                                    <InboxIcon />
+                                    <ArrowRightAltIcon color="primary" />
                                 </ListItemIcon>
                                 <ListItemText primary="Role" />
                             </ListItem>
@@ -228,6 +234,7 @@ const Navbar = () => {
                     </AccordionDetails>
                 </StyledAccordion>
                 <Divider />
+
             </List>
 
         </div>

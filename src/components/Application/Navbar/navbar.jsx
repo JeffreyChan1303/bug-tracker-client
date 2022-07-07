@@ -1,6 +1,5 @@
 import React from 'react';
-import { Toolbar, Divider, List, ListItem, ListItemIcon, ListItemText, Typography, Accordion, AccordionDetails, AccordionSummary, Box } from '@mui/material';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
+import { Toolbar, Divider, List, ListItem, ListItemIcon, ListItemText, Typography, Accordion, AccordionDetails, AccordionSummary, Box, Container } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Link } from 'react-router-dom';
 
@@ -31,7 +30,7 @@ const StyledLink = styled(Link)(({ theme }) => ({
     color: theme.palette.common.black,
 }));
 
-const Navbar = () => {
+const Navbar = ({ user }) => {
     const [expanded, setExpanded] = React.useState(false); // shows which nav item is expanded
 
     const handleChange = (panel) => (event, isExpanded) => {
@@ -42,9 +41,19 @@ const Navbar = () => {
     return ( 
         <>
             <Toolbar >
+                {/* make a logo and put it here here */}
                 <Typography variant="h5">Juicy Bug Tracker</Typography>
             </Toolbar>
-            <Divider sx={{ mb: "50px" }}/>
+            <Divider sx={{ mb: "8px" }}/>
+
+            <Container >
+                <Typography variant="body1" sx={{ color: 'grey.800' }}>
+                    welcome,
+                </Typography>
+                <Typography variant="body1" fontWeight={700} >
+                    {user.userObject.name}
+                </Typography>
+            </Container>
 
             <List>
                 <Divider />

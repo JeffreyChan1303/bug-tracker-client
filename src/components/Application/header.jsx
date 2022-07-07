@@ -9,8 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-const Header = ({ drawerWidth, handleDrawerToggle, userObject, handleLogOut }) => {
-    const user = userObject
+const Header = ({ drawerWidth, handleDrawerToggle, user, handleLogOut }) => {
     const [avatarOpen, setAvatarOpen] = useState(null);
     const navigate = useNavigate();
 
@@ -43,14 +42,10 @@ const Header = ({ drawerWidth, handleDrawerToggle, userObject, handleLogOut }) =
                     <MenuIcon />
                 </IconButton>
 
-
                 <Typography variant="h6" noWrap>
                     Responsive drawer 
                 </Typography>
 
-                {user.userObject.name}
-
-                {/* FIX THIS BUTTON!!!!.. learn how to use MUI theme and pallete stuff with the color of the components */}
                 <Box sx={{ display: "flex" }} justifyContent="right" alignItems="center" >
                     <Button 
                         size="small"

@@ -57,7 +57,7 @@ const App = () => {
                         <Header 
                             handleDrawerToggle={handleDrawerToggle} 
                             drawerWidth={drawerWidth}
-                            userObject={user}
+                            user={user}
                             handleLogOut={handleLogOut}
                         />
                         
@@ -78,7 +78,7 @@ const App = () => {
                                     '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
                                 }}
                             >
-                                <Navbar />
+                                <Navbar user={user} />
                             </Drawer>
 
                             <Drawer
@@ -89,7 +89,7 @@ const App = () => {
                                 }}
                                 open
                             >
-                                <Navbar />
+                                <Navbar user={user} />
                             </Drawer>
                         </Box>
 

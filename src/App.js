@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Drawer, CssBaseline, Box, Toolbar } from '@mui/material';
 
-import { Header, Navbar, Dashboard, AddProject, AllProjects, EditProject, MyProjects, ProjectArchive, ProjectDetails, AddTicket, AllTickets, EditTicket, MyTickets, TicketArchive, TicketDetails, ManageUserRoles, NotificationsPage } from './components/Application/index';
+import { Header, Navbar, Dashboard, AddProject, AllProjects, EditProject, MyProjects, ProjectArchive, ProjectDetails, AddTicket, AllTickets, EditTicket, MyTickets, TicketArchive, TicketDetails, ManageUserRoles, NotificationsPage, Support } from './components/Application/index';
 import Alert from './components/Application/alert';
 import Auth from './components/Auth/auth';
 
@@ -71,8 +71,8 @@ const App = () => {
                                 <Routes>
                                     <Route exact path="/*" element={<Navigate to="/dashboard" replace />} />
                                     <Route exact path="/dashboard" element={<Dashboard />} />
-                                    <Route exact path="/notifications" element={<NotificationsPage />} />
-                                    <Route exact path="/notifications/search" element={<NotificationsPage />} />
+                                    <Route exact path="/support" element={<Support />} />
+                                    
 
                                     {/* Project Routes */}
                                     <Route exact path="/allProjects" element={<AllProjects />} />
@@ -107,6 +107,9 @@ const App = () => {
                                     <Route exact path="/ticketDetails/:ticketId" element={<TicketDetails />} />
 
                                     {/* User Routes */}
+
+                                    <Route exact path="/notifications" element={<NotificationsPage />} />
+                                    <Route exact path="/notifications/search" element={<NotificationsPage />} />
 
                                 </Routes>
                         </Box>

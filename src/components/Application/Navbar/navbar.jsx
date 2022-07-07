@@ -1,5 +1,5 @@
 import React from 'react';
-import { Toolbar, Divider, List, ListItem, ListItemIcon, ListItemText, Typography, Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
+import { Toolbar, Divider, List, ListItem, ListItemIcon, ListItemText, Typography, Accordion, AccordionDetails, AccordionSummary, Box } from '@mui/material';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Link } from 'react-router-dom';
@@ -9,6 +9,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import FolderIcon from '@mui/icons-material/Folder';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
@@ -39,7 +40,7 @@ const Navbar = () => {
 
     
     return ( 
-        <div>
+        <>
             <Toolbar >
                 <Typography variant="h5">Juicy Bug Tracker</Typography>
             </Toolbar>
@@ -233,11 +234,22 @@ const Navbar = () => {
                         </StyledLink>
                     </AccordionDetails>
                 </StyledAccordion>
+
                 <Divider />
 
+                <StyledLink to="/support" sx={{ justifySelf: 'flex-end' }}>
+                    <ListItem button key={"Support Ticket"} >
+                        <ListItemIcon>
+                            <ErrorOutlineIcon color="primary" />
+                        </ListItemIcon>
+                        <ListItemText primary="Support Ticket" />
+                    </ListItem>
+                </StyledLink>
+
+                <Divider />
             </List>
 
-        </div>
+        </>
     )
 };
 

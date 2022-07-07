@@ -16,7 +16,7 @@ const Dashboard = () => {
 
             <Grid container spacing={2}>
                 {/* Active Projects card */}
-                <Grid item xs={12} md={6} lg={3} >
+                <Grid item xs={12} sm={6} lg={3} >
                     <Card elevation={1} sx={{ p: 3 }}  >
                         <Grid container justifyContent="space-between">
                             <Grid item >
@@ -42,7 +42,7 @@ const Dashboard = () => {
                 </Grid>
 
                 {/* Total tickets card */}
-                <Grid item xs={12} md={6} lg={3} >
+                <Grid item xs={12} sm={6} lg={3} >
                     <Card elevation={1} sx={{ p: 3 }}  >
                         <Grid container justifyContent="space-between">
                             <Grid item >
@@ -68,7 +68,7 @@ const Dashboard = () => {
                 </Grid>
 
                 {/* Unassigned Tickets Card */}
-                <Grid item xs={12} md={6} lg={3} >
+                <Grid item xs={12} sm={6} lg={3} >
                     <Card elevation={1} sx={{ p: 3 }}  >
                         <Grid container justifyContent="space-between">
                             <Grid item >
@@ -94,7 +94,7 @@ const Dashboard = () => {
                 </Grid>
 
                 {/* Unread Notifications card */}
-                <Grid item xs={12} md={6} lg={3} >
+                <Grid item xs={12} sm={6} lg={3} >
                     <Card elevation={1} sx={{ p: 3 }}  >
                         <Grid container justifyContent="space-between">
                             <Grid item >

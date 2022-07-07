@@ -21,3 +21,5 @@ export { default as TicketDetails } from './Tickets/ticketDetails';
 
 export { default as ManageUserRoles } from './Projects/manageUserRoles';
 
+export { default as Support } from './support';
+

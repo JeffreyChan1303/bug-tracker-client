@@ -23,7 +23,7 @@ const Dashboard = () => {
                                 </Typography>
                             </Grid>
                             <Grid item >
-                                <Avatar />
+                                <Avatar sx={{ bgcolor: "primary.light" }} />
                             </Grid>
                         </Grid>
                         <Box >

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { AppBar, Typography, Toolbar, IconButton, Avatar, Box, Menu, MenuItem } from '@mui/material';
+import { AppBar, Typography, Toolbar, IconButton, Avatar, Box, Menu, MenuItem, Button } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu'
 import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
 import SettingsIcon from '@mui/icons-material/Settings';
 import decode from 'jwt-decode';
 import { useDispatch } from 'react-redux';
 
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 
 import store from '../../app/store';
@@ -20,6 +20,7 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
     const [avatarOpen, setAvatarOpen] = useState(null);
     const location = useLocation();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     // console.log(user?.userObject.name)
     const handleLogOut = () => {
@@ -50,6 +51,7 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
     return ( 
         <AppBar
             position="fixed"
+            color="primary"
             sx={{
                 width: { md: `calc(100% - ${drawerWidth}px)` },
                 ml: { md: `${drawerWidth}px` }, // ml == margin left
@@ -74,7 +76,18 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
 
                 {user.userObject.name}
 
-                <Box maxWidth sx={{  justifySelf: "right", display: "flex" }} justifyContent="right">
+                {/* FIX THIS BUTTON!!!!.. learn how to use MUI theme and pallete stuff with the color of the components */}
+                <Box sx={{ display: "flex" }} justifyContent="right" alignItems="center" >
+                    <Button 
+                        size="small"
+                        variant="contained" 
+                        onClick={() => navigate('/addTicket')}
+                        sx={{ color: "white", bgcolor: "primary.light", textTransform: 'none', mr: '5px' }}
+                    >
+                        <Typography variant="body1">
+                            New Ticket
+                        </Typography>
+                    </Button>
                     <IconButton sx={{ color: "white" }} >
                         <NotificationsRoundedIcon  />
                     </IconButton>

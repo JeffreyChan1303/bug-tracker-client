@@ -1,13 +1,18 @@
 import React from 'react';
-import { Typography, Grid, Card, Box, Avatar } from '@mui/material';
+import { Typography, Grid, Card, Box, Avatar, Paper } from '@mui/material';
 
 import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsActiveOutlined';
 
+import MyTickets from '../Tickets/myTickets';
+import DashboardCharts from './dashboardCharts';
+
+
 const Dashboard = () => {
 
+    
     return (
         <>
             <Typography variant="h4">
@@ -118,9 +123,16 @@ const Dashboard = () => {
                         </Box>
                     </Card>
                 </Grid>
-
-
             </Grid>
+
+
+            {/* Charts */}
+            <DashboardCharts />
+
+            <Box sx={{ mt: 2 }} >
+                {/* Put a property for pagination so we can input wheather we want pagination or not on this component */}
+                <MyTickets />
+            </Box>
         </>
     )
 };

@@ -145,7 +145,7 @@ const App = () => {
                 </>
             )}
 
-            {/* Notifications */}
+            {/* Alerts */}
             <Alert />
         </>
     )

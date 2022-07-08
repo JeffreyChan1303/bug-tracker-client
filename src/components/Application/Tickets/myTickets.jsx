@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Typography, Paper, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress, IconButton, Tooltip, TextField, Chip } from '@mui/material';
+import { Box, Typography, Paper, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress, IconButton, Tooltip, TextField, Chip, Grid } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { styled } from '@mui/system';
 import { useSelector, useDispatch } from 'react-redux';
@@ -65,22 +65,23 @@ const MyTickets = () => {
     return (
         loading ? <CircularProgress color="inherit" /> : (
         <>
-            <Paper sx={{ p: 3 }} elevation={3} >
+            <Paper sx={{ p: 3 }} elevation={1} >
                 <Box sx={{  overflowX: 'scroll' }} >
-                    
-                    <Typography variant="h5" fontWeight={700}> My Tickets </Typography>
-                    <Box sx={{ display: "flex", justifyContent: "right" }}>
-                        <Typography align="right" variant="body1"> Search:&nbsp; </Typography>
-                        <TextField 
-                            size="small" 
-                            variant="standard"
-                            name="search"
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                            onKeyDown={handleKeyPress}
-                        />
-                    </Box>
-                    <Table sx={{ minWidth: 650 }} aria-label="simple table" size="small" >
+                    <Grid container justifyContent="space-between" sx={{ mb: 1 }}>
+                        <Typography variant="h5" fontWeight={700}> My Tickets </Typography>
+                        <Box sx={{ display: "flex", justifyContent: "right" }}>
+                            <Typography align="right" variant="body1"> Search:&nbsp; </Typography>
+                            <TextField 
+                                size="small" 
+                                variant="standard"
+                                name="search"
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
+                                onKeyDown={handleKeyPress}
+                            />
+                        </Box>
+                    </Grid>
+                    <Table sx={{ }} aria-label="simple table" size="small" >
                         <TableHead>
                             <TableRow >
                                 <BoldedTableCell>Title</BoldedTableCell>

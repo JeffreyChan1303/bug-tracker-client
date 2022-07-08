@@ -179,6 +179,17 @@ const Navbar = ({ user }) => {
                     </AccordionDetails>
 
                     <AccordionDetails sx={{ padding: "0" }}>
+                        <StyledLink to="/unassignedTickets">
+                            <ListItem button key={"Unassigned Tickets"} sx={{ paddingLeft: "32px" }}>
+                                <ListItemIcon>
+                                    <ArrowRightAltIcon color="primary" />
+                                </ListItemIcon>
+                                <ListItemText primary="Unassigned Tickets" />
+                            </ListItem>
+                        </StyledLink>
+                    </AccordionDetails>
+
+                    <AccordionDetails sx={{ padding: "0" }}>
                         <StyledLink to="/addTicket">
                             <ListItem button key={"Add Ticket"} sx={{ paddingLeft: "32px" }}>
                                 <ListItemIcon>

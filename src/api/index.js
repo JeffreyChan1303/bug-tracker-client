@@ -16,7 +16,6 @@ API.interceptors.request.use((req) => {
 
 export const getActiveProjects = () => API.get(`/projects/activeProjects`);
 export const getActiveTickets = () => API.get(`/tickets/activeTickets`);
-export const getUnassignedTickets = () => API.get(`/tickets/unassignedTickets`);
 export const getUnreadNotifications = () => API.get(`/users/unreadNotifications`)
 
 // User APIs
@@ -35,8 +34,12 @@ export const getAllTickets = (page) => API.get(`/tickets/allTickets?page=${page}
 export const getAllTicketsBySearch = (page, searchQuery) => API.get(`/tickets/allTickets/search?searchQuery=${searchQuery || 'none'}&page=${page}`);
 export const getMyTickets = (page) => API.get(`/tickets/myTickets?page=${page}`);
 export const getMyTicketsBySearch = (page, searchQuery) => API.get(`/tickets/myTickets/search?searchQuery=${searchQuery || 'none'}&page=${page}`);
+
+export const getUnassignedTickets = (page, searchQuery) => API.get(`/tickets/unassignedTickets?searchQuery=${searchQuery || 'none'}&page=${page}`);
+
 export const getArchivedTickets = (page) => API.get(`/tickets/archivedTickets?page=${page}`);
 export const getArchivedTicketsBySearch = (page, searchQuery) => API.get(`/tickets/archivedTickets/search?searchQuery=${searchQuery || 'none'}&page=${page}`);
+
 
 export const createTicket = (newTicket) => API.post('/tickets/createTicket', newTicket);
 export const updateTicket = (newTicket) => API.patch(`tickets/updateTicket/${newTicket.ticketId}`, newTicket);

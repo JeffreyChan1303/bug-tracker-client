@@ -19,13 +19,14 @@ const DashboardCards = () => {
     useEffect(() => {
         dispatch(getActiveProjects());
         dispatch(getActiveTickets());
-        dispatch(getUnassignedTickets());
+        dispatch(getUnassignedTickets({}));
         dispatch(getUnreadNotifications());
     }, [])
     const { getActiveProjects: activeProjects,
             getActiveTickets: activeTickets,
             getUnreadNotifications: unreadNotifications } = useSelector((state) => state.dashboard);
     const unassignedTickets = useSelector((state) => state.unassignedTickets);
+    console.log(unassignedTickets)
 
     
 
@@ -92,7 +93,7 @@ const DashboardCards = () => {
                                 Unassigned Tickets
                             </Typography>
                             <Typography variant="h6" fontWeight={700} >
-                                {unassignedTickets.loading ? <CircularProgress color="inherit" /> : unassignedTickets?.numberOfTickets}
+                                {unassignedTickets.loading ? <CircularProgress color="inherit" /> : unassignedTickets.numberOfTickets}
                             </Typography>
                         </Grid>
                         <Grid item >

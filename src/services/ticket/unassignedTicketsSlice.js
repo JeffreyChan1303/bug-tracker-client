@@ -5,19 +5,21 @@ import { handleAlerts } from '../alertsSlice';
 const initialState = {
     tickets: [],
     numberOfTickets: 0,
+    currentPage: null,
+    numberOfPages: null,
     loading: false,
     error: '',
 }
 
-export const getUnassignedTickets = createAsyncThunk('ticket/getUnassignedTickets', async ( params, { dispatch, rejectWithValue}) => {
+export const getUnassignedTickets = createAsyncThunk('ticket/getUnassignedTickets', async ({ page, search }, { dispatch, rejectWithValue}) => {
     try {
-        const { data } = await api.getUnassignedTickets();
+        const { data } = await api.getUnassignedTickets(page, search);
 
         return data;
     } catch (error) {
         console.log(error)
         dispatch(handleAlerts({ severity: 'error', message: `Failed to get unassigned tickets. Error: ${error.message}` }));
-        return rejectWithValue(error)
+        return rejectWithValue(error);
     }
 })
 
@@ -31,8 +33,10 @@ const unassignedTicketsSlice = createSlice({
         })
         builder.addCase(getUnassignedTickets.fulfilled, (state, action) => {
             state.loading = false;
-            state.tickets = action.payload;
-            state.numberOfTickets = action.payload.length;
+            state.tickets = action.payload.tickets;
+            state.numberOfTickets = action.payload.numberOfTickets;
+            state.currentPage = action.payload?.currentPage;
+            state.numberOfPages = action.payload?.numberOfPages;
         })
         builder.addCase(getUnassignedTickets.rejected, (state, action) => {
             state.loading = false;

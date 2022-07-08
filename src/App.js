@@ -5,7 +5,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { Drawer, CssBaseline, Box, Toolbar } from '@mui/material';
 import { useLocation } from 'react-router-dom'
 
-import { Header, Navbar, Dashboard, AddProject, AllProjects, EditProject, MyProjects, ProjectArchive, ProjectDetails, AddTicket, AllTickets, EditTicket, MyTickets, TicketArchive, TicketDetails, ManageUserRoles, NotificationsPage, Support } from './components/Application/index';
+import { Header, Navbar, Dashboard, AddProject, AllProjects, EditProject, MyProjects, ProjectArchive, ProjectDetails, AddTicket, AllTickets, EditTicket, MyTickets, TicketArchive, TicketDetails, ManageUserRoles, NotificationsPage, Support, UnassignedTickets } from './components/Application/index';
 import { userActions } from './services/user/userSlice';
 import { handleAlerts } from './services/alertsSlice';
 import decode from 'jwt-decode';
@@ -126,6 +126,8 @@ const App = () => {
 
                                     <Route exact path="/myTickets" element={<MyTickets />} />
                                     <Route exact path="/myTickets/search" element={<MyTickets />} />
+
+                                    <Route exact path="/unassignedTickets" element={<UnassignedTickets />} />
 
                                     <Route exact path="/ticketArchive" element={<TicketArchive />} />
                                     <Route exact path="/ticketArchive/search" element={<TicketArchive />} />

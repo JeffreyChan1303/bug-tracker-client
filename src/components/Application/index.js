@@ -16,6 +16,7 @@ export { default as EditTicket } from './Tickets/editTicket';
 export { default as MyTickets } from './Tickets/myTickets';
 export { default as TicketArchive } from './Tickets/ticketArchive';
 export { default as TicketDetails } from './Tickets/ticketDetails';
+export { default as UnassignedTickets } from './Tickets/unassignedTickets';
 
 
 

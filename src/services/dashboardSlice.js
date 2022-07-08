@@ -13,11 +13,6 @@ const initialState = {
         loading: false,
         error: '',
     },
-    getUnassignedTickets: {
-        data: 0,
-        loading: false,
-        error: '',
-    },
     getUnreadNotifications: {
         data: 0,
         loading: false,
@@ -45,18 +40,6 @@ export const getActiveTickets = createAsyncThunk('ticket/getActiveTickets', asyn
     } catch (error) {
         console.log(error)
         dispatch(handleAlerts({ severity: 'error', message: `Failed to get number of active tickets. Error: ${error.message}` }));
-        return rejectWithValue(error)
-    }
-})
-
-export const getUnassignedTickets = createAsyncThunk('ticket/getUnassignedTickets', async ( params, { dispatch, rejectWithValue}) => {
-    try {
-        const { data } = await api.getUnassignedTickets();
-
-        return data;
-    } catch (error) {
-        console.log(error)
-        dispatch(handleAlerts({ severity: 'error', message: `Failed to get number of unassigned tickets. Error: ${error.message}` }));
         return rejectWithValue(error)
     }
 })
@@ -104,20 +87,6 @@ const dashboardSlice = createSlice({
         builder.addCase(getActiveTickets.rejected, (state, action) => {
             state.getActiveTickets.loading = false;
             state.getActiveTickets.error = action.payload.message
-        })
-
-        // Get Unassigned Tickets
-
-        builder.addCase(getUnassignedTickets.pending, (state) => {
-            state.getUnassignedTickets.loading = true;
-        })
-        builder.addCase(getUnassignedTickets.fulfilled, (state, action) => {
-            state.getUnassignedTickets.loading = false;
-            state.getUnassignedTickets.data = action.payload;
-        })
-        builder.addCase(getUnassignedTickets.rejected, (state, action) => {
-            state.getUnassignedTickets.loading = false;
-            state.getUnassignedTickets.error = action.payload.message
         })
 
         // Get Unread Notifications

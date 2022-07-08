@@ -4,7 +4,7 @@ import { handleAlerts } from '../alertsSlice';
 
 const initialState = {
     tickets: [],
-    numberOfUnassignedTickets: 0,
+    numberOfTickets: 0,
     loading: false,
     error: '',
 }
@@ -16,7 +16,7 @@ export const getUnassignedTickets = createAsyncThunk('ticket/getUnassignedTicket
         return data;
     } catch (error) {
         console.log(error)
-        dispatch(handleAlerts({ severity: 'error', message: `Failed to get number of unassigned tickets. Error: ${error.message}` }));
+        dispatch(handleAlerts({ severity: 'error', message: `Failed to get unassigned tickets. Error: ${error.message}` }));
         return rejectWithValue(error)
     }
 })
@@ -25,12 +25,14 @@ const unassignedTicketsSlice = createSlice({
     name: 'Unassigned Tickets',
     initialState,
     extraReducers: builder => {
+        // Get Unassigned Tickets
         builder.addCase(getUnassignedTickets.pending, (state) => {
             state.loading = true;
         })
         builder.addCase(getUnassignedTickets.fulfilled, (state, action) => {
             state.loading = false;
-            state.data = action.payload;
+            state.tickets = action.payload;
+            state.numberOfTickets = action.payload.length;
         })
         builder.addCase(getUnassignedTickets.rejected, (state, action) => {
             state.loading = false;

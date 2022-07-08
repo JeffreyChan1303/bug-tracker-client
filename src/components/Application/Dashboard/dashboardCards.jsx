@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { Typography, Grid, Card, Box, Avatar, Paper, CircularProgress } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getActiveProjects, getActiveTickets, getUnassignedTickets, getUnreadNotifications } from '../../../services/dashboardSlice';
+import { getActiveProjects, getActiveTickets, getUnreadNotifications } from '../../../services/dashboardSlice';
+import { getUnassignedTickets } from '../../../services/ticket/unassignedTicketsSlice';
 
 import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
@@ -23,8 +24,8 @@ const DashboardCards = () => {
     }, [])
     const { getActiveProjects: activeProjects,
             getActiveTickets: activeTickets,
-            getUnassignedTickets: unassignedTickets,
             getUnreadNotifications: unreadNotifications } = useSelector((state) => state.dashboard);
+    const unassignedTickets = useSelector((state) => state.unassignedTickets);
 
     
 
@@ -91,7 +92,7 @@ const DashboardCards = () => {
                                 Unassigned Tickets
                             </Typography>
                             <Typography variant="h6" fontWeight={700} >
-                                {unassignedTickets.loading ? <CircularProgress color="inherit" /> : unassignedTickets?.data}
+                                {unassignedTickets.loading ? <CircularProgress color="inherit" /> : unassignedTickets?.numberOfTickets}
                             </Typography>
                         </Grid>
                         <Grid item >

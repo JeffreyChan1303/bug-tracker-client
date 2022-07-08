@@ -14,10 +14,10 @@ API.interceptors.request.use((req) => {
 // Dashboard APIs
 // should i just user get user and get the info from there??? rest api make this hard...
 
-export const getActiveProjects = () => API.get(`/projects/getActiveProjects`);
-export const getActiveTickets = () => API.get(`/tickets/getActiveTickets`);
-export const getUnassignedTickets = () => API.get(`/tickets/getUnassignedTickets`);
-export const getUnreadNotifications = () => API.get(`/users/getUnreadNotifications`)
+export const getActiveProjects = () => API.get(`/projects/activeProjects`);
+export const getActiveTickets = () => API.get(`/tickets/activeTickets`);
+export const getUnassignedTickets = () => API.get(`/tickets/unassignedTickets`);
+export const getUnreadNotifications = () => API.get(`/users/unreadNotifications`)
 
 // User APIs
 export const signIn = (formData) => API.post('/users/signin', formData);

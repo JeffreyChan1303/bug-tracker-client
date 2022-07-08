@@ -39,7 +39,6 @@ const DashboardCards = () => {
                                 Active Projects
                             </Typography>
                             <Typography variant="h6" fontWeight={700}>
-                                aa
                                 {activeProjects.loading ? <CircularProgress color='inherit' /> : activeProjects?.data}
                             </Typography>
                         </Grid>
@@ -65,8 +64,7 @@ const DashboardCards = () => {
                             <Typography variant="body1">
                                 Active Tickets
                             </Typography>
-                            <Typography variant="h6">
-                                (number)
+                            <Typography variant="h6" fontWeight={700} >
                                 {activeTickets.loading ? <CircularProgress color="inherit" /> : activeTickets?.data}
                             </Typography>
                         </Grid>
@@ -92,8 +90,7 @@ const DashboardCards = () => {
                             <Typography variant="body1">
                                 Unassigned Tickets
                             </Typography>
-                            <Typography variant="h6">
-                                (number)
+                            <Typography variant="h6" fontWeight={700} >
                                 {unassignedTickets.loading ? <CircularProgress color="inherit" /> : unassignedTickets?.data}
                             </Typography>
                         </Grid>
@@ -120,7 +117,6 @@ const DashboardCards = () => {
                                 Unread Notifications
                             </Typography>
                             <Typography variant="h6">
-                                (number)
                                 {unreadNotifications.loading ? <CircularProgress color="inherit" /> : unreadNotifications?.data}
                             </Typography>
                         </Grid>

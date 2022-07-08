@@ -151,7 +151,6 @@ const AddTicket = () => {
                         fullWidth
                         size="small"
                     >
-                        <MenuItem value={"Archived"}>Archived</MenuItem>
                         <MenuItem value={"Resolved"}>Resolved</MenuItem>
                         <MenuItem value={"Testing"}>Testing</MenuItem>
                         <MenuItem value={"Development"}>Development</MenuItem>

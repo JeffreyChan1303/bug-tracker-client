@@ -1,5 +1,8 @@
-import React from 'react';
-import { Typography, Grid, Card, Box, Avatar, Paper } from '@mui/material';
+import React, { useEffect } from 'react';
+import { Typography, Grid, Card, Box, Avatar, Paper, CircularProgress } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { getActiveProjects, getActiveTickets, getUnassignedTickets, getUnreadNotifications } from '../../../services/dashboardSlice';
 
 import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
@@ -10,6 +13,20 @@ import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsAc
 
 
 const DashboardCards = () => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getActiveProjects());
+        dispatch(getActiveTickets());
+        dispatch(getUnassignedTickets());
+        dispatch(getUnreadNotifications());
+    }, [])
+    const { getActiveProjects: activeProjects,
+            getActiveTickets: activeTickets,
+            getUnassignedTickets: unassignedTickets,
+            getUnreadNotifications: unreadNotifications } = useSelector((state) => state.dashboard);
+
+    
 
     return (
         <Grid container spacing={2}>
@@ -21,8 +38,9 @@ const DashboardCards = () => {
                             <Typography variant="body1">
                                 Active Projects
                             </Typography>
-                            <Typography variant="h6">
-                                (number)
+                            <Typography variant="h6" fontWeight={700}>
+                                aa
+                                {activeProjects.loading ? <CircularProgress color='inherit' /> : activeProjects?.data}
                             </Typography>
                         </Grid>
                         <Grid item >
@@ -49,6 +67,7 @@ const DashboardCards = () => {
                             </Typography>
                             <Typography variant="h6">
                                 (number)
+                                {activeTickets.loading ? <CircularProgress color="inherit" /> : activeTickets?.data}
                             </Typography>
                         </Grid>
                         <Grid item >
@@ -75,6 +94,7 @@ const DashboardCards = () => {
                             </Typography>
                             <Typography variant="h6">
                                 (number)
+                                {unassignedTickets.loading ? <CircularProgress color="inherit" /> : unassignedTickets?.data}
                             </Typography>
                         </Grid>
                         <Grid item >
@@ -101,6 +121,7 @@ const DashboardCards = () => {
                             </Typography>
                             <Typography variant="h6">
                                 (number)
+                                {unreadNotifications.loading ? <CircularProgress color="inherit" /> : unreadNotifications?.data}
                             </Typography>
                         </Grid>
                         <Grid item >

@@ -27,7 +27,7 @@ const initialState = {
 
 export const getActiveProjects = createAsyncThunk('project/getActiveProjects', async ( params, { dispatch, rejectWithValue}) => {
     try {
-        const { data } = await api.getActiveProjects(userId);
+        const { data } = await api.getActiveProjects();
         console.log(data);
 
         return data;
@@ -40,7 +40,7 @@ export const getActiveProjects = createAsyncThunk('project/getActiveProjects', a
 
 export const getActiveTickets = createAsyncThunk('ticket/getActiveTickets', async ( params, { dispatch, rejectWithValue}) => {
     try {
-        const { data } = await api.getActiveTickets(userId);
+        const { data } = await api.getActiveTickets();
         console.log(data);
 
         return data;
@@ -53,7 +53,7 @@ export const getActiveTickets = createAsyncThunk('ticket/getActiveTickets', asyn
 
 export const getUnassignedTickets = createAsyncThunk('ticket/getUnassignedTickets', async ( params, { dispatch, rejectWithValue}) => {
     try {
-        const { data } = await api.getUnassignedTickets(userId);
+        const { data } = await api.getUnassignedTickets();
         console.log(data);
 
         return data;
@@ -66,7 +66,7 @@ export const getUnassignedTickets = createAsyncThunk('ticket/getUnassignedTicket
 
 export const getUnreadNotifications = createAsyncThunk('user/getUnreadNotifications', async ( params, { dispatch, rejectWithValue}) => {
     try {
-        const { data } = await api.getUnreadNotifications(userId);
+        const { data } = await api.getUnreadNotifications();
         console.log(data);
 
         return data;

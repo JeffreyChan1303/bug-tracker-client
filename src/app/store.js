@@ -2,7 +2,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
 
 
-import alertsReducer from '../services/alertsSlice';
 // User Imports
 import userReducer from '../services/user/userSlice';
 import authReducer from '../services/user/authSlice';
@@ -23,6 +22,9 @@ import projectArchiveReducer from '../services/project/projectArchiveSlice';
 import addProjectReducer from '../services/project/addProjectSlice';
 import projectDetailsReducer from '../services/project/projectDetailsSlice';
 
+// Other imports
+import alertsReducer from '../services/alertsSlice';
+import dashboardReducer from '../services/dashboardSlice';
 
 
 export const store = configureStore({
@@ -50,6 +52,7 @@ export const store = configureStore({
 
         // Other stores
         alerts: alertsReducer,
+        dashboard: dashboardReducer,
 
         
     },

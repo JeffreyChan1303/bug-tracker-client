@@ -67,7 +67,7 @@ const AddTicket = () => {
             dispatch(handleAlerts({ severity: "warning", message: "Invalid description" }));
         }
 
-        if (ticketData.title !== '' && ticketData.description !== '') {
+        if (ticketData.title !== '' && ticketData.description !== '' && ticketData.project.title !== '') {
             dispatch(createTicket({ ...ticketData, name: user?.userObject?.name }));
             navigate("/allTickets");
         }

@@ -1,18 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AppBar, Typography, Toolbar, IconButton, Avatar, Box, Menu, MenuItem, Button, Tooltip, Badge } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+
 import MenuIcon from '@mui/icons-material/Menu'
 import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
 import SettingsIcon from '@mui/icons-material/Settings';
 
 import { useNavigate } from 'react-router-dom';
 
-
+import { getUnreadNotifications } from '../../services/dashboardSlice';
 
 
 const Header = ({ drawerWidth, handleDrawerToggle, user, handleLogOut }) => {
     const [avatarOpen, setAvatarOpen] = useState(null);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { getUnreadNotifications: { data: numberOfUnreadNotifications } } = useSelector((state) => state.dashboard)
 
+    useEffect(() => {
+        dispatch(getUnreadNotifications())
+    }, [])
 
     const handleAvatarOpen = (event) => {
         setAvatarOpen(event.currentTarget);
@@ -60,7 +67,7 @@ const Header = ({ drawerWidth, handleDrawerToggle, user, handleLogOut }) => {
 
                     <IconButton sx={{ color: "white" }} onClick={() => navigate('/notifications')} >
                         {/* Change the badge content to the user.unreadNotifications! I will need to implement this in the backend too */}
-                        <Badge color="error" badgeContent={1} >
+                        <Badge color="error" badgeContent={numberOfUnreadNotifications} >
                             <NotificationsRoundedIcon  />
                         </Badge>
                     </IconButton>

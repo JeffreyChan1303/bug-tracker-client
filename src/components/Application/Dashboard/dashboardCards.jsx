@@ -116,7 +116,7 @@ const DashboardCards = () => {
                             <Typography variant="body1">
                                 Unread Notifications
                             </Typography>
-                            <Typography variant="h6">
+                            <Typography variant="h6" fontWeight={700} >
                                 {unreadNotifications.loading ? <CircularProgress color="inherit" /> : unreadNotifications?.data}
                             </Typography>
                         </Grid>

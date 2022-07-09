@@ -10,18 +10,6 @@ const initialState = {
     numberOfPages: null,
 }
 
-export const getArchivedTickets = createAsyncThunk('ticket/getArchivedTickets', async ( page, { dispatch, rejectWithValue }) => {
-    try {
-        const { data } = await api.getArchivedTickets(page);
-
-        return data
-    } catch (error) {
-        console.log(error);
-        dispatch(handleAlerts({ severity: 'error', message: `Archived tickets were not able to be retrieved. Error: ${error.message}` }));
-        return rejectWithValue(error)
-    }
-})
-
 export const getArchivedTicketsBySearch = createAsyncThunk('ticket/getArchivedTicketsBySearch', async ({ page, search }, { dispatch, rejectWithValue }) => {
     const searchQuery = search;
     try {
@@ -57,9 +45,6 @@ const ticketArchiveSlice = createSlice({
     name: 'ticketArchive',
     initialState,
     extraReducers: builder => {
-        builder.addCase(getArchivedTickets.pending, (state) => isPending(state));
-        builder.addCase(getArchivedTickets.fulfilled, (state, action) => isFulfilled(state, action));
-        builder.addCase(getArchivedTickets.rejected, (state, action) => isRejected(state, action));
         builder.addCase(getArchivedTicketsBySearch.pending, (state) => isPending(state));
         builder.addCase(getArchivedTicketsBySearch.fulfilled, (state, action) => isFulfilled(state, action));
         builder.addCase(getArchivedTicketsBySearch.rejected, (state, action) => isRejected(state, action));

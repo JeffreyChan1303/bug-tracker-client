@@ -36,8 +36,7 @@ export const getMyTicketsBySearch = (page, searchQuery) => API.get(`/tickets/myT
 
 export const getUnassignedTickets = (page, searchQuery) => API.get(`/tickets/unassignedTickets?searchQuery=${searchQuery || ''}&page=${page}`);
 
-export const getArchivedTickets = (page) => API.get(`/tickets/archivedTickets?page=${page}`);
-export const getArchivedTicketsBySearch = (page, searchQuery) => API.get(`/tickets/archivedTickets/search?searchQuery=${searchQuery || 'none'}&page=${page}`);
+export const getArchivedTicketsBySearch = (page, searchQuery) => API.get(`/tickets/archivedTickets/search?searchQuery=${searchQuery || ''}&page=${page}`);
 
 
 export const createTicket = (newTicket) => API.post('/tickets/createTicket', newTicket);

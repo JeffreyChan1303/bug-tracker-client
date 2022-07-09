@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import RestoreIcon from '@mui/icons-material/Restore';
 
-import { getArchivedTickets, getArchivedTicketsBySearch } from '../../../services/ticket/ticketArchiveSlice';
+import { getArchivedTicketsBySearch } from '../../../services/ticket/ticketArchiveSlice';
 import { restoreTicketFromArchive } from '../../../services/ticket/ticketDetailsSlice';
 import CustomPagination from '../pagination';
 
@@ -36,20 +36,17 @@ const TicketArchive = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-       if (search.trim()) {
-           dispatch(getArchivedTicketsBySearch({ search, page }));
-       } else {
-           dispatch(getArchivedTickets(page));
-       }
+       dispatch(getArchivedTicketsBySearch({ search, page }));
     }, [page])
 
     const searchArchivedTickets = () => {
         if (search.trim()) {
             dispatch(getArchivedTicketsBySearch({ search, page: 1 }))
-            navigate(`/ticketArchive/search?searchQuery=${search || 'none'}&page=1`);
+            navigate(`/ticketArchive?searchQuery=${search || 'none'}&page=1`);
         } else {
             navigate('/ticketArchive')
         }
+        
     }
 
     const handleKeyPress = (e) => {
@@ -130,7 +127,7 @@ const TicketArchive = () => {
                 </Box>
 
                 <CustomPagination 
-                    path={`/ticketArchive${search.trim()? `/search?searchQuery=${search}&` : `?`}`}
+                    path={`/ticketArchive${search.trim()? `?searchQuery=${search}&` : `?`}`}
                     page={page}
                     currentPage={currentPage}
                     numberOfPages={numberOfPages}

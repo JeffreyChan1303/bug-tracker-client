@@ -47,7 +47,7 @@ const UnassignedTickets = () => {
             
             dispatch(getUnassignedTickets({ search, page: 1 }))
 
-            navigate(`/unassignedTickets/search?searchQuery=${search || 'none'}&page=1`);
+            navigate(`/unassignedTickets?searchQuery=${search || 'none'}&page=1`);
         } else {
             navigate('/unassignedTickets')
         }
@@ -128,7 +128,7 @@ const UnassignedTickets = () => {
 
 
                 <CustomPagination 
-                    path={`/unassignedTickets${search.trim()? `/search?searchQuery=${search}&` : `?`}`}
+                    path={`/unassignedTickets${search.trim()? `?searchQuery=${search}&` : `?`}`}
                     page={page}
                     currentPage={currentPage}
                     numberOfPages={numberOfPages}

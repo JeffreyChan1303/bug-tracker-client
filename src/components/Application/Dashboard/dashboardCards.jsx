@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
-import { Typography, Grid, Card, Box, Avatar, Paper, CircularProgress } from '@mui/material';
+import { Typography, Grid, Card, Box, Avatar, Paper, CircularProgress, Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import styled from '@mui/system/styled';
 
 import { getActiveProjects, getActiveTickets, getUnreadNotifications } from '../../../services/dashboardSlice';
 import { getUnassignedTickets } from '../../../services/ticket/unassignedTicketsSlice';
@@ -10,11 +12,16 @@ import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsActiveOutlined';
 
+const StyledButton = styled(Button) (({ theme }) => ({
+    minWidth: "70%",
+    textTransform: "none",
+}));
 
 
 
 const DashboardCards = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(getActiveProjects());
@@ -37,12 +44,12 @@ const DashboardCards = () => {
                 <Card elevation={1} sx={{ p: 3 }}  >
                     <Grid container justifyContent="space-between">
                         <Grid item >
-                            <Typography variant="body1">
-                                Active Projects
-                            </Typography>
-                            <Typography variant="h6" fontWeight={700}>
-                                {activeProjects.loading ? <CircularProgress color='inherit' /> : activeProjects?.data}
-                            </Typography>
+                                <Typography variant="body2" fontWeight={500} sx={{ color: "grey.800"}}>
+                                    Active Projects
+                                </Typography>
+                                <Typography variant="h5" fontWeight={700}>
+                                    {activeProjects.loading ? <CircularProgress color='inherit' /> : activeProjects?.data}
+                                </Typography>
                         </Grid>
                         <Grid item >
                             <Avatar sx={{ bgcolor: "primary.light" }} >
@@ -50,10 +57,13 @@ const DashboardCards = () => {
                             </Avatar>
                         </Grid>
                     </Grid>
-                    <Box >
-                        <Typography variant="caption" >
-                            this is just the bottom of the card
-                        </Typography>
+                    <Box display="flex" justifyContent="center">
+                        {/* make this a styled component to shorten the properties */}
+                        <StyledButton variant="outlined" color="secondary" onClick={() => navigate('/myProjects')} >
+                            <Typography variant="caption" >
+                                View active projects
+                            </Typography>
+                        </StyledButton>
                     </Box>
                 </Card>
             </Grid>
@@ -63,10 +73,10 @@ const DashboardCards = () => {
                 <Card elevation={1} sx={{ p: 3 }}  >
                     <Grid container justifyContent="space-between">
                         <Grid item >
-                            <Typography variant="body1">
+                            <Typography variant="body2" fontWeight={500} sx={{ color: "grey.800"}}>
                                 Active Tickets
                             </Typography>
-                            <Typography variant="h6" fontWeight={700} >
+                            <Typography variant="h5" fontWeight={700} >
                                 {activeTickets.loading ? <CircularProgress color="inherit" /> : activeTickets?.data}
                             </Typography>
                         </Grid>
@@ -76,10 +86,12 @@ const DashboardCards = () => {
                             </Avatar>
                         </Grid>
                     </Grid>
-                    <Box >
-                        <Typography variant="caption" >
-                            this is just the bottom of the card
-                        </Typography>
+                    <Box display="flex" justifyContent="center" >
+                        <StyledButton variant="outlined" color="secondary" onClick={() => navigate('/myTickets')} >
+                            <Typography variant="caption" >
+                                View active tickets
+                            </Typography>
+                        </StyledButton>
                     </Box>
                 </Card>
             </Grid>
@@ -89,10 +101,10 @@ const DashboardCards = () => {
                 <Card elevation={1} sx={{ p: 3 }}  >
                     <Grid container justifyContent="space-between">
                         <Grid item >
-                            <Typography variant="body1">
+                            <Typography variant="body2" fontWeight={500} sx={{ color: "grey.800"}}>
                                 Unassigned Tickets
                             </Typography>
-                            <Typography variant="h6" fontWeight={700} >
+                            <Typography variant="h5" fontWeight={700} >
                                 {unassignedTickets.loading ? <CircularProgress color="inherit" /> : unassignedTickets.numberOfTickets}
                             </Typography>
                         </Grid>
@@ -102,10 +114,12 @@ const DashboardCards = () => {
                             </Avatar>
                         </Grid>
                     </Grid>
-                    <Box >
-                        <Typography variant="caption" >
-                            this is just the bottom of the card
-                        </Typography>
+                    <Box display="flex" justifyContent="center" >
+                        <StyledButton variant="outlined" color="secondary" onClick={() => navigate('/unassignedTickets')} >
+                            <Typography variant="caption" >
+                                View unassigned tickets
+                            </Typography>
+                        </StyledButton>
                     </Box>
                 </Card>
             </Grid>
@@ -115,10 +129,10 @@ const DashboardCards = () => {
                 <Card elevation={1} sx={{ p: 3 }}  >
                     <Grid container justifyContent="space-between">
                         <Grid item >
-                            <Typography variant="body1">
+                            <Typography variant="body2" fontWeight={500} sx={{ color: "grey.800"}}>
                                 Unread Notifications
                             </Typography>
-                            <Typography variant="h6" fontWeight={700} >
+                            <Typography variant="h5" fontWeight={700} >
                                 {unreadNotifications.loading ? <CircularProgress color="inherit" /> : unreadNotifications?.data}
                             </Typography>
                         </Grid>
@@ -128,10 +142,12 @@ const DashboardCards = () => {
                             </Avatar>
                         </Grid>
                     </Grid>
-                    <Box >
-                        <Typography variant="caption" >
-                            this is just the bottom of the card
-                        </Typography>
+                    <Box display="flex" justifyContent="center" >
+                        <StyledButton variant="outlined" color="secondary" onClick={() => navigate('/notifications')} >
+                            <Typography variant="caption" >
+                                View notifications
+                            </Typography>
+                        </StyledButton>
                     </Box>
                 </Card>
             </Grid>

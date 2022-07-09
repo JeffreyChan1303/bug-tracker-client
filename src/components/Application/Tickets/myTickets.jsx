@@ -36,12 +36,7 @@ const MyTickets = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // this fetches data every time the page is changed
-        if (search.trim()) {
-            dispatch(getMyTicketsBySearch({ search, page }));
-        } else {
-            dispatch(getMyTickets(page));
-        }
+        dispatch(getMyTicketsBySearch({ search, page }))
     }, [page])
 
     const searchMyTickets = () => {
@@ -50,7 +45,7 @@ const MyTickets = () => {
             
             dispatch(getMyTicketsBySearch({ search, page: 1 }))
 
-            navigate(`/myTickets/search?searchQuery=${search || 'none'}&page=1`);
+            navigate(`/myTickets?searchQuery=${search || 'none'}&page=1`);
         } else {
             navigate('/myTickets')
         }
@@ -131,7 +126,7 @@ const MyTickets = () => {
 
 
                 <CustomPagination 
-                    path={`/myTickets${search.trim()? `/search?searchQuery=${search}&` : `?`}`}
+                    path={`/myTickets${search.trim()? `?searchQuery=${search}&` : `?`}`}
                     page={page}
                     currentPage={currentPage}
                     numberOfPages={numberOfPages}

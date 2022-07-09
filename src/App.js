@@ -125,7 +125,6 @@ const App = () => {
                                     <Route exact path="/allTickets/search" element={<AllTickets />} />
 
                                     <Route exact path="/myTickets" element={<MyTickets />} />
-                                    <Route exact path="/myTickets/search" element={<MyTickets />} />
 
                                     <Route exact path="/unassignedTickets" element={<UnassignedTickets />} />
 

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title } from 'chart.js';
 import { Doughnut, Bar } from 'react-chartjs-2';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMyTickets } from '../../../services/ticket/myTicketsSlice';
+import { getMyTicketsBySearch } from '../../../services/ticket/myTicketsSlice';
 
 
 import { Container, Grid, Paper, Typography, Box } from '@mui/material';
@@ -78,7 +78,7 @@ const DashboardCharts = () => {
     const { numberOfBugTickets, numberOfFeatureTickets } = useSelector((state) => state.myTickets);
 
     useEffect(() => {
-        dispatch(getMyTickets)
+        dispatch(getMyTicketsBySearch({}))
     }, [])
 
   

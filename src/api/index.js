@@ -30,8 +30,7 @@ export const deleteUserNotification = (createdAt) => API.put(`/users/deleteUserN
 
 
 // Ticket APIs
-export const getAllTickets = (page) => API.get(`/tickets/allTickets?page=${page}`);
-export const getAllTicketsBySearch = (page, searchQuery) => API.get(`/tickets/allTickets/search?searchQuery=${searchQuery || 'none'}&page=${page}`);
+export const getAllTicketsBySearch = (page, searchQuery) => API.get(`/tickets/allTickets/search?searchQuery=${searchQuery || ''}&page=${page}`);
 
 export const getMyTicketsBySearch = (page, searchQuery) => API.get(`/tickets/myTickets/search?searchQuery=${searchQuery || ''}&page=${page}`);
 

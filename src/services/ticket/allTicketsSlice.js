@@ -11,18 +11,6 @@ const initialState = {
 };
 
 
-// generates pending, fulfilled, and rejected action types
-export const getAllTickets = createAsyncThunk('ticket/getAllTickets', async (page, {dispatch, rejectWithValue}) => {
-    try {
-        const { data } = await api.getAllTickets(page);
-
-        return data
-    } catch (error) {
-        console.log(error);
-        dispatch(handleAlerts({ severity: 'error', message: `All Tickets Page: ${error.message}` }))
-        return rejectWithValue(error)
-    }
-})
 
 export const getAllTicketsBySearch = createAsyncThunk('ticket/getAllTicketsBySearch', async ({ search, page } , {dispatch, rejectWithValue}) => {
     const searchQuery = search;
@@ -58,9 +46,6 @@ const allTicketsSlice = createSlice({
     name: 'allTickets',
     initialState,
     extraReducers: builder => {
-        builder.addCase(getAllTickets.pending, (state) => isPending(state));
-        builder.addCase(getAllTickets.fulfilled, (state, action) => isFulfilled(state, action));
-        builder.addCase(getAllTickets.rejected, (state, action) => isRejected(state, action));
         builder.addCase(getAllTicketsBySearch.pending, (state) => isPending(state));
         builder.addCase(getAllTicketsBySearch.fulfilled, (state, action) => isFulfilled(state, action));
         builder.addCase(getAllTicketsBySearch.rejected, (state, action) => isRejected(state, action));

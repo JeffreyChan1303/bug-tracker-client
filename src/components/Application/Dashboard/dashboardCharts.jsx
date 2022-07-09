@@ -1,96 +1,137 @@
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale,
-    LinearScale,
-    BarElement,
-    Title } from 'chart.js';
+import React, { useEffect } from 'react';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title } from 'chart.js';
 import { Doughnut, Bar } from 'react-chartjs-2';
-import { Container, Grid, Paper, Typography } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { getMyTickets } from '../../../services/ticket/myTicketsSlice';
 
-ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale,
+
+import { Container, Grid, Paper, Typography, Box } from '@mui/material';
+
+ChartJS.register(
+    ArcElement, 
+    Tooltip, 
+    Legend, 
+    CategoryScale,
     LinearScale,
     BarElement,
-    Title );
-
-const doughnutData = {
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-        ],
-        borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)',
-        ],
-        borderWidth: 1,
-        },
-    ],
-};
+    Title
+);
 
 const barOptions = {
     indexAxis: 'y' ,
     elements: {
-      bar: {
+        bar: {
         borderWidth: 2,
-      },
+        },
     },
     // responsive: true,
     plugins: {
-      title: {
-        display: true,
-        text: 'My Tickets By Priority',
-      },
+        title: {
+            display: true,
+            text: 'My Tickets By Priority',
+            font: {
+                size: 20,
+            }
+        },
+        legend: {
+            display: false,
+        },
+        subtitle: {
+            display: true,
+            text: 'this is a subtitle'
+        }
     },
-  };
+    layout: {
+        padding: 30,
+    },
+    maintainAspectRatio: false,
+};
   
-const labels = ['low', 'medium', 'high'];
-  
-const barData = {
-    labels,
-    datasets: [
-      {
-        label: null,
-        data: [1, 4, 5],
-        borderColor: ['rgb(255, 205, 86)', 'rgb(255, 159, 64)', 'rgb(255, 99, 132)'],
-        backgroundColor: [ 'rgba(255, 205, 86, 0.5)', 'rgba(255, 159, 64, 0.5)','rgba(255, 99, 132, 0.5)'],
-      },
-    ],
-  };
 
+
+const doughnutOptions = {
+    plugins: {
+        title: {
+            display: true,
+            text: 'My Tickets By Type',
+            font: {
+                size: 18,
+            }
+        },
+        subtitle: {
+            display: true,
+            text: 'test'
+        }
+    },
+    layout: {
+        padding: 10,
+    }
+
+}
+
+
+
+// NOTE!! Charts do not shirink when changing viewpoirt manually
+// this is not a problem since consumers wil not be manually changing viewport.
 const DashboardCharts = () => {
+    const dispatch = useDispatch();
+    const { numberOfBugTickets, numberOfFeatureTickets } = useSelector((state) => state.myTickets);
+
+    useEffect(() => {
+        dispatch(getMyTickets)
+    }, [])
+
+  
+    const barData = {
+        labels: ['low', 'medium', 'high'],
+        datasets: [
+            {
+            label: null,
+            data: [1, 4, 5],
+            borderColor: ['rgb(255, 205, 86)', 'rgb(255, 159, 64)', 'rgb(255, 99, 132)'],
+            backgroundColor: [ 'rgba(255, 205, 86, 0.5)', 'rgba(255, 159, 64, 0.5)','rgba(255, 99, 132, 0.5)'],
+            },
+        ],
+    };
+
+    const doughnutData = {
+        labels: ['Bugs', 'Features'],
+        datasets: [{
+            label: '# of Votes',
+            data: [numberOfBugTickets, numberOfFeatureTickets],
+            backgroundColor: [
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+            ],
+            borderColor: [
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 159, 64, 1)',
+            ],
+            borderWidth: 1,
+            },
+        ],
+    };
 
     return (
-        <Grid container spacing={2} sx={{ mt: 1 }}>
+        <Grid container spacing={2} sx={{ mt: 1 }} >
             <Grid item xs={12} lg={8} >
                 <Paper elevation={1} sx={{ position: 'relative', width: "100%", height: "400px" }} >
-                    <Typography variant="h6" >
-                        {/* Current Ticket priority */}
-                    </Typography>
+                    <Box position="relative" sx={{ height: "400px" }} >
 
-                    {/* Chart 1 */}
-                    {/* WE NEED TO FIX THESE CHARTS. UNDERSTAND CHART.JS MORE!!!! */}
-                    <Container sx={{ }} >
                         <Bar options={barOptions} data={barData} />
-                    </Container>
 
+                    </Box>
                 </Paper>
             </Grid>
 
             <Grid item xs={12} lg={4} >
                 <Paper elevation={1} sx={{ width: "100%", height: "400px" }} >
-                    <Doughnut data={doughnutData}  />
-                    <Typography variant="body1">
-                        {/* Bugs: , Features:  */}
-                    </Typography>
+                    <Box position="relative" sx={{ maxWidth: "380px", margin: "0 auto" }} >
+
+                        {/* learn chartjs and add the numbers into the chart in the doughnut chart */}
+                        <Doughnut options={doughnutOptions} data={doughnutData} />
+
+                    </Box>
                 </Paper>
             </Grid>
         </Grid>

@@ -8,6 +8,8 @@ const initialState = {
     error: '',
     currentPage: null,
     numberOfPages: null,
+    numberOfBugTickets: 1,
+    numberOfFeatureTickets: 1,
 };
 
 // generates pending, fulfilled, and rejected action types
@@ -49,6 +51,8 @@ const isFulfilled = (state, action) => {
     state.error = '';
     state.currentPage = action.payload?.currentPage;
     state.numberOfPages = action.payload?.numberOfPages;
+    // state.numberOfBugTickets = action.payload?.numberOfBugTickets;
+    // state.numberOfFeatureTickets = action.payload?.numberOfFeatureTickets;
 };
 const isRejected = (state, action) => {
     state.loading = false;

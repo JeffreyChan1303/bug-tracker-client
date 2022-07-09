@@ -33,7 +33,6 @@ const DashboardCards = () => {
             getActiveTickets: activeTickets,
             getUnreadNotifications: unreadNotifications } = useSelector((state) => state.dashboard);
     const unassignedTickets = useSelector((state) => state.unassignedTickets);
-    console.log(unassignedTickets)
 
     
 

@@ -10,20 +10,6 @@ const initialState = {
     numberOfPages: null,
 }
 
-export const getArchivedProjects = createAsyncThunk('project/getArchivedProjects', async ( page, { dispatch, rejectWithValue }) => {
-    try {
-        const { data } = await api.getArchivedProjects(page);
-
-        dispatch(handleAlerts({ severity: 'success', message: 'successfully fetched archived projects! '}))
-
-        return data
-    } catch (error) {
-        console.log(error);
-        dispatch(handleAlerts({ severity: 'error', message: `Archived projects were not able to be retrieved. Error: ${error.message}` }));
-        return rejectWithValue(error)
-    }
-})
-
 export const getArchivedProjectsBySearch = createAsyncThunk('project/getArchivedProjectsBySearch', async ({ page, search }, { dispatch, rejectWithValue }) => {
     const searchQuery = search;
     try {
@@ -60,9 +46,6 @@ const projectArchiveSlice = createSlice({
     name: 'projectArchive',
     initialState,
     extraReducers: builder => {
-        builder.addCase(getArchivedProjects.pending, (state) => isPending(state));
-        builder.addCase(getArchivedProjects.fulfilled, (state, action) => isFulfilled(state, action));
-        builder.addCase(getArchivedProjects.rejected, (state, action) => isRejected(state, action));
         builder.addCase(getArchivedProjectsBySearch.pending, (state) => isPending(state));
         builder.addCase(getArchivedProjectsBySearch.fulfilled, (state, action) => isFulfilled(state, action));
         builder.addCase(getArchivedProjectsBySearch.rejected, (state, action) => isRejected(state, action));

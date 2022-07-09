@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getMyProjects } from '../../../services/project/myProjectsSlice';
+import { getMyProjectsBySearch } from '../../../services/project/myProjectsSlice';
 import { createTicket } from '../../../services/ticket/addTicketSlice';
 import { handleAlerts } from '../../../services/alertsSlice';
 
@@ -34,7 +34,7 @@ const AddTicket = () => {
     useEffect(() => {
         // THIS IS IMPORTANT. WE NEED TO MAKE A GET ALL OF MY PROJECT FUNCTIONS WITHOUT THE PAGE. this is needed for this part of the project
         // we may need to make a new function or competely refactor the old one!!!
-        dispatch(getMyProjects(1));
+        dispatch(getMyProjectsBySearch({}));
     }, [])
 
 

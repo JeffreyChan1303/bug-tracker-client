@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
-import { getArchivedProjects, getArchivedProjectsBySearch } from '../../../services/project/projectArchiveSlice';
+import { getArchivedProjectsBySearch } from '../../../services/project/projectArchiveSlice';
 import CustomPagination from '../pagination';
 
 const BoldedTableCell = styled(TableCell) (({theme}) => ({
@@ -35,17 +35,13 @@ const ProjectArchive = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-       if (search.trim()) {
-           dispatch(getArchivedProjectsBySearch({ search, page }));
-       } else {
-           dispatch(getArchivedProjects(page));
-       }
+       dispatch(getArchivedProjectsBySearch({ search, page }));
     }, [page])
 
     const searchArchivedProjects = () => {
         if (search.trim()) {
             dispatch(getArchivedProjectsBySearch({ search, page: 1 }))
-            navigate(`/projectArchive/search?searchQuery=${search || 'none'}&page=1`);
+            navigate(`/projectArchive?searchQuery=${search || 'none'}&page=1`);
         } else {
             navigate('/projectArchive')
         }
@@ -124,7 +120,7 @@ const ProjectArchive = () => {
                 </Box>
 
                 <CustomPagination 
-                    path={`/archivedProjects${search.trim()? `/search?searchQuery=${search}&` : `?`}`}
+                    path={`/archivedProjects${search.trim()? `?searchQuery=${search}&` : `?`}`}
                     page={page}
                     currentPage={currentPage}
                     numberOfPages={numberOfPages}

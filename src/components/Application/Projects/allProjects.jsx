@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
-import { getAllProjects, getAllProjectsBySearch } from '../../../services/project/allProjectsSlice';
+import { getAllProjectsBySearch } from '../../../services/project/allProjectsSlice';
 import CustomPagination from '../pagination';
 
 const BoldedTableCell = styled(TableCell) (({theme}) => ({
@@ -35,17 +35,13 @@ const AllProjects = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-       if (search.trim()) {
-           dispatch(getAllProjectsBySearch({ search, page }));
-       } else {
-           dispatch(getAllProjects(page));
-       }
+       dispatch(getAllProjectsBySearch({ search, page }));
     }, [page])
 
     const searchAllProjects = () => {
         if (search.trim()) {
             dispatch(getAllProjectsBySearch({ search, page: 1 }))
-            navigate(`/allProjects/search?searchQuery=${search || 'none'}&page=1`);
+            navigate(`/allProjects?searchQuery=${search || 'none'}&page=1`);
         } else {
             navigate('/allProjects')
         }
@@ -115,7 +111,7 @@ const AllProjects = () => {
                 </Box>
 
                 <CustomPagination 
-                    path={`/allProjects${search.trim()? `/search?searchQuery=${search}&` : `?`}`}
+                    path={`/allProjects${search.trim()? `?searchQuery=${search}&` : `?`}`}
                     page={page}
                     currentPage={currentPage}
                     numberOfPages={numberOfPages}

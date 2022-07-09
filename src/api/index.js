@@ -51,12 +51,9 @@ export const addTicketComment = (id, comment) => API.patch(`tickets/addTicketCom
 export const deleteTicketComment = (ticketId, commentCreatedAt) => API.patch(`tickets/deleteTicketComment/${ticketId}`, commentCreatedAt);
 
 // Project APIs
-export const getAllProjects = (page) => API.get(`/projects/allProjects?page=${page}`);
-export const getAllProjectsBySearch = (page, searchQuery) => API.get(`/projects/allProjects/search?searchQuery=${searchQuery || 'none'}&page=${page}`);
-export const getMyProjects = (page) => API.get(`/projects/myProjects?page=${page}`);
-export const getMyProjectsBySearch = (page, searchQuery) => API.get(`/projects/myProjects/search?searchQuery=${searchQuery || 'none'}&page=${page}`);
-export const getArchivedProjects = (page) => API.get(`/projects/archivedProjects?page=${page}`);
-export const getArchivedProjectsBySearch = (page, searchQuery) => API.get(`/projects/archivedProjects/search?searchQuery=${searchQuery || 'none'}&page=${page}`)
+export const getAllProjectsBySearch = (page, searchQuery) => API.get(`/projects/allProjects/search?searchQuery=${searchQuery || ''}&page=${page}`);
+export const getMyProjectsBySearch = (page, searchQuery) => API.get(`/projects/myProjects/search?searchQuery=${searchQuery || ''}&page=${page}`);
+export const getArchivedProjectsBySearch = (page, searchQuery) => API.get(`/projects/archivedProjects/search?searchQuery=${searchQuery || ''}&page=${page}`)
 
 
 export const createProject = (newProject) => API.post('/projects/createProject', newProject);

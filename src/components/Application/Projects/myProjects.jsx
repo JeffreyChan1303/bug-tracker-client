@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
-import { getMyProjects, getMyProjectsBySearch } from '../../../services/project/myProjectsSlice';
+import { getMyProjectsBySearch } from '../../../services/project/myProjectsSlice';
 import store from '../../../app/store';
 import CustomPagination from '../pagination';
 
@@ -43,12 +43,7 @@ const MyProjects = () => {
 
     useEffect(() => {
         // this fetches data every time the page is changed
-        if (search.trim()) {
-            dispatch(getMyProjectsBySearch({ search, page }));
-        } else {
-            dispatch(getMyProjects(page));
-        }
-    //    dispatch(getMyProjects(page));
+        dispatch(getMyProjectsBySearch({ search, page }));
     }, [page])
 
     const searchMyProjects = () => {
@@ -57,7 +52,7 @@ const MyProjects = () => {
             
             dispatch(getMyProjectsBySearch({ search, page: 1 }))
 
-            navigate(`/myProjects/search?searchQuery=${search || 'none'}&page=1`);
+            navigate(`/myProjects?searchQuery=${search || 'none'}&page=1`);
         } else {
             navigate('/myProjects')
         }
@@ -128,7 +123,7 @@ const MyProjects = () => {
 
 
                 <CustomPagination 
-                    path={`/myProjects${search.trim()? `/search?searchQuery=${search}&` : `?`}`}
+                    path={`/myProjects${search.trim()? `?searchQuery=${search}&` : `?`}`}
                     page={page}
                     currentPage={currentPage}
                     numberOfPages={numberOfPages}

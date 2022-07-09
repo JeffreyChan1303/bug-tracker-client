@@ -11,19 +11,6 @@ const initialState = {
 };
 
 
-// generates pending, fulfilled, and rejected action types
-export const getAllProjects = createAsyncThunk('project/getAllProjects', async (page, {dispatch, rejectWithValue}) => {
-    try {
-        const { data } = await api.getAllProjects(page);
-
-        return data
-    } catch (error) {
-        console.log(error);
-        dispatch(handleAlerts({ severity: 'error', message: `All Projects Page: ${error.message}` }))
-        return rejectWithValue(error)
-    }
-})
-
 export const getAllProjectsBySearch = createAsyncThunk('project/getAllProjectsBySearch', async ({ search, page } , {dispatch, rejectWithValue}) => {
     const searchQuery = search;
 
@@ -58,9 +45,6 @@ const allProjectsSlice = createSlice({
     name: 'allProjects',
     initialState,
     extraReducers: builder => {
-        builder.addCase(getAllProjects.pending, (state) => isPending(state));
-        builder.addCase(getAllProjects.fulfilled, (state, action) => isFulfilled(state, action));
-        builder.addCase(getAllProjects.rejected, (state, action) => isRejected(state, action));
         builder.addCase(getAllProjectsBySearch.pending, (state) => isPending(state));
         builder.addCase(getAllProjectsBySearch.fulfilled, (state, action) => isFulfilled(state, action));
         builder.addCase(getAllProjectsBySearch.rejected, (state, action) => isRejected(state, action));

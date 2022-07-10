@@ -40,17 +40,13 @@ const ManageUserRoles = () => {
     }, [])
 
     useEffect(() => {
-        if (search.trim()) {
-            dispatch(getAllUsersBySearch({ search, page }));
-        } else {
-            dispatch(getAllUsers(page));
-        }
+        dispatch(getAllUsersBySearch({ search, page }));
     }, [page])
 
     const searchAllUsers = () => {
         if (search.trim()) {
             dispatch(getAllUsersBySearch({ search, page: 1 }));
-            navigate(`/projectDetails/manageUserRoles/${id}/search?searchQuery=${search || 'none'}&page=1`);
+            navigate(`/projectDetails/manageUserRoles/${id}?searchQuery=${search || 'none'}&page=1`);
         } else {
             navigate(`/projectDetails/manageUserRoles/${id}`);
         }
@@ -105,7 +101,7 @@ const ManageUserRoles = () => {
 
 
     return (
-        getAllUsersLoading || getProjectDetailsLoading ? <CircularProgress color="inherit" /> : 
+        getProjectDetailsLoading ? <CircularProgress color="inherit" /> : 
         <>
             <Grid container spacing="30px" >
                 <Grid item xs={12} md={5} >
@@ -184,7 +180,8 @@ const ManageUserRoles = () => {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                {allUsers && allUsers.map((user, i) => (
+                                { !getAllUsersLoading &&
+                                allUsers && allUsers.map((user, i) => (
                                     <TableRow
                                         key={i}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -206,7 +203,7 @@ const ManageUserRoles = () => {
                         </Box>
 
                         <CustomPagination 
-                            path={`/projectDetails/manageUserRoles/${id}${search.trim()? `/search?searchQuery=${search}&` : `?`}`}
+                            path={`/projectDetails/manageUserRoles/${id}${search.trim()? `?searchQuery=${search}&` : `?`}`}
                             page={page}
                             currentPage={currentPage}
                             numberOfPages={numberOfPages}

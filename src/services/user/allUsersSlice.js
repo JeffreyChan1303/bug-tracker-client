@@ -11,19 +11,6 @@ const initialState = {
 };
 
 
-// generates pending, fulfilled, and rejected action types
-export const getAllUsers = createAsyncThunk('user/getAllUsers', async (page, {dispatch, rejectWithValue}) => {
-    try {
-        const { data } = await api.getAllUsers(page);
-
-        return data
-    } catch (error) {
-        console.log(error);
-        dispatch(handleAlerts({ severity: 'error', message: `Failed to fetch all users. error: ${error.message}` }))
-        return rejectWithValue(error)
-    }
-})
-
 export const getAllUsersBySearch = createAsyncThunk('user/getAllUsersBySearch', async ({ search, page } , {dispatch, rejectWithValue}) => {
     const searchQuery = search;
 
@@ -58,9 +45,6 @@ const manageUserRolesSlice = createSlice({
     name: 'manageUserRoles',
     initialState,
     extraReducers: builder => {
-        builder.addCase(getAllUsers.pending, (state) => isPending(state));
-        builder.addCase(getAllUsers.fulfilled, (state, action) => isFulfilled(state, action));
-        builder.addCase(getAllUsers.rejected, (state, action) => isRejected(state, action));
         builder.addCase(getAllUsersBySearch.pending, (state) => isPending(state));
         builder.addCase(getAllUsersBySearch.fulfilled, (state, action) => isFulfilled(state, action));
         builder.addCase(getAllUsersBySearch.rejected, (state, action) => isRejected(state, action));

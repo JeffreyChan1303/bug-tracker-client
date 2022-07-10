@@ -13,7 +13,7 @@ const initialTicketData = {
     title: '',
     description: '',
     priority: 'High',
-    status: 'New',
+    status: 'Unassigned',
     type: 'Bug',
     project: {
         _id: null,
@@ -129,19 +129,7 @@ const AddTicket = () => {
                         value={ticketData.description}
                         onChange={(e) => setTicketData({ ...ticketData, description: e.target.value })}
                     />
-
-                    <Typography variant="body1" fontWeight={700}>Ticket Priority</Typography>
-                    <Select
-                        value={ticketData.priority}
-                        onChange={handlePriorityChange}
-                        sx={{ mb: 2 }}
-                        fullWidth
-                        size="small"
-                    >
-                        <MenuItem value={"Low"}>Low Priority</MenuItem>
-                        <MenuItem value={"Medium"}>Medium Priority</MenuItem>
-                        <MenuItem value={"High"}>High Priority</MenuItem>
-                    </Select>
+                    
 
                     <Typography variant="body1" fontWeight={700}>Ticket Status</Typography>
                     <Select
@@ -156,8 +144,21 @@ const AddTicket = () => {
                         <MenuItem value={"Development"}>Development</MenuItem>
                         <MenuItem value={"Unassigned"}>Unassigned</MenuItem>
                         <MenuItem value={"New"}>New</MenuItem>
-
                     </Select>
+
+                    <Typography variant="body1" fontWeight={700}>Ticket Priority</Typography>
+                    <Select
+                        value={ticketData.priority}
+                        onChange={handlePriorityChange}
+                        sx={{ mb: 2 }}
+                        fullWidth
+                        size="small"
+                    >
+                        <MenuItem value={"Low"}>Low Priority</MenuItem>
+                        <MenuItem value={"Medium"}>Medium Priority</MenuItem>
+                        <MenuItem value={"High"}>High Priority</MenuItem>
+                    </Select>
+
 
                     <Typography variant="body1" fontWeight={700}>Ticket Type</Typography>
                     <Select

@@ -23,6 +23,19 @@ export const getUnassignedTickets = createAsyncThunk('ticket/getUnassignedTicket
     }
 })
 
+export const claimTicket = createAsyncThunk('ticket/claimTicket', async (ticketId, { dispatch, rejectWithValue }) => {
+    try {
+        const { data } = await api.claimTicket(ticketId);
+        dispatch(handleAlerts({ severity: 'success', message: `Successfully claimed the ticket` }));
+
+        return data
+    } catch (error) {
+        console.log(error);
+        dispatch(handleAlerts({ severity: 'error', message: `Failed to claim ticket. Error: ${error.message}` }));
+        return rejectWithValue(error)
+    }
+})
+
 const unassignedTicketsSlice = createSlice({
     name: 'Unassigned Tickets',
     initialState,
@@ -39,6 +52,18 @@ const unassignedTicketsSlice = createSlice({
             state.numberOfPages = action.payload?.numberOfPages;
         })
         builder.addCase(getUnassignedTickets.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload.message
+        })
+
+        // claim ticket
+        builder.addCase(claimTicket.pending, (state) => {
+            state.loading = true;
+        })
+        builder.addCase(claimTicket.fulfilled, (state) => {
+            state.loading = false;
+        })
+        builder.addCase(claimTicket.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload.message
         })

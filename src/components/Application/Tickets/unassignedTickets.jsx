@@ -6,8 +6,9 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import PanToolOutlinedIcon from '@mui/icons-material/PanToolOutlined';
 
-import { getUnassignedTickets } from '../../../services/ticket/unassignedTicketsSlice';
+import { getUnassignedTickets, claimTicket } from '../../../services/ticket/unassignedTicketsSlice';
 import CustomPagination from '../pagination';
 
 const BoldedTableCell = styled(TableCell)(({theme}) => ({
@@ -57,6 +58,9 @@ const UnassignedTickets = () => {
         if (e.keyCode === 13) {
             searchUnassignedTickets();
         }
+    }
+    const handleClaimTicket = (ticketId) => {
+        dispatch(claimTicket(ticketId));
     }
 
     return (
@@ -109,11 +113,18 @@ const UnassignedTickets = () => {
                                 </ContentTableCell>
                                 <ContentTableCell align="right">add last updated</ContentTableCell>
                                 <ContentTableCell sx={{ display: "flex", justifyContent: "center" }}>
+                                    <Tooltip title="Claim Ticket">
+                                        <IconButton onClick={() => handleClaimTicket(ticket._id)}>
+                                            <PanToolOutlinedIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                    
                                     <Tooltip title="View">
                                         <IconButton onClick={() => navigate(`/ticketDetails/${ticket._id}`)}>
                                             <VisibilityOutlinedIcon />
                                         </IconButton>
                                     </Tooltip>
+
                                     <Tooltip title="Edit">
                                         <IconButton onClick={() => navigate(`/editTicket/${ticket._id}`)}>
                                             <EditOutlinedIcon />

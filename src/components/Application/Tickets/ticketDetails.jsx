@@ -108,7 +108,7 @@ const TicketDetails = () => {
                                         </Box>
                                         <Box sx={{ mb: 1 }}>
                                             <Typography fontWeight={600} variant="body2">Developer</Typography>
-                                            <Typography paddingLeft={1} variant="body1">{ticket.developer}asdsfa</Typography>
+                                            <Typography paddingLeft={1} variant="body1">{ticket.developer?.name ? ticket.developer.name : 'none'}</Typography>
                                         </Box>
                                         <Box sx={{ mb: 1 }}>
                                             <Typography fontWeight={600} variant="body2">Project</Typography>
@@ -154,6 +154,7 @@ const TicketDetails = () => {
                                             <Button variant="outlined" onClick={() => navigate(`/editTicket/${ticketId}`)}>Edit</Button>
                                         )}
                                         <Button variant="outlined" onClick={handleDeleteTicket}>Delete</Button>
+                                        <Button variant="outlined" onClick={() => navigate(`/projectDetails/${ticket.project._id}`)}>Ticket Project</Button>
                                     </Grid>
                                 </Grid>
                             </Paper>

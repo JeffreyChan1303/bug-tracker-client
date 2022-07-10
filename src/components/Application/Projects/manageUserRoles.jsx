@@ -158,7 +158,7 @@ const ManageUserRoles = () => {
                     <Button variant="outlined" color="warning" onClick={handleDeleteUsersFromProject}>Delete Users From Project</Button>
                 </Grid>
 
-                {/* All Users Section */}
+                {/* All Users Section... this section should be made into its own component */}
                 <Grid item xs={12} md={7}>
                     <Paper sx={{ p: 3 }} elevation={1} >
                         <Box sx={{  overflowX: 'scroll' }} >

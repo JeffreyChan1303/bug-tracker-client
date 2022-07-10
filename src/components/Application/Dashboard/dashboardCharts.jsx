@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title } from 'chart.js';
 import { Doughnut, Bar } from 'react-chartjs-2';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMyTicketsBySearch } from '../../../services/ticket/myTicketsSlice';
+import { getMyTicketStatistics } from '../../../services/ticket/myTicketsSlice';
 
 
 import { Container, Grid, Paper, Typography, Box } from '@mui/material';
@@ -75,10 +75,10 @@ const doughnutOptions = {
 // this is not a problem since consumers wil not be manually changing viewport.
 const DashboardCharts = () => {
     const dispatch = useDispatch();
-    const { numberOfBugTickets, numberOfFeatureTickets } = useSelector((state) => state.myTickets);
+    const {myTicketsStatistics: { numberOfBugTickets, numberOfFeatureTickets, lowPriority, mediumPriority, highPriority } } = useSelector((state) => state.myTickets);
 
     useEffect(() => {
-        dispatch(getMyTicketsBySearch({}))
+        dispatch(getMyTicketStatistics())
     }, [])
 
   
@@ -87,7 +87,7 @@ const DashboardCharts = () => {
         datasets: [
             {
             label: null,
-            data: [1, 4, 5],
+            data: [lowPriority, mediumPriority, highPriority],
             borderColor: ['rgb(255, 205, 86)', 'rgb(255, 159, 64)', 'rgb(255, 99, 132)'],
             backgroundColor: [ 'rgba(255, 205, 86, 0.5)', 'rgba(255, 159, 64, 0.5)','rgba(255, 99, 132, 0.5)'],
             },

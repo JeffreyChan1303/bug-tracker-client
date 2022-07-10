@@ -21,10 +21,12 @@ export const getUnreadNotifications = () => API.get(`/users/unreadNotifications`
 // User APIs
 export const signIn = (formData) => API.post('/users/signin', formData);
 export const signUp = (formData) => API.post('/users/signup', formData);
+
 export const getAllUsers = (page) => API.get(`/users/allUsers?page=${page}`);
 export const getAllUsersBySearch = (page, searchQuery) => API.get(`/users/allUsers/search?searchQuery=${searchQuery || 'none'}&page=${page}`);
 export const getUserNotifications = (page) => API.get(`/users/notifications?page=${page}`);
 export const getUserNotificationsBySearch = (page, searchQuery) => API.get(`/users/notifications/search?searchQuery=${searchQuery || 'none'}&page=${page}`);
+
 export const createUsersNotification = (payload) => API.put(`/users/createUsersNotification`, payload);
 export const deleteUserNotification = (createdAt) => API.put(`/users/deleteUserNotification`, createdAt);
 
@@ -49,6 +51,8 @@ export const deleteTicketFromArchive = (id) => API.delete(`/tickets/deleteTicket
 
 export const addTicketComment = (id, comment) => API.patch(`tickets/addTicketComment/${id}`, comment);
 export const deleteTicketComment = (ticketId, commentCreatedAt) => API.patch(`tickets/deleteTicketComment/${ticketId}`, commentCreatedAt);
+
+export const getMyTicketStatistics = () => API.get(`/tickets/myTicketStatistics`);
 
 // Project APIs
 export const getAllProjectsBySearch = (page, searchQuery) => API.get(`/projects/allProjects/search?searchQuery=${searchQuery || ''}&page=${page}`);

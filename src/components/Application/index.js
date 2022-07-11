@@ -9,6 +9,7 @@ export { default as EditProject } from './Projects/editProject';
 export { default as MyProjects } from './Projects/myProjects';
 export { default as ProjectArchive } from './Projects/projectArchive';
 export { default as ProjectDetails } from './Projects/projectDetails';
+export { default as AssignTickets } from './Projects/assignTickets';
 
 export { default as AddTicket } from './Tickets/addTicket';
 export { default as AllTickets } from './Tickets/allTickets';

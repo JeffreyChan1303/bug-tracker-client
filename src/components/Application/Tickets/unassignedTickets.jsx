@@ -61,6 +61,7 @@ const UnassignedTickets = () => {
     }
     const handleClaimTicket = (ticketId) => {
         dispatch(claimTicket(ticketId));
+        searchUnassignedTickets()
     }
 
     return (

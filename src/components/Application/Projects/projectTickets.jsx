@@ -44,7 +44,7 @@ const ProjectTickets = ({ projectId }) => {
             currentPage: assignedTickets.currentPage,
             itemsPerPage: assignedTickets.itemsPerPage,
         }));
-    }, [assignedTickets])
+    }, [assignedTickets, projectTickets.original])
 
 
 

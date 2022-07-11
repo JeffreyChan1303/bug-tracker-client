@@ -23,6 +23,10 @@ const initialState = {
         loading: false,
         error: '',
     },
+    getProjectTickets: {
+        loading: false,
+        error: '',
+    },
     project: {
         name: '',
         title: '',
@@ -30,10 +34,12 @@ const initialState = {
         users: {},
         searchedUsers: [],
         assignedUsersNumberOfPages: 1,
-        tickets: [],
-        searchedTickets: [],
-        assignedTicketsNumberOfPages: 1,
     },
+    projectTickets: {
+        original: [],
+        searched: [],
+        numberOfPage: 1,
+    }
 }
 
 export const getProjectDetails = createAsyncThunk('project/getProjectDetails', async (id, {dispatch, rejectWithValue}) => {

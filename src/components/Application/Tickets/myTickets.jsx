@@ -98,7 +98,9 @@ const MyTickets = () => {
                                     {ticket.title}
                                 </ContentTableCell>
                                 <ContentTableCell align="right">{ticket.name}</ContentTableCell>
-                                <ContentTableCell align="right">add ticket developer</ContentTableCell>
+                                <ContentTableCell align="right">
+                                    {ticket.developer?.name? ticket.developer.name : "(None)"}
+                                </ContentTableCell>
                                 <ContentTableCell align="right">
                                     <Chip label={ticket.status} variant="outlined" color="secondary" />
                                 </ContentTableCell>

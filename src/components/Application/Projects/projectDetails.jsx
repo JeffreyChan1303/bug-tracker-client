@@ -3,10 +3,9 @@ import { Typography, Paper, Grid, Button, CircularProgress, Divider, Box, TextFi
 import { styled } from '@mui/system';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-
+import ProjectTickets from './projectTickets';
 
 import { getProjectDetails, moveProjectToArchive, searchProjectUsers, searchProjectTickets } from '../../../services/project/projectDetailsSlice';
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 
 
 const BoldedTableCell = styled(TableCell) (({theme}) => ({
@@ -34,13 +33,8 @@ const ProjectDetails = () => {
         currentPage: 1,
         itemsPerPage: 5,
     });
-    const [assignedTickets, setAssignedTickets] = useState({
-        searchQuery: '',
-        currentPage: 1,
-        itemsPerPage: 5,
-    })
 
-    const { getProjectDetails: { loading }, project, project: { searchedUsers: users, searchedTickets: tickets } } = useSelector(state => state.projectDetails);
+    const { getProjectDetails: { loading }, project, project: { searchedUsers: users } } = useSelector(state => state.projectDetails);
 
     useEffect(() => {
         dispatch(getProjectDetails(id))
@@ -55,14 +49,6 @@ const ProjectDetails = () => {
         }));
     }, [assignedUsers, project.users])
 
-    // search for project Tickets
-    useEffect(() => {
-        dispatch(searchProjectTickets({
-            searchQuery: assignedTickets.searchQuery,
-            currentPage: assignedTickets.currentPage,
-            itemsPerPage: assignedTickets.itemsPerPage,
-        }));
-    }, [assignedTickets, project.tickets])
       
     const handleDeleteProject = () => {
         dispatch(moveProjectToArchive(id))
@@ -70,12 +56,10 @@ const ProjectDetails = () => {
     }
 
     const handleAssignedUsersPageChange = (page) => {
-        setAssignedTickets({ ...assignedUsers, currentPage: page });
+        setAssignedUsers({ ...assignedUsers, currentPage: page });
     }
 
-    const handleAssignedTicketsPageChange = (page) => {
-        setAssignedTickets({ ...assignedTickets, currentPage: page });
-    }
+
 
 
     return (
@@ -112,7 +96,7 @@ const ProjectDetails = () => {
                         <Paper sx={{ p: 3 }} elevation={3} >
                             <Box sx={{  overflowX: 'scroll' }} >
                                 <Grid container justifyContent='space-between' >
-                                    <Typography variant="h6" fontWeight={700}> Assigned Users </Typography>
+                                    <Typography variant="h6" fontWeight={700}> Project Users </Typography>
                                     <Box sx={{ display: "flex", justifyContent: "right" }}>
                                         <Typography align="right" variant="body1"> Search:&nbsp; </Typography>
                                         <TextField 
@@ -173,79 +157,7 @@ const ProjectDetails = () => {
                     </Grid>
 
                     <Grid item xs={12} lg={7}>
-                        <Paper sx={{ p: 3 }} elevation={3} >
-                            <Box sx={{  overflowX: 'scroll' }} >
-                                <Grid container justifyContent='space-between' >
-                                    <Typography variant="h6" fontWeight={700}> Assigned Tickets </Typography>
-                                    <Box sx={{ display: "flex", justifyContent: "right" }}>
-                                        <Typography align="right" variant="body1"> Search:&nbsp; </Typography>
-                                        <TextField 
-                                            size="small" 
-                                            variant="standard"
-                                            name="Tickets search query"
-                                            value={assignedTickets.searchQuery}
-                                            onChange={(e) => setAssignedTickets({ ...assignedTickets, searchQuery: e.target.value })}
-                                        />
-                                    </Box>
-                                </Grid>
-                                <Table sx={{  }} aria-label="simple table" size="small" >
-                                    <TableHead>
-                                        <TableRow >
-                                            <BoldedTableCell>Title</BoldedTableCell>
-                                            <BoldedTableCell align="left">Submitted By</BoldedTableCell>
-                                            <BoldedTableCell align="left">Developer</BoldedTableCell>
-                                            <BoldedTableCell align="left">Status</BoldedTableCell>
-                                            <BoldedTableCell align="left">Created At</BoldedTableCell>
-                                            <BoldedTableCell align="center">Actions</BoldedTableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                    {tickets &&
-                                    tickets.map((ticket, i) => (
-                                        <TableRow
-                                            key={i}
-                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                        >
-                                            <ContentTableCell >
-                                                {ticket.title}
-                                            </ContentTableCell>
-                                            <ContentTableCell align="left">{ticket.name}</ContentTableCell>
-                                            <ContentTableCell align="left">add Developer</ContentTableCell>
-                                            <ContentTableCell align="left">
-                                                <Chip label={ticket.status} variant="outlined" color="secondary" />
-                                            </ContentTableCell>
-                                            <ContentTableCell align="left">
-                                                {getDateFromISODate(ticket.createdAt)}
-                                            </ContentTableCell>
-                                            <ContentTableCell sx={{ display: "flex", justifyContent: "center" }}>
-                                                <Tooltip title="View">
-                                                    <IconButton onClick={() => navigate(`/ticketDetails/${ticket._id}`)}>
-                                                        <VisibilityOutlinedIcon />
-                                                    </IconButton>
-                                                </Tooltip>
-                                            </ContentTableCell>
-                                        </TableRow>
-                                    ))}
-                                    </TableBody>
-                                </Table>
-
-                            </Box>
-
-                            <Pagination
-                                sx={{ ul: {justifyContent: "space-around" }, mt: "20px" }}
-                                count={project.assignedTicketsNumberOfPages}
-                                page={assignedTickets.currentPage}
-                                variant="outlined"
-                                color="primary"
-                                renderItem={(item) => (
-                                    <PaginationItem
-                                        { ...item }
-                                        component={Button}
-                                        onClick={() => handleAssignedTicketsPageChange(item.page)}
-                                    />
-                                )}
-                            />
-                        </Paper>
+                        <ProjectTickets />
                     </Grid>
                 </Grid>
 

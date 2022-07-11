@@ -25,7 +25,7 @@ const getDateFromISODate = (ISODate) => {
 const ProjectTickets = ({ projectId }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { projectTickets, getProjectTickets } = useSelector((state) => state.projectDetails);
+    const { projectTickets, getProjectTickets: { loading } } = useSelector((state) => state.projectDetails);
 
     const [assignedTickets, setAssignedTickets] = useState({
         searchQuery: '',
@@ -44,7 +44,7 @@ const ProjectTickets = ({ projectId }) => {
             currentPage: assignedTickets.currentPage,
             itemsPerPage: assignedTickets.itemsPerPage,
         }));
-    }, [assignedTickets, projectTickets])
+    }, [assignedTickets])
 
 
 
@@ -53,7 +53,7 @@ const ProjectTickets = ({ projectId }) => {
     }
     return (
         <>
-            {getProjectTickets.loading ? <CircularProgress /> : 
+            {loading ? <CircularProgress /> : 
             <Paper sx={{ p: 3 }} elevation={3} >
                 <Box sx={{  overflowX: 'scroll' }} >
                     <Grid container justifyContent='space-between' >
@@ -76,7 +76,7 @@ const ProjectTickets = ({ projectId }) => {
                                 <BoldedTableCell align="left">Submitted By</BoldedTableCell>
                                 <BoldedTableCell align="left">Developer</BoldedTableCell>
                                 <BoldedTableCell align="left">Status</BoldedTableCell>
-                                <BoldedTableCell align="left">Created At</BoldedTableCell>
+                                <BoldedTableCell align="left">Updated At</BoldedTableCell>
                                 <BoldedTableCell align="center">Actions</BoldedTableCell>
                             </TableRow>
                         </TableHead>
@@ -98,7 +98,7 @@ const ProjectTickets = ({ projectId }) => {
                                     <Chip label={ticket?.status} variant="outlined" color="secondary" />
                                 </ContentTableCell>
                                 <ContentTableCell align="left">
-                                    {getDateFromISODate(ticket?.createdAt)}
+                                    {getDateFromISODate(ticket?.updatedAt)}
                                 </ContentTableCell>
                                 <ContentTableCell sx={{ display: "flex", justifyContent: "center" }}>
                                     <Tooltip title="View">

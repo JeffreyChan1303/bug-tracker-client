@@ -25,7 +25,7 @@ const getDateFromISODate = (ISODate) => {
 
 
 const ProjectDetails = () => {
-    const { id } = useParams();
+    const { projectId } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [assignedUsers, setAssignedUsers] = useState({
@@ -37,7 +37,7 @@ const ProjectDetails = () => {
     const { getProjectDetails: { loading }, project, project: { searchedUsers: users } } = useSelector(state => state.projectDetails);
 
     useEffect(() => {
-        dispatch(getProjectDetails(id))
+        dispatch(getProjectDetails(projectId))
     }, [])
 
     // search for project Users
@@ -51,7 +51,7 @@ const ProjectDetails = () => {
 
       
     const handleDeleteProject = () => {
-        dispatch(moveProjectToArchive(id))
+        dispatch(moveProjectToArchive(projectId))
         navigate("/allProjects")
     }
 
@@ -157,14 +157,14 @@ const ProjectDetails = () => {
                     </Grid>
 
                     <Grid item xs={12} lg={7}>
-                        <ProjectTickets />
+                        <ProjectTickets projectId={projectId} />
                     </Grid>
                 </Grid>
 
                 <Grid container sx={{ mt: "20px" }}>
-                    <Button variant="outlined" onClick={() => navigate(`/editProject/${id}`)}>Edit</Button>
+                    <Button variant="outlined" onClick={() => navigate(`/editProject/${projectId}`)}>Edit</Button>
                     <Button variant="outlined" onClick={handleDeleteProject}>Delete</Button>
-                    <Button variant="outlined" onClick={() => navigate(`/projectDetails/manageUserRoles/${id}`)}>Manage User Roles</Button>
+                    <Button variant="outlined" onClick={() => navigate(`/projectDetails/manageUserRoles/${projectId}`)}>Manage User Roles</Button>
                 </Grid>
 
             </Paper>

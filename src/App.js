@@ -116,7 +116,7 @@ const App = () => {
 
                                     <Route exact path="/addProject" element={<AddProject />} />
                                     <Route exact path="/editProject/:id" element={<EditProject />} />
-                                    <Route exact path="/projectDetails/:id" element={<ProjectDetails />} />
+                                    <Route exact path="/projectDetails/:projectId" element={<ProjectDetails />} />
 
                                     <Route exact path="/projectDetails/manageUserRoles/:id" element={<ManageUserRoles />} />
                                     <Route exact path="/projectDetails/manageUserRoles/:id/search" element={<ManageUserRoles />} />

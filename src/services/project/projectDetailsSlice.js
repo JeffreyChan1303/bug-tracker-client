@@ -57,6 +57,19 @@ export const getProjectDetails = createAsyncThunk('project/getProjectDetails', a
     }
 });
 
+export const getProjectTickets = createAsyncThunk('project/getProjectTickets', async (projectId, { dispatch, rejectWithValue }) => {
+    try {
+        console.log('hey')
+        const { data } = await api.getProjectTickets(projectId);
+
+        return data;
+    } catch (error) {
+        console.log(error);
+        dispatch(handleAlerts({ severity: 'error', message: `Failed to get project tickets. Error: ${error.message}`}));
+        return rejectWithValue(error)
+    }
+})
+
 export const updateProject = createAsyncThunk('project/updateProject', async (newProject, { dispatch, rejectWithValue }) => {
     try {
         console.log("updatedProject :", newProject);
@@ -151,7 +164,7 @@ const projectDetailsSlice = createSlice({
             const { searchQuery, currentPage, itemsPerPage } = action.payload;
             const search = searchQuery.toLowerCase();
 
-            const ticketArr = state.project.tickets;
+            const ticketArr = state.projectTickets.original;
             let newTickets = []
 
             // loop through array to check for the contained string
@@ -169,7 +182,7 @@ const projectDetailsSlice = createSlice({
             const numberOfPages = Math.ceil(newTickets.length / itemsPerPage);
             newTickets = newTickets.splice((currentPage - 1) * itemsPerPage, itemsPerPage);
 
-            return { ...state, project: { ...state.project, searchedTickets: newTickets, assignedTicketsNumberOfPages: numberOfPages }}
+            return { ...state, projectTickets: { ...state.projectTickets, searched: newTickets, numberOfPages: numberOfPages }}
         }
     },
     extraReducers: builder => {
@@ -184,6 +197,18 @@ const projectDetailsSlice = createSlice({
         builder.addCase(getProjectDetails.rejected, (state, action) => {
             state.getProjectDetails.loading = false;
             state.getProjectDetails.error = action.payload.message;
+        })
+        // get project tickets
+        builder.addCase(getProjectTickets.pending, (state) => {
+            state.getProjectTickets.loading = true;
+        })
+        builder.addCase(getProjectTickets.fulfilled, (state, action) => {
+            state.getProjectTickets.loading = false;
+            state.projectTickets.original = action.payload;
+        })
+        builder.addCase(getProjectTickets.rejected, (state, action) => {
+            state.getProjectTickets.loading = false;
+            state.getProjectTickets.error = action.payload.message;
         })
         // Update Project
         builder.addCase(updateProject.pending, (state) => {

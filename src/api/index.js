@@ -67,6 +67,7 @@ export const updateProject = (newProject) => API.patch(`/projects/updateProject/
 
 export const getProjectDetails = (id) => API.get(`projects/projectDetails/${id}`);
 export const getProjectTickets = (projectId) => API.get(`projects/projectTickets/${projectId}`);
+export const getProjectUsers = (projectId) => API.get(`projects/projectUsers/${projectId}`);
 
 export const moveProjectToArchive = (id) => API.put(`/projects/moveProjectToArchive/${id}`);
 export const deleteProjectFromArchive = (id) => API.delete(`/projects/deleteProjectFromArchive/${id}`);

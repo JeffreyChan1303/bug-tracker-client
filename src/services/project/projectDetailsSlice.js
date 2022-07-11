@@ -27,27 +27,30 @@ const initialState = {
         loading: false,
         error: '',
     },
+    getProjectUsers: {
+        loading: false,
+        error: '',
+    },
     project: {
         name: '',
         title: '',
         createdAt: '',
-        users: {},
-        searchedUsers: [],
-        assignedUsersNumberOfPages: 1,
     },
     projectTickets: {
         original: [],
         searched: [],
         numberOfPage: 1,
+    },
+    projectUsers: {
+        original: {},
+        searched: [],
+        numberOfPages: 1,
     }
 }
 
 export const getProjectDetails = createAsyncThunk('project/getProjectDetails', async (id, {dispatch, rejectWithValue}) => {
     try {
         const { data } = await api.getProjectDetails(id);
-        console.log(data);
-        
-        data.tickets.reverse();
         
         return data;
     } catch (error) {
@@ -57,9 +60,19 @@ export const getProjectDetails = createAsyncThunk('project/getProjectDetails', a
     }
 });
 
+export const getProjectUsers = createAsyncThunk('project/getProjectUsers', async (projectId, { dispatch, rejectWithValue }) => {
+    try {
+        const { data } = await api.getProjectUsers(projectId);
+
+        return data;
+    } catch (error) {
+        console.log(error);
+        dispatch(handleAlerts({ severity: 'error', message: `Failed to get project tickets. Error: ${error.message}`}));
+        return rejectWithValue(error)
+    }
+})
 export const getProjectTickets = createAsyncThunk('project/getProjectTickets', async (projectId, { dispatch, rejectWithValue }) => {
     try {
-        console.log('hey')
         const { data } = await api.getProjectTickets(projectId);
 
         return data;
@@ -141,12 +154,12 @@ const projectDetailsSlice = createSlice({
 
             let newUsers = []
 
-            const userArr = Object.keys(state.project.users)
+            const userArr = Object.keys(state.projectUsers.original)
 
             // loop through array to check for the contained string
             for (let i = 0; i < userArr.length; i++) {
                 let id = userArr[i]
-                let userDetails = { ...current(state.project.users[id]), _id: id }
+                let userDetails = { ...current(state.projectUsers.original[id]), _id: id }
 
                 // if the search is in the name or the email of the user, add to array
                 if (userDetails.name.toLowerCase().includes(search.toLowerCase()) || userDetails.email.toLowerCase().includes(search)) {
@@ -158,9 +171,33 @@ const projectDetailsSlice = createSlice({
             const numberOfPages = Math.ceil(newUsers.length / itemsPerPage);
             newUsers = newUsers.splice((currentPage - 1) * itemsPerPage, itemsPerPage)
 
-            return { ...state, project: { ...state.project, searchedUsers: newUsers, assignedUsersNumberOfPages: numberOfPages }}
+            return { ...state, projectUsers: { ...state.projectUsers, searched: newUsers, numberOfPages: numberOfPages }}
         },
         searchProjectTickets: (state, action) => {
+            const { searchQuery, currentPage, itemsPerPage } = action.payload;
+            const search = searchQuery.toLowerCase();
+
+            const ticketArr = state.projectTickets.original;
+            let newTickets = []
+
+            // loop through array to check for the contained string
+            for (let i = 0; i < ticketArr.length; i++) {
+                let id = ticketArr[i]
+                let ticketDetails = ticketArr[i];
+
+                // if the search is in the name or the email of the user, add to object
+                if (ticketDetails.title.toLowerCase().includes(search.toLowerCase())) {
+                    newTickets.push(ticketDetails);
+                }
+            }
+
+            // only return array that the page contains
+            const numberOfPages = Math.ceil(newTickets.length / itemsPerPage);
+            newTickets = newTickets.splice((currentPage - 1) * itemsPerPage, itemsPerPage);
+
+            return { ...state, projectTickets: { ...state.projectTickets, searched: newTickets, numberOfPages: numberOfPages }}
+        },
+        searchUnassignedProjectTickets: (state, action) => {
             const { searchQuery, currentPage, itemsPerPage } = action.payload;
             const search = searchQuery.toLowerCase();
 
@@ -197,6 +234,18 @@ const projectDetailsSlice = createSlice({
         builder.addCase(getProjectDetails.rejected, (state, action) => {
             state.getProjectDetails.loading = false;
             state.getProjectDetails.error = action.payload.message;
+        })
+        // get project users
+        builder.addCase(getProjectUsers.pending, (state) => {
+            state.getProjectUsers.loading = true;
+        })
+        builder.addCase(getProjectUsers.fulfilled, (state, action) => {
+            state.getProjectUsers.loading = false;
+            state.projectUsers.original = action.payload;
+        })
+        builder.addCase(getProjectUsers.rejected, (state, action) => {
+            state.getProjectUsers.loading = false;
+            state.getProjectUsers.error = action.payload.message;
         })
         // get project tickets
         builder.addCase(getProjectTickets.pending, (state) => {
@@ -261,5 +310,5 @@ const projectDetailsSlice = createSlice({
 })
 
 export default projectDetailsSlice.reducer;
-export const { searchProjectUsers, searchProjectTickets } = projectDetailsSlice.actions;
+export const { searchProjectUsers, searchProjectTickets, searchUnassignedProjectTickets } = projectDetailsSlice.actions;
 

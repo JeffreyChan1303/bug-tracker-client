@@ -6,6 +6,8 @@ import { useDispatch } from 'react-redux';
 import { claimTicket } from '../../../services/ticket/unassignedTicketsSlice';
 import { handleAlerts } from '../../../services/alertsSlice';
 
+import ProjectTickets from './projectTickets';
+
 
 const AssignTickets = () => {
     const { projectId } = useParams();
@@ -41,6 +43,9 @@ const AssignTickets = () => {
     return (
         <>
             Assign ticket page
+            
+
+            <ProjectTickets projectId={projectId} handleSelectTicket={handleSelectTicket} />
         </>
     )
 }

@@ -1,21 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Typography, Paper, Grid, Button, CircularProgress, Divider, Box, TextField, Table, TableHead, TableRow, TableBody, TableCell, Chip, Tooltip, IconButton, Pagination, PaginationItem } from '@mui/material';
-import { styled } from '@mui/system';
+import { Typography, Paper, Grid, Button, CircularProgress } from '@mui/material';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import ProjectTickets from './projectTickets';
+import ProjectUsers from './projectUsers';
 
 import { getProjectDetails, moveProjectToArchive, searchProjectUsers, searchProjectTickets } from '../../../services/project/projectDetailsSlice';
 
 
-const BoldedTableCell = styled(TableCell) (({theme}) => ({
-    fontWeight: theme.typography.fontWeightBold,
-    padding: "8px 5px",
-}));
-
-const ContentTableCell = styled(TableCell) (({theme}) => ({
-    padding: "5px",
-}));
 
 const getDateFromISODate = (ISODate) => {
     const date = new Date(ISODate);
@@ -28,37 +20,18 @@ const ProjectDetails = () => {
     const { projectId } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [assignedUsers, setAssignedUsers] = useState({
-        searchQuery: '',
-        currentPage: 1,
-        itemsPerPage: 5,
-    });
 
-    const { getProjectDetails: { loading }, project, project: { searchedUsers: users } } = useSelector(state => state.projectDetails);
+    const { getProjectDetails: { loading }, project } = useSelector(state => state.projectDetails);
 
     useEffect(() => {
         dispatch(getProjectDetails(projectId))
     }, [])
-
-    // search for project Users
-    useEffect(() => {
-        dispatch(searchProjectUsers({
-            searchQuery: assignedUsers.searchQuery,
-            currentPage: assignedUsers.currentPage,
-            itemsPerPage: assignedUsers.itemsPerPage,
-        }));
-    }, [assignedUsers, project.users])
 
       
     const handleDeleteProject = () => {
         dispatch(moveProjectToArchive(projectId))
         navigate("/allProjects")
     }
-
-    const handleAssignedUsersPageChange = (page) => {
-        setAssignedUsers({ ...assignedUsers, currentPage: page });
-    }
-
 
 
 
@@ -93,67 +66,7 @@ const ProjectDetails = () => {
 
                 <Grid container spacing={2} >
                     <Grid item xs={12} lg={5} >
-                        <Paper sx={{ p: 3 }} elevation={3} >
-                            <Box sx={{  overflowX: 'scroll' }} >
-                                <Grid container justifyContent='space-between' >
-                                    <Typography variant="h6" fontWeight={700}> Project Users </Typography>
-                                    <Box sx={{ display: "flex", justifyContent: "right" }}>
-                                        <Typography align="right" variant="body1"> Search:&nbsp; </Typography>
-                                        <TextField 
-                                            size="small" 
-                                            variant="standard"
-                                            name="search"
-                                            value={assignedUsers.searchQuery}
-                                            onChange={(e) => setAssignedUsers({ ...assignedUsers, searchQuery: e.target.value })}
-                                        />
-                                    </Box>
-                                </Grid>
-                                <Table sx={{ }} aria-label="simple table" size="small" >
-                                    <TableHead>
-                                        <TableRow >
-                                            <BoldedTableCell>User Name</BoldedTableCell>
-                                            <BoldedTableCell align="left">Email</BoldedTableCell>
-                                            <BoldedTableCell align="left">Role</BoldedTableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                    {users &&
-                                    users.map((user, i) => (
-                                        <TableRow
-                                            key={i}
-                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                        >
-                                            <ContentTableCell component="th" scope="row">
-                                                {user.name}
-                                            </ContentTableCell>
-                                            <ContentTableCell align="left">
-                                                {user.email}
-                                            </ContentTableCell>
-                                            <ContentTableCell align="left">
-                                                {user.role}
-                                            </ContentTableCell>
-                                        </TableRow>
-                                    ))}
-                                    </TableBody>
-                                </Table>
-
-                            </Box>
-
-                            <Pagination
-                                sx={{ ul: {justifyContent: "space-around" }, mt: "20px" }}
-                                count={project.assignedUsersNumberOfPages}
-                                page={assignedUsers.currentPage}
-                                variant="outlined"
-                                color="primary"
-                                renderItem={(item) => (
-                                    <PaginationItem
-                                        { ...item }
-                                        component={Button}
-                                        onClick={() => handleAssignedUsersPageChange(item.page)}
-                                    />
-                                )}
-                            />
-                        </Paper>
+                        <ProjectUsers projectId={projectId} />
                     </Grid>
 
                     <Grid item xs={12} lg={7}>

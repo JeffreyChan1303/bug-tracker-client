@@ -76,68 +76,74 @@ const Auth = () => {
 
     return (
         <>
-            <Box className="login-page-background" sx={{ p: "0 5vw" }}>
-                <Typography variant="h1" fontWeight={700} sx={{ color: "white" }}>
-                    THIS IS THE LOGIN PAGE!!
-                </Typography>
+            <Grid container className="login-page-background" justifyContent="space-around"  >
+                <Box className="login-page-background-cover" />
 
-
-                <Paper elevation={20} sx={{ p: 2, maxWidth: "350px" }}>
-                    <Box maxWidth sx={{ display: "flex", justifyContent: "center" }}>
-                        <Avatar sx={{ bgcolor: "primary.main"}}>
-                            <LockOutlinedIcon />
-                        </Avatar>
-                    </Box>
-                    <Typography variant="h5" textAlign="center" >{isSignup? 'Sign Up' : 'Sign In' }</Typography>
-                    <form style={{ marginTop: "10px" }} onSubmit={handleSubmit}>
-                        <Grid container spacing={2}>
-                            { isSignup && (
-                            <>
-                            <Input name="firstName" label="First Name" handleChange={handleChange} autoFocus half />
-                            <Input name="lastName" label="Last Name" handleChange={handleChange} half />
-                            </>
-                            )}
-                            <Input name="email" label="Email Address" handleChange={handleChange} type="email" />
-                            <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
-                            { isSignup && <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password" /> }
-                            
-                        </Grid>
-
-                        <Button type="submit" fullWidth variant="contained" color="primary" size="small" sx={{ m: "20px 0 10px" }}>
-                            { isSignup ? 'Sign Up' : 'Sign In' }
-                        </Button>
-
-                        <Box sx={{ display: "flex", justifyContent: "center" }} id="googleSignIn"></Box>
-
-                        <Grid container justify="flex-end">
-                            <Grid item>
-                                <Button onClick={switchMode} >
-                                    { isSignup ? 'Already have an account? Sign in' : "Don't have an account? Sign Up" }
-                                </Button>
+                <Grid item xs={12} lg={5} display="flex" alignItems="center" justifyContent="center" >
+                    <Paper elevation={20} sx={{ p: 2, maxWidth: "350px" }}>
+                        <Box maxWidth sx={{ display: "flex", justifyContent: "center" }}>
+                            <Avatar sx={{ bgcolor: "primary.main"}}>
+                                <LockOutlinedIcon />
+                            </Avatar>
+                        </Box>
+                        
+                        <Typography variant="h5" textAlign="center" >{isSignup? 'Sign Up' : 'Sign In' }</Typography>
+                        <Typography variant="body2" textAlign="center" fontWeight={200}>Keep track of your personal and professional projects</Typography>
+                        <form style={{ marginTop: "10px" }} onSubmit={handleSubmit}>
+                            <Grid container spacing={2}>
+                                { isSignup && (
+                                <>
+                                <Input name="firstName" label="First Name" handleChange={handleChange} autoFocus half />
+                                <Input name="lastName" label="Last Name" handleChange={handleChange} half />
+                                </>
+                                )}
+                                <Input name="email" label="Email Address" handleChange={handleChange} type="email" />
+                                <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
+                                { isSignup && <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password" /> }
+                                
                             </Grid>
-                        </Grid>
 
-                        {!isSignup &&
-                            <>
-                                <Typography textAlign="center">
-                                    OR
-                                </Typography>
+                            <Button type="submit" fullWidth variant="contained" color="primary" size="small" sx={{ m: "20px 0 10px" }}>
+                                { isSignup ? 'Sign Up' : 'Sign In' }
+                            </Button>
 
-                                <Box sx={{display: "flex", m: "10px 0"}} justifyContent="space-evenly" >
-                                    <Button variant="outlined" onClick={loginToDemoAdmin}>Demo Admin</Button>
-                                    <Button variant="outlined" onClick={loginToDemoDeveloper}>Demo Developer</Button>
-                                </Box>
-                                <Box sx={{display: "flex"}} justifyContent="center" gap={3}>
-                                    <Button variant="outlined" onClick={loginToDemoProductManager}>Demo Product Manager</Button>
-                                </Box>
-                            </>
-                        }
-                    </form>
-                </Paper>
+                            <Box sx={{ display: "flex", justifyContent: "center" }} id="googleSignIn"></Box>
+
+                            <Grid container justify="flex-end">
+                                <Grid item>
+                                    <Button onClick={switchMode} >
+                                        { isSignup ? 'Already have an account? Sign in' : "Don't have an account? Sign Up" }
+                                    </Button>
+                                </Grid>
+                            </Grid>
+
+                            {!isSignup &&
+                                <>
+                                    <Typography textAlign="center">
+                                        OR
+                                    </Typography>
+
+                                    <Box sx={{display: "flex", m: "10px 0"}} justifyContent="space-evenly" >
+                                        <Button variant="outlined" onClick={loginToDemoAdmin}>Demo Admin</Button>
+                                        <Button variant="outlined" onClick={loginToDemoDeveloper}>Demo Developer</Button>
+                                    </Box>
+                                    <Box sx={{display: "flex"}} justifyContent="center" gap={3}>
+                                        <Button variant="outlined" onClick={loginToDemoProductManager}>Demo Product Manager</Button>
+                                    </Box>
+                                </>
+                            }
+                        </form>
+                    </Paper>
+                </Grid>
+
+                <Grid item lg={7} alignItems="center" justifyContent="center" sx={{ display: { xs: 'none', lg: "flex" } }} >
+                    <Typography variant="h2" fontWeight={700} sx={{ color: "white" }}>
+                        Bug Tracker
+                    </Typography>
+                </Grid >
 
 
-
-            </Box>
+            </Grid>
         </>
     )
 }

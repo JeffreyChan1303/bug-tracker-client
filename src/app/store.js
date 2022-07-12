@@ -1,7 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
 
-
 // User Imports
 import userReducer from '../services/user/userSlice';
 import authReducer from '../services/user/authSlice';
@@ -28,41 +27,38 @@ import projectDetailsReducer from '../services/project/projectDetailsSlice';
 import alertsReducer from '../services/alertsSlice';
 import dashboardReducer from '../services/dashboardSlice';
 
-
 export const store = configureStore({
-    reducer: {
-        // User stores
-        user: userReducer,
-        auth: authReducer,
-        allUsers: allUsersReducer,
-        notifications: notificationsReducer,
+  reducer: {
+    // User stores
+    user: userReducer,
+    auth: authReducer,
+    allUsers: allUsersReducer,
+    notifications: notificationsReducer,
 
-        // Ticket stores
-        allTickets: allTicketsReducer,
-        myTickets: myTicketsReducer,
-        addTicket: addTicketReducer,
-        ticketDetails: ticketDetailsReducer,
-        ticketArchive: ticketArchiveReducer,
+    // Ticket stores
+    allTickets: allTicketsReducer,
+    myTickets: myTicketsReducer,
+    addTicket: addTicketReducer,
+    ticketDetails: ticketDetailsReducer,
+    ticketArchive: ticketArchiveReducer,
 
-        unassignedTickets: unassignedTicketsReducer,
+    unassignedTickets: unassignedTicketsReducer,
 
-        // Project stores
-        allProjects: allProjectsReducer,
-        myProjects: myProjectsReducer,
-        addProject: addProjectReducer,
-        projectDetails: projectDetailsReducer,
-        projectArchive: projectArchiveReducer,
+    // Project stores
+    allProjects: allProjectsReducer,
+    myProjects: myProjectsReducer,
+    addProject: addProjectReducer,
+    projectDetails: projectDetailsReducer,
+    projectArchive: projectArchiveReducer,
 
+    // Other stores
+    alerts: alertsReducer,
+    dashboard: dashboardReducer,
 
-        // Other stores
-        alerts: alertsReducer,
-        dashboard: dashboardReducer,
-
-        
-    },
+  },
 
 });
 
 export default store;
 
-setupListeners(store.dispatch)
+setupListeners(store.dispatch);

@@ -19,9 +19,6 @@ export { default as TicketArchive } from './Tickets/ticketArchive';
 export { default as TicketDetails } from './Tickets/ticketDetails';
 export { default as UnassignedTickets } from './Tickets/unassignedTickets';
 
-
-
 export { default as ManageUserRoles } from './Projects/manageUserRoles';
 
 export { default as Support } from './support';
-

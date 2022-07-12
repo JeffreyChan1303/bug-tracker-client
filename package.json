@@ -30,6 +30,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint src --color",
+    "lint-fix": "eslint src --fix",
     "prettier": "prettier src --check"
   },
   "eslintConfig": {

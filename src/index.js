@@ -14,18 +14,16 @@ const root = createRoot(rootElement);
 
 // console.log(theme);
 
-
 root.render(
-    <StrictMode>
-        <Provider store={store}>
-            <BrowserRouter>
-                <ThemeProvider theme={theme}>
-                        <App />
-                </ThemeProvider>
-            </BrowserRouter>
-        </Provider>
-    </StrictMode>
+  <StrictMode>
+    <Provider store={store}>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      </BrowserRouter>
+    </Provider>
+  </StrictMode>,
 );
-
 
 // idea. a landing page that says. Universal ticket tracking software that you can use to track anything from problems to people checking into your store

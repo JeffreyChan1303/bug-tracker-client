@@ -21,15 +21,15 @@ const AssignTicket = () => {
 
 
     const assignTicket = () => {
-        if (!selectedUser) {
+        if (!selectedUser.name) {
             dispatch(handleAlerts({ severity: 'warning', message: 'Please choose a user to assign a ticket to' }));
         }
 
-        if (!selectedTicket) {
+        if (!selectedTicket.title) {
             dispatch(handleAlerts({ severity: 'warning', message: 'Please choose a ticket to assign'}));
         }
 
-        if (selectedUser && selectedTicket) {
+        if (selectedUser.name && selectedTicket.title) {
             // make it so the user is in the body of the request. so we can assign someone a ticket by telling that the selected user wants to claim the ticket
             dispatch(claimTicket({ userId: selectedUser._id, ticketId: selectedTicket._id }))
         }

@@ -59,6 +59,7 @@ export const getMyProjectsBySearch = (page, searchQuery) => API.get(`/projects/m
 export const getArchivedProjectsBySearch = (page, searchQuery) => API.get(`/projects/archivedProjects/search?searchQuery=${searchQuery || ''}&page=${page}`);
 
 export const createProject = (newProject) => API.post('/projects/createProject', newProject);
+// eslint-disable-next-line no-underscore-dangle
 export const updateProject = (newProject) => API.patch(`/projects/updateProject/${newProject._id}`, newProject);
 
 export const getProjectDetails = (id) => API.get(`projects/projectDetails/${id}`);

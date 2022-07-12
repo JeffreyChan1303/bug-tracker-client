@@ -4,18 +4,6 @@ const initialState = {
   alerts: [],
 };
 
-export const handleAlerts = createAsyncThunk('alert/handleAlert', async ({ severity, message }, { dispatch, getState }) => {
-  dispatch(addAlert({ severity, message }));
-
-  // gets the alerts property from the alerts store!
-  const { alerts } = getState().alerts;
-  const { id } = alerts[alerts.length - 1];
-
-  setTimeout(() => {
-    dispatch(closeAlertById(id));
-  }, 6000);
-});
-
 // we need to have unique id numbers to delete cirtain object
 
 export const alertsSlice = createSlice({
@@ -25,7 +13,9 @@ export const alertsSlice = createSlice({
     addAlert: (state, action) => {
       let id = Math.floor(Math.random() * 100 + 1);
       // while the new id is the same as an id in the array, find another id
-      while (state.alerts.findIndex((e) => e.id === id) !== -1) {
+
+      const getAlertId = (e) => e.id;
+      while (state.alerts.findIndex(getAlertId === id) !== -1) {
         id = Math.floor(Math.random() * 100 + 1);
       }
 
@@ -52,3 +42,15 @@ export const {
   addAlert,
   closeAlertById,
 } = alertsSlice.actions;
+
+export const handleAlerts = createAsyncThunk('alert/handleAlert', async ({ severity, message }, { dispatch, getState }) => {
+  dispatch(addAlert({ severity, message }));
+
+  // gets the alerts property from the alerts store!
+  const { alerts } = getState().alerts;
+  const { id } = alerts[alerts.length - 1];
+
+  setTimeout(() => {
+    dispatch(closeAlertById(id));
+  }, 6000);
+});

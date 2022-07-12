@@ -1,16 +1,29 @@
-import React, { useState, useEffect } from 'react';
-
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  Routes, Route, Navigate, useLocation,
-} from 'react-router-dom';
-import {
-  Drawer, CssBaseline, Box, Toolbar,
-} from '@mui/material';
-
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Drawer, CssBaseline, Box, Toolbar } from '@mui/material';
 import decode from 'jwt-decode';
 import {
-  Header, Navbar, Dashboard, AddProject, AllProjects, EditProject, MyProjects, ProjectArchive, ProjectDetails, AddTicket, AllTickets, EditTicket, MyTickets, TicketArchive, TicketDetails, ManageUserRoles, NotificationsPage, Support, UnassignedTickets, AssignTicket,
+  Header,
+  Navbar,
+  Dashboard,
+  AddProject,
+  AllProjects,
+  EditProject,
+  MyProjects,
+  ProjectArchive,
+  ProjectDetails,
+  AddTicket,
+  AllTickets,
+  EditTicket,
+  MyTickets,
+  TicketArchive,
+  TicketDetails,
+  ManageUserRoles,
+  NotificationsPage,
+  Support,
+  UnassignedTickets,
+  AssignTicket,
 } from './components/Application/index';
 import { userActions } from './services/user/userSlice';
 import { handleAlerts } from './services/alertsSlice';
@@ -21,7 +34,7 @@ const drawerWidth = 260;
 
 function App() {
   // maybe make the alerts in the file so it always shows even on the auth page,
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+  const user = JSON.parse(localStorage.getItem('profile'));
   const dispatch = useDispatch();
   const location = useLocation();
   const { authData } = useSelector((state) => state.user);
@@ -45,7 +58,12 @@ function App() {
       console.log(decodedToken);
 
       if (decodedToken.exp * 1000 < new Date().getTime()) {
-        dispatch(handleAlerts({ severity: 'info', message: 'Your login session has expired. Please login again.' }));
+        dispatch(
+          handleAlerts({
+            severity: 'info',
+            message: 'Your login session has expired. Please login again.',
+          })
+        );
         handleLogOut();
       }
     }
@@ -68,8 +86,7 @@ function App() {
           <Box
             component="nav"
             sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
-            aria-label="navigation drawer"
-          >
+            aria-label="navigation drawer">
             <Drawer
               variant="temporary"
               open={mobileOpen}
@@ -80,8 +97,7 @@ function App() {
               sx={{
                 display: { xs: 'block', md: 'none' },
                 '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-              }}
-            >
+              }}>
               <Navbar user={user} />
             </Drawer>
 
@@ -91,8 +107,7 @@ function App() {
                 display: { xs: 'none', md: 'block' }, // hides in mobile view
                 '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
               }}
-              open
-            >
+              open>
               <Navbar user={user} />
             </Drawer>
           </Box>
@@ -119,10 +134,22 @@ function App() {
               <Route exact path="/editProject/:id" element={<EditProject />} />
               <Route exact path="/projectDetails/:projectId" element={<ProjectDetails />} />
 
-              <Route exact path="/projectDetails/manageUserRoles/:id" element={<ManageUserRoles />} />
-              <Route exact path="/projectDetails/manageUserRoles/:id/search" element={<ManageUserRoles />} />
+              <Route
+                exact
+                path="/projectDetails/manageUserRoles/:id"
+                element={<ManageUserRoles />}
+              />
+              <Route
+                exact
+                path="/projectDetails/manageUserRoles/:id/search"
+                element={<ManageUserRoles />}
+              />
 
-              <Route exact path="/projectDetails/assignTicket/:projectId" element={<AssignTicket />} />
+              <Route
+                exact
+                path="/projectDetails/assignTicket/:projectId"
+                element={<AssignTicket />}
+              />
 
               {/* Ticket Routes */}
               <Route exact path="/allTickets" element={<AllTickets />} />
@@ -143,7 +170,6 @@ function App() {
 
               <Route exact path="/notifications" element={<NotificationsPage />} />
               <Route exact path="/notifications/search" element={<NotificationsPage />} />
-
             </Routes>
           </Box>
         </Box>

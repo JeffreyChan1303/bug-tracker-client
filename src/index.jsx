@@ -7,7 +7,7 @@ import { ThemeProvider } from '@mui/material/styles';
 
 import theme from './theme';
 import App from './App';
-import store from './app/store';
+import { store } from './app/store';
 
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
@@ -25,5 +25,3 @@ root.render(
     </Provider>
   </StrictMode>,
 );
-
-// idea. a landing page that says. Universal ticket tracking software that you can use to track anything from problems to people checking into your store

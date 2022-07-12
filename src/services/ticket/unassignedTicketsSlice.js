@@ -23,9 +23,9 @@ export const getUnassignedTickets = createAsyncThunk('ticket/getUnassignedTicket
     }
 })
 
-export const claimTicket = createAsyncThunk('ticket/claimTicket', async (ticketId, { dispatch, rejectWithValue }) => {
+export const claimTicket = createAsyncThunk('ticket/claimTicket', async ({ ticketId, userId }, { dispatch, rejectWithValue }) => {
     try {
-        const { data } = await api.claimTicket(ticketId);
+        const { data } = await api.claimTicket(ticketId, userId);
         dispatch(handleAlerts({ severity: 'success', message: `Successfully claimed the ticket` }));
 
         return data

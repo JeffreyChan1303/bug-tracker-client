@@ -5,6 +5,7 @@ import { styled } from '@mui/system';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import AddIcon from '@mui/icons-material/Add';
 import { getProjectTickets, searchProjectTickets } from '../../../services/project/projectDetailsSlice';
 
 const BoldedTableCell = styled(TableCell) (({theme}) => ({
@@ -22,7 +23,7 @@ const getDateFromISODate = (ISODate) => {
     return string
 }
 
-const ProjectTickets = ({ projectId }) => {
+const ProjectTickets = ({ projectId, handleSelectTicket }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { projectTickets, getProjectTickets: { loading } } = useSelector((state) => state.projectDetails);
@@ -106,6 +107,14 @@ const ProjectTickets = ({ projectId }) => {
                                             <VisibilityOutlinedIcon />
                                         </IconButton>
                                     </Tooltip>
+
+                                    {handleSelectTicket && 
+                                        <Tooltip title="Select Ticket">
+                                            <IconButton onClick={() => handleSelectTicket({ _id: ticket._id, title: ticket.title })}>
+                                                <AddIcon />
+                                            </IconButton>
+                                        </Tooltip>
+                                    }
                                 </ContentTableCell>
                             </TableRow>
                         ))}

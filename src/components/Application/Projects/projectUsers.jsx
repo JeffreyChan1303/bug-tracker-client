@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, Paper, Grid, Button, CircularProgress, Box, TextField, Table, TableHead, TableRow, TableBody, TableCell, Chip, Tooltip, IconButton, Pagination, PaginationItem } from '@mui/material';
+import { Typography, Paper, Grid, Button, CircularProgress, Box, TextField, Table, TableHead, TableRow, TableBody, TableCell, Tooltip, IconButton, Pagination, PaginationItem } from '@mui/material';
 import { styled } from '@mui/system';
 import { useDispatch, useSelector } from 'react-redux';
-
+import AddIcon from '@mui/icons-material/Add';
 import { getProjectUsers, searchProjectUsers } from '../../../services/project/projectDetailsSlice';
 
 const BoldedTableCell = styled(TableCell) (({theme}) => ({
@@ -14,7 +14,7 @@ const ContentTableCell = styled(TableCell) (({theme}) => ({
     padding: "5px",
 }));
 
-const ProjectUsers = ({ projectId }) => {
+const ProjectUsers = ({ projectId, handleSelectUser }) => {
     const dispatch = useDispatch();
 
     const [assignedUsers, setAssignedUsers] = useState({
@@ -65,6 +65,7 @@ const ProjectUsers = ({ projectId }) => {
                                 <BoldedTableCell>User Name</BoldedTableCell>
                                 <BoldedTableCell align="left">Email</BoldedTableCell>
                                 <BoldedTableCell align="left">Role</BoldedTableCell>
+                                <BoldedTableCell align="center">Actions</BoldedTableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -83,6 +84,16 @@ const ProjectUsers = ({ projectId }) => {
                                 <ContentTableCell align="left">
                                     {user.role}
                                 </ContentTableCell>
+
+                                {handleSelectUser &&
+                                    <ContentTableCell align="center">
+                                        <Tooltip title="Select User" >
+                                            <IconButton onClick={() => handleSelectUser({ _id: user._id, name: user.name })}>
+                                                <AddIcon />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </ContentTableCell>
+                                }
                             </TableRow>
                         ))}
                         </TableBody>

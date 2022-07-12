@@ -78,7 +78,7 @@ const ProjectDetails = () => {
                     <Button variant="outlined" onClick={() => navigate(`/editProject/${projectId}`)}>Edit</Button>
                     <Button variant="outlined" onClick={handleDeleteProject}>Delete</Button>
                     <Button variant="outlined" onClick={() => navigate(`/projectDetails/manageUserRoles/${projectId}`)}>Manage User Roles</Button>
-                    <Button variant="outlined" onClick={() => navigate(`/projectDetails/assignTickets/${projectId}`)}>Assign Tickets</Button>
+                    <Button variant="outlined" onClick={() => navigate(`/projectDetails/assignTicket/${projectId}`)}>Assign Ticket</Button>
                 </Grid>
 
             </Paper>

@@ -25,6 +25,7 @@
             "namedComponents": "arrow-function",
             "unnamedComponents": "arrow-function"
         }],
-        "react/prop-types": [0]
+        "react/prop-types": [0],
+        "no-underscore-dangle": [ 1, { "allow": ["_id"] }]
     }
 }

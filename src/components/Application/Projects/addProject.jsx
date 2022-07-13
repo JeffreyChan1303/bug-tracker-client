@@ -1,90 +1,93 @@
 import React, { useState } from 'react';
 import { Typography, TextField, Button, Paper } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-
 import { useDispatch } from 'react-redux';
 
 import { handleAlerts } from '../../../services/alertsSlice';
 import { createProject } from '../../../services/project/addProjectSlice';
 
 const initialProjectData = {
-    creator: '', // this state will be taken from the redux store where Login information is stored
-    title: '',
-    description: '',
+  creator: '', // this state will be taken from the redux store where Login information is stored
+  title: '',
+  description: '',
 };
 
-
 const AddProject = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const [projectData, setProjectData] = useState(initialProjectData);
-    const user = JSON.parse(localStorage.getItem('profile'))
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [projectData, setProjectData] = useState(initialProjectData);
+  const user = JSON.parse(localStorage.getItem('profile'));
 
+  const handleSubmit = (event) => {
+    event.preventDefault(); // this stops the page from it's default refrash setting when clicking a button on the react form.
 
-    const handleSubmit = (event) => {
-        event.preventDefault(); // this stops the page from it's default refrash setting when clicking a button on the react form.
-
-        if (projectData.title === '') { 
-            dispatch(handleAlerts({ severity: "warning", message: "Invalid title" }));
-        }
-        if (projectData.description === '') {
-            dispatch(handleAlerts({ severity: "warning", message: "Invalid description" }));
-        }
-
-        if (projectData.title !== '' && projectData.description !== '') {
-            dispatch(createProject({ ...projectData, name: user?.userObject?.name }));
-            navigate("/allProjects");
-        }
-    };
-
-    const handleClear = () => {
-        setProjectData(initialProjectData);
+    if (projectData.title === '') {
+      dispatch(handleAlerts({ severity: 'warning', message: 'Invalid title' }));
+    }
+    if (projectData.description === '') {
+      dispatch(handleAlerts({ severity: 'warning', message: 'Invalid description' }));
     }
 
-    return (
-        <>
-            <Typography paragraph>
-                Add Project
-            </Typography>
-            
-            <Paper sx={{ p: 3, maxWidth: { md: "700px" }}} elevation={3} >
-                <form autoComplete="off" noValidate onSubmit={handleSubmit} style={{  }}>
-                    <Typography variant="body1" fontWeight={700}>Project Title</Typography>
-                    <TextField 
-                        name="title" 
-                        variant="outlined" 
-                        fullWidth
-                        multiline
-                        size="small"
-                        sx={{ mb: 2 }}
-                        value={projectData.title}
-                        onChange={(e) => setProjectData({ ...projectData, title: e.target.value })}
-                    />
+    if (projectData.title !== '' && projectData.description !== '') {
+      dispatch(createProject({ ...projectData, name: user?.userObject?.name }));
+      navigate('/allProjects');
+    }
+  };
 
-                    <Typography variant="body1" fontWeight={700}>Project Description</Typography>
-                    <TextField 
-                        name="description" 
-                        variant="outlined" 
-                        fullWidth
-                        multiline
-                        size="small"
-                        sx={{ mb: 2 }}
-                        rows={4}
-                        value={projectData.description}
-                        onChange={(e) => setProjectData({ ...projectData, description: e.target.value })}
-                    />
+  const handleClear = () => {
+    setProjectData(initialProjectData);
+  };
 
-                </form>
+  return (
+    <>
+      <Typography paragraph>Add Project</Typography>
 
-                <Button sx={{ mr: 1 }} variant="contained" color="primary" size="small" onClick={handleSubmit} >
-                        Save
-                    </Button>
-                    <Button sx={{}} variant="outlined" color="secondary" size="small" onClick={handleClear}>
-                        Clear
-                    </Button>
-            </Paper>
-        </>
-    )
+      <Paper sx={{ p: 3, maxWidth: { md: '700px' } }} elevation={3}>
+        <form autoComplete="off" noValidate onSubmit={handleSubmit} style={{}}>
+          <Typography variant="body1" fontWeight={700}>
+            Project Title
+          </Typography>
+          <TextField
+            name="title"
+            variant="outlined"
+            fullWidth
+            multiline
+            size="small"
+            sx={{ mb: 2 }}
+            value={projectData.title}
+            onChange={(e) => setProjectData({ ...projectData, title: e.target.value })}
+          />
+
+          <Typography variant="body1" fontWeight={700}>
+            Project Description
+          </Typography>
+          <TextField
+            name="description"
+            variant="outlined"
+            fullWidth
+            multiline
+            size="small"
+            sx={{ mb: 2 }}
+            rows={4}
+            value={projectData.description}
+            onChange={(e) => setProjectData({ ...projectData, description: e.target.value })}
+          />
+        </form>
+
+        <Button
+          sx={{ mr: 1 }}
+          variant="contained"
+          color="primary"
+          size="small"
+          onClick={handleSubmit}>
+          Save
+        </Button>
+        <Button sx={{}} variant="outlined" color="secondary" size="small" onClick={handleClear}>
+          Clear
+        </Button>
+      </Paper>
+    </>
+  );
 };
 
 export default AddProject;

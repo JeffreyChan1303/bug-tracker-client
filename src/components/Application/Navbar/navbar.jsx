@@ -69,7 +69,7 @@ const Navbar = ({ user }) => {
       <List>
         <Divider />
         <StyledLink to="/dashboard">
-          <ListItem button key={'Dashboard'}>
+          <ListItem button key="Dashboard">
             <ListItemIcon>
               <DashboardIcon color="primary" />
             </ListItemIcon>
@@ -79,7 +79,7 @@ const Navbar = ({ user }) => {
 
         <Divider />
         <StyledLink to="/notifications">
-          <ListItem button key={'Notification Inbox'}>
+          <ListItem button key="Notification Inbox">
             <ListItemIcon>
               <NotificationsIcon color="primary" />
             </ListItemIcon>
@@ -93,7 +93,7 @@ const Navbar = ({ user }) => {
         <StyledAccordion
           expanded={expanded === 'panel1'}
           onChange={handleChange('panel1')}
-          disableGutters={true}
+          disableGutters
           elevation={0}>
           <StyledAccordionSummary expandIcon={<ExpandMoreIcon />}>
             <ListItemIcon>
@@ -104,7 +104,7 @@ const Navbar = ({ user }) => {
 
           <AccordionDetails sx={{ padding: '0' }}>
             <StyledLink to="/allProjects">
-              <ListItem button key={'All Projects'} sx={{ paddingLeft: '32px' }}>
+              <ListItem button key="All Projects" sx={{ paddingLeft: '32px' }}>
                 <ListItemIcon>
                   <ArrowRightAltIcon color="primary" />
                 </ListItemIcon>
@@ -115,7 +115,7 @@ const Navbar = ({ user }) => {
 
           <AccordionDetails sx={{ padding: '0' }}>
             <StyledLink to="/myProjects">
-              <ListItem button key={'My Projects'} sx={{ paddingLeft: '32px' }}>
+              <ListItem button key="My Projects" sx={{ paddingLeft: '32px' }}>
                 <ListItemIcon>
                   <ArrowRightAltIcon color="primary" />
                 </ListItemIcon>
@@ -126,7 +126,7 @@ const Navbar = ({ user }) => {
 
           <AccordionDetails sx={{ padding: '0' }}>
             <StyledLink to="/addProject">
-              <ListItem button key={'Add Project'} sx={{ paddingLeft: '32px' }}>
+              <ListItem button key="Add Project" sx={{ paddingLeft: '32px' }}>
                 <ListItemIcon>
                   <ArrowRightAltIcon color="primary" />
                 </ListItemIcon>
@@ -137,7 +137,7 @@ const Navbar = ({ user }) => {
 
           <AccordionDetails sx={{ padding: '0' }}>
             <StyledLink to="/projectArchive">
-              <ListItem button key={'Project Archive'} sx={{ paddingLeft: '32px' }}>
+              <ListItem button key="Project Archive" sx={{ paddingLeft: '32px' }}>
                 <ListItemIcon>
                   <ArrowRightAltIcon color="primary" />
                 </ListItemIcon>
@@ -152,7 +152,7 @@ const Navbar = ({ user }) => {
         <StyledAccordion
           expanded={expanded === 'panel2'}
           onChange={handleChange('panel2')}
-          disableGutters={true}
+          disableGutters
           elevation={0}>
           <StyledAccordionSummary expandIcon={<ExpandMoreIcon />}>
             <ListItemIcon>
@@ -163,7 +163,7 @@ const Navbar = ({ user }) => {
 
           <AccordionDetails sx={{ padding: '0' }}>
             <StyledLink to="/allTickets">
-              <ListItem button key={'All Tickets'} sx={{ paddingLeft: '32px' }}>
+              <ListItem button key="All Tickets" sx={{ paddingLeft: '32px' }}>
                 <ListItemIcon>
                   <ArrowRightAltIcon color="primary" />
                 </ListItemIcon>
@@ -174,7 +174,7 @@ const Navbar = ({ user }) => {
 
           <AccordionDetails sx={{ padding: '0' }}>
             <StyledLink to="/myTickets">
-              <ListItem button key={'My Tickets'} sx={{ paddingLeft: '32px' }}>
+              <ListItem button key="My Tickets" sx={{ paddingLeft: '32px' }}>
                 <ListItemIcon>
                   <ArrowRightAltIcon color="primary" />
                 </ListItemIcon>
@@ -185,7 +185,7 @@ const Navbar = ({ user }) => {
 
           <AccordionDetails sx={{ padding: '0' }}>
             <StyledLink to="/unassignedTickets">
-              <ListItem button key={'Unassigned Tickets'} sx={{ paddingLeft: '32px' }}>
+              <ListItem button key="Unassigned Tickets" sx={{ paddingLeft: '32px' }}>
                 <ListItemIcon>
                   <ArrowRightAltIcon color="primary" />
                 </ListItemIcon>
@@ -196,7 +196,7 @@ const Navbar = ({ user }) => {
 
           <AccordionDetails sx={{ padding: '0' }}>
             <StyledLink to="/addTicket">
-              <ListItem button key={'Add Ticket'} sx={{ paddingLeft: '32px' }}>
+              <ListItem button key="Add Ticket" sx={{ paddingLeft: '32px' }}>
                 <ListItemIcon>
                   <ArrowRightAltIcon color="primary" />
                 </ListItemIcon>
@@ -207,7 +207,7 @@ const Navbar = ({ user }) => {
 
           <AccordionDetails sx={{ padding: '0' }}>
             <StyledLink to="/ticketArchive">
-              <ListItem button key={'Ticket Archive'} sx={{ paddingLeft: '32px' }}>
+              <ListItem button key="Ticket Archive" sx={{ paddingLeft: '32px' }}>
                 <ListItemIcon>
                   <ArrowRightAltIcon color="primary" />
                 </ListItemIcon>
@@ -222,8 +222,8 @@ const Navbar = ({ user }) => {
         <StyledAccordion
           expanded={expanded === 'panel3'}
           onChange={handleChange('panel3')}
-          disableGutters={true}
-          square={true}
+          disableGutters
+          square
           elevation={0}>
           <StyledAccordionSummary expandIcon={<ExpandMoreIcon />}>
             <ListItemIcon>
@@ -234,7 +234,7 @@ const Navbar = ({ user }) => {
 
           <AccordionDetails sx={{ padding: '0' }}>
             <StyledLink to="/user">
-              <ListItem button key={'Role'} sx={{ paddingLeft: '32px' }}>
+              <ListItem button key="Role" sx={{ paddingLeft: '32px' }}>
                 <ListItemIcon>
                   <ArrowRightAltIcon color="primary" />
                 </ListItemIcon>
@@ -245,7 +245,7 @@ const Navbar = ({ user }) => {
 
           <AccordionDetails sx={{ padding: '0' }}>
             <StyledLink to="/user">
-              <ListItem button key={'Role'} sx={{ paddingLeft: '32px' }}>
+              <ListItem button key="Role" sx={{ paddingLeft: '32px' }}>
                 <ListItemIcon>
                   <ArrowRightAltIcon color="primary" />
                 </ListItemIcon>
@@ -258,7 +258,7 @@ const Navbar = ({ user }) => {
         <Divider />
 
         <StyledLink to="/support" sx={{ justifySelf: 'flex-end' }}>
-          <ListItem button key={'Support Ticket'}>
+          <ListItem button key="Support Ticket">
             <ListItemIcon>
               <ErrorOutlineIcon color="primary" />
             </ListItemIcon>

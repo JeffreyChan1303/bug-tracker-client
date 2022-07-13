@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Typography, Grid, Card, Box, Avatar, CircularProgress, Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import styled from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import BugReportIcon from '@mui/icons-material/BugReport';

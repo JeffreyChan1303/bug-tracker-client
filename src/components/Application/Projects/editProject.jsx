@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getProjectDetails, updateProject } from '../../../services/project/projectDetailsSlice';
+import { handleAlerts } from '../../../services/alertsSlice';
 
 const initialProjectData = {
   creator: '',
@@ -37,10 +38,10 @@ const EditProject = () => {
     event.preventDefault();
 
     if (projectData.title === '') {
-      alert('invalid title');
+      dispatch(handleAlerts({ severity: 'warning', message: 'invalid title' }));
     }
     if (projectData.description === '') {
-      alert('invalid description');
+      dispatch(handleAlerts({ severity: 'warning', message: 'invalid description' }));
     }
 
     dispatch(updateProject({ ...projectData, _id: id }));

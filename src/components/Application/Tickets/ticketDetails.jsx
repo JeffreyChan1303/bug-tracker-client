@@ -56,6 +56,7 @@ const TicketDetails = () => {
   const [comment, setComment] = useState('');
   const [commentsSearch, setCommentsSearch] = useState('');
   const [commentsCurrentPage, setCommentsCurrentPage] = useState(1);
+  // eslint-disable-next-line no-unused-vars
   const [commentsItemsPerPage, setCommentsItemsPerPage] = useState(5);
   const navigate = useNavigate();
   const dispatch = useDispatch();

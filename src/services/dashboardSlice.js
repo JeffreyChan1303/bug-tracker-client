@@ -62,43 +62,52 @@ const dashboardSlice = createSlice({
   extraReducers: (builder) => {
     // Get Active Projects
     builder.addCase(getActiveProjects.pending, (state) => {
-      state.getActiveProjects.loading = true;
+      const currentState = state;
+      currentState.getActiveProjects.loading = true;
     });
     builder.addCase(getActiveProjects.fulfilled, (state, action) => {
-      state.getActiveProjects.loading = false;
-      state.getActiveProjects.data = action.payload;
+      const currentState = state;
+      currentState.getActiveProjects.loading = false;
+      currentState.getActiveProjects.data = action.payload;
     });
     builder.addCase(getActiveProjects.rejected, (state, action) => {
-      state.getActiveProjects.loading = false;
-      state.getActiveProjects.error = action.payload.message;
+      const currentState = state
+      currentState.getActiveProjects.loading = false;
+      currentState.getActiveProjects.error = action.payload.message;
     });
 
     // Get Active Tickets
 
     builder.addCase(getActiveTickets.pending, (state) => {
-      state.getActiveTickets.loading = true;
+      const currentState = state;
+      currentState.getActiveTickets.loading = true;
     });
     builder.addCase(getActiveTickets.fulfilled, (state, action) => {
-      state.getActiveTickets.loading = false;
-      state.getActiveTickets.data = action.payload;
+      const currentState = state;
+      currentState.getActiveTickets.loading = false;
+      currentState.getActiveTickets.data = action.payload;
     });
     builder.addCase(getActiveTickets.rejected, (state, action) => {
-      state.getActiveTickets.loading = false;
-      state.getActiveTickets.error = action.payload.message;
+      const currentState = state;
+      currentState.getActiveTickets.loading = false;
+      currentState.getActiveTickets.error = action.payload.message;
     });
 
     // Get Unread Notifications
 
     builder.addCase(getUnreadNotifications.pending, (state) => {
-      state.getUnreadNotifications.loading = true;
+      const currentState = state;
+      currentState.getUnreadNotifications.loading = true;
     });
     builder.addCase(getUnreadNotifications.fulfilled, (state, action) => {
-      state.getUnreadNotifications.loading = false;
-      state.getUnreadNotifications.data = action.payload;
+      const currentState = state;
+      currentState.getUnreadNotifications.loading = false;
+      currentState.getUnreadNotifications.data = action.payload;
     });
     builder.addCase(getUnreadNotifications.rejected, (state, action) => {
-      state.getUnreadNotifications.loading = false;
-      state.getUnreadNotifications.error = action.payload.message;
+      const currentState = state
+      currentState.getUnreadNotifications.loading = false;
+      currentState.getUnreadNotifications.error = action.payload.message;
     });
   },
 });

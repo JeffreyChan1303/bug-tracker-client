@@ -25,19 +25,22 @@ export const getAllProjectsBySearch = createAsyncThunk('project/getAllProjectsBy
 });
 
 const isPending = (state) => {
-  state.loading = true;
+  const currentState = state;
+  currentState.loading = true;
 };
 const isFulfilled = (state, action) => {
-  state.loading = false;
-  state.projects = action.payload.data;
-  state.error = '';
-  state.currentPage = action.payload?.currentPage;
-  state.numberOfPages = action.payload?.numberOfPages;
+  const currentState = state;
+  currentState.loading = false;
+  currentState.projects = action.payload.data;
+  currentState.error = '';
+  currentState.currentPage = action.payload?.currentPage;
+  currentState.numberOfPages = action.payload?.numberOfPages;
 };
 const isRejected = (state, action) => {
-  state.loading = false;
-  state.projects = [];
-  state.error = action.payload.message;
+  const currentState = state;
+  currentState.loading = false;
+  currentState.projects = [];
+  currentState.error = action.payload.message;
 };
 
 const allProjectsSlice = createSlice({

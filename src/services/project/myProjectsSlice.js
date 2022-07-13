@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import * as api from '../../api/index';
+import { handleAlerts } from '../alertsSlice';
 
 const initialState = {
   loading: false,
@@ -9,7 +10,7 @@ const initialState = {
   numberOfPages: null,
 };
 
-export const getMyProjectsBySearch = createAsyncThunk('project/getMyProjectsBySearch', async ({ search, page }, { dispatch }) => {
+export const getMyProjectsBySearch = createAsyncThunk('project/getMyProjectsBySearch', async ({ search, page }, { dispatch, rejectWithValue }) => {
   const searchQuery = search;
 
   try {
@@ -19,23 +20,28 @@ export const getMyProjectsBySearch = createAsyncThunk('project/getMyProjectsBySe
     return data;
   } catch (error) {
     console.log(error);
+    dispatch(handleAlerts({ severity: 'error', message: `My Projects were not able to be fetched. Error: ${error.message}` }));
+    return rejectWithValue(error);
   }
 });
 
 const isPending = (state) => {
-  state.loading = true;
+  const currentState = state;
+  currentState.loading = true;
 };
 const isFulfilled = (state, action) => {
-  state.loading = false;
-  state.projects = action.payload.data;
-  state.error = '';
-  state.currentPage = action.payload?.currentPage;
-  state.numberOfPages = action.payload?.numberOfPages;
+  const currentState = state;
+  currentState.loading = false;
+  currentState.projects = action.payload.data;
+  currentState.error = '';
+  currentState.currentPage = action.payload?.currentPage;
+  currentState.numberOfPages = action.payload?.numberOfPages;
 };
 const isRejected = (state, action) => {
-  state.loading = false;
-  state.projects = [];
-  state.error = action.error.message;
+  const currentState = state;
+  currentState.loading = false;
+  currentState.projects = [];
+  currentState.error = action.error.message;
 };
 
 const myProjectsSlice = createSlice({

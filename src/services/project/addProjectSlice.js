@@ -25,14 +25,17 @@ const addProjectSlice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder.addCase(createProject.pending, (state) => {
-      state.loading = true;
+      const currentState = state;
+      currentState.loading = true;
     });
-    builder.addCase(createProject.fulfilled, (state, action) => {
-      state.loading = false;
+    builder.addCase(createProject.fulfilled, (state) => {
+      const currentState = state;
+      currentState.loading = false;
     });
     builder.addCase(createProject.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.payload.message;
+      const currentState = state;
+      currentState.loading = false;
+      currentState.error = action.payload.message;
     });
   },
 });

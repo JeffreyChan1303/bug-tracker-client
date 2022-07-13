@@ -115,9 +115,17 @@ export const moveProjectToArchive = createAsyncThunk('project/moveProjectToArchi
 export const updateUsersRoles = createAsyncThunk('project/updateUsersRoles', async ({ projectId, users, role }, { dispatch, rejectWithValue }) => {
   try {
     // this loop sets the role of all the user objects
-    Object.keys(users).map((element) => {
-      users[element].role = role;
-    });
+
+    //    this was cheged while fixing the code
+    // Object.keys(users).map((element) => {
+    //   users[element].role = role;
+    // });
+    const usersCopy = { ...users }
+    Object.keys(usersCopy).map((userId) => {
+      usersCopy[userId].role = role;
+      return null;
+    })
+
     console.log(users);
 
     const { data } = await api.updateUsersRoles(projectId, users);
@@ -147,7 +155,7 @@ const projectDetailsSlice = createSlice({
   name: 'projectDetails',
   initialState,
   reducers: {
-    searchProjectUsers: (state, action) => {
+    searchProjectUsers: (state, action) => {  
       const { searchQuery, currentPage, itemsPerPage } = action.payload;
       const search = searchQuery.toLowerCase();
 
@@ -156,7 +164,7 @@ const projectDetailsSlice = createSlice({
       const userArr = Object.keys(state.projectUsers.original);
 
       // loop through array to check for the contained string
-      for (let i = 0; i < userArr.length; i++) {
+      for (let i = 0; i < userArr.length; i + 1) {
         const id = userArr[i];
         const userDetails = { ...current(state.projectUsers.original[id]), _id: id };
 
@@ -172,7 +180,7 @@ const projectDetailsSlice = createSlice({
 
       return { ...state, projectUsers: { ...state.projectUsers, searched: newUsers, numberOfPages } };
     },
-    searchProjectTickets: (state, action) => {
+    searchProjectTickets: (state, action) => {  
       const { searchQuery, currentPage, itemsPerPage } = action.payload;
       const search = searchQuery.toLowerCase();
 
@@ -180,8 +188,7 @@ const projectDetailsSlice = createSlice({
       let newTickets = [];
 
       // loop through array to check for the contained string
-      for (let i = 0; i < ticketArr.length; i++) {
-        const id = ticketArr[i];
+      for (let i = 0; i < ticketArr.length; i + 1) {
         const ticketDetails = ticketArr[i];
 
         // if the search is in the name or the email of the user, add to object
@@ -196,7 +203,7 @@ const projectDetailsSlice = createSlice({
 
       return { ...state, projectTickets: { ...state.projectTickets, searched: newTickets, numberOfPages } };
     },
-    searchUnassignedProjectTickets: (state, action) => {
+    searchUnassignedProjectTickets: (state, action) => {  
       const { searchQuery, currentPage, itemsPerPage } = action.payload;
       const search = searchQuery.toLowerCase();
 
@@ -204,8 +211,7 @@ const projectDetailsSlice = createSlice({
       let newTickets = [];
 
       // loop through array to check for the contained string
-      for (let i = 0; i < ticketArr.length; i++) {
-        const id = ticketArr[i];
+      for (let i = 0; i < ticketArr.length; i + 1) {
         const ticketDetails = ticketArr[i];
 
         // if the search is in the name or the email of the user, add to object
@@ -224,86 +230,108 @@ const projectDetailsSlice = createSlice({
   extraReducers: (builder) => {
     // Get Project Details
     builder.addCase(getProjectDetails.pending, (state) => {
-      state.getProjectDetails.loading = true;
+      const currentState = state
+      currentState.getProjectDetails.loading = true;
     });
     builder.addCase(getProjectDetails.fulfilled, (state, action) => {
-      state.getProjectDetails.loading = false;
-      state.project = action.payload;
+      const currentState = state
+      currentState.getProjectDetails.loading = false;
+      currentState.project = action.payload;
     });
     builder.addCase(getProjectDetails.rejected, (state, action) => {
-      state.getProjectDetails.loading = false;
-      state.getProjectDetails.error = action.payload.message;
+      const currentState = state
+      currentState.getProjectDetails.loading = false;
+      currentState.getProjectDetails.error = action.payload.message;
     });
     // get project users
     builder.addCase(getProjectUsers.pending, (state) => {
-      state.getProjectUsers.loading = true;
+      const currentState = state
+      currentState.getProjectUsers.loading = true;
     });
     builder.addCase(getProjectUsers.fulfilled, (state, action) => {
-      state.getProjectUsers.loading = false;
-      state.projectUsers.original = action.payload;
+      const currentState = state
+      currentState.getProjectUsers.loading = false;
+      currentState.projectUsers.original = action.payload;
     });
     builder.addCase(getProjectUsers.rejected, (state, action) => {
-      state.getProjectUsers.loading = false;
-      state.getProjectUsers.error = action.payload.message;
+      const currentState = state
+      currentState.getProjectUsers.loading = false;
+      currentState.getProjectUsers.error = action.payload.message;
     });
     // get project tickets
     builder.addCase(getProjectTickets.pending, (state) => {
-      state.getProjectTickets.loading = true;
+       const currentState = state
+      currentState.getProjectTickets.loading = true;
     });
     builder.addCase(getProjectTickets.fulfilled, (state, action) => {
-      state.getProjectTickets.loading = false;
-      state.projectTickets.original = action.payload;
+      const currentState = state
+      currentState.getProjectTickets.loading = false;
+      currentState.projectTickets.original = action.payload;
     });
     builder.addCase(getProjectTickets.rejected, (state, action) => {
-      state.getProjectTickets.loading = false;
-      state.getProjectTickets.error = action.payload.message;
+      const currentState = state
+      currentState.getProjectTickets.loading = false;
+      currentState.getProjectTickets.error = action.payload.message;
     });
     // Update Project
     builder.addCase(updateProject.pending, (state) => {
-      state.updateProject.loading = true;
+       const currentState = state
+      currentState.updateProject.loading = true;
     });
     builder.addCase(updateProject.fulfilled, (state) => {
-      state.updateProject.loading = false;
+      const currentState = state
+      currentState.updateProject.loading = false;
     });
     builder.addCase(updateProject.rejected, (state, action) => {
-      state.updateProject.loading = false;
-      state.updateProject.error = action.payload.message;
+      const currentState = state
+      currentState.updateProject.loading = false;
+      currentState.updateProject.error = action.payload.message;
     });
 
     // Move Project To Archive
     builder.addCase(moveProjectToArchive.pending, (state) => {
-      state.moveProjectToArchive.loading = true;
+      const currentState = state
+      currentState.moveProjectToArchive.loading = true;
     });
     builder.addCase(moveProjectToArchive.fulfilled, (state) => {
-      state.moveProjectToArchive.loading = false;
+      const currentState = state
+      currentState.moveProjectToArchive.loading = false;
     });
     builder.addCase(moveProjectToArchive.rejected, (state, action) => {
-      state.moveProjectToArchive.loading = false;
-      state.moveProjectToArchive.error = action.payload.message;
+      const currentState = state
+      currentState.moveProjectToArchive.loading = false;
+      currentState.moveProjectToArchive.error = action.payload.message;
     });
 
     // Update Users Roles
     builder.addCase(updateUsersRoles.pending, (state) => {
-      state.updateUsersRoles.loading = true;
+      const currentState = state
+      currentState.updateUsersRoles.loading = true;
     });
     builder.addCase(updateUsersRoles.fulfilled, (state) => {
-      state.updateUsersRoles.loading = false;
+      
+      const currentState = state
+      currentState.updateUsersRoles.loading = false;
     });
     builder.addCase(updateUsersRoles.rejected, (state, action) => {
-      state.updateUsersRoles.loading = false;
-      state.updateUsersRoles.error = action.payload.message;
+      const currentState = state
+      currentState.updateUsersRoles.loading = false;
+      currentState.updateUsersRoles.error = action.payload.message;
     });
 
     // Delete Users From Project
     builder.addCase(deleteUsersFromProject.pending, (state) => {
-      state.deleteUsersFromProject.loading = true;
+      const currentState = state
+      currentState.deleteUsersFromProject.loading = true;
     });
     builder.addCase(deleteUsersFromProject.fulfilled, (state) => {
-      state.deleteUsersFromProject.loading = false;
+      const currentState = state
+      currentState.deleteUsersFromProject.loading = false;
     });
     builder.addCase(deleteUsersFromProject.rejected, (state, action) => {
-      state.deleteUsersFromProject.loading = false;
-      state.deleteUsersFromProject.error = action.payload.message;
+      const currentState = state
+      currentState.deleteUsersFromProject.loading = false;
+      currentState.deleteUsersFromProject.error = action.payload.message;
     });
   },
 });

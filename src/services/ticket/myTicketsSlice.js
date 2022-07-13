@@ -55,29 +55,35 @@ const myTicketsSlice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder.addCase(getMyTicketsBySearch.pending, (state) => {
-      state.getMyTicketsBySearch.loading = true;
+      const currentState = state;
+      currentState.getMyTicketsBySearch.loading = true;
     });
     builder.addCase(getMyTicketsBySearch.fulfilled, (state, action) => {
-      state.getMyTicketsBySearch.loading = false;
-      state.tickets = action.payload.data;
-      state.currentPage = action.payload.currentPage;
-      state.numberOfPages = action.payload.numberOfPages;
+      const currentState = state;
+      currentState.getMyTicketsBySearch.loading = false;
+      currentState.tickets = action.payload.data;
+      currentState.currentPage = action.payload.currentPage;
+      currentState.numberOfPages = action.payload.numberOfPages;
     });
     builder.addCase(getMyTicketsBySearch.rejected, (state, action) => {
-      state.getMyTicketsBySearch.loading = false;
-      state.getMyTicketsBySearch.error = action.payload.message;
+      const currentState = state;
+      currentState.getMyTicketsBySearch.loading = false;
+      currentState.getMyTicketsBySearch.error = action.payload.message;
     });
 
     builder.addCase(getMyTicketStatistics.pending, (state) => {
-      state.getMyTicketStatistics.loading = true;
+      const currentState =state;
+      currentState.getMyTicketStatistics.loading = true;
     });
     builder.addCase(getMyTicketStatistics.fulfilled, (state, action) => {
-      state.getMyTicketStatistics.loading = false;
-      state.myTicketsStatistics = action?.payload;
+      const currentState = state;
+      currentState.getMyTicketStatistics.loading = false;
+      currentState.myTicketsStatistics = action?.payload;
     });
     builder.addCase(getMyTicketStatistics.rejected, (state, action) => {
-      state.getMyTicketStatistics.loading = false;
-      state.getMyTicketStatistics.error = action.payload.message;
+      const currentState = state;
+      currentState.getMyTicketStatistics.loading = false;
+      currentState.getMyTicketStatistics.error = action.payload.message;
     });
   },
 });

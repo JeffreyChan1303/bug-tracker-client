@@ -146,7 +146,7 @@ const ticketDetailsSlice = createSlice({
       const search = searchQuery.toLowerCase();
 
       let newComments = [];
-      for (let i = 0; i < state.ticket.comments.length; i++) {
+      for (let i = 0; i < state.ticket.comments.length; i + 1) {
         const commentDetails = state.ticket.comments[i];
 
         if (commentDetails.message.toLowerCase().includes(search.toLowerCase()) || commentDetails.name.toLowerCase().includes(search.toLowerCase())) {
@@ -164,87 +164,108 @@ const ticketDetailsSlice = createSlice({
   extraReducers: (builder) => {
     // Get Ticket Details
     builder.addCase(getTicketDetails.pending, (state) => {
-      state.getTicketDetails.loading = true;
+      const currentState = state;
+      currentState.getTicketDetails.loading = true;
     });
     builder.addCase(getTicketDetails.fulfilled, (state, action) => {
-      state.getTicketDetails.loading = false;
-      state.ticket = action.payload;
-      // state.ticket.searchedComments = action.payload.comments;
+      const currentState = state;
+      currentState.getTicketDetails.loading = false;
+      currentState.ticket = action.payload;
+      // currentState.ticket.searchedComments = action.payload.comments;
     });
     builder.addCase(getTicketDetails.rejected, (state, action) => {
-      state.getTicketDetails.loading = false;
-      state.getTicketDetails.error = action.payload.message;
+      const currentState = state;
+      currentState.getTicketDetails.loading = false;
+      currentState.getTicketDetails.error = action.payload.message;
     });
     // Update Ticket
     builder.addCase(updateTicket.pending, (state) => {
-      state.updateTicket.loading = true;
+      const currentState = state;
+      currentState.updateTicket.loading = true;
     });
     builder.addCase(updateTicket.fulfilled, (state) => {
-      state.updateTicket.loading = false;
+      const currentState = state;
+      currentState.updateTicket.loading = false;
     });
     builder.addCase(updateTicket.rejected, (state, action) => {
-      state.updateTicket.loading = false;
-      state.updateTicket.error = action.payload.message;
+      const currentState = state;
+      currentState.updateTicket.loading = false;
+      currentState.updateTicket.error = action.payload.message;
     });
 
     // Move Ticket To Archive
     builder.addCase(moveTicketToArchive.pending, (state) => {
-      state.moveTicketToArchive.loading = true;
+      const currentState = state;
+      currentState.moveTicketToArchive.loading = true;
     });
     builder.addCase(moveTicketToArchive.fulfilled, (state) => {
-      state.moveTicketToArchive.loading = false;
+      const currentState = state;
+      currentState.moveTicketToArchive.loading = false;
     });
     builder.addCase(moveTicketToArchive.rejected, (state, action) => {
-      state.moveTicketToArchive.loading = false;
-      state.moveTicketToArchive.error = action.payload.message;
+      const currentState = state;
+      currentState.moveTicketToArchive.loading = false;
+      currentState.moveTicketToArchive.error = action.payload.message;
     });
 
     // Restore Ticket From Archive
     builder.addCase(restoreTicketFromArchive.pending, (state) => {
-      state.restoreTicketFromArchive.loading = true;
+      const currentState = state;
+      currentState.restoreTicketFromArchive.loading = true;
     });
     builder.addCase(restoreTicketFromArchive.fulfilled, (state) => {
-      state.restoreTicketFromArchive.loading = false;
+      const currentState = state;
+      currentState.restoreTicketFromArchive.loading = false;
     });
     builder.addCase(restoreTicketFromArchive.rejected, (state, action) => {
-      state.restoreTicketFromArchive.loading = false;
-      state.restoreTicketFromArchive.error = action.payload.message;
+      const currentState = state;
+      currentState.restoreTicketFromArchive.loading = false;
+      currentState.restoreTicketFromArchive.error = action.payload.message;
     });
 
     // Delete Ticket From Archive
     builder.addCase(deleteTicketFromArchive.pending, (state) => {
-      state.deleteTicketFromArchive.loading = true;
+      const currentState = state;
+      currentState.deleteTicketFromArchive.loading = true;
     });
     builder.addCase(deleteTicketFromArchive.fulfilled, (state) => {
-      state.deleteTicketFromArchive.loading = false;
+      const currentState = state;
+      currentState.deleteTicketFromArchive.loading = false;
     });
     builder.addCase(deleteTicketFromArchive.rejected, (state, action) => {
-      state.deleteTicketFromArchive.loading = false;
-      state.deleteTicketFromArchive.error = action.payload.message;
+      const currentState = state;
+      currentState.deleteTicketFromArchive.loading = false;
+      currentState.deleteTicketFromArchive.error = action.payload.message;
     });
 
     // Add Ticket Comment
     builder.addCase(addTicketComment.pending, (state) => {
-      state.addTicketComment.loading = true;
+      const currentState = state;
+      currentState.addTicketComment.loading = true;
     });
     builder.addCase(addTicketComment.fulfilled, (state) => {
-      state.addTicketComment.loading = false;
+      const currentState = state;
+      currentState.addTicketComment.loading = false;
     });
     builder.addCase(addTicketComment.rejected, (state, action) => {
-      state.addTicketComment.loading = false;
-      state.addTicketComment.error = action.payload.message;
+      const currentState = state;
+      currentState.addTicketComment.loading = false;
+      currentState.addTicketComment.error = action.payload.message;
     });
 
     // Delete Ticket Comment
     builder.addCase(deleteTicketComment.pending, (state) => {
-      state.deleteTicketComment.loading = true;
+      const currentState = state;
+      currentState.deleteTicketComment.loading = true;
     });
     builder.addCase(deleteTicketComment.fulfilled, (state) => {
-      state.deleteTicketComment.loading = false;
+      const currentState = state;
+      currentState.deleteTicketComment.loading = false;
     });
     builder.addCase(deleteTicketComment.rejected, (state, action) => {
-      state.deleteTicketComment.loading = false;
-      state.deleteTicketComment.error = action.payload.message;
+      const currentState = state;
+      currentState.deleteTicketComment.loading = false;
+      currentState.deleteTicketComment.error = action.payload.message;
     });
   },
 });

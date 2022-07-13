@@ -25,14 +25,17 @@ const addTicketSlice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder.addCase(createTicket.pending, (state) => {
-      state.loading = true;
+      const currentState = state;
+      currentState.loading = true;
     });
-    builder.addCase(createTicket.fulfilled, (state, action) => {
-      state.loading = false;
+    builder.addCase(createTicket.fulfilled, (state) => {
+      const currentState = state;
+      currentState.loading = false;
     });
     builder.addCase(createTicket.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.payload.message;
+      const currentState = state;
+      currentState.loading = false;
+      currentState.error = action.payload.message;
     });
   },
 });

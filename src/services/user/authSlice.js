@@ -34,15 +34,18 @@ export const signUp = createAsyncThunk('users/signup', async (formData, { dispat
 });
 
 const isPending = (state) => {
-  state.loading = true;
+  const currentState = state;
+  currentState.loading = true;
 };
-const isFulfilled = (state, action) => {
-  state.loading = false;
-  state.error = '';
+const isFulfilled = (state) => {
+  const currentState = state;
+  currentState.loading = false;
+  currentState.error = '';
 };
 const isRejected = (state, action) => {
-  state.loading = false;
-  state.error = action.error.message;
+  const currentState = state;
+  currentState.loading = false;
+  currentState.error = action.error.message;
 };
 
 const authSlice = createSlice({

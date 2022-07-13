@@ -17,7 +17,7 @@ export const userSlice = createSlice({
       // change the current state
       return { ...state, authData: action?.payload };
     },
-    logout: (state, action) => {
+    logout: (state) => {
       localStorage.clear();
       window.location.reload();
       return { ...state, authData: null };

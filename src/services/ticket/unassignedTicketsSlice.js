@@ -42,30 +42,36 @@ const unassignedTicketsSlice = createSlice({
   extraReducers: (builder) => {
     // Get Unassigned Tickets
     builder.addCase(getUnassignedTickets.pending, (state) => {
-      state.loading = true;
+      const currentState = state;
+      currentState.loading = true;
     });
     builder.addCase(getUnassignedTickets.fulfilled, (state, action) => {
-      state.loading = false;
-      state.tickets = action.payload.tickets;
-      state.numberOfTickets = action.payload.numberOfTickets;
-      state.currentPage = action.payload?.currentPage;
-      state.numberOfPages = action.payload?.numberOfPages;
+      const currentState = state;
+      currentState.loading = false;
+      currentState.tickets = action.payload.tickets;
+      currentState.numberOfTickets = action.payload.numberOfTickets;
+      currentState.currentPage = action.payload?.currentPage;
+      currentState.numberOfPages = action.payload?.numberOfPages;
     });
     builder.addCase(getUnassignedTickets.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.payload.message;
+      const currentState = state;
+      currentState.loading = false;
+      currentState.error = action.payload.message;
     });
 
     // claim ticket
     builder.addCase(claimTicket.pending, (state) => {
-      state.loading = true;
+      const currentState = state;
+      currentState.loading = true;
     });
     builder.addCase(claimTicket.fulfilled, (state) => {
-      state.loading = false;
+      const currentState = state;
+      currentState.loading = false;
     });
     builder.addCase(claimTicket.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.payload.message;
+      const currentState = state;
+      currentState.loading = false;
+      currentState.error = action.payload.message;
     });
   },
 });

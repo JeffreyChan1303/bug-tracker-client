@@ -25,19 +25,22 @@ export const getAllTicketsBySearch = createAsyncThunk('ticket/getAllTicketsBySea
 });
 
 const isPending = (state) => {
-  state.loading = true;
+  const currentState = state;
+  currentState.loading = true;
 };
 const isFulfilled = (state, action) => {
-  state.loading = false;
-  state.tickets = action.payload.data;
-  state.error = '';
-  state.currentPage = action.payload?.currentPage;
-  state.numberOfPages = action.payload?.numberOfPages;
+  const currentState = state;
+  currentState.loading = false;
+  currentState.tickets = action.payload.data;
+  currentState.error = '';
+  currentState.currentPage = action.payload?.currentPage;
+  currentState.numberOfPages = action.payload?.numberOfPages;
 };
 const isRejected = (state, action) => {
-  state.loading = false;
-  state.tickets = [];
-  state.error = action.payload.message;
+  const currentState = state;
+  currentState.loading = false;
+  currentState.tickets = [];
+  currentState.error = action.payload.message;
 };
 
 const allTicketsSlice = createSlice({

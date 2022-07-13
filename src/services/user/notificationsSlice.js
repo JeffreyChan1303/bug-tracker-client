@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, findNonSerializableValue } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import * as api from '../../api/index';
 import { handleAlerts } from '../alertsSlice';
 
@@ -77,57 +77,69 @@ const notificationsSlice = createSlice({
   extraReducers: (builder) => {
     // Get User Notifications
     builder.addCase(getUserNotifications.pending, (state) => {
-      state.getUserNotifications.loading = true;
+      const currentState = state;
+      currentState.getUserNotifications.loading = true;
     });
     builder.addCase(getUserNotifications.fulfilled, (state, action) => {
-      state.getUserNotifications.loading = false;
-      state.notifications = action.payload.data;
-      state.currentPage = action.payload.currentPage;
-      state.numberOfPages = action.payload.numberOfPages;
+      const currentState = state;
+      currentState.getUserNotifications.loading = false;
+      currentState.notifications = action.payload.data;
+      currentState.currentPage = action.payload.currentPage;
+      currentState.numberOfPages = action.payload.numberOfPages;
     });
     builder.addCase(getUserNotifications.rejected, (state, action) => {
-      state.getUserNotifications.loading = false;
-      state.getUserNotifications.error = action.payload.message;
+      const currentState = state;
+      currentState.getUserNotifications.loading = false;
+      currentState.getUserNotifications.error = action.payload.message;
     });
 
     // Get User Notifications By Search
 
     builder.addCase(getUserNotificationsBySearch.pending, (state) => {
-      state.getUserNotifications.loading = true;
+      const currentState = state;
+      currentState.getUserNotifications.loading = true;
     });
     builder.addCase(getUserNotificationsBySearch.fulfilled, (state, action) => {
-      state.getUserNotifications.loading = false;
-      state.notifications = action.payload.data;
-      state.currentPage = action.payload.currentPage;
-      state.numberOfPages = action.payload.numberOfPages;
+      const currentState = state;
+      currentState.getUserNotifications.loading = false;
+      currentState.notifications = action.payload.data;
+      currentState.currentPage = action.payload.currentPage;
+      currentState.numberOfPages = action.payload.numberOfPages;
     });
     builder.addCase(getUserNotificationsBySearch.rejected, (state, action) => {
-      state.getUserNotificationsBySearch.loading = false;
-      state.getUserNotificationsBySearch.error = action.payload.message;
+      const currentState = state;
+      currentState.getUserNotificationsBySearch.loading = false;
+      currentState.getUserNotificationsBySearch.error = action.payload.message;
     });
 
     // Create Users Notification
     builder.addCase(createUsersNotification.pending, (state) => {
-      state.createUsersNotification.loading = true;
+      const currentState = state;
+      currentState.createUsersNotification.loading = true;
     });
-    builder.addCase(createUsersNotification.fulfilled, (state, action) => {
-      state.createUsersNotification.loading = false;
+    builder.addCase(createUsersNotification.fulfilled, (state) => {
+      const currentState = state;
+      currentState.createUsersNotification.loading = false;
     });
     builder.addCase(createUsersNotification.rejected, (state, action) => {
-      state.createUsersNotification.loading = false;
-      state.createUsersNotification.error = action.payload.message;
+      const currentState = state;
+      currentState.createUsersNotification.loading = false;
+      currentState.createUsersNotification.error = action.payload.message;
     });
 
     // Delete User Notification
     builder.addCase(deleteUserNotification.pending, (state) => {
-      state.deleteUserNotification.loading = true;
+      const currentState = state;
+      currentState.deleteUserNotification.loading = true;
     });
-    builder.addCase(deleteUserNotification.fulfilled, (state, action) => {
-      state.deleteUserNotification.loading = false;
+    builder.addCase(deleteUserNotification.fulfilled, (state) => {
+      const currentState = state;
+      currentState.deleteUserNotification.loading = false;
     });
     builder.addCase(deleteUserNotification.rejected, (state, action) => {
-      state.deleteUserNotification.loading = false;
-      state.deleteUserNotification.error = action.payload.message;
+      const currentState = state;
+      currentState.deleteUserNotification.loading = false;
+      currentState.deleteUserNotification.error = action.payload.message;
     });
   },
 });

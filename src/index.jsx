@@ -12,8 +12,6 @@ import { store } from './app/store';
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
 
-// console.log(theme);
-
 root.render(
   <StrictMode>
     <Provider store={store}>

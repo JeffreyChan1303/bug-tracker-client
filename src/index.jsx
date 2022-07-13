@@ -23,5 +23,5 @@ root.render(
         </ThemeProvider>
       </BrowserRouter>
     </Provider>
-  </StrictMode>,
+  </StrictMode>
 );

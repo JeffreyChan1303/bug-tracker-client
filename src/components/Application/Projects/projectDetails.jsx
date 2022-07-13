@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect } from 'react';
 import { Typography, Paper, Grid, Button, CircularProgress } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';

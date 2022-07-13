@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState, useEffect } from 'react';
 import {
   Typography,
@@ -70,8 +71,7 @@ const ProjectUsers = ({ projectId, handleSelectUser }) => {
       <Box sx={{ overflowX: 'scroll' }}>
         <Grid container justifyContent="space-between">
           <Typography variant="h6" fontWeight={700}>
-            {' '}
-            Project Users{' '}
+            Project Users
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'right' }}>
             <Typography align="right" variant="body1">

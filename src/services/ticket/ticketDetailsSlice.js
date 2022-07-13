@@ -40,7 +40,6 @@ const initialState = {
 export const getTicketDetails = createAsyncThunk('ticket/getTicketDetails', async (id, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await api.getTicketDetails(id);
-    // console.log(data);
     // sorts the ticket history from newest to oldest
     data.ticketHistory.reverse();
     data.comments.reverse();
@@ -146,7 +145,7 @@ const ticketDetailsSlice = createSlice({
       const search = searchQuery.toLowerCase();
 
       let newComments = [];
-      for (let i = 0; i < state.ticket.comments.length; i + 1) {
+      for (let i = 0; i < state.ticket.comments.length; i += 1) {
         const commentDetails = state.ticket.comments[i];
 
         if (commentDetails.message.toLowerCase().includes(search.toLowerCase()) || commentDetails.name.toLowerCase().includes(search.toLowerCase())) {

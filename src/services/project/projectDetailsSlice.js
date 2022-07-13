@@ -155,7 +155,7 @@ const projectDetailsSlice = createSlice({
   name: 'projectDetails',
   initialState,
   reducers: {
-    searchProjectUsers: (state, action) => {  
+    searchProjectUsers: (state, action) => {
       const { searchQuery, currentPage, itemsPerPage } = action.payload;
       const search = searchQuery.toLowerCase();
 
@@ -164,7 +164,7 @@ const projectDetailsSlice = createSlice({
       const userArr = Object.keys(state.projectUsers.original);
 
       // loop through array to check for the contained string
-      for (let i = 0; i < userArr.length; i + 1) {
+      for (let i = 0; i < userArr.length; i += 1) {
         const id = userArr[i];
         const userDetails = { ...current(state.projectUsers.original[id]), _id: id };
 
@@ -188,7 +188,7 @@ const projectDetailsSlice = createSlice({
       let newTickets = [];
 
       // loop through array to check for the contained string
-      for (let i = 0; i < ticketArr.length; i + 1) {
+      for (let i = 0; i < ticketArr.length; i += 1) {
         const ticketDetails = ticketArr[i];
 
         // if the search is in the name or the email of the user, add to object
@@ -211,7 +211,7 @@ const projectDetailsSlice = createSlice({
       let newTickets = [];
 
       // loop through array to check for the contained string
-      for (let i = 0; i < ticketArr.length; i + 1) {
+      for (let i = 0; i < ticketArr.length; i += 1) {
         const ticketDetails = ticketArr[i];
 
         // if the search is in the name or the email of the user, add to object

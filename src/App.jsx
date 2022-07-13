@@ -32,7 +32,7 @@ import Auth from './components/Auth/auth';
 
 const drawerWidth = 260;
 
-function App() {
+const App = () => {
   // maybe make the alerts in the file so it always shows even on the auth page,
   const user = JSON.parse(localStorage.getItem('profile'));
   const dispatch = useDispatch();
@@ -179,6 +179,6 @@ function App() {
       <Alert />
     </>
   );
-}
+};
 
 export default App;

@@ -3,9 +3,7 @@ import {
   Toolbar,
   Divider,
   List,
-  ListItem,
   ListItemIcon,
-  ListItemText,
   Typography,
   Accordion,
   AccordionDetails,
@@ -13,7 +11,7 @@ import {
   Container,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { styled } from '@mui/material/styles';
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -35,11 +33,6 @@ const StyledAccordionSummary = styled(AccordionSummary)(({ theme }) => ({
   '&:hover': {
     backgroundColor: theme.palette.grey[100],
   },
-}));
-
-const StyledLink = styled(Link)(({ theme }) => ({
-  textDecoration: 'none',
-  color: theme.palette.common.black,
 }));
 
 const Navbar = ({ user }) => {
@@ -199,7 +192,7 @@ const Navbar = ({ user }) => {
           </AccordionDetails>
         </StyledAccordion>
 
-        {/* Nav User */}
+        {/* Support Tickets section */}
 
         <StyledAccordion
           expanded={expanded === 'panel3'}
@@ -210,42 +203,29 @@ const Navbar = ({ user }) => {
         >
           <StyledAccordionSummary expandIcon={<ExpandMoreIcon />}>
             <ListItemIcon>
-              <ArrowRightAltIcon color="primary" />
+              <ErrorOutlineIcon color="primary" />
             </ListItemIcon>
-            <Typography sx={{ width: '33%', flexShrink: 0 }}>Admin</Typography>
+            <Typography sx={{ width: '33%', flexShrink: 0 }}>Support</Typography>
           </StyledAccordionSummary>
 
           <AccordionDetails sx={{ padding: '0' }}>
-            <StyledLink to="/user">
-              <ListItem button key="Role" sx={{ paddingLeft: '32px' }}>
-                <ListItemIcon>
-                  <ArrowRightAltIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText primary="Role" />
-              </ListItem>
-            </StyledLink>
+            <NavbarLink
+              currentPath={pathname}
+              targetPath="/allSupportTickets"
+              linkName="All Support Tickets"
+              icon={<ArrowRightAltIcon color="primary" />}
+            />
           </AccordionDetails>
 
           <AccordionDetails sx={{ padding: '0' }}>
-            <StyledLink to="/user">
-              <ListItem button key="Role" sx={{ paddingLeft: '32px' }}>
-                <ListItemIcon>
-                  <ArrowRightAltIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText primary="Role" />
-              </ListItem>
-            </StyledLink>
+            <NavbarLink
+              currentPath={pathname}
+              targetPath="/addSupportTicket"
+              linkName="Add Support Ticket"
+              icon={<ArrowRightAltIcon color="primary" />}
+            />
           </AccordionDetails>
         </StyledAccordion>
-
-        <Divider />
-
-        <NavbarLink
-          currentPath={pathname}
-          targetPath="/support"
-          linkName="Support Ticket"
-          icon={<ErrorOutlineIcon color="primary" />}
-        />
 
         <Divider />
       </List>

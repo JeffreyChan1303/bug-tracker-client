@@ -21,7 +21,8 @@ import {
   TicketDetails,
   ManageUserRoles,
   NotificationsPage,
-  Support,
+  AllSupportTickets,
+  AddSupportTicket,
   UnassignedTickets,
   AssignTicket,
   Profile,
@@ -122,7 +123,8 @@ const App = () => {
             <Routes>
               <Route exact path="/*" element={<Navigate to="/dashboard" replace />} />
               <Route exact path="/dashboard" element={<Dashboard />} />
-              <Route exact path="/support" element={<Support />} />
+              <Route exact path="/allSupportTickets" element={<AllSupportTickets />} />
+              <Route exact path="/addSupportTicket" element={<AddSupportTicket />} />
 
               {/* Project Routes */}
               <Route exact path="/allProjects" element={<AllProjects />} />

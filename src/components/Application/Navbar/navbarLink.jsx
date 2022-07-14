@@ -5,7 +5,7 @@ import { ListItem, ListItemIcon, ListItemText } from '@mui/material';
 const NavbarLink = ({ currentPath, targetPath, linkName, icon }) => (
   <Link to={targetPath} style={{ textDecoration: 'none', color: 'black' }}>
     {currentPath.includes(targetPath) ? (
-      <ListItem button sx={{ bgcolor: 'grey.200' }} key={linkName}>
+      <ListItem button sx={{ bgcolor: 'grey.200', pl: '20px' }} key={linkName}>
         <ListItemIcon>
           {/* <DashboardIcon color="primary" /> */}
           {icon}

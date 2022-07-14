@@ -22,4 +22,5 @@ export { default as UnassignedTickets } from './Tickets/unassignedTickets';
 
 export { default as ManageUserRoles } from './Projects/manageUserRoles';
 
-export { default as Support } from './support';
+export { default as AllSupportTickets } from './Support/allSupportTickets';
+export { default as AddSupportTicket } from './Support/addSupportTicket';

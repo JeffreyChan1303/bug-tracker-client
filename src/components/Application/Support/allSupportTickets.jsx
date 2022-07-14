@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { addAlert } from '../../services/alertsSlice';
+import { addAlert } from '../../../services/alertsSlice';
 
-const Support = () => {
+const AllSupportTickets = () => {
   const dispatch = useDispatch();
 
   const handleTest = () => {
@@ -18,4 +18,4 @@ const Support = () => {
   );
 };
 
-export default Support;
+export default AllSupportTickets;

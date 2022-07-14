@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-
 // state is the state of the whole USER!! that is online!!
 const initialState = {
   // this is a test

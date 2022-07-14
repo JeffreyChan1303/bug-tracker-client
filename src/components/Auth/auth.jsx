@@ -138,7 +138,8 @@ const Auth = () => {
               variant="contained"
               color="primary"
               size="small"
-              sx={{ m: '20px 0 10px' }}>
+              sx={{ m: '20px 0 10px' }}
+            >
               {isSignup ? 'Sign Up' : 'Sign In'}
             </Button>
 
@@ -180,7 +181,8 @@ const Auth = () => {
         lg={7}
         alignItems="center"
         justifyContent="center"
-        sx={{ display: { xs: 'none', lg: 'flex' } }}>
+        sx={{ display: { xs: 'none', lg: 'flex' } }}
+      >
         <Typography variant="h2" fontWeight={700} sx={{ color: 'white' }}>
           Bug Tracker
         </Typography>

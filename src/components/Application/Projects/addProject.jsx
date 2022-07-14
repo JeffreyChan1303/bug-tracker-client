@@ -79,7 +79,8 @@ const AddProject = () => {
           variant="contained"
           color="primary"
           size="small"
-          onClick={handleSubmit}>
+          onClick={handleSubmit}
+        >
           Save
         </Button>
         <Button sx={{}} variant="outlined" color="secondary" size="small" onClick={handleClear}>

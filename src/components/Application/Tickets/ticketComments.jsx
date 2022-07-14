@@ -124,7 +124,8 @@ const TicketComments = ({ ticketId, getDateFromISODate }) => {
               {ticket.searchedComments?.map((ticketComment) => (
                 <TableRow
                   key={ticketComment.createdAt}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
                   <ContentTableCell component="th" scope="row">
                     {ticketComment.name}
                   </ContentTableCell>

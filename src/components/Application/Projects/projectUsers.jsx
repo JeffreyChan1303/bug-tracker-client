@@ -112,7 +112,7 @@ const ProjectUsers = ({ projectId, handleSelectUser }) => {
 
                   {handleSelectUser && (
                     <ContentTableCell align="center">
-                      <Tooltip title="Select User">
+                      <Tooltip title="Select User" disableInteractive>
                         <IconButton
                           onClick={() => handleSelectUser({ _id: user._id, name: user.name })}
                         >

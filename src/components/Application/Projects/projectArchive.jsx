@@ -110,7 +110,8 @@ const ProjectArchive = () => {
               projects.map((project) => (
                 <TableRow
                   key={project._id}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
                   <ContentTableCell component="th" scope="row">
                     {project.title}
                   </ContentTableCell>
@@ -124,13 +125,13 @@ const ProjectArchive = () => {
                   </ContentTableCell>
                   <ContentTableCell align="right">add last updated</ContentTableCell>
                   <ContentTableCell sx={{ display: 'flex', justifyContent: 'center' }}>
-                    <Tooltip title="View">
+                    <Tooltip title="View" disableInteractive>
                       <IconButton onClick={() => navigate(`/projectDetails/${project._id}`)}>
                         <VisibilityOutlinedIcon />
                       </IconButton>
                     </Tooltip>
                     {/* This should be changed to retrieve */}
-                    <Tooltip title="Retrieve">
+                    <Tooltip title="Retrieve" disableInteractive>
                       <IconButton onClick={() => navigate(`/editProject/${project._id}`)}>
                         <EditOutlinedIcon />
                       </IconButton>

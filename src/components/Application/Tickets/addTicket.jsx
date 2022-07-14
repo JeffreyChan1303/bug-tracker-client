@@ -105,7 +105,8 @@ const AddTicket = () => {
                 <MenuItem
                   key={project._id}
                   value={project.title}
-                  onClick={() => handleProjectChange(project._id, project.title)}>
+                  onClick={() => handleProjectChange(project._id, project.title)}
+                >
                   {project.title}
                 </MenuItem>
               ))}
@@ -148,7 +149,8 @@ const AddTicket = () => {
             onChange={handleStatusChange}
             sx={{ mb: 2 }}
             fullWidth
-            size="small">
+            size="small"
+          >
             <MenuItem value="Resolved">Resolved</MenuItem>
             <MenuItem value="Testing">Testing</MenuItem>
             <MenuItem value="Development">Development</MenuItem>
@@ -164,7 +166,8 @@ const AddTicket = () => {
             onChange={handlePriorityChange}
             sx={{ mb: 2 }}
             fullWidth
-            size="small">
+            size="small"
+          >
             <MenuItem value="Low">Low Priority</MenuItem>
             <MenuItem value="Medium">Medium Priority</MenuItem>
             <MenuItem value="High">High Priority</MenuItem>
@@ -178,7 +181,8 @@ const AddTicket = () => {
             onChange={handleTypeChange}
             sx={{ mb: 2 }}
             fullWidth
-            size="small">
+            size="small"
+          >
             <MenuItem value="Bug">Bug</MenuItem>
             <MenuItem value="Feature">Feature</MenuItem>
           </Select>
@@ -189,7 +193,8 @@ const AddTicket = () => {
           variant="contained"
           color="primary"
           size="small"
-          onClick={handleSubmit}>
+          onClick={handleSubmit}
+        >
           Save
         </Button>
         <Button sx={{}} variant="outlined" color="secondary" size="small" onClick={handleClear}>

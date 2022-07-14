@@ -105,19 +105,20 @@ const AllProjects = () => {
               projects.map((project) => (
                 <TableRow
                   key={project._id}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
                   <ContentTableCell component="th" scope="row">
                     {project.title}
                   </ContentTableCell>
                   <ContentTableCell align="right">{project.name}</ContentTableCell>
                   <ContentTableCell align="right">add the data created</ContentTableCell>
                   <ContentTableCell sx={{ display: 'flex', justifyContent: 'center' }}>
-                    <Tooltip title="View">
+                    <Tooltip title="View" disableInteractive>
                       <IconButton onClick={() => navigate(`/projectDetails/${project._id}`)}>
                         <VisibilityOutlinedIcon />
                       </IconButton>
                     </Tooltip>
-                    <Tooltip title="Edit">
+                    <Tooltip title="Edit" disableInteractive>
                       <IconButton onClick={() => navigate(`/editProject/${project._id}`)}>
                         <EditOutlinedIcon />
                       </IconButton>

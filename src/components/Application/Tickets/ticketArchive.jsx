@@ -116,7 +116,8 @@ const TicketArchive = () => {
               tickets.map((ticket) => (
                 <TableRow
                   key={ticket._id}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
                   <ContentTableCell component="th" scope="row">
                     {ticket.title}
                   </ContentTableCell>
@@ -130,13 +131,13 @@ const TicketArchive = () => {
                   </ContentTableCell>
                   <ContentTableCell align="right">add last updated</ContentTableCell>
                   <ContentTableCell sx={{ display: 'flex', justifyContent: 'center' }}>
-                    <Tooltip title="View">
+                    <Tooltip title="View" disableInteractive>
                       <IconButton onClick={() => navigate(`/ticketDetails/${ticket._id}`)}>
                         <VisibilityOutlinedIcon />
                       </IconButton>
                     </Tooltip>
                     {/* This should be changed to retrieve */}
-                    <Tooltip title="Restore">
+                    <Tooltip title="Restore" disableInteractive>
                       <IconButton onClick={() => handleRestoreTicket(ticket._id)}>
                         <RestoreIcon />
                       </IconButton>

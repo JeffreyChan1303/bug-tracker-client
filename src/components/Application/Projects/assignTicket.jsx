@@ -59,7 +59,8 @@ const AssignTicket = () => {
           container
           justifyContent="space-evenly"
           alignItems="center"
-          sx={{ border: 1, borderRadius: 2, p: 1, mt: 3 }}>
+          sx={{ border: 1, borderRadius: 2, p: 1, mt: 3 }}
+        >
           <Box>
             <Typography>Selected User: {selectedUser.name}</Typography>
 

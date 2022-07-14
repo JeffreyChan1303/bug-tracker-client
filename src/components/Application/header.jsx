@@ -99,7 +99,7 @@ const Header = ({ drawerWidth, handleDrawerToggle, handleLogOut }) => {
               </Badge>
             </IconButton>
 
-            <Tooltip title="settings(in progress)">
+            <Tooltip title="settings(in progress)" disableInteractive>
               <IconButton sx={{ color: 'white' }}>
                 <SettingsIcon />
               </IconButton>

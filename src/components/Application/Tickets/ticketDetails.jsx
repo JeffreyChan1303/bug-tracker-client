@@ -87,7 +87,8 @@ const TicketDetails = () => {
                 </Button>
                 <Button
                   variant="outlined"
-                  onClick={() => navigate(`/projectDetails/${ticket.project._id}`)}>
+                  onClick={() => navigate(`/projectDetails/${ticket.project._id}`)}
+                >
                   Ticket Project
                 </Button>
               </Grid>

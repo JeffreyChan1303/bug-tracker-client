@@ -120,7 +120,8 @@ const UnassignedTickets = () => {
               tickets.map((ticket) => (
                 <TableRow
                   key={ticket._id}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
                   <ContentTableCell component="th" scope="row">
                     {ticket.title}
                   </ContentTableCell>
@@ -134,19 +135,19 @@ const UnassignedTickets = () => {
                   </ContentTableCell>
                   <ContentTableCell align="right">add last updated</ContentTableCell>
                   <ContentTableCell sx={{ display: 'flex', justifyContent: 'center' }}>
-                    <Tooltip title="Claim Ticket">
+                    <Tooltip title="Claim Ticket" disableInteractive>
                       <IconButton onClick={() => handleClaimTicket(ticket._id)}>
                         <PanToolOutlinedIcon />
                       </IconButton>
                     </Tooltip>
 
-                    <Tooltip title="View">
+                    <Tooltip title="View" disableInteractive>
                       <IconButton onClick={() => navigate(`/ticketDetails/${ticket._id}`)}>
                         <VisibilityOutlinedIcon />
                       </IconButton>
                     </Tooltip>
 
-                    <Tooltip title="Edit">
+                    <Tooltip title="Edit" disableInteractive>
                       <IconButton onClick={() => navigate(`/editTicket/${ticket._id}`)}>
                         <EditOutlinedIcon />
                       </IconButton>

@@ -117,7 +117,8 @@ const ProjectTickets = ({ projectId, handleSelectTicket }) => {
               projectTickets.searched.map((ticket) => (
                 <TableRow
                   key={ticket._id}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
                   <ContentTableCell>{ticket?.title}</ContentTableCell>
                   <ContentTableCell align="left">{ticket?.name}</ContentTableCell>
                   <ContentTableCell align="left">
@@ -130,18 +131,19 @@ const ProjectTickets = ({ projectId, handleSelectTicket }) => {
                     {getDateFromISODate(ticket?.updatedAt)}
                   </ContentTableCell>
                   <ContentTableCell sx={{ display: 'flex', justifyContent: 'center' }}>
-                    <Tooltip title="View">
+                    <Tooltip title="View" disableInteractive>
                       <IconButton onClick={() => navigate(`/ticketDetails/${ticket?._id}`)}>
                         <VisibilityOutlinedIcon />
                       </IconButton>
                     </Tooltip>
 
                     {handleSelectTicket && (
-                      <Tooltip title="Select Ticket">
+                      <Tooltip title="Select Ticket" disableInteractive>
                         <IconButton
                           onClick={() =>
                             handleSelectTicket({ _id: ticket._id, title: ticket.title })
-                          }>
+                          }
+                        >
                           <AddIcon />
                         </IconButton>
                       </Tooltip>

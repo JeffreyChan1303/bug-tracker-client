@@ -89,7 +89,8 @@ const EditTicket = () => {
         color="secondary"
         size="small"
         type="cancel"
-        onClick={handleUsePrevTicketValues}>
+        onClick={handleUsePrevTicketValues}
+      >
         use default tick values
       </Button>
 
@@ -131,7 +132,8 @@ const EditTicket = () => {
             value={ticketData.priority}
             onChange={handlePriorityChange}
             sx={{ mb: 2 }}
-            fullWidth>
+            fullWidth
+          >
             <MenuItem value="Low">Low Priority</MenuItem>
             <MenuItem value="Medium">Medium Priority</MenuItem>
             <MenuItem value="High">High Priority</MenuItem>
@@ -145,7 +147,8 @@ const EditTicket = () => {
             onChange={handleStatusChange}
             sx={{ mb: 2 }}
             fullWidth
-            size="small">
+            size="small"
+          >
             <MenuItem value="Archived">Archived</MenuItem>
             <MenuItem value="Resolved">Resolved</MenuItem>
             <MenuItem value="Testing">Testing</MenuItem>
@@ -159,7 +162,8 @@ const EditTicket = () => {
             onChange={handleTypeChange}
             sx={{ mb: 2 }}
             fullWidth
-            size="small">
+            size="small"
+          >
             <MenuItem value="Bug">Bug</MenuItem>
             <MenuItem value="Feature">Feature</MenuItem>
           </Select>
@@ -169,7 +173,8 @@ const EditTicket = () => {
             variant="contained"
             color="primary"
             size="small"
-            onClick={handleSubmit}>
+            onClick={handleSubmit}
+          >
             Save
           </Button>
           <Button sx={{}} variant="outlined" color="secondary" size="small" onClick={handleClear}>

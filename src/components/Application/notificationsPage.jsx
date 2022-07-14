@@ -136,15 +136,17 @@ const NotificationPage = () => {
                 notifications.map((notification) => (
                   <TableRow
                     key={notification.createdAt}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  >
                     <ContentTableCell component="th" scope="row">
                       {notification.title}
                     </ContentTableCell>
                     <ContentTableCell align="right">{notification.createdAt}</ContentTableCell>
                     <ContentTableCell sx={{ display: 'flex', justifyContent: 'center' }}>
-                      <Tooltip title="Delete">
+                      <Tooltip title="Delete" disableInteractive>
                         <IconButton
-                          onClick={() => handleDeleteNotification(notification.createdAt)}>
+                          onClick={() => handleDeleteNotification(notification.createdAt)}
+                        >
                           <DeleteIcon />
                         </IconButton>
                       </Tooltip>

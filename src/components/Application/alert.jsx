@@ -16,7 +16,8 @@ const CrudAlert = () => {
         right: 'calc((3vh + 3vw) / 2)',
         bottom: 'calc((3vh + 3vw) / 2)',
         zIndex: (theme) => theme.zIndex.drawer + 1,
-      }}>
+      }}
+    >
       {alerts &&
         alerts.map((element, index) => (
           <Fade in={alerts[index].isShown} key={element.id} timeout={700}>
@@ -33,10 +34,12 @@ const CrudAlert = () => {
                   size="small"
                   onClick={() => {
                     dispatch(closeAlertById(element.id));
-                  }}>
+                  }}
+                >
                   <CloseIcon fontSize="small" />
                 </IconButton>
-              }>
+              }
+            >
               {element.message}
             </Alert>
           </Fade>

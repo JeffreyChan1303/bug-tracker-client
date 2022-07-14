@@ -93,7 +93,7 @@ const ProjectUsers = ({ projectId, handleSelectUser }) => {
               <BoldedTableCell>User Name</BoldedTableCell>
               <BoldedTableCell align="left">Email</BoldedTableCell>
               <BoldedTableCell align="left">Role</BoldedTableCell>
-              <BoldedTableCell align="center">Actions</BoldedTableCell>
+              {handleSelectUser && <BoldedTableCell align="center">Actions</BoldedTableCell>}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -102,7 +102,8 @@ const ProjectUsers = ({ projectId, handleSelectUser }) => {
                 // change the key to the id. Have to add the id tot he search user objects
                 <TableRow
                   key={user.email}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
                   <ContentTableCell component="th" scope="row">
                     {user.name}
                   </ContentTableCell>
@@ -113,7 +114,8 @@ const ProjectUsers = ({ projectId, handleSelectUser }) => {
                     <ContentTableCell align="center">
                       <Tooltip title="Select User">
                         <IconButton
-                          onClick={() => handleSelectUser({ _id: user._id, name: user.name })}>
+                          onClick={() => handleSelectUser({ _id: user._id, name: user.name })}
+                        >
                           <AddIcon />
                         </IconButton>
                       </Tooltip>

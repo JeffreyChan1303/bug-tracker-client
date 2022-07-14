@@ -24,6 +24,7 @@ import {
   Support,
   UnassignedTickets,
   AssignTicket,
+  Profile,
 } from './components/Application/index';
 import { userActions } from './services/user/userSlice';
 import { handleAlerts } from './services/alertsSlice';
@@ -86,7 +87,8 @@ const App = () => {
           <Box
             component="nav"
             sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
-            aria-label="navigation drawer">
+            aria-label="navigation drawer"
+          >
             <Drawer
               variant="temporary"
               open={mobileOpen}
@@ -97,7 +99,8 @@ const App = () => {
               sx={{
                 display: { xs: 'block', md: 'none' },
                 '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-              }}>
+              }}
+            >
               <Navbar user={user} />
             </Drawer>
 
@@ -107,7 +110,8 @@ const App = () => {
                 display: { xs: 'none', md: 'block' }, // hides in mobile view
                 '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
               }}
-              open>
+              open
+            >
               <Navbar user={user} />
             </Drawer>
           </Box>
@@ -168,6 +172,7 @@ const App = () => {
 
               {/* User Routes */}
 
+              <Route exact path="/profile" element={<Profile />} />
               <Route exact path="/notifications" element={<NotificationsPage />} />
               <Route exact path="/notifications/search" element={<NotificationsPage />} />
             </Routes>

@@ -69,23 +69,6 @@ const Navbar = ({ user }) => {
 
       <List>
         <Divider />
-        {/* <StyledLink to="/dashboard">
-          {pathname.includes('/dashboard') ? (
-            <ListItem button sx={{ bgcolor: 'grey.200' }} key="Dashboard">
-              <ListItemIcon>
-                <DashboardIcon color="primary" />
-              </ListItemIcon>
-              <ListItemText primary="Dashboard" />
-            </ListItem>
-          ) : (
-            <ListItem button key="Dashboard">
-              <ListItemIcon>
-                <DashboardIcon color="primary" />
-              </ListItemIcon>
-              <ListItemText primary="Dashboard" />
-            </ListItem>
-          )}
-        </StyledLink> */}
 
         <NavbarLink
           currentPath={pathname}

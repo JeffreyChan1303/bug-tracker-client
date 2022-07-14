@@ -105,7 +105,8 @@ const SelectFromAllUsers = ({ path, handleAddSelectedUser }) => {
                   <ContentTableCell align="left">{user.email}</ContentTableCell>
                   <ContentTableCell align="center">
                     <IconButton
-                      onClick={() => handleAddSelectedUser(user._id, user.name, user.email)}>
+                      onClick={() => handleAddSelectedUser(user._id, user.name, user.email)}
+                    >
                       <AddIcon />
                     </IconButton>
                   </ContentTableCell>

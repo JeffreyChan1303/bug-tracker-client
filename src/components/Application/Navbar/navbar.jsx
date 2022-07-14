@@ -13,7 +13,7 @@ import {
   Container,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import { styled } from '@mui/material/styles';
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -21,8 +21,8 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import FolderIcon from '@mui/icons-material/Folder';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+import NavbarLink from './navbarLink';
 
 const StyledAccordion = styled(Accordion)(() => ({
   '&.Mui-expanded:before': {
@@ -44,6 +44,7 @@ const StyledLink = styled(Link)(({ theme }) => ({
 
 const Navbar = ({ user }) => {
   const [expanded, setExpanded] = React.useState(false); // shows which nav item is expanded
+  const { pathname } = useLocation();
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -68,24 +69,38 @@ const Navbar = ({ user }) => {
 
       <List>
         <Divider />
-        <StyledLink to="/dashboard">
-          <ListItem button key="Dashboard">
-            <ListItemIcon>
-              <DashboardIcon color="primary" />
-            </ListItemIcon>
-            <ListItemText primary="Dashboard" />
-          </ListItem>
-        </StyledLink>
+        {/* <StyledLink to="/dashboard">
+          {pathname.includes('/dashboard') ? (
+            <ListItem button sx={{ bgcolor: 'grey.200' }} key="Dashboard">
+              <ListItemIcon>
+                <DashboardIcon color="primary" />
+              </ListItemIcon>
+              <ListItemText primary="Dashboard" />
+            </ListItem>
+          ) : (
+            <ListItem button key="Dashboard">
+              <ListItemIcon>
+                <DashboardIcon color="primary" />
+              </ListItemIcon>
+              <ListItemText primary="Dashboard" />
+            </ListItem>
+          )}
+        </StyledLink> */}
+
+        <NavbarLink
+          currentPath={pathname}
+          targetPath="/dashboard"
+          linkName="Dashboard"
+          icon={<DashboardIcon color="primary" />}
+        />
 
         <Divider />
-        <StyledLink to="/notifications">
-          <ListItem button key="Notification Inbox">
-            <ListItemIcon>
-              <NotificationsIcon color="primary" />
-            </ListItemIcon>
-            <ListItemText primary="Notification Inbox" />
-          </ListItem>
-        </StyledLink>
+        <NavbarLink
+          currentPath={pathname}
+          targetPath="/notifications"
+          linkName="Notification Inbox"
+          icon={<NotificationsIcon color="primary" />}
+        />
 
         <Divider />
 
@@ -94,7 +109,8 @@ const Navbar = ({ user }) => {
           expanded={expanded === 'panel1'}
           onChange={handleChange('panel1')}
           disableGutters
-          elevation={0}>
+          elevation={0}
+        >
           <StyledAccordionSummary expandIcon={<ExpandMoreIcon />}>
             <ListItemIcon>
               <FolderIcon color="primary" />
@@ -103,47 +119,39 @@ const Navbar = ({ user }) => {
           </StyledAccordionSummary>
 
           <AccordionDetails sx={{ padding: '0' }}>
-            <StyledLink to="/allProjects">
-              <ListItem button key="All Projects" sx={{ paddingLeft: '32px' }}>
-                <ListItemIcon>
-                  <ArrowRightAltIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText primary="All Projects" />
-              </ListItem>
-            </StyledLink>
+            <NavbarLink
+              currentPath={pathname}
+              targetPath="/allProjects"
+              linkName="All Projects"
+              icon={<ArrowRightAltIcon color="primary" />}
+            />
           </AccordionDetails>
 
           <AccordionDetails sx={{ padding: '0' }}>
-            <StyledLink to="/myProjects">
-              <ListItem button key="My Projects" sx={{ paddingLeft: '32px' }}>
-                <ListItemIcon>
-                  <ArrowRightAltIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText primary="My Projects" />
-              </ListItem>
-            </StyledLink>
+            <NavbarLink
+              currentPath={pathname}
+              targetPath="/myProjects"
+              linkName="My Projects"
+              icon={<ArrowRightAltIcon color="primary" />}
+            />
           </AccordionDetails>
 
           <AccordionDetails sx={{ padding: '0' }}>
-            <StyledLink to="/addProject">
-              <ListItem button key="Add Project" sx={{ paddingLeft: '32px' }}>
-                <ListItemIcon>
-                  <ArrowRightAltIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText primary="Add Project" />
-              </ListItem>
-            </StyledLink>
+            <NavbarLink
+              currentPath={pathname}
+              targetPath="/addProject"
+              linkName="Add Project"
+              icon={<ArrowRightAltIcon color="primary" />}
+            />
           </AccordionDetails>
 
           <AccordionDetails sx={{ padding: '0' }}>
-            <StyledLink to="/projectArchive">
-              <ListItem button key="Project Archive" sx={{ paddingLeft: '32px' }}>
-                <ListItemIcon>
-                  <ArrowRightAltIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText primary="Project Archive" />
-              </ListItem>
-            </StyledLink>
+            <NavbarLink
+              currentPath={pathname}
+              targetPath="/projectArchive"
+              linkName="Project Archive"
+              icon={<ArrowRightAltIcon color="primary" />}
+            />
           </AccordionDetails>
         </StyledAccordion>
 
@@ -153,7 +161,8 @@ const Navbar = ({ user }) => {
           expanded={expanded === 'panel2'}
           onChange={handleChange('panel2')}
           disableGutters
-          elevation={0}>
+          elevation={0}
+        >
           <StyledAccordionSummary expandIcon={<ExpandMoreIcon />}>
             <ListItemIcon>
               <ConfirmationNumberIcon color="primary" />
@@ -162,58 +171,48 @@ const Navbar = ({ user }) => {
           </StyledAccordionSummary>
 
           <AccordionDetails sx={{ padding: '0' }}>
-            <StyledLink to="/allTickets">
-              <ListItem button key="All Tickets" sx={{ paddingLeft: '32px' }}>
-                <ListItemIcon>
-                  <ArrowRightAltIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText primary="All Tickets" />
-              </ListItem>
-            </StyledLink>
+            <NavbarLink
+              currentPath={pathname}
+              targetPath="/allTickets"
+              linkName="All Tickets"
+              icon={<ArrowRightAltIcon color="primary" />}
+            />
           </AccordionDetails>
 
           <AccordionDetails sx={{ padding: '0' }}>
-            <StyledLink to="/myTickets">
-              <ListItem button key="My Tickets" sx={{ paddingLeft: '32px' }}>
-                <ListItemIcon>
-                  <ArrowRightAltIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText primary="My Tickets" />
-              </ListItem>
-            </StyledLink>
+            <NavbarLink
+              currentPath={pathname}
+              targetPath="/myTickets"
+              linkName="My Tickets"
+              icon={<ArrowRightAltIcon color="primary" />}
+            />
           </AccordionDetails>
 
           <AccordionDetails sx={{ padding: '0' }}>
-            <StyledLink to="/unassignedTickets">
-              <ListItem button key="Unassigned Tickets" sx={{ paddingLeft: '32px' }}>
-                <ListItemIcon>
-                  <ArrowRightAltIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText primary="Unassigned Tickets" />
-              </ListItem>
-            </StyledLink>
+            <NavbarLink
+              currentPath={pathname}
+              targetPath="/unassignedTickets"
+              linkName="Unassigned Tickets"
+              icon={<ArrowRightAltIcon color="primary" />}
+            />
           </AccordionDetails>
 
           <AccordionDetails sx={{ padding: '0' }}>
-            <StyledLink to="/addTicket">
-              <ListItem button key="Add Ticket" sx={{ paddingLeft: '32px' }}>
-                <ListItemIcon>
-                  <ArrowRightAltIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText primary="Add Ticket" />
-              </ListItem>
-            </StyledLink>
+            <NavbarLink
+              currentPath={pathname}
+              targetPath="/addTicket"
+              linkName="Add tickets"
+              icon={<ArrowRightAltIcon color="primary" />}
+            />
           </AccordionDetails>
 
           <AccordionDetails sx={{ padding: '0' }}>
-            <StyledLink to="/ticketArchive">
-              <ListItem button key="Ticket Archive" sx={{ paddingLeft: '32px' }}>
-                <ListItemIcon>
-                  <ArrowRightAltIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText primary="Ticket Archive" />
-              </ListItem>
-            </StyledLink>
+            <NavbarLink
+              currentPath={pathname}
+              targetPath="/ticketArchive"
+              linkName="Ticket Archive"
+              icon={<ArrowRightAltIcon color="primary" />}
+            />
           </AccordionDetails>
         </StyledAccordion>
 
@@ -224,7 +223,8 @@ const Navbar = ({ user }) => {
           onChange={handleChange('panel3')}
           disableGutters
           square
-          elevation={0}>
+          elevation={0}
+        >
           <StyledAccordionSummary expandIcon={<ExpandMoreIcon />}>
             <ListItemIcon>
               <ArrowRightAltIcon color="primary" />
@@ -257,14 +257,12 @@ const Navbar = ({ user }) => {
 
         <Divider />
 
-        <StyledLink to="/support" sx={{ justifySelf: 'flex-end' }}>
-          <ListItem button key="Support Ticket">
-            <ListItemIcon>
-              <ErrorOutlineIcon color="primary" />
-            </ListItemIcon>
-            <ListItemText primary="Support Ticket" />
-          </ListItem>
-        </StyledLink>
+        <NavbarLink
+          currentPath={pathname}
+          targetPath="/support"
+          linkName="Support Ticket"
+          icon={<ErrorOutlineIcon color="primary" />}
+        />
 
         <Divider />
       </List>

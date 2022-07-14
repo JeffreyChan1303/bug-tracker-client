@@ -14,9 +14,9 @@ import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
-  getProjectDetails,
   updateUsersRoles,
   deleteUsersFromProject,
+  getProjectUsers,
 } from '../../../services/project/projectDetailsSlice';
 import { handleAlerts } from '../../../services/alertsSlice';
 import SelectFromAllUsers from '../Users/selectFromAllUsers';
@@ -26,13 +26,14 @@ const ManageUserRoles = () => {
   const [role, setRole] = useState('');
   const dispatch = useDispatch();
   const {
-    project: { users: currentProjectUsers },
-    loading: getProjectDetailsLoading,
+    projectUsers: { original: currentProjectUsers },
+    getProjectUsers: { loading },
   } = useSelector((state) => state.projectDetails);
+
   const [selectedUsers, setSelectedUsers] = useState({});
 
   useEffect(() => {
-    dispatch(getProjectDetails(projectId));
+    dispatch(getProjectUsers(projectId));
   }, []);
 
   const handleRoleChange = (e) => {
@@ -50,7 +51,7 @@ const ManageUserRoles = () => {
     });
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (role === '' || Object.keys(selectedUsers).length <= 0) {
       dispatch(
         handleAlerts({
@@ -59,8 +60,8 @@ const ManageUserRoles = () => {
         })
       );
     } else {
-      dispatch(updateUsersRoles({ projectId, users: selectedUsers, role }));
-      dispatch(getProjectDetails(projectId));
+      await dispatch(updateUsersRoles({ projectId, users: selectedUsers, role }));
+      dispatch(getProjectUsers(projectId));
     }
   };
 
@@ -82,7 +83,7 @@ const ManageUserRoles = () => {
     dispatch(deleteUsersFromProject({ projectId, users: { ...selectedUsers } }));
   };
 
-  return getProjectDetailsLoading ? (
+  return loading ? (
     <CircularProgress color="inherit" />
   ) : (
     <Grid container spacing="30px">
@@ -90,7 +91,8 @@ const ManageUserRoles = () => {
         <Typography fontWeight={700}>Current Project Users</Typography>
         <Box
           sx={{ border: 1, borderColor: 'black', borderRadius: '1px', p: '10px' }}
-          maxHeight="200px">
+          maxHeight="200px"
+        >
           {currentProjectUsers &&
             Object.keys(currentProjectUsers).map((userId) => (
               <Button
@@ -104,7 +106,8 @@ const ManageUserRoles = () => {
                     currentProjectUsers[userId].name,
                     currentProjectUsers[userId].email
                   )
-                }>
+                }
+              >
                 <Typography variant="inherit">Name: {currentProjectUsers[userId].name}</Typography>
                 <Typography variant="inherit">Role: {currentProjectUsers[userId].role}</Typography>
               </Button>

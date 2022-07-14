@@ -5,7 +5,6 @@ const initialState = {
 };
 
 // we need to have unique id numbers to delete cirtain object
-
 export const alertsSlice = createSlice({
   name: 'Alert',
   initialState,
@@ -14,8 +13,8 @@ export const alertsSlice = createSlice({
       let id = Math.floor(Math.random() * 100 + 1);
       // while the new id is the same as an id in the array, find another id
 
-      const getAlertId = (e) => e.id;
-      while (state.alerts.findIndex(getAlertId === id) !== -1) {
+      // eslint-disable-next-line no-loop-func
+      while (state.alerts.findIndex((e) => e.id === id) !== -1) {
         id = Math.floor(Math.random() * 100 + 1);
       }
 
@@ -38,19 +37,19 @@ export const alertsSlice = createSlice({
 });
 
 export default alertsSlice.reducer;
-export const {
-  addAlert,
-  closeAlertById,
-} = alertsSlice.actions;
+export const { addAlert, closeAlertById } = alertsSlice.actions;
 
-export const handleAlerts = createAsyncThunk('alert/handleAlert', async ({ severity, message }, { dispatch, getState }) => {
-  dispatch(addAlert({ severity, message }));
+export const handleAlerts = createAsyncThunk(
+  'alert/handleAlert',
+  async ({ severity, message }, { dispatch, getState }) => {
+    dispatch(addAlert({ severity, message }));
 
-  // gets the alerts property from the alerts store!
-  const { alerts } = getState().alerts;
-  const { id } = alerts[alerts.length - 1];
+    // gets the alerts property from the alerts store!
+    const { alerts } = getState().alerts;
+    const { id } = alerts[alerts.length - 1];
 
-  setTimeout(() => {
-    dispatch(closeAlertById(id));
-  }, 6000);
-});
+    setTimeout(() => {
+      dispatch(closeAlertById(id));
+    }, 6000);
+  }
+);

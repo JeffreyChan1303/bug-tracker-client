@@ -27,6 +27,7 @@
         }],
         "react/prop-types": [0],
         "no-underscore-dangle": [ 1, { "allow": ["_id"] }],
-        "react/jsx-props-no-spreading": [0]
+        "react/jsx-props-no-spreading": [0],
+        "array-callback-return": [0]
     }
 }

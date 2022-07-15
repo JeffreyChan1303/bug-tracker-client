@@ -12,12 +12,16 @@ import {
   TableRow,
   TableBody,
   Tooltip,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
   Paper,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import DeleteIcon from '@mui/icons-material/Delete';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getUserNotifications,
@@ -121,10 +125,31 @@ const NotificationPage = () => {
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                   <ContentTableCell component="th" scope="row">
-                    {notification.title}
+                    {/* {notification.title} */}
+                    {/* Make this an accordian!!!!!!!!!!!!! and put description below it when user opens it */}
+                    <Accordion elevation={0} disableGutters>
+                      <AccordionSummary
+                        sx={{
+                          '&.MuiAccordionSummary': { m: 0 },
+                          '&:hover': {
+                            bgcolor: 'grey.300',
+                          },
+                        }}
+                        expandIcon={<ExpandMoreIcon />}
+                      >
+                        <Typography variant="body1">{notification.title}</Typography>
+                      </AccordionSummary>
+
+                      <AccordionDetails key={notification.createdAt}>
+                        <Typography variant="body1" fontWeight={700}>
+                          {notification.description}
+                        </Typography>
+                      </AccordionDetails>
+                    </Accordion>
                   </ContentTableCell>
+
                   <ContentTableCell align="right">{notification.createdAt}</ContentTableCell>
-                  <ContentTableCell sx={{ display: 'flex', justifyContent: 'center' }}>
+                  <ContentTableCell>
                     <Tooltip title="Delete" disableInteractive>
                       <IconButton onClick={() => handleDeleteNotification(notification.createdAt)}>
                         <DeleteIcon />

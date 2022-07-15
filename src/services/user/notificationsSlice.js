@@ -65,9 +65,9 @@ export const getUserNotificationsBySearch = createAsyncThunk(
 
 export const createUsersNotification = createAsyncThunk(
   'user/createUsersNotifications',
-  async (params, { dispatch, rejectWithValue }) => {
+  async ({ users, title, description }, { dispatch, rejectWithValue }) => {
     try {
-      const { data } = api.createUsersNotification(params);
+      const { data } = api.createUsersNotification({ users, title, description });
 
       return data;
     } catch (error) {

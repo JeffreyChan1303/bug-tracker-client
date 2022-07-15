@@ -73,7 +73,7 @@ export const updateUsersRoles = createAsyncThunk(
         createUsersNotification({
           users: Object.keys(usersCopy),
           title: 'Your role in a project has been changed',
-          desscription: `Your Role in Project ${projectId} was changed to ${role} by ${name}`,
+          description: `Your Role in Project ${projectId} was changed to ${role} by ${name}`,
         })
       );
 

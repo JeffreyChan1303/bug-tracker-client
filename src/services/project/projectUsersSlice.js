@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
 import * as api from '../../api/index';
 import { handleAlerts } from '../alertsSlice';
+import { createUsersNotification } from '../user/notificationsSlice';
 // import { createUsersNotification } from '../user/notificationsSlice';
 
 const initialState = {
@@ -56,13 +57,26 @@ export const updateUsersRoles = createAsyncThunk(
       const usersCopy = { ...users };
       Object.keys(usersCopy).map((userId) => {
         usersCopy[userId].role = role;
+        return userId;
       });
+
+      /* eslint-disable */
 
       const { data } = await api.updateUsersRoles(projectId, users);
 
       dispatch(
         handleAlerts({ severity: 'success', message: 'Users roles were successfully updated' })
       );
+
+      const { name } = JSON.parse(localStorage.getItem('profile')).userObject;
+      dispatch(
+        createUsersNotification({
+          users: Object.keys(usersCopy),
+          title: 'Your role in a project has been changed',
+          desscription: `Your Role in Project ${projectId} was changed to ${role} by ${name}`,
+        })
+      );
+
       return data;
     } catch (error) {
       console.log(error);

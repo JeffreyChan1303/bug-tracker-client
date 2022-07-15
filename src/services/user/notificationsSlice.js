@@ -20,56 +20,88 @@ const initialState = {
   numberOfPages: null,
 };
 
-export const getUserNotifications = createAsyncThunk('user/getUserNotifications', async (page, { dispatch, rejectWithValue }) => {
-  try {
-    const { data } = await api.getUserNotifications(page);
+export const getUserNotifications = createAsyncThunk(
+  'user/getUserNotifications',
+  async (page, { dispatch, rejectWithValue }) => {
+    try {
+      const { data } = await api.getUserNotifications(page);
 
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.log(error);
-    dispatch(handleAlerts({ severity: 'error', message: `User notifications were not able to be fetched. Error: ${error.message}` }));
-    return rejectWithValue(error);
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        handleAlerts({
+          severity: 'error',
+          message: `User notifications were not able to be fetched. Error: ${error.message}`,
+        })
+      );
+      return rejectWithValue(error);
+    }
   }
-});
+);
 
-export const getUserNotificationsBySearch = createAsyncThunk('user/getUserNotificationsBySearch', async ({ page, search }, { dispatch, rejectWithValue }) => {
-  const searchQuery = search;
-  try {
-    const { data } = await api.getUserNotificationsBySearch(page, searchQuery);
+export const getUserNotificationsBySearch = createAsyncThunk(
+  'user/getUserNotificationsBySearch',
+  async ({ page, search }, { dispatch, rejectWithValue }) => {
+    const searchQuery = search;
+    try {
+      const { data } = await api.getUserNotificationsBySearch(page, searchQuery);
 
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.log(error);
-    dispatch(handleAlerts({ severity: 'error', message: `User notifications were not able to be fetched. Error: ${error.message}` }));
-    return rejectWithValue(error);
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        handleAlerts({
+          severity: 'error',
+          message: `User notifications were not able to be fetched. Error: ${error.message}`,
+        })
+      );
+      return rejectWithValue(error);
+    }
   }
-});
+);
 
-export const createUsersNotification = createAsyncThunk('user/createUsersNotifications', async (params, { dispatch, rejectWithValue }) => {
-  try {
-    const { data } = api.createUsersNotification(params);
+export const createUsersNotification = createAsyncThunk(
+  'user/createUsersNotifications',
+  async (params, { dispatch, rejectWithValue }) => {
+    try {
+      const { data } = api.createUsersNotification(params);
 
-    return data;
-  } catch (error) {
-    console.log(error);
-    dispatch(handleAlerts({ severity: 'error', message: `Users notification was not able to be created. Error: ${error.message}` }));
-    return rejectWithValue(error);
+      return data;
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        handleAlerts({
+          severity: 'error',
+          message: `Users notification was not able to be created. Error: ${error.message}`,
+        })
+      );
+      return rejectWithValue(error);
+    }
   }
-});
+);
 
-export const deleteUserNotification = createAsyncThunk('user/deleteUserNotification', async (createdAt, { dispatch, rejectWithValue }) => {
-  try {
-    const { data } = api.deleteUserNotification(createdAt);
+export const deleteUserNotification = createAsyncThunk(
+  'user/deleteUserNotification',
+  async (createdAt, { dispatch, rejectWithValue }) => {
+    try {
+      const { data } = api.deleteUserNotification(createdAt);
 
-    return data;
-  } catch (error) {
-    console.log(error);
-    dispatch(handleAlerts({ severity: 'error', message: `User notification was not able to be deleted. Error: ${error.message}` }));
-    return rejectWithValue(error);
+      return data;
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        handleAlerts({
+          severity: 'error',
+          message: `User notification was not able to be deleted. Error: ${error.message}`,
+        })
+      );
+      return rejectWithValue(error);
+    }
   }
-});
+);
 
 const notificationsSlice = createSlice({
   name: 'Notifications',

@@ -20,7 +20,7 @@ import {
   TicketArchive,
   TicketDetails,
   ManageUserRoles,
-  NotificationsPage,
+  Notifications,
   AllSupportTickets,
   AddSupportTicket,
   UnassignedTickets,
@@ -175,8 +175,8 @@ const App = () => {
               {/* User Routes */}
 
               <Route exact path="/profile" element={<Profile />} />
-              <Route exact path="/notifications" element={<NotificationsPage />} />
-              <Route exact path="/notifications/search" element={<NotificationsPage />} />
+              <Route exact path="/notifications" element={<Notifications />} />
+              <Route exact path="/notifications/search" element={<Notifications />} />
             </Routes>
           </Box>
         </Box>

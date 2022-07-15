@@ -17,7 +17,7 @@ import {
   updateUsersRoles,
   deleteUsersFromProject,
   getProjectUsers,
-} from '../../../services/project/projectDetailsSlice';
+} from '../../../services/project/projectUsersSlice';
 import { handleAlerts } from '../../../services/alertsSlice';
 import SelectFromAllUsers from '../Users/selectFromAllUsers';
 
@@ -28,7 +28,7 @@ const ManageUserRoles = () => {
   const {
     projectUsers: { original: currentProjectUsers },
     getProjectUsers: { loading },
-  } = useSelector((state) => state.projectDetails);
+  } = useSelector((state) => state.projectUsers);
 
   const [selectedUsers, setSelectedUsers] = useState({});
 

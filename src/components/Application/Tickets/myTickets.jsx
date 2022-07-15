@@ -75,13 +75,11 @@ const MyTickets = () => {
       <Box sx={{ overflowX: 'scroll' }}>
         <Grid container justifyContent="space-between" sx={{ mb: 1 }}>
           <Typography variant="h5" fontWeight={700}>
-            {' '}
-            My Tickets{' '}
+            My Tickets
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'right' }}>
             <Typography align="right" variant="body1">
-              {' '}
-              Search:&nbsp;{' '}
+              Search:&nbsp;
             </Typography>
             <TextField
               size="small"

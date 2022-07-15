@@ -1,7 +1,7 @@
 export { default as Header } from './header';
 export { default as Navbar } from './Navbar/navbar';
 export { default as Dashboard } from './Dashboard/dashboard';
-export { default as NotificationsPage } from './notificationsPage';
+export { default as Notifications } from './notifications';
 export { default as Profile } from './Users/profile';
 
 export { default as AddProject } from './Projects/addProject';

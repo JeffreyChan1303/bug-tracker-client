@@ -22,6 +22,7 @@ import myProjectsReducer from '../services/project/myProjectsSlice';
 import projectArchiveReducer from '../services/project/projectArchiveSlice';
 import addProjectReducer from '../services/project/addProjectSlice';
 import projectDetailsReducer from '../services/project/projectDetailsSlice';
+import projectUsersReducer from '../services/project/projectUsersSlice';
 
 // Other imports
 import alertsReducer from '../services/alertsSlice';
@@ -49,14 +50,13 @@ export const store = configureStore({
     myProjects: myProjectsReducer,
     addProject: addProjectReducer,
     projectDetails: projectDetailsReducer,
+    projectUsers: projectUsersReducer,
     projectArchive: projectArchiveReducer,
 
     // Other stores
     alerts: alertsReducer,
     dashboard: dashboardReducer,
-
   },
-
 });
 
 export default store;

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   Box,
   Typography,
+  Grid,
   Paper,
   Table,
   TableHead,
@@ -71,24 +72,24 @@ const AllTickets = () => {
   ) : (
     <Paper sx={{ p: 3 }} elevation={3}>
       <Box sx={{ overflowX: 'scroll' }}>
-        <Typography variant="h5" fontWeight={700}>
-          {' '}
-          All Tickets{' '}
-        </Typography>
-        <Box sx={{ display: 'flex', justifyContent: 'right' }}>
-          <Typography align="right" variant="body1">
-            {' '}
-            Search:&nbsp;{' '}
+        <Grid container justifyContent="space-between" sx={{ mb: 1 }}>
+          <Typography variant="h5" fontWeight={700}>
+            All Tickets
           </Typography>
-          <TextField
-            size="small"
-            variant="standard"
-            name="search"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            onKeyDown={handleKeyPress}
-          />
-        </Box>
+          <Box sx={{ display: 'flex', justifyContent: 'right' }}>
+            <Typography align="right" variant="body1">
+              Search:&nbsp;
+            </Typography>
+            <TextField
+              size="small"
+              variant="standard"
+              name="search"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              onKeyDown={handleKeyPress}
+            />
+          </Box>
+        </Grid>
         <Table sx={{ minWidth: 650 }} aria-label="simple table" size="small">
           <TableHead>
             <TableRow>

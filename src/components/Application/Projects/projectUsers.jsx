@@ -21,7 +21,7 @@ import {
 import { styled } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import AddIcon from '@mui/icons-material/Add';
-import { getProjectUsers, searchProjectUsers } from '../../../services/project/projectDetailsSlice';
+import { getProjectUsers, searchProjectUsers } from '../../../services/project/projectUsersSlice';
 
 const BoldedTableCell = styled(TableCell)(({ theme }) => ({
   fontWeight: theme.typography.fontWeightBold,
@@ -44,7 +44,7 @@ const ProjectUsers = ({ projectId, handleSelectUser }) => {
   const {
     getProjectUsers: { loading },
     projectUsers,
-  } = useSelector((state) => state.projectDetails);
+  } = useSelector((state) => state.projectUsers);
 
   useEffect(() => {
     dispatch(getProjectUsers(projectId));

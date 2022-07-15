@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   Typography,
   CircularProgress,
-  Button,
+  Grid,
   TableCell,
   IconButton,
   Box,
@@ -22,7 +22,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   getUserNotifications,
   getUserNotificationsBySearch,
-  createUsersNotification,
   deleteUserNotification,
 } from '../../services/user/notificationsSlice';
 import CustomPagination from './pagination';
@@ -61,17 +60,6 @@ const NotificationPage = () => {
     }
   }, [page]);
 
-  const handleCreateNotification = () => {
-    // just for testing
-    const { _id } = JSON.parse(localStorage.getItem('profile')).userObject;
-    dispatch(
-      createUsersNotification({
-        users: [_id],
-        title: 'notification has been created',
-        description: 'Test Message',
-      })
-    );
-  };
   const handleDeleteNotification = (createdAt) => {
     // we will just use an array method and shift from the bottom for now!!!
     // we wil need to implement specific ids for the notifications soon though
@@ -97,22 +85,15 @@ const NotificationPage = () => {
   return loading ? (
     <CircularProgress color="inherit" />
   ) : (
-    <>
-      <Typography variant="body1">Notifications Page</Typography>
-      <Button variant="outlined" onClick={() => handleCreateNotification()}>
-        Create Notification
-      </Button>
-
-      <Paper sx={{ p: 3 }} elevation={3}>
-        <Box sx={{ overflowX: 'scroll' }}>
+    <Paper sx={{ p: 3 }} elevation={3}>
+      <Box sx={{ overflowX: 'scroll' }}>
+        <Grid container justifyContent="space-between" sx={{ mb: 1 }}>
           <Typography variant="h5" fontWeight={700}>
-            {' '}
-            All Notifications{' '}
+            All Notifications
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'right' }}>
             <Typography align="right" variant="body1">
-              {' '}
-              Search:&nbsp;{' '}
+              Search:&nbsp;
             </Typography>
             <TextField
               size="small"
@@ -123,48 +104,46 @@ const NotificationPage = () => {
               onKeyDown={handleKeyPress}
             />
           </Box>
-          <Table sx={{ minWidth: '650px' }} aria-label="simple table" size="small">
-            <TableHead>
-              <TableRow>
-                <BoldedTableCell>Title</BoldedTableCell>
-                <BoldedTableCell align="right">Created At</BoldedTableCell>
-                <BoldedTableCell align="center">Delete</BoldedTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {notifications &&
-                notifications.map((notification) => (
-                  <TableRow
-                    key={notification.createdAt}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    <ContentTableCell component="th" scope="row">
-                      {notification.title}
-                    </ContentTableCell>
-                    <ContentTableCell align="right">{notification.createdAt}</ContentTableCell>
-                    <ContentTableCell sx={{ display: 'flex', justifyContent: 'center' }}>
-                      <Tooltip title="Delete" disableInteractive>
-                        <IconButton
-                          onClick={() => handleDeleteNotification(notification.createdAt)}
-                        >
-                          <DeleteIcon />
-                        </IconButton>
-                      </Tooltip>
-                    </ContentTableCell>
-                  </TableRow>
-                ))}
-            </TableBody>
-          </Table>
-        </Box>
+        </Grid>
+        <Table sx={{ minWidth: '650px' }} aria-label="simple table" size="small">
+          <TableHead>
+            <TableRow>
+              <BoldedTableCell>Title</BoldedTableCell>
+              <BoldedTableCell align="right">Created At</BoldedTableCell>
+              <BoldedTableCell align="center">Delete</BoldedTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {notifications &&
+              notifications.map((notification) => (
+                <TableRow
+                  key={notification.createdAt}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <ContentTableCell component="th" scope="row">
+                    {notification.title}
+                  </ContentTableCell>
+                  <ContentTableCell align="right">{notification.createdAt}</ContentTableCell>
+                  <ContentTableCell sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <Tooltip title="Delete" disableInteractive>
+                      <IconButton onClick={() => handleDeleteNotification(notification.createdAt)}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </Tooltip>
+                  </ContentTableCell>
+                </TableRow>
+              ))}
+          </TableBody>
+        </Table>
+      </Box>
 
-        <CustomPagination
-          path={`/notifications${search.trim() ? `/search?searchQuery=${search}&` : `?`}`}
-          page={page}
-          currentPage={currentPage}
-          numberOfPages={numberOfPages}
-        />
-      </Paper>
-    </>
+      <CustomPagination
+        path={`/notifications${search.trim() ? `/search?searchQuery=${search}&` : `?`}`}
+        page={page}
+        currentPage={currentPage}
+        numberOfPages={numberOfPages}
+      />
+    </Paper>
   );
 };
 

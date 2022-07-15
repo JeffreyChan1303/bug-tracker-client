@@ -15,7 +15,9 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  Button,
   Paper,
+  Badge,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -27,6 +29,8 @@ import {
   getUserNotifications,
   getUserNotificationsBySearch,
   deleteUserNotification,
+  readNotification,
+  readAllNotifications,
 } from '../../services/user/notificationsSlice';
 import CustomPagination from './pagination';
 
@@ -86,6 +90,14 @@ const NotificationPage = () => {
     }
   };
 
+  const handleRead = (createdAt) => {
+    dispatch(readNotification({ createdAt }));
+  };
+
+  const handleReadAll = () => {
+    dispatch(readAllNotifications());
+  };
+
   return loading ? (
     <CircularProgress color="inherit" />
   ) : (
@@ -96,6 +108,13 @@ const NotificationPage = () => {
             All Notifications
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'right' }}>
+            <Button
+              variant="outlined"
+              onClick={handleReadAll}
+              sx={{ mr: '20px', textTransform: 'none' }}
+            >
+              <Typography variant="body2">Read all notifications</Typography>
+            </Button>
             <Typography align="right" variant="body1">
               Search:&nbsp;
             </Typography>
@@ -127,7 +146,7 @@ const NotificationPage = () => {
                   <ContentTableCell component="th" scope="row">
                     {/* {notification.title} */}
                     {/* Make this an accordian!!!!!!!!!!!!! and put description below it when user opens it */}
-                    <Accordion elevation={0} disableGutters>
+                    <Accordion elevation={0} disableGutters onChange={() => handleRead}>
                       <AccordionSummary
                         sx={{
                           '&.MuiAccordionSummary': { m: 0 },
@@ -137,7 +156,11 @@ const NotificationPage = () => {
                         }}
                         expandIcon={<ExpandMoreIcon />}
                       >
-                        <Typography variant="body1">{notification.title}</Typography>
+                        <Badge color="error" variant="dot">
+                          <Typography variant="body1" marginRight={1}>
+                            {notification.title}
+                          </Typography>
+                        </Badge>
                       </AccordionSummary>
 
                       <AccordionDetails key={notification.createdAt}>

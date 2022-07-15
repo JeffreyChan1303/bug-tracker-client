@@ -29,6 +29,9 @@ export const getUserNotificationsBySearch = (page, searchQuery) => API.get(`/use
 export const createUsersNotification = (payload) => API.put('/users/createUsersNotification', payload);
 export const deleteUserNotification = (createdAt) => API.put('/users/deleteUserNotification', createdAt);
 
+export const readNotification = (createdAt) => API.patch(`users/readNotification`, { createdAt });
+export const readAllNotifications = () => API.patch(`users/readAllNotifications`);
+
 // Ticket APIs
 export const getAllTicketsBySearch = (page, searchQuery) => API.get(`/tickets/allTickets/search?searchQuery=${searchQuery || ''}&page=${page}`);
 

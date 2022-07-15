@@ -15,6 +15,14 @@ const initialState = {
     loading: false,
     error: '',
   },
+  readNotification: {
+    loading: false,
+    error: '',
+  },
+  readAllNotifications: {
+    loading: false,
+    error: '',
+  },
   notifications: [],
   currentPage: null,
   numberOfPages: null,
@@ -67,7 +75,7 @@ export const createUsersNotification = createAsyncThunk(
   'user/createUsersNotifications',
   async ({ users, title, description }, { dispatch, rejectWithValue }) => {
     try {
-      const { data } = api.createUsersNotification({ users, title, description });
+      const { data } = await api.createUsersNotification({ users, title, description });
 
       return data;
     } catch (error) {
@@ -87,7 +95,7 @@ export const deleteUserNotification = createAsyncThunk(
   'user/deleteUserNotification',
   async (createdAt, { dispatch, rejectWithValue }) => {
     try {
-      const { data } = api.deleteUserNotification(createdAt);
+      const { data } = await api.deleteUserNotification(createdAt);
 
       return data;
     } catch (error) {
@@ -96,6 +104,49 @@ export const deleteUserNotification = createAsyncThunk(
         handleAlerts({
           severity: 'error',
           message: `User notification was not able to be deleted. Error: ${error.message}`,
+        })
+      );
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const readNotification = createAsyncThunk(
+  'user/readNotification',
+  async ({ createdAt }, { dispatch, rejectWithValue }) => {
+    try {
+      const { data } = await api.readNotification(createdAt);
+
+      return data;
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        handleAlerts({
+          severity: 'error',
+          message: `failed to read notification. Error: ${error.message}`,
+        })
+      );
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const readAllNotifications = createAsyncThunk(
+  'user/readAllNotifications',
+  async (params, { dispatch, rejectWithValue }) => {
+    try {
+      const { data } = await api.readAllNotifications();
+
+      dispatch(
+        handleAlerts({ severity: 'success', message: `Successfully read all notifications` })
+      );
+      return data;
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        handleAlerts({
+          severity: 'error',
+          message: `failed to read all notifications. Error: ${error.message}`,
         })
       );
       return rejectWithValue(error);
@@ -172,6 +223,36 @@ const notificationsSlice = createSlice({
       const currentState = state;
       currentState.deleteUserNotification.loading = false;
       currentState.deleteUserNotification.error = action.payload.message;
+    });
+
+    // Read Notification
+    builder.addCase(readNotification.pending, (state) => {
+      const currentState = state;
+      currentState.readNotification.loading = true;
+    });
+    builder.addCase(readNotification.fulfilled, (state) => {
+      const currentState = state;
+      currentState.readNotification.loading = false;
+    });
+    builder.addCase(readNotification.rejected, (state, action) => {
+      const currentState = state;
+      currentState.readNotification.loading = false;
+      currentState.readNotification.error = action.payload.message;
+    });
+
+    // Read All Notifications
+    builder.addCase(readNotification.pending, (state) => {
+      const currentState = state;
+      currentState.readNotification.loading = true;
+    });
+    builder.addCase(readNotification.fulfilled, (state) => {
+      const currentState = state;
+      currentState.readNotification.loading = false;
+    });
+    builder.addCase(readNotification.rejected, (state, action) => {
+      const currentState = state;
+      currentState.readNotification.loading = false;
+      currentState.readNotification.error = action.payload.message;
     });
   },
 });

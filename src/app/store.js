@@ -13,7 +13,6 @@ import myTicketsReducer from '../services/ticket/myTicketsSlice';
 import addTicketReducer from '../services/ticket/addTicketSlice';
 import ticketDetailsReducer from '../services/ticket/ticketDetailsSlice';
 import ticketArchiveReducer from '../services/ticket/ticketArchiveSlice';
-
 import unassignedTicketsReducer from '../services/ticket/unassignedTicketsSlice';
 
 // Project Imports
@@ -27,6 +26,7 @@ import projectUsersReducer from '../services/project/projectUsersSlice';
 // Other imports
 import alertsReducer from '../services/alertsSlice';
 import dashboardReducer from '../services/dashboardSlice';
+import supportTicketsReducer from '../services/ticket/supportTicketsSlice';
 
 export const store = configureStore({
   reducer: {
@@ -56,6 +56,7 @@ export const store = configureStore({
     // Other stores
     alerts: alertsReducer,
     dashboard: dashboardReducer,
+    supportTickets: supportTicketsReducer,
   },
 });
 

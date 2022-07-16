@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getMyProjectsBySearch } from '../../../services/project/myProjectsSlice';
 import { createTicket } from '../../../services/ticket/addTicketSlice';
 import { handleAlerts } from '../../../services/alertsSlice';
+import { addSupportTicket } from '../../../services/ticket/supportTicketsSlice';
 
 const initialTicketData = {
   creator: '', // this state will be taken from the redux store where Login information is stored
@@ -29,7 +30,7 @@ const initialTicketData = {
   },
 };
 
-const AddTicket = ({ handleAddSupportTicket }) => {
+const AddTicket = ({ support }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [ticketData, setTicketData] = useState(initialTicketData);
@@ -59,13 +60,8 @@ const AddTicket = ({ handleAddSupportTicket }) => {
   const handleSubmit = (event) => {
     event.preventDefault(); // this stops the page from it's default refrash setting when clicking a button on the react form.
 
-    if (ticketData.project.title === '') {
-      dispatch(
-        handleAlerts({
-          severity: 'warning',
-          message: 'Invalid Project. Please choose a valid project.',
-        })
-      );
+    if (!support && ticketData.project.title === '') {
+      dispatch(handleAlerts({ severity: 'warning', message: 'Invalid Project' }));
     }
     if (ticketData.title === '') {
       dispatch(handleAlerts({ severity: 'warning', message: 'Invalid title' }));
@@ -74,13 +70,15 @@ const AddTicket = ({ handleAddSupportTicket }) => {
       dispatch(handleAlerts({ severity: 'warning', message: 'Invalid description' }));
     }
 
-    if (
-      ticketData.title !== '' &&
-      ticketData.description !== '' &&
-      ticketData.project.title !== ''
-    ) {
+    if (ticketData.title === '' || ticketData.description === '') {
+      return;
+    }
+
+    if (!support && ticketData.project !== '') {
       dispatch(createTicket({ ...ticketData, name: user?.userObject?.name }));
       navigate('/allTickets');
+    } else {
+      dispatch(addSupportTicket({ ...ticketData, name: user?.userObject?.name }));
     }
   };
 
@@ -92,7 +90,7 @@ const AddTicket = ({ handleAddSupportTicket }) => {
     <CircularProgress color="inherit" />
   ) : (
     <>
-      {handleAddSupportTicket ? (
+      {support ? (
         <Typography variant="h5">Add Support Ticket</Typography>
       ) : (
         <Typography variant="h5">Add Ticket</Typography>
@@ -100,23 +98,25 @@ const AddTicket = ({ handleAddSupportTicket }) => {
 
       <Paper sx={{ p: 3, maxWidth: { md: '700px' } }} elevation={3}>
         <form autoComplete="off" noValidate onSubmit={handleSubmit} style={{}}>
-          <Typography variant="body1" fontWeight={700}>
-            Project
-          </Typography>
+          {!support && (
+            <>
+              <Typography variant="body1" fontWeight={700}>
+                Project
+              </Typography>
 
-          {!handleAddSupportTicket && (
-            <Select value={ticketData.project.title} sx={{ mb: 2 }} fullWidth size="small">
-              {projects &&
-                projects.map((project) => (
-                  <MenuItem
-                    key={project._id}
-                    value={project.title}
-                    onClick={() => handleProjectChange(project._id, project.title)}
-                  >
-                    {project.title}
-                  </MenuItem>
-                ))}
-            </Select>
+              <Select value={ticketData.project.title} sx={{ mb: 2 }} fullWidth size="small">
+                {projects &&
+                  projects.map((project) => (
+                    <MenuItem
+                      key={project._id}
+                      value={project.title}
+                      onClick={() => handleProjectChange(project._id, project.title)}
+                    >
+                      {project.title}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </>
           )}
 
           <Typography variant="body1" fontWeight={700}>
@@ -195,27 +195,15 @@ const AddTicket = ({ handleAddSupportTicket }) => {
           </Select>
         </form>
 
-        {handleAddSupportTicket ? (
-          <Button
-            sx={{ mr: 1 }}
-            variant="contained"
-            color="primary"
-            size="small"
-            onClick={handleAddSupportTicket}
-          >
-            Save
-          </Button>
-        ) : (
-          <Button
-            sx={{ mr: 1 }}
-            variant="contained"
-            color="primary"
-            size="small"
-            onClick={handleSubmit}
-          >
-            Save
-          </Button>
-        )}
+        <Button
+          sx={{ mr: 1 }}
+          variant="contained"
+          color="primary"
+          size="small"
+          onClick={handleSubmit}
+        >
+          Save
+        </Button>
 
         <Button sx={{}} variant="outlined" color="secondary" size="small" onClick={handleClear}>
           Clear

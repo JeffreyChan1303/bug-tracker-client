@@ -1,35 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Box,
-  Typography,
-  Paper,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  CircularProgress,
-  IconButton,
-  Tooltip,
-  TextField,
-} from '@mui/material';
+import { Box, Typography, Paper, CircularProgress, TextField } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { styled } from '@mui/material/styles';
 import { useSelector, useDispatch } from 'react-redux';
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 import { getAllProjectsBySearch } from '../../../services/project/allProjectsSlice';
 import CustomPagination from '../pagination';
-
-const BoldedTableCell = styled(TableCell)(({ theme }) => ({
-  fontWeight: theme.typography.fontWeightBold,
-  padding: '8px 5px',
-}));
-
-const ContentTableCell = styled(TableCell)(() => ({
-  padding: '5px',
-}));
+import ProjectTable from './projectTable';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -89,45 +65,8 @@ const AllProjects = () => {
             onKeyDown={handleKeyPress}
           />
         </Box>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table" size="small">
-          <TableHead>
-            <TableRow>
-              <BoldedTableCell>Title</BoldedTableCell>
-              <BoldedTableCell sx={{ fontWeight: 600 }} align="right">
-                Submitted By
-              </BoldedTableCell>
-              <BoldedTableCell align="right">Created At</BoldedTableCell>
-              <BoldedTableCell align="center">Actions</BoldedTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {projects &&
-              projects.map((project) => (
-                <TableRow
-                  key={project._id}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <ContentTableCell component="th" scope="row">
-                    {project.title}
-                  </ContentTableCell>
-                  <ContentTableCell align="right">{project.name}</ContentTableCell>
-                  <ContentTableCell align="right">add the data created</ContentTableCell>
-                  <ContentTableCell sx={{ display: 'flex', justifyContent: 'center' }}>
-                    <Tooltip title="View" disableInteractive>
-                      <IconButton onClick={() => navigate(`/projectDetails/${project._id}`)}>
-                        <VisibilityOutlinedIcon />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Edit" disableInteractive>
-                      <IconButton onClick={() => navigate(`/editProject/${project._id}`)}>
-                        <EditOutlinedIcon />
-                      </IconButton>
-                    </Tooltip>
-                  </ContentTableCell>
-                </TableRow>
-              ))}
-          </TableBody>
-        </Table>
+
+        <ProjectTable projects={projects} projectDetails editProject />
       </Box>
 
       <CustomPagination

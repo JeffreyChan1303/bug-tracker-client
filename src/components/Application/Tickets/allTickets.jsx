@@ -24,6 +24,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 import { getAllTicketsBySearch } from '../../../services/ticket/allTicketsSlice';
 import CustomPagination from '../pagination';
+import { getDateFromISODate } from '../../Utility/dateUtility';
 
 const BoldedTableCell = styled(TableCell)(({ theme }) => ({
   fontWeight: theme.typography.fontWeightBold,
@@ -128,7 +129,9 @@ const AllTickets = () => {
                   <ContentTableCell align="right">
                     <Chip label={ticket.type} variant="outlined" color="secondary" />
                   </ContentTableCell>
-                  <ContentTableCell align="right">add last updated</ContentTableCell>
+                  <ContentTableCell align="right">
+                    {getDateFromISODate(ticket.updatedAt)}
+                  </ContentTableCell>
                   <ContentTableCell sx={{ display: 'flex', justifyContent: 'center' }}>
                     <Tooltip title="View" disableInteractive>
                       <IconButton onClick={() => navigate(`/ticketDetails/${ticket._id}`)}>

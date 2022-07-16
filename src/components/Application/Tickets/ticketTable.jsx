@@ -3,11 +3,19 @@ import { Table, TableHead, TableRow, TableBody, IconButton, Tooltip, Chip } from
 import { useNavigate } from 'react-router-dom';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import PanToolOutlinedIcon from '@mui/icons-material/PanToolOutlined';
+import RestoreIcon from '@mui/icons-material/Restore';
 
 import { getDateFromISODate } from '../../Utility/dateUtility';
 import { BoldedTableCell, ContentTableCell } from '../../Utility/tableCellStyles';
 
-const TicketTable = ({ tickets, ticketDetails, editTicket }) => {
+const TicketTable = ({
+  tickets,
+  ticketDetails,
+  editTicket,
+  handleClaimTicket,
+  handleRestoreTicket,
+}) => {
   const navigate = useNavigate();
 
   return (
@@ -51,6 +59,14 @@ const TicketTable = ({ tickets, ticketDetails, editTicket }) => {
               </ContentTableCell>
 
               <ContentTableCell sx={{ display: 'flex', justifyContent: 'center' }}>
+                {handleClaimTicket && (
+                  <Tooltip title="Claim Ticket" disableInteractive>
+                    <IconButton onClick={() => handleClaimTicket(ticket._id)}>
+                      <PanToolOutlinedIcon />
+                    </IconButton>
+                  </Tooltip>
+                )}
+
                 {ticketDetails && (
                   <Tooltip title="View" disableInteractive>
                     <IconButton onClick={() => navigate(`/ticketDetails/${ticket._id}`)}>
@@ -63,6 +79,14 @@ const TicketTable = ({ tickets, ticketDetails, editTicket }) => {
                   <Tooltip title="Edit" disableInteractive>
                     <IconButton onClick={() => navigate(`/editTicket/${ticket._id}`)}>
                       <EditOutlinedIcon />
+                    </IconButton>
+                  </Tooltip>
+                )}
+
+                {handleRestoreTicket && (
+                  <Tooltip title="Restore" disableInteractive>
+                    <IconButton onClick={() => handleRestoreTicket(ticket._id)}>
+                      <RestoreIcon />
                     </IconButton>
                   </Tooltip>
                 )}

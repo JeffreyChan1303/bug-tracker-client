@@ -1,38 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Box,
-  Typography,
-  Paper,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  CircularProgress,
-  IconButton,
-  Tooltip,
-  TextField,
-  Chip,
-} from '@mui/material';
+import { Box, Typography, Paper, CircularProgress, TextField } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { styled } from '@mui/material/styles';
 import { useSelector, useDispatch } from 'react-redux';
-
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import RestoreIcon from '@mui/icons-material/Restore';
 
 import { getArchivedTicketsBySearch } from '../../../services/ticket/ticketArchiveSlice';
 import { restoreTicketFromArchive } from '../../../services/ticket/ticketDetailsSlice';
 import CustomPagination from '../pagination';
-
-const BoldedTableCell = styled(TableCell)(({ theme }) => ({
-  fontWeight: theme.typography.fontWeightBold,
-  padding: '8px 5px',
-}));
-
-const ContentTableCell = styled(TableCell)(() => ({
-  padding: '5px',
-}));
+import TicketTable from './ticketTable';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -97,56 +71,8 @@ const TicketArchive = () => {
             onKeyDown={handleKeyPress}
           />
         </Box>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table" size="small">
-          <TableHead>
-            <TableRow>
-              <BoldedTableCell>Title</BoldedTableCell>
-              <BoldedTableCell sx={{ fontWeight: 600 }} align="right">
-                Submitted By
-              </BoldedTableCell>
-              <BoldedTableCell align="right">Developer</BoldedTableCell>
-              <BoldedTableCell align="right">Status</BoldedTableCell>
-              <BoldedTableCell align="right">Priority</BoldedTableCell>
-              <BoldedTableCell align="right">Last Updated</BoldedTableCell>
-              <BoldedTableCell align="center">Actions</BoldedTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {tickets &&
-              tickets.map((ticket) => (
-                <TableRow
-                  key={ticket._id}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <ContentTableCell component="th" scope="row">
-                    {ticket.title}
-                  </ContentTableCell>
-                  <ContentTableCell align="right">{ticket.name}</ContentTableCell>
-                  <ContentTableCell align="right">add ticket developer</ContentTableCell>
-                  <ContentTableCell align="right">
-                    <Chip label={ticket.status} variant="outlined" color="secondary" />
-                  </ContentTableCell>
-                  <ContentTableCell align="right">
-                    <Chip label={ticket.priority} variant="outlined" color="secondary" />
-                  </ContentTableCell>
-                  <ContentTableCell align="right">add last updated</ContentTableCell>
-                  <ContentTableCell sx={{ display: 'flex', justifyContent: 'center' }}>
-                    <Tooltip title="View" disableInteractive>
-                      <IconButton onClick={() => navigate(`/ticketDetails/${ticket._id}`)}>
-                        <VisibilityOutlinedIcon />
-                      </IconButton>
-                    </Tooltip>
-                    {/* This should be changed to retrieve */}
-                    <Tooltip title="Restore" disableInteractive>
-                      <IconButton onClick={() => handleRestoreTicket(ticket._id)}>
-                        <RestoreIcon />
-                      </IconButton>
-                    </Tooltip>
-                  </ContentTableCell>
-                </TableRow>
-              ))}
-          </TableBody>
-        </Table>
+
+        <TicketTable tickets={tickets} ticketDetails handleRestoreTicket={handleRestoreTicket} />
       </Box>
 
       <CustomPagination

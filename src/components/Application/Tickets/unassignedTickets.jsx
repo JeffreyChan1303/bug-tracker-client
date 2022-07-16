@@ -1,39 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Box,
-  Typography,
-  Paper,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  CircularProgress,
-  IconButton,
-  Tooltip,
-  TextField,
-  Chip,
-  Grid,
-} from '@mui/material';
+import { Box, Typography, Paper, CircularProgress, TextField, Grid } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { styled } from '@mui/material/styles';
 import { useSelector, useDispatch } from 'react-redux';
-
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import PanToolOutlinedIcon from '@mui/icons-material/PanToolOutlined';
 
 import { getUnassignedTickets, claimTicket } from '../../../services/ticket/unassignedTicketsSlice';
 import CustomPagination from '../pagination';
-
-const BoldedTableCell = styled(TableCell)(({ theme }) => ({
-  fontWeight: theme.typography.fontWeightBold,
-  padding: '8px 5px',
-}));
-
-const ContentTableCell = styled(TableCell)(() => ({
-  padding: '5px',
-}));
+import TicketTable from './ticketTable';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -101,62 +73,13 @@ const UnassignedTickets = () => {
             />
           </Box>
         </Grid>
-        <Table sx={{}} aria-label="simple table" size="small">
-          <TableHead>
-            <TableRow>
-              <BoldedTableCell>Title</BoldedTableCell>
-              <BoldedTableCell sx={{ fontWeight: 600 }} align="right">
-                Submitted By
-              </BoldedTableCell>
-              <BoldedTableCell align="right">Developer</BoldedTableCell>
-              <BoldedTableCell align="right">Status</BoldedTableCell>
-              <BoldedTableCell align="right">Priority</BoldedTableCell>
-              <BoldedTableCell align="right">Last Updated</BoldedTableCell>
-              <BoldedTableCell align="center">Actions</BoldedTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {tickets &&
-              tickets.map((ticket) => (
-                <TableRow
-                  key={ticket._id}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <ContentTableCell component="th" scope="row">
-                    {ticket.title}
-                  </ContentTableCell>
-                  <ContentTableCell align="right">{ticket.name}</ContentTableCell>
-                  <ContentTableCell align="right">add ticket developer</ContentTableCell>
-                  <ContentTableCell align="right">
-                    <Chip label={ticket.status} variant="outlined" color="secondary" />
-                  </ContentTableCell>
-                  <ContentTableCell align="right">
-                    <Chip label={ticket.priority} variant="outlined" color="secondary" />
-                  </ContentTableCell>
-                  <ContentTableCell align="right">add last updated</ContentTableCell>
-                  <ContentTableCell sx={{ display: 'flex', justifyContent: 'center' }}>
-                    <Tooltip title="Claim Ticket" disableInteractive>
-                      <IconButton onClick={() => handleClaimTicket(ticket._id)}>
-                        <PanToolOutlinedIcon />
-                      </IconButton>
-                    </Tooltip>
 
-                    <Tooltip title="View" disableInteractive>
-                      <IconButton onClick={() => navigate(`/ticketDetails/${ticket._id}`)}>
-                        <VisibilityOutlinedIcon />
-                      </IconButton>
-                    </Tooltip>
-
-                    <Tooltip title="Edit" disableInteractive>
-                      <IconButton onClick={() => navigate(`/editTicket/${ticket._id}`)}>
-                        <EditOutlinedIcon />
-                      </IconButton>
-                    </Tooltip>
-                  </ContentTableCell>
-                </TableRow>
-              ))}
-          </TableBody>
-        </Table>
+        <TicketTable
+          tickets={tickets}
+          handleClaimTicket={handleClaimTicket}
+          ticketDetails
+          editTicket
+        />
       </Box>
 
       <CustomPagination

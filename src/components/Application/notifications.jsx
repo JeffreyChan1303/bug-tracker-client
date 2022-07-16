@@ -94,8 +94,9 @@ const NotificationPage = () => {
     dispatch(readNotification({ createdAt }));
   };
 
-  const handleReadAll = () => {
-    dispatch(readAllNotifications());
+  const handleReadAll = async () => {
+    await dispatch(readAllNotifications());
+    dispatch(getUserNotifications(page));
   };
 
   return loading ? (
@@ -144,9 +145,11 @@ const NotificationPage = () => {
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                   <ContentTableCell component="th" scope="row">
-                    {/* {notification.title} */}
-                    {/* Make this an accordian!!!!!!!!!!!!! and put description below it when user opens it */}
-                    <Accordion elevation={0} disableGutters onChange={() => handleRead}>
+                    <Accordion
+                      elevation={0}
+                      disableGutters
+                      onChange={() => handleRead(notification.createdAt)}
+                    >
                       <AccordionSummary
                         sx={{
                           '&.MuiAccordionSummary': { m: 0 },
@@ -156,11 +159,17 @@ const NotificationPage = () => {
                         }}
                         expandIcon={<ExpandMoreIcon />}
                       >
-                        <Badge color="error" variant="dot">
+                        {!notification.isRead ? (
+                          <Badge color="error" variant="dot">
+                            <Typography variant="body1" marginRight={1}>
+                              {notification.title}
+                            </Typography>
+                          </Badge>
+                        ) : (
                           <Typography variant="body1" marginRight={1}>
                             {notification.title}
                           </Typography>
-                        </Badge>
+                        )}
                       </AccordionSummary>
 
                       <AccordionDetails key={notification.createdAt}>
@@ -172,7 +181,7 @@ const NotificationPage = () => {
                   </ContentTableCell>
 
                   <ContentTableCell align="right">{notification.createdAt}</ContentTableCell>
-                  <ContentTableCell>
+                  <ContentTableCell align="center">
                     <Tooltip title="Delete" disableInteractive>
                       <IconButton onClick={() => handleDeleteNotification(notification.createdAt)}>
                         <DeleteIcon />

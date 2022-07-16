@@ -241,18 +241,18 @@ const notificationsSlice = createSlice({
     });
 
     // Read All Notifications
-    builder.addCase(readNotification.pending, (state) => {
+    builder.addCase(readAllNotifications.pending, (state) => {
       const currentState = state;
-      currentState.readNotification.loading = true;
+      currentState.readAllNotifications.loading = true;
     });
-    builder.addCase(readNotification.fulfilled, (state) => {
+    builder.addCase(readAllNotifications.fulfilled, (state) => {
       const currentState = state;
-      currentState.readNotification.loading = false;
+      currentState.readAllNotifications.loading = false;
     });
-    builder.addCase(readNotification.rejected, (state, action) => {
+    builder.addCase(readAllNotifications.rejected, (state, action) => {
       const currentState = state;
-      currentState.readNotification.loading = false;
-      currentState.readNotification.error = action.payload.message;
+      currentState.readAllNotifications.loading = false;
+      currentState.readAllNotifications.error = action.payload.message;
     });
   },
 });

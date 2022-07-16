@@ -2,7 +2,7 @@ import React from 'react';
 import { Pagination, PaginationItem } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-const CustomPagination = ({ path, page, numberOfPages }) => {
+const CustomPagination = ({ path, page, numberOfPages }) => (
   <Pagination
     sx={{ ul: { justifyContent: 'space-around' }, mt: '20px' }}
     count={Number(numberOfPages)}
@@ -12,7 +12,7 @@ const CustomPagination = ({ path, page, numberOfPages }) => {
     renderItem={(item) => (
       <PaginationItem {...item} component={Link} to={`${path}page=${item.page}`} />
     )}
-  />;
-};
+  />
+);
 
 export default CustomPagination;

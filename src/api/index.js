@@ -23,8 +23,8 @@ export const signIn = (formData) => API.post('/users/signin', formData);
 export const signUp = (formData) => API.post('/users/signup', formData);
 
 export const getAllUsersBySearch = (page, searchQuery) => API.get(`/users/allUsers/search?searchQuery=${searchQuery || ''}&page=${page}`);
-export const getUserNotifications = (page) => API.get(`/users/notifications?page=${page}`);
-export const getUserNotificationsBySearch = (page, searchQuery) => API.get(`/users/notifications/search?searchQuery=${searchQuery || 'none'}&page=${page}`);
+
+export const getUserNotificationsBySearch = (page, searchQuery) => API.get(`/users/notifications/search?searchQuery=${searchQuery || ''}&page=${page}`);
 
 export const createUsersNotification = (payload) => API.put('/users/createUsersNotification', payload);
 export const deleteUserNotification = (createdAt) => API.put('/users/deleteUserNotification', createdAt);

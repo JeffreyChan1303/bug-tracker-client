@@ -3,7 +3,7 @@ import * as api from '../../api/index';
 import { handleAlerts } from '../alertsSlice';
 
 const initialState = {
-  getUserNotifications: {
+  getUserNotificationsBySearch: {
     loading: false,
     error: '',
   },
@@ -28,31 +28,12 @@ const initialState = {
   numberOfPages: null,
 };
 
-export const getUserNotifications = createAsyncThunk(
-  'user/getUserNotifications',
-  async (page, { dispatch, rejectWithValue }) => {
-    try {
-      const { data } = await api.getUserNotifications(page);
-
-      console.log(data);
-      return data;
-    } catch (error) {
-      console.log(error);
-      dispatch(
-        handleAlerts({
-          severity: 'error',
-          message: `User notifications were not able to be fetched. Error: ${error.message}`,
-        })
-      );
-      return rejectWithValue(error);
-    }
-  }
-);
-
 export const getUserNotificationsBySearch = createAsyncThunk(
   'user/getUserNotificationsBySearch',
   async ({ page, search }, { dispatch, rejectWithValue }) => {
+    console.log('test');
     const searchQuery = search;
+    console.log(page, searchQuery);
     try {
       const { data } = await api.getUserNotificationsBySearch(page, searchQuery);
 
@@ -158,38 +139,20 @@ const notificationsSlice = createSlice({
   name: 'Notifications',
   initialState,
   extraReducers: (builder) => {
-    // Get User Notifications
-    builder.addCase(getUserNotifications.pending, (state) => {
-      const currentState = state;
-      currentState.getUserNotifications.loading = true;
-    });
-    builder.addCase(getUserNotifications.fulfilled, (state, action) => {
-      const currentState = state;
-      currentState.getUserNotifications.loading = false;
-      currentState.notifications = action.payload.data;
-      currentState.currentPage = action.payload.currentPage;
-      currentState.numberOfPages = action.payload.numberOfPages;
-    });
-    builder.addCase(getUserNotifications.rejected, (state, action) => {
-      const currentState = state;
-      currentState.getUserNotifications.loading = false;
-      currentState.getUserNotifications.error = action.payload.message;
-    });
-
     // Get User Notifications By Search
-
     builder.addCase(getUserNotificationsBySearch.pending, (state) => {
       const currentState = state;
-      currentState.getUserNotifications.loading = true;
+      currentState.getUserNotificationsBySearch.loading = true;
     });
     builder.addCase(getUserNotificationsBySearch.fulfilled, (state, action) => {
       const currentState = state;
-      currentState.getUserNotifications.loading = false;
+      currentState.getUserNotificationsBySearch.loading = false;
       currentState.notifications = action.payload.data;
       currentState.currentPage = action.payload.currentPage;
       currentState.numberOfPages = action.payload.numberOfPages;
     });
     builder.addCase(getUserNotificationsBySearch.rejected, (state, action) => {
+      console.log(action);
       const currentState = state;
       currentState.getUserNotificationsBySearch.loading = false;
       currentState.getUserNotificationsBySearch.error = action.payload.message;

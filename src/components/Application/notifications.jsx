@@ -26,7 +26,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  getUserNotifications,
   getUserNotificationsBySearch,
   deleteUserNotification,
   readNotification,
@@ -47,6 +46,13 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
+const getDateFromISODate = (ISODate) => {
+  const date = new Date(ISODate);
+  // prettier-ignore
+  const string = `${date.getMonth()}-${date.getDate()}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+  return string;
+};
+
 const NotificationPage = () => {
   const query = useQuery();
   const navigate = useNavigate();
@@ -54,18 +60,14 @@ const NotificationPage = () => {
   const [search, setSearch] = useState('');
   const page = query.get('page');
   const {
-    getUserNotifications: { loading },
+    getUserNotificationsBySearch: { loading },
     notifications,
     currentPage,
     numberOfPages,
   } = useSelector((state) => state.notifications);
 
   useEffect(() => {
-    if (search.trim()) {
-      dispatch(getUserNotificationsBySearch({ search, page }));
-    } else {
-      dispatch(getUserNotifications(page));
-    }
+    dispatch(getUserNotificationsBySearch({ search, page }));
   }, [page]);
 
   const handleDeleteNotification = (createdAt) => {
@@ -96,7 +98,7 @@ const NotificationPage = () => {
 
   const handleReadAll = async () => {
     await dispatch(readAllNotifications());
-    dispatch(getUserNotifications(page));
+    dispatch(getUserNotificationsBySearch({ search, page }));
   };
 
   return loading ? (
@@ -180,7 +182,9 @@ const NotificationPage = () => {
                     </Accordion>
                   </ContentTableCell>
 
-                  <ContentTableCell align="right">{notification.createdAt}</ContentTableCell>
+                  <ContentTableCell align="right">
+                    {getDateFromISODate(notification.createdAt)}
+                  </ContentTableCell>
                   <ContentTableCell align="center">
                     <Tooltip title="Delete" disableInteractive>
                       <IconButton onClick={() => handleDeleteNotification(notification.createdAt)}>

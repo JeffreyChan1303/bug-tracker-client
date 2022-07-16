@@ -29,7 +29,7 @@ const initialTicketData = {
   },
 };
 
-const AddTicket = () => {
+const AddTicket = ({ handleAddSupportTicket }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [ticketData, setTicketData] = useState(initialTicketData);
@@ -92,25 +92,32 @@ const AddTicket = () => {
     <CircularProgress color="inherit" />
   ) : (
     <>
-      <Typography variant="h5">Add Ticket</Typography>
+      {handleAddSupportTicket ? (
+        <Typography variant="h5">Add Support Ticket</Typography>
+      ) : (
+        <Typography variant="h5">Add Ticket</Typography>
+      )}
 
       <Paper sx={{ p: 3, maxWidth: { md: '700px' } }} elevation={3}>
         <form autoComplete="off" noValidate onSubmit={handleSubmit} style={{}}>
           <Typography variant="body1" fontWeight={700}>
             Project
           </Typography>
-          <Select value={ticketData.project.title} sx={{ mb: 2 }} fullWidth size="small">
-            {projects &&
-              projects.map((project) => (
-                <MenuItem
-                  key={project._id}
-                  value={project.title}
-                  onClick={() => handleProjectChange(project._id, project.title)}
-                >
-                  {project.title}
-                </MenuItem>
-              ))}
-          </Select>
+
+          {!handleAddSupportTicket && (
+            <Select value={ticketData.project.title} sx={{ mb: 2 }} fullWidth size="small">
+              {projects &&
+                projects.map((project) => (
+                  <MenuItem
+                    key={project._id}
+                    value={project.title}
+                    onClick={() => handleProjectChange(project._id, project.title)}
+                  >
+                    {project.title}
+                  </MenuItem>
+                ))}
+            </Select>
+          )}
 
           <Typography variant="body1" fontWeight={700}>
             Ticket Title
@@ -188,15 +195,28 @@ const AddTicket = () => {
           </Select>
         </form>
 
-        <Button
-          sx={{ mr: 1 }}
-          variant="contained"
-          color="primary"
-          size="small"
-          onClick={handleSubmit}
-        >
-          Save
-        </Button>
+        {handleAddSupportTicket ? (
+          <Button
+            sx={{ mr: 1 }}
+            variant="contained"
+            color="primary"
+            size="small"
+            onClick={handleAddSupportTicket}
+          >
+            Save
+          </Button>
+        ) : (
+          <Button
+            sx={{ mr: 1 }}
+            variant="contained"
+            color="primary"
+            size="small"
+            onClick={handleSubmit}
+          >
+            Save
+          </Button>
+        )}
+
         <Button sx={{}} variant="outlined" color="secondary" size="small" onClick={handleClear}>
           Clear
         </Button>

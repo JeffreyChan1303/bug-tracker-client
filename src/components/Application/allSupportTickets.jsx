@@ -44,7 +44,7 @@ const AllSupportTickets = () => {
 
   useEffect(() => {
     dispatch(getSupportTicketsBySearch({ page, search }));
-  }, []);
+  }, [page]);
 
   const searchAllTickets = () => {
     if (search.trim()) {

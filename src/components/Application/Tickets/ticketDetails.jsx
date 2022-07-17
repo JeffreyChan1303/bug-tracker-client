@@ -1,18 +1,8 @@
 import React, { useEffect } from 'react';
-import {
-  Typography,
-  Paper,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Grid,
-  Button,
-  CircularProgress,
-} from '@mui/material';
+import { Paper, Grid, Button, CircularProgress } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   getTicketDetails,
   moveTicketToArchive,
@@ -22,6 +12,7 @@ import {
 
 import TicketInformation from './ticketInformation';
 import TicketComments from './ticketComments';
+import TicketHistory from './ticketHistory';
 
 const getDateFromISODate = (ISODate) => {
   const date = new Date(ISODate);
@@ -97,30 +88,7 @@ const TicketDetails = () => {
 
           {/* This is the Ticket History section */}
           <Grid item xs={12}>
-            <Paper elevation={3}>
-              <Accordion elevation={0} disableGutters>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                  <Grid container justifyContent="space-between">
-                    <Typography fontWeight={700}>Ticket History</Typography>
-                    <Typography fontWeight={700} sx={{ pr: '50px' }}>
-                      Number of Entries: {ticketHistory?.length}
-                    </Typography>
-                  </Grid>
-                </AccordionSummary>
-
-                {ticketHistory?.map((prevTicket) => (
-                  <AccordionDetails key={prevTicket.updatedAt}>
-                    <Grid container justifyContent="space-between">
-                      <Typography fontWeight={700}>Title: {prevTicket.title}</Typography>
-                      <Typography fontWeight={700}>Updated At: {prevTicket.updatedAt}</Typography>
-                    </Grid>
-                    <Typography>Description: {prevTicket.description}</Typography>
-                    <Typography>Priority: {prevTicket.priority}</Typography>
-                    <Typography>Status: {prevTicket.status}</Typography>
-                  </AccordionDetails>
-                ))}
-              </Accordion>
-            </Paper>
+            <TicketHistory ticketHistory={ticketHistory} />
           </Grid>
         </Grid>
       </Grid>

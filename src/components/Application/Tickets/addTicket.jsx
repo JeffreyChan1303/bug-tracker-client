@@ -79,6 +79,7 @@ const AddTicket = ({ support }) => {
       navigate('/allTickets');
     } else {
       dispatch(addSupportTicket({ ...ticketData, name: user?.userObject?.name }));
+      navigate('/allSupportTickets');
     }
   };
 

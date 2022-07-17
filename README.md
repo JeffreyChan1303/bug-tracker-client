@@ -1,5 +1,7 @@
 # Getting Started with Create React App
 
+unfortunately this project is not meant for mobile. Tables do not look goot at mobile sizes
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

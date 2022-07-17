@@ -90,131 +90,132 @@ const AddTicket = ({ support }) => {
   return loading ? (
     <CircularProgress color="inherit" />
   ) : (
-    <>
+    <Paper sx={{ p: 3, maxWidth: { md: '700px' } }} elevation={3}>
       {support ? (
-        <Typography variant="h5">Add Support Ticket</Typography>
+        <Typography variant="h5" fontWeight={700}>
+          Add Support Ticket
+        </Typography>
       ) : (
-        <Typography variant="h5">Add Ticket</Typography>
+        <Typography variant="h5" fontWeight={700}>
+          Add Ticket
+        </Typography>
       )}
+      <form autoComplete="off" noValidate onSubmit={handleSubmit} style={{}}>
+        {!support && (
+          <>
+            <Typography variant="body1" fontWeight={700}>
+              Project
+            </Typography>
 
-      <Paper sx={{ p: 3, maxWidth: { md: '700px' } }} elevation={3}>
-        <form autoComplete="off" noValidate onSubmit={handleSubmit} style={{}}>
-          {!support && (
-            <>
-              <Typography variant="body1" fontWeight={700}>
-                Project
-              </Typography>
+            <Select value={ticketData.project.title} sx={{ mb: 2 }} fullWidth size="small">
+              {projects &&
+                projects.map((project) => (
+                  <MenuItem
+                    key={project._id}
+                    value={project.title}
+                    onClick={() => handleProjectChange(project._id, project.title)}
+                  >
+                    {project.title}
+                  </MenuItem>
+                ))}
+            </Select>
+          </>
+        )}
 
-              <Select value={ticketData.project.title} sx={{ mb: 2 }} fullWidth size="small">
-                {projects &&
-                  projects.map((project) => (
-                    <MenuItem
-                      key={project._id}
-                      value={project.title}
-                      onClick={() => handleProjectChange(project._id, project.title)}
-                    >
-                      {project.title}
-                    </MenuItem>
-                  ))}
-              </Select>
-            </>
-          )}
-
-          <Typography variant="body1" fontWeight={700}>
-            Ticket Title
-          </Typography>
-          <TextField
-            name="title"
-            variant="outlined"
-            fullWidth
-            multiline
-            size="small"
-            sx={{ mb: 2 }}
-            value={ticketData.title}
-            onChange={(e) => setTicketData({ ...ticketData, title: e.target.value })}
-          />
-
-          <Typography variant="body1" fontWeight={700}>
-            Ticket Description
-          </Typography>
-          <TextField
-            name="description"
-            variant="outlined"
-            fullWidth
-            multiline
-            size="small"
-            sx={{ mb: 2 }}
-            rows={4}
-            value={ticketData.description}
-            onChange={(e) => setTicketData({ ...ticketData, description: e.target.value })}
-          />
-
-          <Typography variant="body1" fontWeight={700}>
-            Ticket Status
-          </Typography>
-          <Select
-            value={ticketData.status}
-            onChange={handleStatusChange}
-            sx={{ mb: 2 }}
-            fullWidth
-            size="small"
-          >
-            <MenuItem value="Resolved">Resolved</MenuItem>
-            <MenuItem value="Testing">Testing</MenuItem>
-            <MenuItem value="Development">Development</MenuItem>
-            <MenuItem value="Unassigned">Unassigned</MenuItem>
-            <MenuItem value="New">New</MenuItem>
-          </Select>
-
-          <Typography variant="body1" fontWeight={700}>
-            Ticket Priority
-          </Typography>
-          <Select
-            value={ticketData.priority}
-            onChange={handlePriorityChange}
-            sx={{ mb: 2 }}
-            fullWidth
-            size="small"
-          >
-            <MenuItem value="Low">Low Priority</MenuItem>
-            <MenuItem value="Medium">Medium Priority</MenuItem>
-            <MenuItem value="High">High Priority</MenuItem>
-          </Select>
-
-          {!support && (
-            <>
-              <Typography variant="body1" fontWeight={700}>
-                Ticket Type
-              </Typography>
-              <Select
-                value={ticketData.type}
-                onChange={handleTypeChange}
-                sx={{ mb: 2 }}
-                fullWidth
-                size="small"
-              >
-                <MenuItem value="Bug">Bug</MenuItem>
-                <MenuItem value="Feature">Feature</MenuItem>
-              </Select>
-            </>
-          )}
-        </form>
-
-        <Button
-          sx={{ mr: 1 }}
-          variant="contained"
-          color="primary"
+        <Typography variant="body1" fontWeight={700}>
+          Ticket Title
+        </Typography>
+        <TextField
+          name="title"
+          variant="outlined"
+          fullWidth
+          multiline
           size="small"
-          onClick={handleSubmit}
-        >
-          Save
-        </Button>
+          sx={{ mb: 2 }}
+          value={ticketData.title}
+          onChange={(e) => setTicketData({ ...ticketData, title: e.target.value })}
+        />
 
-        <Button sx={{}} variant="outlined" color="secondary" size="small" onClick={handleClear}>
-          Clear
-        </Button>
-      </Paper>
-    </>
+        <Typography variant="body1" fontWeight={700}>
+          Ticket Description
+        </Typography>
+        <TextField
+          name="description"
+          variant="outlined"
+          fullWidth
+          multiline
+          size="small"
+          sx={{ mb: 2 }}
+          rows={4}
+          value={ticketData.description}
+          onChange={(e) => setTicketData({ ...ticketData, description: e.target.value })}
+        />
+
+        <Typography variant="body1" fontWeight={700}>
+          Ticket Status
+        </Typography>
+        <Select
+          value={ticketData.status}
+          onChange={handleStatusChange}
+          sx={{ mb: 2 }}
+          fullWidth
+          size="small"
+        >
+          <MenuItem value="Resolved">Resolved</MenuItem>
+          <MenuItem value="Testing">Testing</MenuItem>
+          <MenuItem value="Development">Development</MenuItem>
+          <MenuItem value="Unassigned">Unassigned</MenuItem>
+          <MenuItem value="New">New</MenuItem>
+        </Select>
+
+        <Typography variant="body1" fontWeight={700}>
+          Ticket Priority
+        </Typography>
+        <Select
+          value={ticketData.priority}
+          onChange={handlePriorityChange}
+          sx={{ mb: 2 }}
+          fullWidth
+          size="small"
+        >
+          <MenuItem value="Low">Low Priority</MenuItem>
+          <MenuItem value="Medium">Medium Priority</MenuItem>
+          <MenuItem value="High">High Priority</MenuItem>
+        </Select>
+
+        {!support && (
+          <>
+            <Typography variant="body1" fontWeight={700}>
+              Ticket Type
+            </Typography>
+            <Select
+              value={ticketData.type}
+              onChange={handleTypeChange}
+              sx={{ mb: 2 }}
+              fullWidth
+              size="small"
+            >
+              <MenuItem value="Bug">Bug</MenuItem>
+              <MenuItem value="Feature">Feature</MenuItem>
+            </Select>
+          </>
+        )}
+      </form>
+
+      <Button
+        sx={{ mr: 1 }}
+        variant="contained"
+        color="primary"
+        size="small"
+        onClick={handleSubmit}
+      >
+        Save
+      </Button>
+
+      <Button sx={{}} variant="outlined" color="secondary" size="small" onClick={handleClear}>
+        Clear
+      </Button>
+    </Paper>
   );
 };
 

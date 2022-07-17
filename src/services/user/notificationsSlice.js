@@ -31,13 +31,10 @@ const initialState = {
 export const getUserNotificationsBySearch = createAsyncThunk(
   'user/getUserNotificationsBySearch',
   async ({ page, search }, { dispatch, rejectWithValue }) => {
-    console.log('test');
     const searchQuery = search;
-    console.log(page, searchQuery);
+
     try {
       const { data } = await api.getUserNotificationsBySearch(page, searchQuery);
-
-      data.notifications.reverse();
 
       return data;
     } catch (error) {

@@ -13,12 +13,7 @@ import {
 import TicketInformation from './ticketInformation';
 import TicketComments from './ticketComments';
 import TicketHistory from './ticketHistory';
-
-const getDateFromISODate = (ISODate) => {
-  const date = new Date(ISODate);
-  const string = `${date.getMonth()}-${date.getDate()}-${date.getFullYear()}`;
-  return string;
-};
+import { getDateFromISODate } from '../../Utility/dateUtility';
 
 const TicketDetails = () => {
   const { ticketId } = useParams();
@@ -37,12 +32,15 @@ const TicketDetails = () => {
 
   // checks to see if ticket is a archived ticket or not
   const isArchived = ticket.status === 'Archived';
-  const handleDeleteTicket = () => {
-    if (isArchived) {
-      dispatch(deleteTicketFromArchive(ticketId));
+  const handleDeleteTicket = async () => {
+    if (ticket.status === 'Archived') {
+      await dispatch(deleteTicketFromArchive(ticketId));
       navigate('/ticketArchive');
+    } else if (ticket.type === 'Support') {
+      await dispatch(moveTicketToArchive(ticketId));
+      navigate('/allSupportTickets');
     } else {
-      dispatch(moveTicketToArchive(ticketId));
+      await dispatch(moveTicketToArchive(ticketId));
       navigate('/allTickets');
     }
   };
@@ -58,29 +56,35 @@ const TicketDetails = () => {
     <Grid container spacing={2}>
       <Grid item xs={12} lg={6}>
         <Grid container>
-          {/* This is the ticket details section */}
+          {/* This is the ticket information section and buttons */}
           <Grid item xs={12}>
             <Paper sx={{ p: 3, mb: 2 }} elevation={3}>
               <TicketInformation ticket={ticket} getDateFromISODate={getDateFromISODate} />
 
-              <Grid container>
+              <Grid container alignItems="center" gap={1} marginTop="10px">
                 {isArchived ? (
                   <Button variant="outlined" onClick={handleRecoverTicket}>
                     Recover
                   </Button>
                 ) : (
-                  <Button variant="outlined" onClick={() => navigate(`/editTicket/${ticketId}`)}>
+                  <Button
+                    variant="outlined"
+                    onClick={() => navigate(`/editTicket/${ticketId}`)}
+                    disabled={ticket.type === 'Support'}
+                  >
                     Edit
                   </Button>
                 )}
-                <Button variant="outlined" onClick={handleDeleteTicket}>
-                  Delete
-                </Button>
                 <Button
                   variant="outlined"
                   onClick={() => navigate(`/projectDetails/${ticket.project._id}`)}
+                  disabled={ticket.type === 'Support'}
                 >
                   Ticket Project
+                </Button>
+
+                <Button variant="outlined" onClick={handleDeleteTicket}>
+                  Delete
                 </Button>
               </Grid>
             </Paper>

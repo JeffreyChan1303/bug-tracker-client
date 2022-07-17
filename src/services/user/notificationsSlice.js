@@ -37,7 +37,8 @@ export const getUserNotificationsBySearch = createAsyncThunk(
     try {
       const { data } = await api.getUserNotificationsBySearch(page, searchQuery);
 
-      console.log(data);
+      data.notifications.reverse();
+
       return data;
     } catch (error) {
       console.log(error);
@@ -147,7 +148,7 @@ const notificationsSlice = createSlice({
     builder.addCase(getUserNotificationsBySearch.fulfilled, (state, action) => {
       const currentState = state;
       currentState.getUserNotificationsBySearch.loading = false;
-      currentState.notifications = action.payload.data;
+      currentState.notifications = action.payload.notifications;
       currentState.currentPage = action.payload.currentPage;
       currentState.numberOfPages = action.payload.numberOfPages;
     });

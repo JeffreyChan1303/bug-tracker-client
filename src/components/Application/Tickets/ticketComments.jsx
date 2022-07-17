@@ -66,10 +66,12 @@ const TicketComments = ({ ticketId, getDateFromISODate }) => {
 
   const handleSaveComment = () => {
     const ticketComment = comment.trim();
-    if (ticketComment) {
+    if (ticketComment && ticket.status !== 'Archived') {
       dispatch(addTicketComment({ ticketId, comment: { name: userName, message: ticketComment } }));
       dispatch(getTicketDetails(ticketId));
       setComment('');
+    } else if (ticket.status === 'Archived') {
+      dispatch(handleAlerts({ severity: 'warning', message: 'Cannot comment on archived ticket' }));
     } else {
       dispatch(handleAlerts({ severity: 'warning', message: 'Invalid Comment' }));
     }
@@ -175,9 +177,15 @@ const TicketComments = ({ ticketId, getDateFromISODate }) => {
               onKeyDown={handleAddCommentKeyPress}
             />
           </Grid>
-          <Button variant="outlined" onClick={handleSaveComment}>
-            Save Comment
-          </Button>
+          {ticket.status === 'Archived' ? (
+            <Button variant="outlined" onClick={handleSaveComment} disabled>
+              Save Comment
+            </Button>
+          ) : (
+            <Button variant="outlined" onClick={handleSaveComment}>
+              Save Comment
+            </Button>
+          )}
         </Grid>
       </Paper>
     </>

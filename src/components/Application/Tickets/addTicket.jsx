@@ -181,19 +181,23 @@ const AddTicket = ({ support }) => {
             <MenuItem value="High">High Priority</MenuItem>
           </Select>
 
-          <Typography variant="body1" fontWeight={700}>
-            Ticket Type
-          </Typography>
-          <Select
-            value={ticketData.type}
-            onChange={handleTypeChange}
-            sx={{ mb: 2 }}
-            fullWidth
-            size="small"
-          >
-            <MenuItem value="Bug">Bug</MenuItem>
-            <MenuItem value="Feature">Feature</MenuItem>
-          </Select>
+          {!support && (
+            <>
+              <Typography variant="body1" fontWeight={700}>
+                Ticket Type
+              </Typography>
+              <Select
+                value={ticketData.type}
+                onChange={handleTypeChange}
+                sx={{ mb: 2 }}
+                fullWidth
+                size="small"
+              >
+                <MenuItem value="Bug">Bug</MenuItem>
+                <MenuItem value="Feature">Feature</MenuItem>
+              </Select>
+            </>
+          )}
         </form>
 
         <Button

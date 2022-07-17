@@ -37,104 +37,182 @@ const initialState = {
   },
 };
 
-export const getTicketDetails = createAsyncThunk('ticket/getTicketDetails', async (id, { dispatch, rejectWithValue }) => {
-  try {
-    const { data } = await api.getTicketDetails(id);
-    // sorts the ticket history from newest to oldest
-    data.ticketHistory.reverse();
-    data.comments.reverse();
+export const getTicketDetails = createAsyncThunk(
+  'ticket/getTicketDetails',
+  async (id, { dispatch, rejectWithValue }) => {
+    try {
+      const { data } = await api.getTicketDetails(id);
+      // sorts the ticket history from newest to oldest
+      data.ticketHistory.reverse();
+      data.comments.reverse();
 
-    return data;
-  } catch (error) {
-    console.log(error);
-    dispatch(handleAlerts({ severity: 'error', message: `Failed to get ticket details of ticket id: ${id}` }));
-    return rejectWithValue(error);
+      return data;
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        handleAlerts({
+          severity: 'error',
+          message: `Failed to get ticket details of ticket id: ${id}`,
+        })
+      );
+      return rejectWithValue(error);
+    }
   }
-});
+);
 
-export const updateTicket = createAsyncThunk('ticket/updateTicket', async (newTicket, { dispatch, rejectWithValue }) => {
-  try {
-    console.log('updatedTicket :', newTicket);
-    const { data } = await api.updateTicket(newTicket);
+export const updateTicket = createAsyncThunk(
+  'ticket/updateTicket',
+  async (newTicket, { dispatch, rejectWithValue }) => {
+    try {
+      console.log('updatedTicket :', newTicket);
+      const { data } = await api.updateTicket(newTicket);
 
-    dispatch(handleAlerts({ severity: 'success', message: `Ticket Id: ${newTicket.ticketId} was successfully updated` }));
+      dispatch(
+        handleAlerts({
+          severity: 'success',
+          message: `Ticket Id: ${newTicket.ticketId} was successfully updated`,
+        })
+      );
 
-    return data;
-  } catch (error) {
-    console.log(error);
-    dispatch(handleAlerts({ severity: 'error', message: `Ticket was not able to be edited. Error: ${error.message}` }));
-    return rejectWithValue(error);
+      return data;
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        handleAlerts({
+          severity: 'error',
+          message: `Ticket was not able to be edited. Error: ${error.message}`,
+        })
+      );
+      return rejectWithValue(error);
+    }
   }
-});
+);
 
-export const moveTicketToArchive = createAsyncThunk('ticket/moveTicketToArchive', async (id, { dispatch, rejectWithValue }) => {
-  try {
-    const { data } = await api.moveTicketToArchive(id);
+export const moveTicketToArchive = createAsyncThunk(
+  'ticket/moveTicketToArchive',
+  async (id, { dispatch, rejectWithValue }) => {
+    try {
+      const { data } = await api.moveTicketToArchive(id);
 
-    dispatch(handleAlerts({ severity: 'success', message: 'Ticket has been successfully deleted and moved to the Ticket Archive.' }));
-    return data;
-  } catch (error) {
-    console.log(error);
-    dispatch(handleAlerts({ severity: 'error', message: `Ticket failed to delete. Error: ${error.message}` }));
-
-    return rejectWithValue(error);
+      dispatch(
+        handleAlerts({
+          severity: 'success',
+          message: 'Ticket has been successfully deleted and moved to the Ticket Archive.',
+        })
+      );
+      return data;
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        handleAlerts({
+          severity: 'error',
+          message: `Ticket failed to delete. Error: ${error.request.data.message}`,
+        })
+      );
+      return rejectWithValue(error);
+    }
   }
-});
+);
 
-export const restoreTicketFromArchive = createAsyncThunk('ticket/restoreTicketFromArchiveTicketFromArchive', async (id, { dispatch, rejectWithValue }) => {
-  try {
-    const { data } = await api.restoreTicketFromArchive(id);
+export const restoreTicketFromArchive = createAsyncThunk(
+  'ticket/restoreTicketFromArchiveTicketFromArchive',
+  async (id, { dispatch, rejectWithValue }) => {
+    try {
+      const { data } = await api.restoreTicketFromArchive(id);
 
-    dispatch(handleAlerts({ severity: 'success', message: 'Ticket has been successfully restoreTicketFromArchiveed from the Ticket Archive.' }));
-    return data;
-  } catch (error) {
-    console.log(error);
-    dispatch(handleAlerts({ severity: 'error', message: `Ticket failed to be restore ticket from archive. Error: ${error.message}` }));
+      dispatch(
+        handleAlerts({
+          severity: 'success',
+          message:
+            'Ticket has been successfully restoreTicketFromArchiveed from the Ticket Archive.',
+        })
+      );
+      return data;
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        handleAlerts({
+          severity: 'error',
+          message: `Ticket failed to be restore ticket from archive. Error: ${error.message}`,
+        })
+      );
 
-    return rejectWithValue(error);
+      return rejectWithValue(error);
+    }
   }
-});
+);
 
-export const deleteTicketFromArchive = createAsyncThunk('ticket/deleteTicketFromArchive', async (id, { dispatch, rejectWithValue }) => {
-  try {
-    const { data } = await api.deleteTicketFromArchive(id);
+export const deleteTicketFromArchive = createAsyncThunk(
+  'ticket/deleteTicketFromArchive',
+  async (id, { dispatch, rejectWithValue }) => {
+    try {
+      const { data } = await api.deleteTicketFromArchive(id);
 
-    dispatch(handleAlerts({ severity: 'success', message: 'Ticket has been successfully deleted from the Ticket Archive.' }));
-    return data;
-  } catch (error) {
-    console.log(error);
-    dispatch(handleAlerts({ severity: 'error', message: `Ticket failed to delete. Error: ${error.message}` }));
-    return rejectWithValue(error);
+      dispatch(
+        handleAlerts({
+          severity: 'success',
+          message: 'Ticket has been successfully deleted from the Ticket Archive.',
+        })
+      );
+      return data;
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        handleAlerts({
+          severity: 'error',
+          message: `Ticket failed to delete. Error: ${error.message}`,
+        })
+      );
+      return rejectWithValue(error);
+    }
   }
-});
+);
 
-export const addTicketComment = createAsyncThunk('ticket/addTicketComment', async ({ ticketId, comment }, { dispatch, rejectWithValue }) => {
-  try {
-    const { data } = await api.addTicketComment(ticketId, comment);
+export const addTicketComment = createAsyncThunk(
+  'ticket/addTicketComment',
+  async ({ ticketId, comment }, { dispatch, rejectWithValue }) => {
+    try {
+      const { data } = await api.addTicketComment(ticketId, comment);
 
-    dispatch(handleAlerts({ severity: 'success', message: 'Comment has been successfully added.' }));
+      dispatch(
+        handleAlerts({ severity: 'success', message: 'Comment has been successfully added.' })
+      );
 
-    return data;
-  } catch (error) {
-    console.log(error);
-    dispatch(handleAlerts({ severity: 'error', message: `Comment failed to save. Error: ${error.message}` }));
-    return rejectWithValue(error);
+      return data;
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        handleAlerts({
+          severity: 'error',
+          message: `Comment failed to save. Error: ${error.message}`,
+        })
+      );
+      return rejectWithValue(error);
+    }
   }
-});
+);
 
-export const deleteTicketComment = createAsyncThunk('ticket/deleteTicketComment', async ({ ticketId, commentCreatedAt }, { dispatch, rejectWithValue }) => {
-  try {
-    const { data } = api.deleteTicketComment(ticketId, { commentCreatedAt });
+export const deleteTicketComment = createAsyncThunk(
+  'ticket/deleteTicketComment',
+  async ({ ticketId, commentCreatedAt }, { dispatch, rejectWithValue }) => {
+    try {
+      const { data } = api.deleteTicketComment(ticketId, { commentCreatedAt });
 
-    dispatch(handleAlerts({ severity: 'success', message: 'Comment was deleted successfully.' }));
+      dispatch(handleAlerts({ severity: 'success', message: 'Comment was deleted successfully.' }));
 
-    return data;
-  } catch (error) {
-    console.log(error);
-    dispatch(handleAlerts({ severity: 'error', message: `Ticket comment was not able to be deleted. Error: ${error.message}` }));
-    return rejectWithValue(error);
+      return data;
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        handleAlerts({
+          severity: 'error',
+          message: `Ticket comment was not able to be deleted. Error: ${error.message}`,
+        })
+      );
+      return rejectWithValue(error);
+    }
   }
-});
+);
 
 const ticketDetailsSlice = createSlice({
   name: 'ticketDetails',
@@ -148,16 +226,29 @@ const ticketDetailsSlice = createSlice({
       for (let i = 0; i < state.ticket.comments.length; i += 1) {
         const commentDetails = state.ticket.comments[i];
 
-        if (commentDetails.message.toLowerCase().includes(search.toLowerCase()) || commentDetails.name.toLowerCase().includes(search.toLowerCase())) {
+        if (
+          commentDetails.message.toLowerCase().includes(search.toLowerCase()) ||
+          commentDetails.name.toLowerCase().includes(search.toLowerCase())
+        ) {
           newComments.push(commentDetails);
         }
       }
 
       // parse and return array that the current item pagees are in
       const numberOfPages = Math.ceil(newComments.length / commentsItemsPerPage);
-      newComments = newComments.splice((commentsCurrentPage - 1) * commentsItemsPerPage, commentsItemsPerPage);
+      newComments = newComments.splice(
+        (commentsCurrentPage - 1) * commentsItemsPerPage,
+        commentsItemsPerPage
+      );
 
-      return { ...state, ticket: { ...state.ticket, searchedComments: newComments, commentsNumberOfPages: numberOfPages } };
+      return {
+        ...state,
+        ticket: {
+          ...state.ticket,
+          searchedComments: newComments,
+          commentsNumberOfPages: numberOfPages,
+        },
+      };
     },
   },
   extraReducers: (builder) => {

@@ -60,8 +60,6 @@ export const updateUsersRoles = createAsyncThunk(
         return userId;
       });
 
-      /* eslint-disable */
-
       const { data } = await api.updateUsersRoles(projectId, users);
 
       dispatch(
@@ -83,7 +81,7 @@ export const updateUsersRoles = createAsyncThunk(
       dispatch(
         handleAlerts({
           severity: 'error',
-          message: `User's roles failed to update. Error ${error.message}`,
+          message: `User's roles failed to update. Error: ${error.response.data.message}`,
         })
       );
       return rejectWithValue(error);

@@ -67,7 +67,8 @@ export const updateUsersRoles = createAsyncThunk(
       const { data } = await api.updateUsersRoles(projectId, users);
 
       dispatch(
-        handleAlerts({ severity: 'success', message: 'Users roles were successfully updated' })
+        // make a loop to make a string of users whose role was changed
+        handleAlerts({ severity: 'success', message: '[USERS] roles were successfully updated' })
       );
 
       const { name } = JSON.parse(localStorage.getItem('profile')).userObject;
@@ -95,9 +96,16 @@ export const updateUsersRoles = createAsyncThunk(
 
 export const inviteUsersToProject = createAsyncThunk(
   'project/inviteUsersToProject',
-  async ({ projectId, users }, { dispatch, rejectWithValue }) => {
+  async ({ projectId, users, role }, { dispatch, rejectWithValue }) => {
     try {
-      const { data } = await api.inviteUsersToProject(projectId, users);
+      // this loop sets the role of all the user objects
+      const usersCopy = { ...users };
+      Object.keys(usersCopy).map((userId) => {
+        usersCopy[userId].role = role;
+        return userId;
+      });
+      
+      const { data } = await api.inviteUsersToProject(projectId, users, role);
 
       // there should be a funtion to make the users into a string and
       // put them into the alert so the user knows who they invited

@@ -48,13 +48,11 @@ const AllProjects = () => {
     <Paper sx={{ p: 3 }} elevation={3}>
       <Box sx={{ overflowX: 'scroll' }}>
         <Typography variant="h5" fontWeight={700}>
-          {' '}
-          All Projects{' '}
+          All Projects
         </Typography>
         <Box sx={{ display: 'flex', justifyContent: 'right' }}>
           <Typography align="right" variant="body1">
-            {' '}
-            Search:&nbsp;{' '}
+            Search:&nbsp;
           </Typography>
           <TextField
             size="small"

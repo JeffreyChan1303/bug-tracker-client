@@ -5,6 +5,7 @@ import {
   TableCell,
   Typography,
   Box,
+  Grid,
   TableRow,
   TableHead,
   TableBody,
@@ -68,24 +69,25 @@ const SelectFromAllUsers = ({ path, handleAddSelectedUser }) => {
   return (
     <Paper sx={{ p: 3 }} elevation={1}>
       <Box sx={{ overflowX: 'scroll' }}>
-        <Typography variant="h6" fontWeight={700}>
-          {' '}
-          All Users{' '}
-        </Typography>
-        <Box sx={{ display: 'flex', justifyContent: 'right' }}>
-          <Typography align="right" variant="body1">
-            {' '}
-            Search:&nbsp;{' '}
+        <Grid container justifyContent="space-between" sx={{ mb: 1 }}>
+          <Typography variant="h6" fontWeight={700}>
+            All Users
           </Typography>
-          <TextField
-            size="small"
-            variant="standard"
-            name="search"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            onKeyDown={handleKeyPress}
-          />
-        </Box>
+          <Box sx={{ display: 'flex', justifyContent: 'right' }}>
+            <Typography align="right" variant="body1">
+              {' '}
+              Search:&nbsp;{' '}
+            </Typography>
+            <TextField
+              size="small"
+              variant="standard"
+              name="search"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              onKeyDown={handleKeyPress}
+            />
+          </Box>
+        </Grid>
         <Table sx={{}} aria-label="simple table" size="small">
           <TableHead>
             <TableRow>

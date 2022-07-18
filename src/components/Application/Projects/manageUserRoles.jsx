@@ -17,6 +17,7 @@ import {
   updateUsersRoles,
   deleteUsersFromProject,
   getProjectUsers,
+  inviteUsersToProject,
 } from '../../../services/project/projectUsersSlice';
 import { handleAlerts } from '../../../services/alertsSlice';
 import SelectFromAllUsers from '../Users/selectFromAllUsers';
@@ -60,7 +61,23 @@ const ManageUserRoles = () => {
         })
       );
     } else {
-      await dispatch(updateUsersRoles({ projectId, users: selectedUsers, role }));
+      // this parses the selected users that are in the project and not in the project
+      const selectedProjectUsers = {};
+      const selectedNonProjectUsers = {};
+      Object.keys(selectedUsers).map((userId) => {
+        if (currentProjectUsers[userId]) {
+          selectedProjectUsers[userId] = selectedUsers[userId];
+        } else {
+          selectedNonProjectUsers[userId] = selectedUsers[userId];
+        }
+      });
+
+      if (selectedProjectUsers.length >= 0) {
+        await dispatch(updateUsersRoles({ projectId, users: selectedProjectUsers, role }));
+      }
+      if (selectedNonProjectUsers.length >= 0) {
+        dispatch(inviteUsersToProject({ projectId, users: selectedNonProjectUsers, role }));
+      }
       dispatch(getProjectUsers(projectId));
     }
   };
@@ -87,7 +104,7 @@ const ManageUserRoles = () => {
     <CircularProgress color="inherit" />
   ) : (
     <Grid container spacing="30px">
-      <Grid item xs={12} md={5}>
+      <Grid item xs={12} lg={5}>
         <Typography fontWeight={700}>Current Project Users</Typography>
         <Box
           sx={{ border: 1, borderColor: 'black', borderRadius: '1px', p: '10px' }}
@@ -152,7 +169,7 @@ const ManageUserRoles = () => {
       </Grid>
 
       {/* All Users Section... this section should be made into its own component */}
-      <Grid item xs={12} md={7}>
+      <Grid item xs={12} lg={7}>
         <SelectFromAllUsers
           path={`/projectDetails/manageUserRoles/${projectId}`}
           handleAddSelectedUser={handleAddUser}

@@ -74,10 +74,10 @@ const AddTicket = ({ support }) => {
       return;
     }
 
-    if (!support && ticketData.project !== '') {
+    if (!support && ticketData.project.title !== '') {
       dispatch(createTicket({ ...ticketData, name: user?.userObject?.name }));
-      navigate('/allTickets');
-    } else {
+      navigate('/myTickets');
+    } else if (support && ticketData.project.title === '') {
       dispatch(addSupportTicket({ ...ticketData, name: user?.userObject?.name }));
       navigate('/allSupportTickets');
     }

@@ -30,7 +30,7 @@ const AddProject = () => {
 
     if (projectData.title !== '' && projectData.description !== '') {
       dispatch(createProject({ ...projectData, name: user?.userObject?.name }));
-      navigate('/allProjects');
+      navigate('/myProjects');
     }
   };
 

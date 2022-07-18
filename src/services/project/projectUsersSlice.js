@@ -13,6 +13,14 @@ const initialState = {
     loading: false,
     error: '',
   },
+  inviteUsersToProject: {
+    loading: false,
+    error: '',
+  },
+  acceptProjectInvite: {
+    loading: false,
+    error: '',
+  },
   getProjectUsers: {
     loading: false,
     error: '',
@@ -50,10 +58,6 @@ export const updateUsersRoles = createAsyncThunk(
     try {
       // this loop sets the role of all the user objects
 
-      //    this was cheged while fixing the code
-      // Object.keys(users).map((element) => {
-      //   users[element].role = role;
-      // });
       const usersCopy = { ...users };
       Object.keys(usersCopy).map((userId) => {
         usersCopy[userId].role = role;
@@ -82,6 +86,54 @@ export const updateUsersRoles = createAsyncThunk(
         handleAlerts({
           severity: 'error',
           message: `User's roles failed to update. Error: ${error.response.data.message}`,
+        })
+      );
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const inviteUsersToProject = createAsyncThunk(
+  'project/inviteUsersToProject',
+  async ({ projectId, users }, { dispatch, rejectWithValue }) => {
+    try {
+      const { data } = await api.inviteUsersToProject(projectId, users);
+
+      // there should be a funtion to make the users into a string and
+      // put them into the alert so the user knows who they invited
+      dispatch(
+        handleAlerts({ severity: 'success', message: 'Successfully invited [USERS] to project' })
+      );
+      return data;
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        handleAlerts({
+          severity: 'error',
+          message: `Failed to invite users to project. Error: ${error.message}`,
+        })
+      );
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const acceptProjectInvite = createAsyncThunk(
+  'project/acceptProjectInvite',
+  async ({ projectId, code }, { dispatch, rejectWithValue }) => {
+    try {
+      const { data } = await api.acceptProjectInvite(projectId, code);
+
+      dispatch(
+        handleAlerts({ severity: 'success', message: 'Successfully accepted project invite' })
+      );
+      return data;
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        handleAlerts({
+          severity: 'error',
+          message: `Failed to accept project invite. Error: ${error.message}`,
         })
       );
       return rejectWithValue(error);
@@ -180,6 +232,37 @@ const projectUsersSlice = createSlice({
       const currentState = state;
       currentState.updateUsersRoles.loading = false;
       currentState.updateUsersRoles.error = action.payload.message;
+    });
+
+    // Invite Users To Project
+    builder.addCase(acceptProjectInvite.pending, (state) => {
+      const currentState = state;
+      currentState.acceptProjectInvite.loading = true;
+    });
+    builder.addCase(acceptProjectInvite.fulfilled, (state) => {
+      const currentState = state;
+      currentState.acceptProjectInvite.loading = false;
+    });
+    builder.addCase(acceptProjectInvite.rejected, (state, action) => {
+      const currentState = state;
+      currentState.acceptProjectInvite.loading = false;
+      currentState.acceptProjectInvite.error = action.payload.message;
+    });
+
+    // Accpet Project Invite
+
+    builder.addCase(inviteUsersToProject.pending, (state) => {
+      const currentState = state;
+      currentState.inviteUsersToProject.loading = true;
+    });
+    builder.addCase(inviteUsersToProject.fulfilled, (state) => {
+      const currentState = state;
+      currentState.inviteUsersToProject.loading = false;
+    });
+    builder.addCase(inviteUsersToProject.rejected, (state, action) => {
+      const currentState = state;
+      currentState.inviteUsersToProject.loading = false;
+      currentState.inviteUsersToProject.error = action.payload.message;
     });
 
     // Delete Users From Project

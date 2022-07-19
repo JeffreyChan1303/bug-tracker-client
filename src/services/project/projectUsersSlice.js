@@ -159,7 +159,7 @@ export const deleteUsersFromProject = createAsyncThunk(
       dispatch(
         handleAlerts({
           severity: 'error',
-          message: `Users were unable to be deleted formt he project. Error: ${error.message}`,
+          message: `Users were unable to be deleted form the project. Error: ${error.response.data.message}`,
         })
       );
       return rejectWithValue(error);

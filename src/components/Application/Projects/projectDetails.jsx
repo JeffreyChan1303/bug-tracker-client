@@ -9,6 +9,7 @@ import ProjectUsers from './projectUsers';
 import {
   getProjectDetails,
   moveProjectToArchive,
+  deleteProjectFromArchive,
 } from '../../../services/project/projectDetailsSlice';
 
 const getDateFromISODate = (ISODate) => {
@@ -27,13 +28,20 @@ const ProjectDetails = () => {
     project,
   } = useSelector((state) => state.projectDetails);
 
+  const isArchived = project.status === 'Archived';
+
   useEffect(() => {
     dispatch(getProjectDetails(projectId));
   }, []);
 
   const handleDeleteProject = () => {
-    dispatch(moveProjectToArchive(projectId));
-    navigate('/allProjects');
+    if (isArchived) {
+      dispatch(deleteProjectFromArchive(projectId));
+      navigate('/projectArchive');
+    } else {
+      dispatch(moveProjectToArchive(projectId));
+      navigate('/allProjects');
+    }
   };
 
   return loading ? (
@@ -89,12 +97,14 @@ const ProjectDetails = () => {
           </Button>
           <Button
             variant="outlined"
-            onClick={() => navigate(`/projectDetails/manageUserRoles/${projectId}`)}>
+            onClick={() => navigate(`/projectDetails/manageUserRoles/${projectId}`)}
+          >
             Manage User Roles
           </Button>
           <Button
             variant="outlined"
-            onClick={() => navigate(`/projectDetails/assignTicket/${projectId}`)}>
+            onClick={() => navigate(`/projectDetails/assignTicket/${projectId}`)}
+          >
             Assign Ticket
           </Button>
         </Grid>

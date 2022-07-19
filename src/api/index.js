@@ -73,7 +73,8 @@ export const getProjectTickets = (projectId) => API.get(`projects/projectTickets
 export const getProjectUsers = (projectId) => API.get(`projects/projectUsers/${projectId}`);
 
 export const moveProjectToArchive = (id) => API.put(`/projects/moveProjectToArchive/${id}`);
-export const deleteProjectFromArchive = (id) => API.delete(`/projects/deleteProjectFromArchive/${id}`);
+export const restoreProjectFromArchive = (projectId) => API.put(`/projects/restoreProjectFromArchive${projectId}`)
+export const deleteProjectFromArchive = (projectId) => API.delete(`/projects/deleteProjectFromArchive/${projectId}`);
 
 export const updateUsersRoles = (projectId, users) => API.put(`/projects/updateUsersRoles/${projectId}`, users);
 export const deleteUsersFromProject = (projectId, users) => API.put(`/projects/deleteUsersFromProject/${projectId}`, users);

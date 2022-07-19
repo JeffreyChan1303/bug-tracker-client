@@ -15,6 +15,14 @@ const initialState = {
     loading: false,
     error: '',
   },
+  restoreProjectFrom: {
+    loading: false,
+    error: '',
+  },
+  deleteProjectFromArchive: {
+    loading: false,
+    error: '',
+  },
   getProjectTickets: {
     loading: false,
     error: '',
@@ -118,6 +126,60 @@ export const moveProjectToArchive = createAsyncThunk(
         handleAlerts({
           severity: 'error',
           message: `Project failed to delete. Error: ${error.message}`,
+        })
+      );
+
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const restoreProjectFromArchive = createAsyncThunk(
+  'project/restoreProjectFromArchive',
+  async (projectId, { dispatch, rejectWithValue }) => {
+    try {
+      const { data } = await api.restoreProjectFromArchive(projectId);
+
+      dispatch(
+        handleAlerts({
+          severity: 'success',
+          message: 'Project has been successfully restored from the Project Archive.',
+        })
+      );
+      return data;
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        handleAlerts({
+          severity: 'error',
+          message: `Project failed to restore. Error: ${error.message}`,
+        })
+      );
+
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const deleteProjectFromArchive = createAsyncThunk(
+  'project/deleteProjectFromArchive',
+  async (projectId, { dispatch, rejectWithValue }) => {
+    try {
+      const { data } = await api.moveProjectToArchive(projectId);
+
+      dispatch(
+        handleAlerts({
+          severity: 'success',
+          message: 'Project has been successfully deleted from the Project Archive.',
+        })
+      );
+      return data;
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        handleAlerts({
+          severity: 'error',
+          message: `Project failed to delete from archive. Error: ${error.message}`,
         })
       );
 
@@ -242,6 +304,36 @@ const projectDetailsSlice = createSlice({
       const currentState = state;
       currentState.moveProjectToArchive.loading = false;
       currentState.moveProjectToArchive.error = action.payload.message;
+    });
+
+    // restore Project From Archive
+    builder.addCase(restoreProjectFromArchive.pending, (state) => {
+      const currentState = state;
+      currentState.restoreProjectFromArchive.loading = true;
+    });
+    builder.addCase(restoreProjectFromArchive.fulfilled, (state) => {
+      const currentState = state;
+      currentState.restoreProjectFromArchive.loading = false;
+    });
+    builder.addCase(restoreProjectFromArchive.rejected, (state, action) => {
+      const currentState = state;
+      currentState.restoreProjectFromArchive.loading = false;
+      currentState.restoreProjectFromArchive.error = action.payload.message;
+    });
+
+    // Delete Project From Archive
+    builder.addCase(deleteProjectFromArchive.pending, (state) => {
+      const currentState = state;
+      currentState.deleteProjectFromArchive.loading = true;
+    });
+    builder.addCase(deleteProjectFromArchive.fulfilled, (state) => {
+      const currentState = state;
+      currentState.deleteProjectFromArchive.loading = false;
+    });
+    builder.addCase(deleteProjectFromArchive.rejected, (state, action) => {
+      const currentState = state;
+      currentState.deleteProjectFromArchive.loading = false;
+      currentState.deleteProjectFromArchive.error = action.payload.message;
     });
   },
 });

@@ -96,8 +96,10 @@ const ManageUserRoles = () => {
     }
   };
 
-  const handleDeleteUsersFromProject = () => {
-    dispatch(deleteUsersFromProject({ projectId, users: { ...selectedUsers } }));
+  const handleDeleteUsersFromProject = async () => {
+    await dispatch(deleteUsersFromProject({ projectId, users: { ...selectedUsers } }));
+    dispatch(getProjectUsers(projectId));
+    setSelectedUsers({});
   };
 
   return loading ? (

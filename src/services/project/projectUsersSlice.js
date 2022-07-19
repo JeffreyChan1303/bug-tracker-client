@@ -98,8 +98,6 @@ export const inviteUsersToProject = createAsyncThunk(
   'project/inviteUsersToProject',
   async ({ projectId, users, role }, { dispatch, rejectWithValue }) => {
     try {
-      console.log('inviteUsersToProject');
-
       const { data } = await api.inviteUsersToProject(projectId, users, role);
 
       // there should be a funtion to make the users into a string and
@@ -113,7 +111,7 @@ export const inviteUsersToProject = createAsyncThunk(
       dispatch(
         handleAlerts({
           severity: 'error',
-          message: `Failed to invite users to project. Error: ${error.message}`,
+          message: `Failed to invite users to project. Error: ${error.response.data.message}`,
         })
       );
       return rejectWithValue(error);
@@ -123,9 +121,9 @@ export const inviteUsersToProject = createAsyncThunk(
 
 export const acceptProjectInvite = createAsyncThunk(
   'project/acceptProjectInvite',
-  async ({ projectId, code }, { dispatch, rejectWithValue }) => {
+  async (notification, { dispatch, rejectWithValue }) => {
     try {
-      const { data } = await api.acceptProjectInvite(projectId, code);
+      const { data } = await api.acceptProjectInvite(notification);
 
       dispatch(
         handleAlerts({ severity: 'success', message: 'Successfully accepted project invite' })

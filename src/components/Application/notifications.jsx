@@ -32,6 +32,7 @@ import {
   readAllNotifications,
 } from '../../services/user/notificationsSlice';
 import CustomPagination from './pagination';
+import { acceptProjectInvite } from '../../services/project/projectUsersSlice';
 
 const BoldedTableCell = styled(TableCell)(({ theme }) => ({
   fontWeight: theme.typography.fontWeightBold,
@@ -99,6 +100,11 @@ const NotificationPage = () => {
   const handleReadAll = async () => {
     await dispatch(readAllNotifications());
     dispatch(getUserNotificationsBySearch({ search, page }));
+  };
+
+  const handleAcceptProjectInvite = async (notification) => {
+    await dispatch(acceptProjectInvite(notification));
+    navigate(`/projectDetails/${notification.invite.projectId}`);
   };
 
   return loading ? (
@@ -178,6 +184,18 @@ const NotificationPage = () => {
                         <Typography variant="body1" fontWeight={700}>
                           {notification.description}
                         </Typography>
+                        <Grid container justifyContent="right">
+                          {console.log(notification)}
+                          {notification.notificationType === 'project invite' && (
+                            <Button
+                              variant="outlined"
+                              size="small"
+                              onClick={() => handleAcceptProjectInvite(notification)}
+                            >
+                              Accept Invite
+                            </Button>
+                          )}
+                        </Grid>
                       </AccordionDetails>
                     </Accordion>
                   </ContentTableCell>

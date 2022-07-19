@@ -72,11 +72,11 @@ const ManageUserRoles = () => {
         }
       });
 
-      if (selectedProjectUsers.length >= 0) {
+      if (Object.keys(selectedProjectUsers).length !== 0) {
         await dispatch(updateUsersRoles({ projectId, users: selectedProjectUsers, role }));
       }
-      if (selectedNonProjectUsers.length >= 0) {
-        dispatch(inviteUsersToProject({ projectId, users: selectedNonProjectUsers, role }));
+      if (Object.keys(selectedNonProjectUsers).length !== 0) {
+        await dispatch(inviteUsersToProject({ projectId, users: selectedNonProjectUsers, role }));
       }
       dispatch(getProjectUsers(projectId));
     }

@@ -98,13 +98,8 @@ export const inviteUsersToProject = createAsyncThunk(
   'project/inviteUsersToProject',
   async ({ projectId, users, role }, { dispatch, rejectWithValue }) => {
     try {
-      // this loop sets the role of all the user objects
-      const usersCopy = { ...users };
-      Object.keys(usersCopy).map((userId) => {
-        usersCopy[userId].role = role;
-        return userId;
-      });
-      
+      console.log('inviteUsersToProject');
+
       const { data } = await api.inviteUsersToProject(projectId, users, role);
 
       // there should be a funtion to make the users into a string and

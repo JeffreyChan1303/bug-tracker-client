@@ -32,9 +32,7 @@ const ProjectTable = ({ projects, projectDetails, editProject, handleRestoreProj
                 {project.title}
               </ContentTableCell>
               <ContentTableCell align="right">{project.name}</ContentTableCell>
-              <ContentTableCell align="right">
-                {getDateFromISODate(project.createdAt)}
-              </ContentTableCell>
+              <ContentTableCell align="right">{getDateFromISODate(project.createdAt)}</ContentTableCell>
               <ContentTableCell sx={{ display: 'flex', justifyContent: 'center' }}>
                 {projectDetails && (
                   <Tooltip title="View" disableInteractive>

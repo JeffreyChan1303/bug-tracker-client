@@ -15,7 +15,7 @@ const initialState = {
     loading: false,
     error: '',
   },
-  restoreProjectFrom: {
+  restoreProjectFromArchive: {
     loading: false,
     error: '',
   },

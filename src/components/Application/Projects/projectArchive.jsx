@@ -4,9 +4,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { getArchivedProjectsBySearch } from '../../../services/project/projectArchiveSlice';
-import { handleAlerts } from '../../../services/alertsSlice';
 import CustomPagination from '../pagination';
 import ProjectTable from './projectTable';
+import { restoreProjectFromArchive } from '../../../services/project/projectDetailsSlice';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -19,9 +19,7 @@ const ProjectArchive = () => {
   const page = query.get('page');
   // const searchQuery = query.get('searchQuery');
   const [search, setSearch] = useState('');
-  const { loading, projects, currentPage, numberOfPages } = useSelector(
-    (state) => state.projectArchive
-  );
+  const { loading, projects, currentPage, numberOfPages } = useSelector((state) => state.projectArchive);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -43,10 +41,9 @@ const ProjectArchive = () => {
     }
   };
 
-  const handleRestoreProject = () => {
-    dispatch(
-      handleAlerts({ severity: 'warning', message: 'this function is not implemented yet' })
-    );
+  const handleRestoreProject = async (projectId) => {
+    await dispatch(restoreProjectFromArchive(projectId));
+    navigate('/myProjects');
   };
 
   return loading ? (
@@ -73,11 +70,7 @@ const ProjectArchive = () => {
           />
         </Box>
 
-        <ProjectTable
-          projects={projects}
-          handleRestoreProject={handleRestoreProject}
-          projectDetails
-        />
+        <ProjectTable projects={projects} handleRestoreProject={handleRestoreProject} projectDetails />
       </Box>
 
       <CustomPagination

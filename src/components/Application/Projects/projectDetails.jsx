@@ -28,7 +28,7 @@ const ProjectDetails = () => {
     project,
   } = useSelector((state) => state.projectDetails);
 
-  const isArchived = project.status === 'Archived';
+  const isArchived = project?.status === 'Archived';
 
   useEffect(() => {
     dispatch(getProjectDetails(projectId));
@@ -56,23 +56,23 @@ const ProjectDetails = () => {
             <Grid item xs={5}>
               <Typography>
                 <strong>Project ID: </strong>
-                {project._id}
+                {project?._id}
               </Typography>
               <Typography>
                 <strong>Created By: </strong>
-                {project.name}
+                {project?.name}
               </Typography>
               <Typography>
                 <strong>Created At: </strong>
-                {getDateFromISODate(project.createdAt)}
+                {getDateFromISODate(project?.createdAt)}
               </Typography>
             </Grid>
             <Grid item xs={7}>
               <Typography variant="body1">
-                <strong>Title:</strong> {project.title}
+                <strong>Title:</strong> {project?.title}
               </Typography>
               <Typography variant="body1">
-                <strong>Description:</strong> {project.description}
+                <strong>Description:</strong> {project?.description}
               </Typography>
             </Grid>
           </Grid>
@@ -95,16 +95,10 @@ const ProjectDetails = () => {
           <Button variant="outlined" onClick={handleDeleteProject}>
             Delete
           </Button>
-          <Button
-            variant="outlined"
-            onClick={() => navigate(`/projectDetails/manageUserRoles/${projectId}`)}
-          >
+          <Button variant="outlined" onClick={() => navigate(`/projectDetails/manageUserRoles/${projectId}`)}>
             Manage User Roles
           </Button>
-          <Button
-            variant="outlined"
-            onClick={() => navigate(`/projectDetails/assignTicket/${projectId}`)}
-          >
+          <Button variant="outlined" onClick={() => navigate(`/projectDetails/assignTicket/${projectId}`)}>
             Assign Ticket
           </Button>
         </Grid>

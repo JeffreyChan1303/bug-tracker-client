@@ -15,40 +15,53 @@ const initialState = {
   currentPage: null,
   numberOfPages: null,
   myTicketsStatistics: {
-    numberOfBugTickets: 1,
-    numberOfFeatureTickets: 1,
+    numberOfBugTickets: 0,
+    numberOfFeatureTickets: 0,
     lowPriority: 0,
     mediumPriority: 0,
     highPriority: 0,
   },
 };
 
-export const getMyTicketsBySearch = createAsyncThunk('ticket/getMyTicketsBySearch', async ({ search, page }, { dispatch, rejectWithValue }) => {
-  const searchQuery = search;
-  // console.log(searchQuery, page)
-  try {
-    const { data } = await api.getMyTicketsBySearch(page, searchQuery);
+export const getMyTicketsBySearch = createAsyncThunk(
+  'ticket/getMyTicketsBySearch',
+  async ({ search, page }, { dispatch, rejectWithValue }) => {
+    const searchQuery = search;
+    // console.log(searchQuery, page)
+    try {
+      const { data } = await api.getMyTicketsBySearch(page, searchQuery);
 
-    // console.log(data);
-    return data;
-  } catch (error) {
-    console.log(error);
-    dispatch(handleAlerts({ severity: 'error', message: `My tickets were not able to be fetched. Error: ${error.message}` }));
-    return rejectWithValue(error);
+      // console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        handleAlerts({ severity: 'error', message: `My tickets were not able to be fetched. Error: ${error.message}` })
+      );
+      return rejectWithValue(error);
+    }
   }
-});
+);
 
-export const getMyTicketStatistics = createAsyncThunk('ticket/getMyTicketStatistics', async (params, { dispatch, rejectWithValue }) => {
-  try {
-    const { data } = await api.getMyTicketStatistics();
+export const getMyTicketStatistics = createAsyncThunk(
+  'ticket/getMyTicketStatistics',
+  async (params, { dispatch, rejectWithValue }) => {
+    try {
+      const { data } = await api.getMyTicketStatistics();
 
-    return data;
-  } catch (error) {
-    console.log(error);
-    dispatch(handleAlerts({ severity: 'error', message: `My ticket statistics were not able to be fetched. Error: ${error.message}` }));
-    return rejectWithValue(error);
+      return data;
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        handleAlerts({
+          severity: 'error',
+          message: `My ticket statistics were not able to be fetched. Error: ${error.message}`,
+        })
+      );
+      return rejectWithValue(error);
+    }
   }
-});
+);
 
 const myTicketsSlice = createSlice({
   name: 'myTickets',
@@ -72,7 +85,7 @@ const myTicketsSlice = createSlice({
     });
 
     builder.addCase(getMyTicketStatistics.pending, (state) => {
-      const currentState =state;
+      const currentState = state;
       currentState.getMyTicketStatistics.loading = true;
     });
     builder.addCase(getMyTicketStatistics.fulfilled, (state, action) => {

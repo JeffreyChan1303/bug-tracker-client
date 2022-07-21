@@ -13,7 +13,7 @@ import {
 import TicketInformation from './ticketInformation';
 import TicketComments from './ticketComments';
 import TicketHistory from './ticketHistory';
-import { getDateFromISODate } from '../../Utility/dateUtility';
+import { getDateFromISODate } from '../../Utility/formatDate';
 
 const TicketDetails = () => {
   const { ticketId } = useParams();

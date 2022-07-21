@@ -6,16 +6,10 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import PanToolOutlinedIcon from '@mui/icons-material/PanToolOutlined';
 import RestoreIcon from '@mui/icons-material/Restore';
 
-import { getDateFromISODate } from '../../Utility/dateUtility';
+import { getDateFromISODate } from '../../Utility/formatDate';
 import { BoldedTableCell, ContentTableCell } from '../../Utility/tableCellStyles';
 
-const TicketTable = ({
-  tickets,
-  ticketDetails,
-  editTicket,
-  handleClaimTicket,
-  handleRestoreTicket,
-}) => {
+const TicketTable = ({ tickets, ticketDetails, editTicket, handleClaimTicket, handleRestoreTicket }) => {
   const navigate = useNavigate();
 
   return (
@@ -54,9 +48,7 @@ const TicketTable = ({
               <ContentTableCell align="center">
                 <Chip label={ticket.type} variant="outlined" color="secondary" />
               </ContentTableCell>
-              <ContentTableCell align="center">
-                {getDateFromISODate(ticket.updatedAt)}
-              </ContentTableCell>
+              <ContentTableCell align="center">{getDateFromISODate(ticket.updatedAt)}</ContentTableCell>
 
               <ContentTableCell sx={{ display: 'flex', justifyContent: 'center' }}>
                 {handleClaimTicket && (

@@ -17,9 +17,7 @@ const UnassignedTickets = () => {
   const page = query.get('page');
   const [search, setSearch] = useState('');
   // useSelector may be useful when we implement the dashboard which requires multiple api calls
-  const { loading, tickets, currentPage, numberOfPages } = useSelector(
-    (state) => state.unassignedTickets
-  );
+  const { loading, tickets, currentPage, numberOfPages } = useSelector((state) => state.unassignedTickets);
 
   const dispatch = useDispatch();
 
@@ -74,12 +72,7 @@ const UnassignedTickets = () => {
           </Box>
         </Grid>
 
-        <TicketTable
-          tickets={tickets}
-          handleClaimTicket={handleClaimTicket}
-          ticketDetails
-          editTicket
-        />
+        <TicketTable tickets={tickets} handleClaimTicket={handleClaimTicket} ticketDetails editTicket />
       </Box>
 
       <CustomPagination

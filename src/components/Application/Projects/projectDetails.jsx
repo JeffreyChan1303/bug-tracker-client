@@ -13,11 +13,7 @@ import {
   restoreProjectFromArchive,
 } from '../../../services/project/projectDetailsSlice';
 
-const getDateFromISODate = (ISODate) => {
-  const date = new Date(ISODate);
-  const string = `${date.getMonth()}-${date.getDate()}-${date.getFullYear()}  ${date.getHours()}:${date.getMinutes()}`;
-  return string;
-};
+import { getDateFromISODate, getTimeFromISODate } from '../../Utility/formatDate';
 
 const ProjectDetails = () => {
   const { projectId } = useParams();
@@ -72,7 +68,7 @@ const ProjectDetails = () => {
               </Typography>
               <Typography>
                 <strong>Created At: </strong>
-                {getDateFromISODate(project?.createdAt)}
+                {getDateFromISODate(project?.createdAt)} {getTimeFromISODate(project?.createdAt)}
               </Typography>
               <Typography>
                 <strong>Status: </strong>

@@ -6,7 +6,7 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import RestoreIcon from '@mui/icons-material/Restore';
 
-import { getDateFromISODate } from '../../Utility/dateUtility';
+import { getDateFromISODate } from '../../Utility/formatDate';
 import { BoldedTableCell, ContentTableCell } from '../../Utility/tableCellStyles';
 
 const ProjectTable = ({ projects, projectDetails, editProject, handleRestoreProject }) => {

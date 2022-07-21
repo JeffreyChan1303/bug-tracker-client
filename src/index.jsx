@@ -7,7 +7,7 @@ import { ThemeProvider } from '@mui/material/styles';
 
 import theme from './theme';
 import App from './App';
-import { store } from './app/store';
+import { store } from './store/store';
 
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);

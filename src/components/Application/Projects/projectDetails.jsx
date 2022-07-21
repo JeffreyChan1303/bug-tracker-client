@@ -34,13 +34,13 @@ const ProjectDetails = () => {
     dispatch(getProjectDetails(projectId));
   }, []);
 
-  const handleDeleteProject = () => {
+  const handleDeleteProject = async () => {
     if (isArchived) {
-      dispatch(deleteProjectFromArchive(projectId));
+      await dispatch(deleteProjectFromArchive(projectId));
       navigate('/projectArchive');
     } else {
-      dispatch(moveProjectToArchive(projectId));
-      navigate('/allProjects');
+      await dispatch(moveProjectToArchive(projectId));
+      navigate('/myProjects');
     }
   };
 
@@ -65,6 +65,10 @@ const ProjectDetails = () => {
               <Typography>
                 <strong>Created At: </strong>
                 {getDateFromISODate(project?.createdAt)}
+              </Typography>
+              <Typography>
+                <strong>Status: </strong>
+                {project?.status}
               </Typography>
             </Grid>
             <Grid item xs={7}>

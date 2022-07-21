@@ -31,6 +31,7 @@ const initialState = {
     name: '',
     title: '',
     createdAt: '',
+    status: '',
   },
   projectTickets: {
     original: [],

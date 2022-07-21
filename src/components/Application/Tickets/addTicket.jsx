@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Typography,
-  TextField,
-  Button,
-  Paper,
-  Select,
-  MenuItem,
-  CircularProgress,
-} from '@mui/material';
+import { Typography, TextField, Button, Paper, Select, MenuItem, CircularProgress } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -47,9 +39,7 @@ const AddTicket = ({ support }) => {
   const handlePriorityChange = (event) => {
     setTicketData({ ...ticketData, priority: event.target.value });
   };
-  const handleStatusChange = (event) => {
-    setTicketData({ ...ticketData, status: event.target.value });
-  };
+
   const handleTypeChange = (event) => {
     setTicketData({ ...ticketData, type: event.target.value });
   };
@@ -152,32 +142,9 @@ const AddTicket = ({ support }) => {
         />
 
         <Typography variant="body1" fontWeight={700}>
-          Ticket Status
-        </Typography>
-        <Select
-          value={ticketData.status}
-          onChange={handleStatusChange}
-          sx={{ mb: 2 }}
-          fullWidth
-          size="small"
-        >
-          <MenuItem value="Resolved">Resolved</MenuItem>
-          <MenuItem value="Testing">Testing</MenuItem>
-          <MenuItem value="Development">Development</MenuItem>
-          <MenuItem value="Unassigned">Unassigned</MenuItem>
-          <MenuItem value="New">New</MenuItem>
-        </Select>
-
-        <Typography variant="body1" fontWeight={700}>
           Ticket Priority
         </Typography>
-        <Select
-          value={ticketData.priority}
-          onChange={handlePriorityChange}
-          sx={{ mb: 2 }}
-          fullWidth
-          size="small"
-        >
+        <Select value={ticketData.priority} onChange={handlePriorityChange} sx={{ mb: 2 }} fullWidth size="small">
           <MenuItem value="Low">Low Priority</MenuItem>
           <MenuItem value="Medium">Medium Priority</MenuItem>
           <MenuItem value="High">High Priority</MenuItem>
@@ -188,13 +155,7 @@ const AddTicket = ({ support }) => {
             <Typography variant="body1" fontWeight={700}>
               Ticket Type
             </Typography>
-            <Select
-              value={ticketData.type}
-              onChange={handleTypeChange}
-              sx={{ mb: 2 }}
-              fullWidth
-              size="small"
-            >
+            <Select value={ticketData.type} onChange={handleTypeChange} sx={{ mb: 2 }} fullWidth size="small">
               <MenuItem value="Bug">Bug</MenuItem>
               <MenuItem value="Feature">Feature</MenuItem>
             </Select>
@@ -202,13 +163,7 @@ const AddTicket = ({ support }) => {
         )}
       </form>
 
-      <Button
-        sx={{ mr: 1 }}
-        variant="contained"
-        color="primary"
-        size="small"
-        onClick={handleSubmit}
-      >
+      <Button sx={{ mr: 1 }} variant="contained" color="primary" size="small" onClick={handleSubmit}>
         Save
       </Button>
 

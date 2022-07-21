@@ -10,6 +10,7 @@ import {
   getProjectDetails,
   moveProjectToArchive,
   deleteProjectFromArchive,
+  restoreProjectFromArchive,
 } from '../../../services/project/projectDetailsSlice';
 
 const getDateFromISODate = (ISODate) => {
@@ -44,11 +45,18 @@ const ProjectDetails = () => {
     }
   };
 
+  const handleRestoreProject = async (projectId) => {
+    await dispatch(restoreProjectFromArchive(projectId));
+    navigate('/myProjects');
+  };
+
   return loading ? (
     <CircularProgress color="inherit" />
   ) : (
     <>
-      <Typography paragraph>Project Details</Typography>
+      <Typography variant="h4" marginBottom={1}>
+        Project Details
+      </Typography>
 
       <Paper sx={{ p: 3 }} elevation={1}>
         <Paper sx={{ p: 3, mb: 2 }} elevation={3}>
@@ -92,18 +100,32 @@ const ProjectDetails = () => {
           </Grid>
         </Grid>
 
-        <Grid container sx={{ mt: '20px' }}>
-          <Button variant="outlined" onClick={() => navigate(`/editProject/${projectId}`)}>
-            Edit
+        <Grid container sx={{ mt: '20px' }} gap={3}>
+          {project?.status === 'Archived' ? (
+            <Button variant="outlined" onClick={() => handleRestoreProject(project._id)}>
+              Restore Project
+            </Button>
+          ) : (
+            <Button variant="outlined" onClick={() => navigate(`/editProject/${projectId}`)}>
+              Edit
+            </Button>
+          )}
+          <Button
+            variant="outlined"
+            disabled={project?.status === 'Archived'}
+            onClick={() => navigate(`/projectDetails/manageUserRoles/${projectId}`)}
+          >
+            Manage User Roles
+          </Button>
+          <Button
+            variant="outlined"
+            disabled={project?.status === 'Archived'}
+            onClick={() => navigate(`/projectDetails/assignTicket/${projectId}`)}
+          >
+            Assign Ticket
           </Button>
           <Button variant="outlined" onClick={handleDeleteProject}>
             Delete
-          </Button>
-          <Button variant="outlined" onClick={() => navigate(`/projectDetails/manageUserRoles/${projectId}`)}>
-            Manage User Roles
-          </Button>
-          <Button variant="outlined" onClick={() => navigate(`/projectDetails/assignTicket/${projectId}`)}>
-            Assign Ticket
           </Button>
         </Grid>
       </Paper>

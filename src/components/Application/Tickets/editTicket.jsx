@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Typography,
-  TextField,
-  Button,
-  Paper,
-  Select,
-  MenuItem,
-  CircularProgress,
-} from '@mui/material';
+import { Typography, TextField, Button, Paper, Select, MenuItem, CircularProgress, Grid } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -20,7 +12,6 @@ const initialTicketData = {
   description: '',
   priority: 'High',
   status: 'New',
-  type: 'Bug',
 };
 
 const EditTicket = () => {
@@ -48,14 +39,22 @@ const EditTicket = () => {
     dispatch(getTicketDetails(ticketId));
   }, []);
 
+  useEffect(() => {
+    setTicketData({
+      ...ticketData,
+      title: ticket.title,
+      description: ticket.description,
+      priority: ticket.priority,
+      status: ticket.status,
+      type: ticket.type,
+    });
+  }, [ticket]);
+
   const handlePriorityChange = (event) => {
     setTicketData({ ...ticketData, priority: event.target.value });
   };
   const handleStatusChange = (event) => {
     setTicketData({ ...ticketData, status: event.target.value });
-  };
-  const handleTypeChange = (event) => {
-    setTicketData({ ...ticketData, type: event.target.value });
   };
 
   const handleSubmit = (event) => {
@@ -82,17 +81,9 @@ const EditTicket = () => {
     <CircularProgress color="inherit" />
   ) : (
     <>
-      <Typography paragraph>Editing Ticket Id: {ticketId}</Typography>
-      <Button
-        sx={{}}
-        variant="outlined"
-        color="secondary"
-        size="small"
-        type="cancel"
-        onClick={handleUsePrevTicketValues}
-      >
-        use default tick values
-      </Button>
+      <Typography variant="h5" marginBottom={1}>
+        Editing Ticket Id: {ticketId}
+      </Typography>
 
       <Paper sx={{ p: 3, maxWidth: { md: '700px' } }} elevation={3}>
         <form autoComplete="off" noValidate onSubmit={handleSubmit} style={{}}>
@@ -128,12 +119,7 @@ const EditTicket = () => {
           <Typography variant="body1" fontWeight={700}>
             Ticket Priority
           </Typography>
-          <Select
-            value={ticketData.priority}
-            onChange={handlePriorityChange}
-            sx={{ mb: 2 }}
-            fullWidth
-          >
+          <Select value={ticketData.priority} onChange={handlePriorityChange} sx={{ mb: 2 }} fullWidth size="small">
             <MenuItem value="Low">Low Priority</MenuItem>
             <MenuItem value="Medium">Medium Priority</MenuItem>
             <MenuItem value="High">High Priority</MenuItem>
@@ -142,44 +128,25 @@ const EditTicket = () => {
           <Typography variant="body1" fontWeight={700}>
             Ticket Status
           </Typography>
-          <Select
-            value={ticketData.status}
-            onChange={handleStatusChange}
-            sx={{ mb: 2 }}
-            fullWidth
-            size="small"
-          >
+          <Select value={ticketData.status} onChange={handleStatusChange} sx={{ mb: 2 }} fullWidth size="small">
             <MenuItem value="Archived">Archived</MenuItem>
             <MenuItem value="Resolved">Resolved</MenuItem>
             <MenuItem value="Testing">Testing</MenuItem>
             <MenuItem value="Development">Development</MenuItem>
             <MenuItem value="Unassigned">Unassigned</MenuItem>
-            <MenuItem value="New">New</MenuItem>
           </Select>
 
-          <Select
-            value={ticketData.type}
-            onChange={handleTypeChange}
-            sx={{ mb: 2 }}
-            fullWidth
-            size="small"
-          >
-            <MenuItem value="Bug">Bug</MenuItem>
-            <MenuItem value="Feature">Feature</MenuItem>
-          </Select>
-
-          <Button
-            sx={{ mr: 1 }}
-            variant="contained"
-            color="primary"
-            size="small"
-            onClick={handleSubmit}
-          >
-            Save
-          </Button>
-          <Button sx={{}} variant="outlined" color="secondary" size="small" onClick={handleClear}>
-            Clear
-          </Button>
+          <Grid container gap={2}>
+            <Button variant="contained" color="primary" size="small" onClick={handleSubmit}>
+              Save
+            </Button>
+            <Button variant="outlined" color="secondary" size="small" onClick={handleClear}>
+              Clear
+            </Button>
+            <Button variant="outlined" color="secondary" size="small" type="cancel" onClick={handleUsePrevTicketValues}>
+              use default ticket values
+            </Button>
+          </Grid>
         </form>
       </Paper>
     </>

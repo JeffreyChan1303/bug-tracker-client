@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Typography, TextField, Button, Paper, CircularProgress } from '@mui/material';
+import { Typography, TextField, Button, Paper, CircularProgress, Grid } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -56,17 +56,7 @@ const EditProject = () => {
     <CircularProgress color="inherit" />
   ) : (
     <>
-      <Typography paragraph>Editing Project Id: {id}</Typography>
-      <Button
-        sx={{}}
-        variant="outlined"
-        color="secondary"
-        size="small"
-        type="cancel"
-        onClick={handleUsePrevProjectValues}
-      >
-        use default tick values
-      </Button>
+      <Typography variant="h4">Editing Project Id: {id}</Typography>
 
       <Paper sx={{ p: 3, maxWidth: { md: '700px' } }} elevation={3}>
         <form autoComplete="off" noValidate onSubmit={handleSubmit} style={{}}>
@@ -99,18 +89,23 @@ const EditProject = () => {
             onChange={(e) => setProjectData({ ...projectData, description: e.target.value })}
           />
 
-          <Button
-            sx={{ mr: 1 }}
-            variant="contained"
-            color="primary"
-            size="small"
-            onClick={handleSubmit}
-          >
-            Save
-          </Button>
-          <Button sx={{}} variant="outlined" color="secondary" size="small" onClick={handleClear}>
-            Clear
-          </Button>
+          <Grid container gap={2}>
+            <Button variant="contained" color="primary" size="small" onClick={handleSubmit}>
+              Save
+            </Button>
+            <Button sx={{}} variant="outlined" color="secondary" size="small" onClick={handleClear}>
+              Clear
+            </Button>
+            <Button
+              variant="outlined"
+              color="secondary"
+              size="small"
+              type="cancel"
+              onClick={handleUsePrevProjectValues}
+            >
+              use default tick values
+            </Button>
+          </Grid>
         </form>
       </Paper>
     </>

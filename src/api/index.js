@@ -54,7 +54,7 @@ export const deleteTicketComment = (ticketId, commentCreatedAt) => API.patch(`ti
 
 export const getMyTicketStatistics = () => API.get('/tickets/myTicketStatistics');
 
-export const claimTicket = (ticketId, userId) => API.patch(`tickets/claimTicket/${ticketId}`, userId);
+export const claimTicket = (ticketId, userId) => API.patch(`tickets/claimTicket/${ticketId}`, { userId });
 
 export const getSupportTicketsBySearch = (page, searchQuery) => API.get(`/tickets/supportTickets/search?searchQuery=${searchQuery || ''}&page=${page}`);
 export const addSupportTicket = (ticketData) => API.post(`/tickets/createSupportTicket`, ticketData);

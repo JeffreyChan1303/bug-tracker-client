@@ -129,7 +129,6 @@ const EditTicket = () => {
             Ticket Status
           </Typography>
           <Select value={ticketData.status} onChange={handleStatusChange} sx={{ mb: 2 }} fullWidth size="small">
-            <MenuItem value="Archived">Archived</MenuItem>
             <MenuItem value="Resolved">Resolved</MenuItem>
             <MenuItem value="Testing">Testing</MenuItem>
             <MenuItem value="Development">Development</MenuItem>

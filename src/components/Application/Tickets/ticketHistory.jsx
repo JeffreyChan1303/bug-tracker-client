@@ -28,6 +28,7 @@ const TicketHistory = ({ ticketHistory }) => (
               </Typography>
             </Grid>
             <Typography>Description: {prevTicket.description}</Typography>
+            <Typography>Developer: {prevTicket.developer ? prevTicket.developer : '(none)'}</Typography>
             <Typography>Priority: {prevTicket.priority}</Typography>
             <Typography>Status: {prevTicket.status}</Typography>
           </AccordionDetails>

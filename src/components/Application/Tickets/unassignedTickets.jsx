@@ -72,7 +72,7 @@ const UnassignedTickets = () => {
           </Box>
         </Grid>
 
-        <TicketTable tickets={tickets} handleClaimTicket={handleClaimTicket} ticketDetails editTicket />
+        <TicketTable tickets={tickets} handleClaimTicket={handleClaimTicket} ticketDetails />
       </Box>
 
       <CustomPagination

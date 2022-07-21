@@ -70,7 +70,11 @@ const TicketDetails = () => {
                   <Button
                     variant="outlined"
                     onClick={() => navigate(`/editTicket/${ticketId}`)}
-                    disabled={ticket.type === 'Support'}
+                    disabled={
+                      ticket.type === 'Support' ||
+                      (JSON.parse(localStorage.getItem('profile')).userObject._id !== ticket.creator &&
+                        JSON.parse(localStorage.getItem('profile')).userObject._id !== ticket.developer?._id)
+                    }
                   >
                     Edit
                   </Button>

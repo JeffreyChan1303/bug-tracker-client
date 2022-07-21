@@ -102,9 +102,8 @@ export const inviteUsersToProject = createAsyncThunk(
 
       // there should be a funtion to make the users into a string and
       // put them into the alert so the user knows who they invited
-      dispatch(
-        handleAlerts({ severity: 'success', message: 'Successfully invited [USERS] to project' })
-      );
+      console.log(data);
+      dispatch(handleAlerts({ severity: 'success', message: data.message }));
       return data;
     } catch (error) {
       console.log(error);
@@ -125,9 +124,7 @@ export const acceptProjectInvite = createAsyncThunk(
     try {
       const { data } = await api.acceptProjectInvite(notification);
 
-      dispatch(
-        handleAlerts({ severity: 'success', message: 'Successfully accepted project invite' })
-      );
+      dispatch(handleAlerts({ severity: 'success', message: 'Successfully accepted project invite' }));
       return data;
     } catch (error) {
       console.log(error);

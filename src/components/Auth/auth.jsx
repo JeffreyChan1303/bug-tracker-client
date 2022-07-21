@@ -77,8 +77,8 @@ const Auth = () => {
   const loginToDemoProductManager = () =>
     dispatch(
       signIn({
-        email: 'Demo_Product_Manager@bugtracker.com',
-        password: 'DemoProductManagerPassword',
+        email: 'Demo_Project_Manager@bugtracker.com',
+        password: 'DemoProjectManagerPassword',
       })
     );
 
@@ -104,13 +104,7 @@ const Auth = () => {
             <Grid container spacing={2}>
               {isSignup && (
                 <>
-                  <Input
-                    name="firstName"
-                    label="First Name"
-                    handleChange={handleChange}
-                    autoFocus
-                    half
-                  />
+                  <Input name="firstName" label="First Name" handleChange={handleChange} autoFocus half />
                   <Input name="lastName" label="Last Name" handleChange={handleChange} half />
                 </>
               )}
@@ -123,23 +117,11 @@ const Auth = () => {
                 handleShowPassword={handleShowPassword}
               />
               {isSignup && (
-                <Input
-                  name="confirmPassword"
-                  label="Repeat Password"
-                  handleChange={handleChange}
-                  type="password"
-                />
+                <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password" />
               )}
             </Grid>
 
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              size="small"
-              sx={{ m: '20px 0 10px' }}
-            >
+            <Button type="submit" fullWidth variant="contained" color="primary" size="small" sx={{ m: '20px 0 10px' }}>
               {isSignup ? 'Sign Up' : 'Sign In'}
             </Button>
 
@@ -176,13 +158,7 @@ const Auth = () => {
         </Paper>
       </Grid>
 
-      <Grid
-        item
-        lg={7}
-        alignItems="center"
-        justifyContent="center"
-        sx={{ display: { xs: 'none', lg: 'flex' } }}
-      >
+      <Grid item lg={7} alignItems="center" justifyContent="center" sx={{ display: { xs: 'none', lg: 'flex' } }}>
         <Typography variant="h2" fontWeight={700} sx={{ color: 'white' }}>
           Bug Tracker
         </Typography>

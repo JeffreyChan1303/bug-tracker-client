@@ -33,7 +33,7 @@ const Header = ({ drawerWidth, handleDrawerToggle, handleLogOut }) => {
 
   useEffect(() => {
     dispatch(getUnreadNotifications());
-  }, []);
+  }, [numberOfUnreadNotifications]);
 
   const handleAvatarOpen = (event) => {
     setAvatarOpen(event.currentTarget);
@@ -70,12 +70,7 @@ const Header = ({ drawerWidth, handleDrawerToggle, handleLogOut }) => {
 
         <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">
           <Box>
-            <Typography
-              variant="body1"
-              noWrap
-              fontWeight={500}
-              sx={{ display: { xs: 'none', sm: 'block' } }}
-            >
+            <Typography variant="body1" noWrap fontWeight={500} sx={{ display: { xs: 'none', sm: 'block' } }}>
               {pathname}
             </Typography>
           </Box>

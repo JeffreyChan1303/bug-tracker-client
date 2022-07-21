@@ -26,7 +26,7 @@ import {
   AssignTicket,
   Profile,
 } from './components/Application/index';
-import { userActions } from './services/user/userSlice';
+import { userActions, setAuthData } from './services/user/userSlice';
 import { handleAlerts } from './services/alertsSlice';
 import Alert from './components/Application/alert';
 import Auth from './components/Auth/auth';
@@ -35,11 +35,16 @@ const drawerWidth = 260;
 
 const App = () => {
   // maybe make the alerts in the file so it always shows even on the auth page,
+  // we can change this user constant into auth data to check if the user is loged in or not
   const user = JSON.parse(localStorage.getItem('profile'));
   const dispatch = useDispatch();
   const location = useLocation();
   const { authData } = useSelector((state) => state.user);
   console.log(authData);
+
+  useEffect(() => {
+    dispatch(setAuthData());
+  }, []);
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const handleDrawerToggle = () => {
@@ -139,22 +144,10 @@ const App = () => {
               <Route exact path="/editProject/:id" element={<EditProject />} />
               <Route exact path="/projectDetails/:projectId" element={<ProjectDetails />} />
 
-              <Route
-                exact
-                path="/projectDetails/manageUserRoles/:projectId"
-                element={<ManageUserRoles />}
-              />
-              <Route
-                exact
-                path="/projectDetails/manageUserRoles/:projectId/search"
-                element={<ManageUserRoles />}
-              />
+              <Route exact path="/projectDetails/manageUserRoles/:projectId" element={<ManageUserRoles />} />
+              <Route exact path="/projectDetails/manageUserRoles/:projectId/search" element={<ManageUserRoles />} />
 
-              <Route
-                exact
-                path="/projectDetails/assignTicket/:projectId"
-                element={<AssignTicket />}
-              />
+              <Route exact path="/projectDetails/assignTicket/:projectId" element={<AssignTicket />} />
 
               {/* Ticket Routes */}
               <Route exact path="/allTickets" element={<AllTickets />} />

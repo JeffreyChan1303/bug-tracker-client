@@ -41,9 +41,9 @@ const UnassignedTickets = () => {
       searchUnassignedTickets();
     }
   };
-  const handleClaimTicket = (ticketId) => {
-    dispatch(claimTicket({ ticketId }));
-    searchUnassignedTickets();
+  const handleClaimTicket = async (ticketId) => {
+    await dispatch(claimTicket({ ticketId }));
+    navigate('/ticketDetails/ticketId');
   };
 
   return loading ? (

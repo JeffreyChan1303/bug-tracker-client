@@ -3,6 +3,7 @@ import { Box, Typography, Paper, Button, Avatar, Grid } from '@mui/material';
 import jwtDecode from 'jwt-decode';
 import { useDispatch } from 'react-redux';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { useNavigate } from 'react-router-dom';
 
 // import store from '../../app/store';
 import { userActions } from '../../services/user/userSlice';
@@ -18,6 +19,7 @@ const Auth = () => {
   const [isSignup, setIsSignup] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleShowPassword = () => setShowPassword(!showPassword);
 
@@ -56,7 +58,7 @@ const Auth = () => {
     setShowPassword(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (isSignup) {
@@ -64,6 +66,7 @@ const Auth = () => {
     } else {
       dispatch(signIn(formData));
     }
+    navigate('/');
   };
 
   // when input is typed in

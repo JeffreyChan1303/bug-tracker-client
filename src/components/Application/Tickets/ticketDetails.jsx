@@ -25,6 +25,8 @@ const TicketDetails = () => {
     ticket,
     ticket: { ticketHistory },
   } = useSelector((state) => state.ticketDetails);
+  const { authData } = useSelector((state) => state.user);
+  console.log(authData);
 
   useEffect(() => {
     dispatch(getTicketDetails(ticketId));

@@ -9,28 +9,25 @@ const initialState = {
 };
 
 // generates pending, fulfilled, and rejected action types
-export const signIn = createAsyncThunk(
-  'users/signin',
-  async (formData, { dispatch, rejectWithValue }) => {
-    try {
-      const { data } = await api.signIn(formData);
+export const signIn = createAsyncThunk('users/signin', async (formData, { dispatch, rejectWithValue }) => {
+  try {
+    const { data } = await api.signIn(formData);
 
-      dispatch(userActions.auth(data));
+    dispatch(userActions.auth(data));
 
-      window.location.reload();
-      return data;
-    } catch (error) {
-      console.log(error);
-      dispatch(
-        handleAlerts({
-          severity: 'error',
-          message: `Failed to sign in. Error: ${error.response.data.message}`,
-        })
-      );
-      return rejectWithValue(error);
-    }
+    // window.location.reload();
+    return data;
+  } catch (error) {
+    console.log(error);
+    dispatch(
+      handleAlerts({
+        severity: 'error',
+        message: `Failed to sign in. Error: ${error.response.data.message}`,
+      })
+    );
+    return rejectWithValue(error);
   }
-);
+});
 
 export const signUp = createAsyncThunk('users/signup', async (formData, { dispatch }) => {
   try {
@@ -39,7 +36,7 @@ export const signUp = createAsyncThunk('users/signup', async (formData, { dispat
 
     dispatch(userActions.auth(data));
 
-    window.location.reload();
+    // window.location.reload();
     return;
   } catch (error) {
     console.log(error);

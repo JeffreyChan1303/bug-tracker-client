@@ -1,9 +1,23 @@
-import { createSlice } from '@reduxjs/toolkit';
-// state is the state of the whole USER!! that is online!!
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
 const initialState = {
-  // this is a test
+  setAuthData: {
+    loading: false,
+    error: '',
+  },
   authData: null,
 };
+
+export const setAuthData = createAsyncThunk('user/setAuthData', async (params, { rejectWithValue }) => {
+  try {
+    const data = JSON.parse(localStorage.getItem('profile'));
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    return rejectWithValue(error);
+  }
+});
 
 export const userSlice = createSlice({
   name: 'User',
@@ -21,6 +35,22 @@ export const userSlice = createSlice({
       window.location.reload();
       return { ...state, authData: null };
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(setAuthData.pending, (state) => {
+      const currentState = state;
+      currentState.setAuthData.loading = true;
+    });
+    builder.addCase(setAuthData.fulfilled, (state, action) => {
+      const currentState = state;
+      currentState.setAuthData.loading = false;
+      currentState.authData = action.payload;
+    });
+    builder.addCase(setAuthData.rejected, (state, action) => {
+      const currentState = state;
+      currentState.setAuthData.loading = false;
+      currentState.setAuthData.error = action.payload.message;
+    });
   },
 });
 

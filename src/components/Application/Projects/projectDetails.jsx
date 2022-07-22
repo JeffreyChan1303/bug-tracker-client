@@ -24,6 +24,10 @@ const ProjectDetails = () => {
     getProjectDetails: { loading },
     project,
   } = useSelector((state) => state.projectDetails);
+  const { authData } = useSelector((state) => state.user);
+  const {
+    projectUsers: { original: projectUsers },
+  } = useSelector((state) => state.projectUsers);
 
   const isArchived = project?.status === 'Archived';
 
@@ -102,25 +106,41 @@ const ProjectDetails = () => {
               Restore Project
             </Button>
           ) : (
-            <Button variant="outlined" onClick={() => navigate(`/editProject/${projectId}`)}>
+            <Button
+              variant="outlined"
+              onClick={() => navigate(`/editProject/${projectId}`)}
+              disabled={projectUsers[authData?.userObject._id]?.role !== 'Admin'}
+            >
               Edit
             </Button>
           )}
           <Button
             variant="outlined"
-            disabled={project?.status === 'Archived'}
+            disabled={
+              project?.status === 'Archived' ||
+              (projectUsers[authData?.userObject._id]?.role !== 'Admin' &&
+                projectUsers[authData?.userObject._id]?.role !== 'Project Manager')
+            }
             onClick={() => navigate(`/projectDetails/manageUserRoles/${projectId}`)}
           >
             Manage User Roles
           </Button>
           <Button
             variant="outlined"
-            disabled={project?.status === 'Archived'}
+            disabled={
+              project?.status === 'Archived' ||
+              (projectUsers[authData?.userObject._id]?.role !== 'Admin' &&
+                projectUsers[authData?.userObject._id]?.role !== 'Project Manager')
+            }
             onClick={() => navigate(`/projectDetails/assignTicket/${projectId}`)}
           >
             Assign Ticket
           </Button>
-          <Button variant="outlined" onClick={handleDeleteProject}>
+          <Button
+            variant="outlined"
+            disabled={projectUsers[authData?.userObject._id]?.role !== 'Admin'}
+            onClick={handleDeleteProject}
+          >
             Delete
           </Button>
         </Grid>

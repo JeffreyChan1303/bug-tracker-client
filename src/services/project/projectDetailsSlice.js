@@ -100,7 +100,7 @@ export const updateProject = createAsyncThunk(
       dispatch(
         handleAlerts({
           severity: 'error',
-          message: `Project was not able to be edited. Error: ${error.message}`,
+          message: `Project was not able to be edited. Error: ${error.response.data.message}`,
         })
       );
       return rejectWithValue(error);
@@ -126,7 +126,7 @@ export const moveProjectToArchive = createAsyncThunk(
       dispatch(
         handleAlerts({
           severity: 'error',
-          message: `Project failed to delete. Error: ${error.message}`,
+          message: `Project failed to delete. Error: ${error.response.data.message}`,
         })
       );
 

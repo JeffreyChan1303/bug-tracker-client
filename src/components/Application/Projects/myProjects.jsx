@@ -69,7 +69,7 @@ const MyProjects = () => {
           />
         </Box>
 
-        <ProjectTable projects={projects} projectDetails editProject />
+        <ProjectTable projects={projects} projectDetails />
       </Box>
 
       <CustomPagination

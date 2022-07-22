@@ -26,7 +26,6 @@ const TicketDetails = () => {
     ticket: { ticketHistory },
   } = useSelector((state) => state.ticketDetails);
   const { authData } = useSelector((state) => state.user);
-  console.log(authData);
 
   useEffect(() => {
     dispatch(getTicketDetails(ticketId));
@@ -43,7 +42,7 @@ const TicketDetails = () => {
       navigate('/allSupportTickets');
     } else {
       await dispatch(moveTicketToArchive(ticketId));
-      navigate('/allTickets');
+      navigate('/myTickets');
     }
   };
 
@@ -74,8 +73,8 @@ const TicketDetails = () => {
                     onClick={() => navigate(`/editTicket/${ticketId}`)}
                     disabled={
                       ticket.type === 'Support' ||
-                      (JSON.parse(localStorage.getItem('profile')).userObject._id !== ticket.creator &&
-                        JSON.parse(localStorage.getItem('profile')).userObject._id !== ticket.developer?._id)
+                      (authData?.userObject._id !== ticket.creator &&
+                        authData?.userObject._id !== ticket.developer?._id)
                     }
                   >
                     Edit

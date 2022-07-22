@@ -106,7 +106,7 @@ export const moveTicketToArchive = createAsyncThunk(
       dispatch(
         handleAlerts({
           severity: 'error',
-          message: `Ticket failed to delete. Error: ${error.request.data.message}`,
+          message: `Ticket failed to delete. Error: ${error.response.data.message}`,
         })
       );
       return rejectWithValue(error);
@@ -123,8 +123,7 @@ export const restoreTicketFromArchive = createAsyncThunk(
       dispatch(
         handleAlerts({
           severity: 'success',
-          message:
-            'Ticket has been successfully restoreTicketFromArchiveed from the Ticket Archive.',
+          message: 'Ticket has been successfully restored ticket from the archive.',
         })
       );
       return data;
@@ -133,7 +132,7 @@ export const restoreTicketFromArchive = createAsyncThunk(
       dispatch(
         handleAlerts({
           severity: 'error',
-          message: `Ticket failed to be restore ticket from archive. Error: ${error.message}`,
+          message: `Ticket failed to be restore ticket from archive. Error: ${error.response.data.message}`,
         })
       );
 

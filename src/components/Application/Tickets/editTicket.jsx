@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Typography, TextField, Button, Paper, Select, MenuItem, CircularProgress, Grid } from '@mui/material';
+import {
+  Typography,
+  TextField,
+  Button,
+  Paper,
+  Select,
+  MenuItem,
+  CircularProgress,
+  Grid,
+} from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -86,7 +95,7 @@ const EditTicket = () => {
       </Typography>
 
       <Paper sx={{ p: 3, maxWidth: { md: '700px' } }} elevation={3}>
-        <form autoComplete="off" noValidate onSubmit={handleSubmit} style={{}}>
+        <form autoComplete="off" noValidate style={{}}>
           <Typography variant="body1" fontWeight={700}>
             Ticket Title
           </Typography>
@@ -119,7 +128,13 @@ const EditTicket = () => {
           <Typography variant="body1" fontWeight={700}>
             Ticket Priority
           </Typography>
-          <Select value={ticketData.priority} onChange={handlePriorityChange} sx={{ mb: 2 }} fullWidth size="small">
+          <Select
+            value={ticketData.priority}
+            onChange={handlePriorityChange}
+            sx={{ mb: 2 }}
+            fullWidth
+            size="small"
+          >
             <MenuItem value="Low">Low Priority</MenuItem>
             <MenuItem value="Medium">Medium Priority</MenuItem>
             <MenuItem value="High">High Priority</MenuItem>
@@ -128,7 +143,13 @@ const EditTicket = () => {
           <Typography variant="body1" fontWeight={700}>
             Ticket Status
           </Typography>
-          <Select value={ticketData.status} onChange={handleStatusChange} sx={{ mb: 2 }} fullWidth size="small">
+          <Select
+            value={ticketData.status}
+            onChange={handleStatusChange}
+            sx={{ mb: 2 }}
+            fullWidth
+            size="small"
+          >
             <MenuItem value="Resolved">Resolved</MenuItem>
             <MenuItem value="Testing">Testing</MenuItem>
             <MenuItem value="Development">Development</MenuItem>
@@ -142,7 +163,12 @@ const EditTicket = () => {
             <Button variant="outlined" color="secondary" size="small" onClick={handleClear}>
               Clear
             </Button>
-            <Button variant="outlined" color="secondary" size="small" type="cancel" onClick={handleUsePrevTicketValues}>
+            <Button
+              variant="outlined"
+              color="secondary"
+              size="small"
+              onClick={handleUsePrevTicketValues}
+            >
               use default ticket values
             </Button>
           </Grid>

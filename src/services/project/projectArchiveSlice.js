@@ -10,19 +10,26 @@ const initialState = {
   numberOfPages: null,
 };
 
-export const getArchivedProjectsBySearch = createAsyncThunk('project/getArchivedProjectsBySearch', async ({ page, search }, { dispatch, rejectWithValue }) => {
-  const searchQuery = search;
-  try {
-    const { data } = await api.getArchivedProjectsBySearch(page, searchQuery);
+export const getArchivedProjectsBySearch = createAsyncThunk(
+  'project/getArchivedProjectsBySearch',
+  async ({ page, search }, { dispatch, rejectWithValue }) => {
+    const searchQuery = search;
+    try {
+      const { data } = await api.getArchivedProjectsBySearch(page, searchQuery);
 
-    dispatch(handleAlerts({ severity: 'success', message: 'All archived projects were retrieved successfully' }));
-    return data;
-  } catch (error) {
-    console.log(error);
-    dispatch(handleAlerts({ severity: 'error', message: `getArchivedProjectsBySearch failed with error: ${error.message}` }));
-    return rejectWithValue(error);
+      return data;
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        handleAlerts({
+          severity: 'error',
+          message: `getArchivedProjectsBySearch failed with error: ${error.message}`,
+        })
+      );
+      return rejectWithValue(error);
+    }
   }
-});
+);
 
 const isPending = (state) => {
   const currentState = state;
@@ -48,8 +55,12 @@ const projectArchiveSlice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder.addCase(getArchivedProjectsBySearch.pending, (state) => isPending(state));
-    builder.addCase(getArchivedProjectsBySearch.fulfilled, (state, action) => isFulfilled(state, action));
-    builder.addCase(getArchivedProjectsBySearch.rejected, (state, action) => isRejected(state, action));
+    builder.addCase(getArchivedProjectsBySearch.fulfilled, (state, action) =>
+      isFulfilled(state, action)
+    );
+    builder.addCase(getArchivedProjectsBySearch.rejected, (state, action) =>
+      isRejected(state, action)
+    );
   },
 });
 

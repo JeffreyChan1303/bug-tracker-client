@@ -10,19 +10,26 @@ const initialState = {
   numberOfPages: null,
 };
 
-export const getArchivedTicketsBySearch = createAsyncThunk('ticket/getArchivedTicketsBySearch', async ({ page, search }, { dispatch, rejectWithValue }) => {
-  const searchQuery = search;
-  try {
-    const { data } = await api.getArchivedTicketsBySearch(page, searchQuery);
+export const getArchivedTicketsBySearch = createAsyncThunk(
+  'ticket/getArchivedTicketsBySearch',
+  async ({ page, search }, { dispatch, rejectWithValue }) => {
+    const searchQuery = search;
+    try {
+      const { data } = await api.getArchivedTicketsBySearch(page, searchQuery);
 
-    dispatch(handleAlerts({ severity: 'success', message: 'All archived tickets were retrieved successfully' }));
-    return data;
-  } catch (error) {
-    console.log(error);
-    dispatch(handleAlerts({ severity: 'error', message: `getArchivedTicketsBySearch failed with error: ${error.message}` }));
-    return rejectWithValue(error);
+      return data;
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        handleAlerts({
+          severity: 'error',
+          message: `getArchivedTicketsBySearch failed with error: ${error.message}`,
+        })
+      );
+      return rejectWithValue(error);
+    }
   }
-});
+);
 
 const isPending = (state) => {
   const currentState = state;
@@ -48,8 +55,12 @@ const ticketArchiveSlice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder.addCase(getArchivedTicketsBySearch.pending, (state) => isPending(state));
-    builder.addCase(getArchivedTicketsBySearch.fulfilled, (state, action) => isFulfilled(state, action));
-    builder.addCase(getArchivedTicketsBySearch.rejected, (state, action) => isRejected(state, action));
+    builder.addCase(getArchivedTicketsBySearch.fulfilled, (state, action) =>
+      isFulfilled(state, action)
+    );
+    builder.addCase(getArchivedTicketsBySearch.rejected, (state, action) =>
+      isRejected(state, action)
+    );
   },
 });
 

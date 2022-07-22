@@ -41,7 +41,7 @@ const DashboardCards = () => {
     <Grid container spacing={2}>
       {/* Active Projects card */}
       <Grid item xs={12} sm={6} lg={3}>
-        <Card elevation={1} sx={{ p: 3 }}>
+        <Card elevation={2} sx={{ p: 3 }}>
           <Grid container justifyContent="space-between">
             <Grid item>
               <Typography variant="body2" fontWeight={500} sx={{ color: 'grey.800' }}>
@@ -66,7 +66,8 @@ const DashboardCards = () => {
             <StyledButton
               variant="outlined"
               color="secondary"
-              onClick={() => navigate('/myProjects')}>
+              onClick={() => navigate('/myProjects')}
+            >
               <Typography variant="caption">View active projects</Typography>
             </StyledButton>
           </Box>
@@ -75,7 +76,7 @@ const DashboardCards = () => {
 
       {/* Total tickets card */}
       <Grid item xs={12} sm={6} lg={3}>
-        <Card elevation={1} sx={{ p: 3 }}>
+        <Card elevation={2} sx={{ p: 3 }}>
           <Grid container justifyContent="space-between">
             <Grid item>
               <Typography variant="body2" fontWeight={500} sx={{ color: 'grey.800' }}>
@@ -95,7 +96,8 @@ const DashboardCards = () => {
             <StyledButton
               variant="outlined"
               color="secondary"
-              onClick={() => navigate('/myTickets')}>
+              onClick={() => navigate('/myTickets')}
+            >
               <Typography variant="caption">View active tickets</Typography>
             </StyledButton>
           </Box>
@@ -104,7 +106,7 @@ const DashboardCards = () => {
 
       {/* Unassigned Tickets Card */}
       <Grid item xs={12} sm={6} lg={3}>
-        <Card elevation={1} sx={{ p: 3 }}>
+        <Card elevation={2} sx={{ p: 3 }}>
           <Grid container justifyContent="space-between">
             <Grid item>
               <Typography variant="body2" fontWeight={500} sx={{ color: 'grey.800' }}>
@@ -128,7 +130,8 @@ const DashboardCards = () => {
             <StyledButton
               variant="outlined"
               color="secondary"
-              onClick={() => navigate('/unassignedTickets')}>
+              onClick={() => navigate('/unassignedTickets')}
+            >
               <Typography variant="caption">View unassigned tickets</Typography>
             </StyledButton>
           </Box>
@@ -137,7 +140,7 @@ const DashboardCards = () => {
 
       {/* Unread Notifications card */}
       <Grid item xs={12} sm={6} lg={3}>
-        <Card elevation={1} sx={{ p: 3 }}>
+        <Card elevation={2} sx={{ p: 3 }}>
           <Grid container justifyContent="space-between">
             <Grid item>
               <Typography variant="body2" fontWeight={500} sx={{ color: 'grey.800' }}>
@@ -161,7 +164,8 @@ const DashboardCards = () => {
             <StyledButton
               variant="outlined"
               color="secondary"
-              onClick={() => navigate('/notifications')}>
+              onClick={() => navigate('/notifications')}
+            >
               <Typography variant="caption">View notifications</Typography>
             </StyledButton>
           </Box>

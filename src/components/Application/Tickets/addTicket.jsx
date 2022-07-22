@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, TextField, Button, Paper, Select, MenuItem, CircularProgress } from '@mui/material';
+import {
+  Typography,
+  TextField,
+  Button,
+  Paper,
+  Select,
+  MenuItem,
+  CircularProgress,
+} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -144,7 +152,13 @@ const AddTicket = ({ support }) => {
         <Typography variant="body1" fontWeight={700}>
           Ticket Priority
         </Typography>
-        <Select value={ticketData.priority} onChange={handlePriorityChange} sx={{ mb: 2 }} fullWidth size="small">
+        <Select
+          value={ticketData.priority}
+          onChange={handlePriorityChange}
+          sx={{ mb: 2 }}
+          fullWidth
+          size="small"
+        >
           <MenuItem value="Low">Low Priority</MenuItem>
           <MenuItem value="Medium">Medium Priority</MenuItem>
           <MenuItem value="High">High Priority</MenuItem>
@@ -155,7 +169,13 @@ const AddTicket = ({ support }) => {
             <Typography variant="body1" fontWeight={700}>
               Ticket Type
             </Typography>
-            <Select value={ticketData.type} onChange={handleTypeChange} sx={{ mb: 2 }} fullWidth size="small">
+            <Select
+              value={ticketData.type}
+              onChange={handleTypeChange}
+              sx={{ mb: 2 }}
+              fullWidth
+              size="small"
+            >
               <MenuItem value="Bug">Bug</MenuItem>
               <MenuItem value="Feature">Feature</MenuItem>
             </Select>
@@ -163,7 +183,13 @@ const AddTicket = ({ support }) => {
         )}
       </form>
 
-      <Button sx={{ mr: 1 }} variant="contained" color="primary" size="small" onClick={handleSubmit}>
+      <Button
+        sx={{ mr: 1 }}
+        variant="contained"
+        color="primary"
+        size="small"
+        onClick={handleSubmit}
+      >
         Save
       </Button>
 

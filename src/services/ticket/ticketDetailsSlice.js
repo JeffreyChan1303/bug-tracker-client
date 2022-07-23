@@ -80,7 +80,7 @@ export const updateTicket = createAsyncThunk(
       dispatch(
         handleAlerts({
           severity: 'error',
-          message: `Ticket was not able to be edited. Error: ${error.message}`,
+          message: `Ticket was not able to be edited. Error: ${error.response.data.message}`,
         })
       );
       return rejectWithValue(error);
@@ -159,7 +159,7 @@ export const deleteTicketFromArchive = createAsyncThunk(
       dispatch(
         handleAlerts({
           severity: 'error',
-          message: `Ticket failed to delete. Error: ${error.message}`,
+          message: `Ticket failed to delete. Error: ${error.response.data.message}`,
         })
       );
       return rejectWithValue(error);
@@ -183,7 +183,7 @@ export const addTicketComment = createAsyncThunk(
       dispatch(
         handleAlerts({
           severity: 'error',
-          message: `Comment failed to save. Error: ${error.message}`,
+          message: `Comment failed to save. Error: ${error.response.data.message}`,
         })
       );
       return rejectWithValue(error);
@@ -205,7 +205,7 @@ export const deleteTicketComment = createAsyncThunk(
       dispatch(
         handleAlerts({
           severity: 'error',
-          message: `Ticket comment was not able to be deleted. Error: ${error.message}`,
+          message: `Ticket comment was not able to be deleted. Error: ${error.response.data.message}`,
         })
       );
       return rejectWithValue(error);

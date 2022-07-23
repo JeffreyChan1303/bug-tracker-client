@@ -10,19 +10,27 @@ const initialState = {
   numberOfPages: null,
 };
 
-export const getAllProjectsBySearch = createAsyncThunk('project/getAllProjectsBySearch', async ({ search, page }, { dispatch, rejectWithValue }) => {
-  const searchQuery = search;
+export const getAllProjectsBySearch = createAsyncThunk(
+  'project/getAllProjectsBySearch',
+  async ({ search, page }, { dispatch, rejectWithValue }) => {
+    const searchQuery = search;
 
-  try {
-    const { data } = await api.getAllProjectsBySearch(page, searchQuery);
+    try {
+      const { data } = await api.getAllProjectsBySearch(page, searchQuery);
 
-    return data;
-  } catch (error) {
-    console.log(error);
-    dispatch(handleAlerts({ severity: 'error', message: `All Tickets Page: ${error.message}` }));
-    return rejectWithValue(error);
+      return data;
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        handleAlerts({
+          severity: 'error',
+          message: `All Tickets Page: ${error.response.data.message}`,
+        })
+      );
+      return rejectWithValue(error);
+    }
   }
-});
+);
 
 const isPending = (state) => {
   const currentState = state;
@@ -48,7 +56,9 @@ const allProjectsSlice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder.addCase(getAllProjectsBySearch.pending, (state) => isPending(state));
-    builder.addCase(getAllProjectsBySearch.fulfilled, (state, action) => isFulfilled(state, action));
+    builder.addCase(getAllProjectsBySearch.fulfilled, (state, action) =>
+      isFulfilled(state, action)
+    );
     builder.addCase(getAllProjectsBySearch.rejected, (state, action) => isRejected(state, action));
   },
 });

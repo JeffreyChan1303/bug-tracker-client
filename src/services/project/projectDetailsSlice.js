@@ -72,7 +72,7 @@ export const getProjectTickets = createAsyncThunk(
       dispatch(
         handleAlerts({
           severity: 'error',
-          message: `Failed to get project tickets. Error: ${error.message}`,
+          message: `Failed to get project tickets. Error: ${error.response.data.message}`,
         })
       );
       return rejectWithValue(error);
@@ -153,7 +153,7 @@ export const restoreProjectFromArchive = createAsyncThunk(
       dispatch(
         handleAlerts({
           severity: 'error',
-          message: `Project failed to restore. Error: ${error.message}`,
+          message: `Project failed to restore. Error: ${error.response.data.message}`,
         })
       );
 
@@ -180,7 +180,7 @@ export const deleteProjectFromArchive = createAsyncThunk(
       dispatch(
         handleAlerts({
           severity: 'error',
-          message: `Project failed to delete from archive. Error: ${error.message}`,
+          message: `Project failed to delete from archive. Error: ${error.response.data.message}`,
         })
       );
 

@@ -44,7 +44,7 @@ export const getProjectUsers = createAsyncThunk(
       dispatch(
         handleAlerts({
           severity: 'error',
-          message: `Failed to get project tickets. Error: ${error.message}`,
+          message: `Failed to get project tickets. Error: ${error.response.data.message}`,
         })
       );
       return rejectWithValue(error);
@@ -124,14 +124,16 @@ export const acceptProjectInvite = createAsyncThunk(
     try {
       const { data } = await api.acceptProjectInvite(notification);
 
-      dispatch(handleAlerts({ severity: 'success', message: 'Successfully accepted project invite' }));
+      dispatch(
+        handleAlerts({ severity: 'success', message: 'Successfully accepted project invite' })
+      );
       return data;
     } catch (error) {
       console.log(error);
       dispatch(
         handleAlerts({
           severity: 'error',
-          message: `Failed to accept project invite. Error: ${error.message}`,
+          message: `Failed to accept project invite. Error: ${error.response.data.message}`,
         })
       );
       return rejectWithValue(error);

@@ -10,20 +10,28 @@ const initialState = {
   numberOfPages: null,
 };
 
-export const getMyProjectsBySearch = createAsyncThunk('project/getMyProjectsBySearch', async ({ search, page }, { dispatch, rejectWithValue }) => {
-  const searchQuery = search;
+export const getMyProjectsBySearch = createAsyncThunk(
+  'project/getMyProjectsBySearch',
+  async ({ search, page }, { dispatch, rejectWithValue }) => {
+    const searchQuery = search;
 
-  try {
-    const { data } = await api.getMyProjectsBySearch(page, searchQuery);
+    try {
+      const { data } = await api.getMyProjectsBySearch(page, searchQuery);
 
-    // console.log(data);
-    return data;
-  } catch (error) {
-    console.log(error);
-    dispatch(handleAlerts({ severity: 'error', message: `My Projects were not able to be fetched. Error: ${error.message}` }));
-    return rejectWithValue(error);
+      // console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        handleAlerts({
+          severity: 'error',
+          message: `My Projects were not able to be fetched. Error: ${error.response.data.message}`,
+        })
+      );
+      return rejectWithValue(error);
+    }
   }
-});
+);
 
 const isPending = (state) => {
   const currentState = state;
@@ -41,7 +49,7 @@ const isRejected = (state, action) => {
   const currentState = state;
   currentState.loading = false;
   currentState.projects = [];
-  currentState.error = action.error.message;
+  currentState.error = action.error.response.data.message;
 };
 
 const myProjectsSlice = createSlice({

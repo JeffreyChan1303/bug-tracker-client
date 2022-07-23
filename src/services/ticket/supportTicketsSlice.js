@@ -28,7 +28,7 @@ export const getSupportTicketsBySearch = createAsyncThunk(
       dispatch(
         handleAlerts({
           severity: 'error',
-          message: `Failed to get support tickets. Error: ${error.message}`,
+          message: `Failed to get support tickets. Error: ${error.response.data.message}`,
         })
       );
       return rejectWithValue(error);
@@ -51,7 +51,7 @@ export const addSupportTicket = createAsyncThunk(
       dispatch(
         handleAlerts({
           severity: 'error',
-          message: `Failed to add support ticket. Error: ${error.message}`,
+          message: `Failed to add support ticket. Error: ${error.response.data.message}`,
         })
       );
       return rejectWithValue(error);

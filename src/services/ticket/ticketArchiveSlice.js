@@ -23,7 +23,7 @@ export const getArchivedTicketsBySearch = createAsyncThunk(
       dispatch(
         handleAlerts({
           severity: 'error',
-          message: `getArchivedTicketsBySearch failed with error: ${error.message}`,
+          message: `getArchivedTicketsBySearch failed with error: ${error.response.data.message}`,
         })
       );
       return rejectWithValue(error);
@@ -47,7 +47,7 @@ const isRejected = (state, action) => {
   const currentState = state;
   currentState.loading = false;
   currentState.tickets = [];
-  currentState.error = action.error.message;
+  currentState.error = action.error.response.data.message;
 };
 
 const ticketArchiveSlice = createSlice({

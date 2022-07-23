@@ -36,7 +36,10 @@ export const getMyTicketsBySearch = createAsyncThunk(
     } catch (error) {
       console.log(error);
       dispatch(
-        handleAlerts({ severity: 'error', message: `My tickets were not able to be fetched. Error: ${error.message}` })
+        handleAlerts({
+          severity: 'error',
+          message: `My tickets were not able to be fetched. Error: ${error.response.data.message}`,
+        })
       );
       return rejectWithValue(error);
     }
@@ -55,7 +58,7 @@ export const getMyTicketStatistics = createAsyncThunk(
       dispatch(
         handleAlerts({
           severity: 'error',
-          message: `My ticket statistics were not able to be fetched. Error: ${error.message}`,
+          message: `My ticket statistics were not able to be fetched. Error: ${error.response.data.message}`,
         })
       );
       return rejectWithValue(error);

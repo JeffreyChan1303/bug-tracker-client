@@ -29,7 +29,10 @@ export const getUnassignedTickets = createAsyncThunk(
     } catch (error) {
       console.log(error);
       dispatch(
-        handleAlerts({ severity: 'error', message: `Failed to get unassigned tickets. Error: ${error.message}` })
+        handleAlerts({
+          severity: 'error',
+          message: `Failed to get unassigned tickets. Error: ${error.response.data.message}`,
+        })
       );
       return rejectWithValue(error);
     }
@@ -42,7 +45,9 @@ export const claimTicket = createAsyncThunk(
     try {
       const { data } = await api.claimTicket(ticketId, userId);
       if (userId) {
-        dispatch(handleAlerts({ severity: 'success', message: 'Successfully assigned the ticket' }));
+        dispatch(
+          handleAlerts({ severity: 'success', message: 'Successfully assigned the ticket' })
+        );
       } else {
         dispatch(handleAlerts({ severity: 'success', message: 'Successfully claimed the ticket' }));
       }
@@ -51,7 +56,10 @@ export const claimTicket = createAsyncThunk(
     } catch (error) {
       console.log(error);
       dispatch(
-        handleAlerts({ severity: 'error', message: `Failed to claim ticket. Error: ${error.response.data.message}` })
+        handleAlerts({
+          severity: 'error',
+          message: `Failed to claim ticket. Error: ${error.response.data.message}`,
+        })
       );
       return rejectWithValue(error);
     }

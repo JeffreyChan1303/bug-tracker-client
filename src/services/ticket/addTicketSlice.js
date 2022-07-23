@@ -7,18 +7,26 @@ const initialState = {
   error: '',
 };
 
-export const createTicket = createAsyncThunk('ticket/createTicket', async (newTicket, { dispatch, rejectWithValue }) => {
-  try {
-    const { data } = await api.createTicket(newTicket);
-    console.log(data);
+export const createTicket = createAsyncThunk(
+  'ticket/createTicket',
+  async (newTicket, { dispatch, rejectWithValue }) => {
+    try {
+      const { data } = await api.createTicket(newTicket);
+      console.log(data);
 
-    dispatch(handleAlerts({ severity: 'success', message: 'Ticket was successfully created!' }));
-    return data;
-  } catch (error) {
-    dispatch(handleAlerts({ severity: 'error', message: `Ticket was not created. Error: ${error.message}` }));
-    return rejectWithValue(error);
+      dispatch(handleAlerts({ severity: 'success', message: 'Ticket was successfully created!' }));
+      return data;
+    } catch (error) {
+      dispatch(
+        handleAlerts({
+          severity: 'error',
+          message: `Ticket was not created. Error: ${error.response.data.message}`,
+        })
+      );
+      return rejectWithValue(error);
+    }
   }
-});
+);
 
 const addTicketSlice = createSlice({
   name: 'addTicket',

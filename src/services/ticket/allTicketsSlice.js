@@ -20,7 +20,12 @@ export const getAllTicketsBySearch = createAsyncThunk(
       return data;
     } catch (error) {
       console.log(error);
-      dispatch(handleAlerts({ severity: 'error', message: `All Tickets Page: ${error.message}` }));
+      dispatch(
+        handleAlerts({
+          severity: 'error',
+          message: `All Tickets Page: ${error.response.data.message}`,
+        })
+      );
       return rejectWithValue(error);
     }
   }

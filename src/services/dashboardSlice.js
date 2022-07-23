@@ -20,41 +20,65 @@ const initialState = {
   },
 };
 
-export const getActiveProjects = createAsyncThunk('project/getActiveProjects', async (params, { dispatch, rejectWithValue }) => {
-  try {
-    const { data } = await api.getActiveProjects();
+export const getActiveProjects = createAsyncThunk(
+  'project/getActiveProjects',
+  async (params, { dispatch, rejectWithValue }) => {
+    try {
+      const { data } = await api.getActiveProjects();
 
-    return data;
-  } catch (error) {
-    console.log(error);
-    dispatch(handleAlerts({ severity: 'error', message: `Failed to get number of active projects. Error: ${error.message}` }));
-    return rejectWithValue(error);
+      return data;
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        handleAlerts({
+          severity: 'error',
+          message: `Failed to get number of active projects. Error: ${error.response.data.message}`,
+        })
+      );
+      return rejectWithValue(error);
+    }
   }
-});
+);
 
-export const getActiveTickets = createAsyncThunk('ticket/getActiveTickets', async (params, { dispatch, rejectWithValue }) => {
-  try {
-    const { data } = await api.getActiveTickets();
+export const getActiveTickets = createAsyncThunk(
+  'ticket/getActiveTickets',
+  async (params, { dispatch, rejectWithValue }) => {
+    try {
+      const { data } = await api.getActiveTickets();
 
-    return data;
-  } catch (error) {
-    console.log(error);
-    dispatch(handleAlerts({ severity: 'error', message: `Failed to get number of active tickets. Error: ${error.message}` }));
-    return rejectWithValue(error);
+      return data;
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        handleAlerts({
+          severity: 'error',
+          message: `Failed to get number of active tickets. Error: ${error.response.data.message}`,
+        })
+      );
+      return rejectWithValue(error);
+    }
   }
-});
+);
 
-export const getUnreadNotifications = createAsyncThunk('user/getUnreadNotifications', async (params, { dispatch, rejectWithValue }) => {
-  try {
-    const { data } = await api.getUnreadNotifications();
+export const getUnreadNotifications = createAsyncThunk(
+  'user/getUnreadNotifications',
+  async (params, { dispatch, rejectWithValue }) => {
+    try {
+      const { data } = await api.getUnreadNotifications();
 
-    return data;
-  } catch (error) {
-    console.log(error);
-    dispatch(handleAlerts({ severity: 'error', message: `Failed to get number of unread notifications. Error: ${error.message}` }));
-    return rejectWithValue(error);
+      return data;
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        handleAlerts({
+          severity: 'error',
+          message: `Failed to get number of unread notifications. Error: ${error.response.data.message}`,
+        })
+      );
+      return rejectWithValue(error);
+    }
   }
-});
+);
 
 const dashboardSlice = createSlice({
   name: 'Dashboard',
@@ -71,7 +95,7 @@ const dashboardSlice = createSlice({
       currentState.getActiveProjects.data = action.payload;
     });
     builder.addCase(getActiveProjects.rejected, (state, action) => {
-      const currentState = state
+      const currentState = state;
       currentState.getActiveProjects.loading = false;
       currentState.getActiveProjects.error = action.payload.message;
     });
@@ -105,7 +129,7 @@ const dashboardSlice = createSlice({
       currentState.getUnreadNotifications.data = action.payload;
     });
     builder.addCase(getUnreadNotifications.rejected, (state, action) => {
-      const currentState = state
+      const currentState = state;
       currentState.getUnreadNotifications.loading = false;
       currentState.getUnreadNotifications.error = action.payload.message;
     });

@@ -7,18 +7,26 @@ const initialState = {
   error: '',
 };
 
-export const createProject = createAsyncThunk('project/createProject', async (newProject, { dispatch, rejectWithValue }) => {
-  try {
-    const { data } = await api.createProject(newProject);
-    console.log(data);
+export const createProject = createAsyncThunk(
+  'project/createProject',
+  async (newProject, { dispatch, rejectWithValue }) => {
+    try {
+      const { data } = await api.createProject(newProject);
+      console.log(data);
 
-    dispatch(handleAlerts({ severity: 'success', message: 'Project was successfully created!' }));
-    return data;
-  } catch (error) {
-    dispatch(handleAlerts({ severity: 'error', message: `Project was not created. Error: ${error.message}` }));
-    return rejectWithValue(error);
+      dispatch(handleAlerts({ severity: 'success', message: 'Project was successfully created!' }));
+      return data;
+    } catch (error) {
+      dispatch(
+        handleAlerts({
+          severity: 'error',
+          message: `Project was not created. Error: ${error.response.data.message}`,
+        })
+      );
+      return rejectWithValue(error);
+    }
   }
-});
+);
 
 const addProjectSlice = createSlice({
   name: 'addProject',

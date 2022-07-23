@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API = axios.create({ baseURL: 'http://localhost:9000' });
+const API = axios.create({ baseURL: 'https://juicy-bug-tracker.herokuapp.com/' });
 
 // this puts the token as the header for the backend to verify
 API.interceptors.request.use((req) => {

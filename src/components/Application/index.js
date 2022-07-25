@@ -23,3 +23,5 @@ export { default as UnassignedTickets } from './Tickets/unassignedTickets';
 export { default as ManageUserRoles } from './Projects/manageUserRoles';
 
 export { default as AllSupportTickets } from './allSupportTickets';
+
+export { default as EmailVerification } from '../Auth/emailVerification';

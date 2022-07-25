@@ -43,8 +43,8 @@ const TicketArchive = () => {
     }
   };
 
-  const handleRestoreTicket = (id) => {
-    dispatch(restoreTicketFromArchive(id));
+  const handleRestoreTicket = async (id) => {
+    await dispatch(restoreTicketFromArchive(id));
     navigate('/allTickets');
   };
 

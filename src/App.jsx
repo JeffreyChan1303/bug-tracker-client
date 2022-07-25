@@ -25,6 +25,7 @@ import {
   UnassignedTickets,
   AssignTicket,
   Profile,
+  EmailVerification,
 } from './components/Application/index';
 import { userActions, setAuthData } from './services/user/userSlice';
 import { handleAlerts } from './services/alertsSlice';
@@ -78,7 +79,11 @@ const App = () => {
   return (
     <>
       {!user ? (
-        <Auth />
+        <Routes>
+          <Route exact path="/*" element={<Navigate to="/Auth" replace />} />
+          <Route exact path="/auth" element={<Auth />} />
+          <Route exact path="/verification/:token" element={<EmailVerification />} />
+        </Routes>
       ) : (
         <Box sx={{ display: 'flex' }}>
           <CssBaseline />
@@ -144,10 +149,22 @@ const App = () => {
               <Route exact path="/editProject/:id" element={<EditProject />} />
               <Route exact path="/projectDetails/:projectId" element={<ProjectDetails />} />
 
-              <Route exact path="/projectDetails/manageUserRoles/:projectId" element={<ManageUserRoles />} />
-              <Route exact path="/projectDetails/manageUserRoles/:projectId/search" element={<ManageUserRoles />} />
+              <Route
+                exact
+                path="/projectDetails/manageUserRoles/:projectId"
+                element={<ManageUserRoles />}
+              />
+              <Route
+                exact
+                path="/projectDetails/manageUserRoles/:projectId/search"
+                element={<ManageUserRoles />}
+              />
 
-              <Route exact path="/projectDetails/assignTicket/:projectId" element={<AssignTicket />} />
+              <Route
+                exact
+                path="/projectDetails/assignTicket/:projectId"
+                element={<AssignTicket />}
+              />
 
               {/* Ticket Routes */}
               <Route exact path="/allTickets" element={<AllTickets />} />
@@ -169,6 +186,7 @@ const App = () => {
               <Route exact path="/profile" element={<Profile />} />
               <Route exact path="/notifications" element={<Notifications />} />
               <Route exact path="/notifications/search" element={<Notifications />} />
+              <Route exact path="/verification/:token" element={<EmailVerification />} />
             </Routes>
           </Box>
         </Box>

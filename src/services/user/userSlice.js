@@ -33,14 +33,12 @@ export const emailVerification = createAsyncThunk(
   async (token, { dispatch, rejectWithValue }) => {
     try {
       const { data } = await api.emailVerification(token);
-      dispatch(
-        handleAlerts({ serverity: 'success', message: 'email has been successfully varified' })
-      );
+      dispatch(handleAlerts({ severity: 'success', message: data.message }));
 
       return data;
     } catch (error) {
       console.log(error);
-      dispatch(handleAlerts({ serverity: 'error', message: `${error.response.data.message}` }));
+      dispatch(handleAlerts({ severity: 'error', message: `${error.response.data.message}` }));
       return rejectWithValue(error);
     }
   }

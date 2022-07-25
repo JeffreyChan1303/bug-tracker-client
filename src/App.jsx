@@ -186,7 +186,6 @@ const App = () => {
               <Route exact path="/profile" element={<Profile />} />
               <Route exact path="/notifications" element={<Notifications />} />
               <Route exact path="/notifications/search" element={<Notifications />} />
-              <Route exact path="/verification/:token" element={<EmailVerification />} />
             </Routes>
           </Box>
         </Box>

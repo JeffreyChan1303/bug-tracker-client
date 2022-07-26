@@ -89,92 +89,89 @@ const EditTicket = () => {
   return loading ? (
     <CircularProgress color="inherit" />
   ) : (
-    <>
-      <Typography variant="h5" marginBottom={1}>
-        Editing Ticket Id: {ticketId}
+    <Paper sx={{ p: 3, maxWidth: { md: '700px' } }} elevation={3}>
+      <Typography variant="h5" fontWeight={700} marginBottom={1}>
+        Editing Ticket: {ticket.title}
       </Typography>
+      <form autoComplete="off" noValidate style={{}}>
+        <Typography variant="body1" fontWeight={700}>
+          Ticket Title
+        </Typography>
+        <TextField
+          name="title"
+          variant="outlined"
+          fullWidth
+          multiline
+          size="small"
+          sx={{ mb: 2 }}
+          value={ticketData.title}
+          onChange={(e) => setTicketData({ ...ticketData, title: e.target.value })}
+        />
 
-      <Paper sx={{ p: 3, maxWidth: { md: '700px' } }} elevation={3}>
-        <form autoComplete="off" noValidate style={{}}>
-          <Typography variant="body1" fontWeight={700}>
-            Ticket Title
-          </Typography>
-          <TextField
-            name="title"
+        <Typography variant="body1" fontWeight={700}>
+          Ticket Description
+        </Typography>
+        <TextField
+          name="description"
+          variant="outlined"
+          fullWidth
+          multiline
+          size="small"
+          sx={{ mb: 2 }}
+          rows={4}
+          value={ticketData.description}
+          onChange={(e) => setTicketData({ ...ticketData, description: e.target.value })}
+        />
+
+        <Typography variant="body1" fontWeight={700}>
+          Ticket Priority
+        </Typography>
+        <Select
+          value={ticketData.priority}
+          onChange={handlePriorityChange}
+          sx={{ mb: 2 }}
+          fullWidth
+          size="small"
+        >
+          <MenuItem value="Low">Low Priority</MenuItem>
+          <MenuItem value="Medium">Medium Priority</MenuItem>
+          <MenuItem value="High">High Priority</MenuItem>
+        </Select>
+
+        <Typography variant="body1" fontWeight={700}>
+          Ticket Status
+        </Typography>
+        <Select
+          value={ticketData.status}
+          onChange={handleStatusChange}
+          sx={{ mb: 2 }}
+          fullWidth
+          size="small"
+        >
+          <MenuItem value="Resolved">Resolved</MenuItem>
+          <MenuItem value="Testing">Testing</MenuItem>
+          <MenuItem value="Development">Development</MenuItem>
+          <MenuItem value="Unassigned">Unassigned</MenuItem>
+        </Select>
+
+        <Grid container gap={2}>
+          <Button variant="contained" color="primary" size="small" onClick={handleSubmit}>
+            Update
+          </Button>
+          <Button variant="outlined" color="secondary" size="small" onClick={handleClear}>
+            Clear
+          </Button>
+          <Button
             variant="outlined"
-            fullWidth
-            multiline
+            color="secondary"
             size="small"
-            sx={{ mb: 2 }}
-            value={ticketData.title}
-            onChange={(e) => setTicketData({ ...ticketData, title: e.target.value })}
-          />
-
-          <Typography variant="body1" fontWeight={700}>
-            Ticket Description
-          </Typography>
-          <TextField
-            name="description"
-            variant="outlined"
-            fullWidth
-            multiline
-            size="small"
-            sx={{ mb: 2 }}
-            rows={4}
-            value={ticketData.description}
-            onChange={(e) => setTicketData({ ...ticketData, description: e.target.value })}
-          />
-
-          <Typography variant="body1" fontWeight={700}>
-            Ticket Priority
-          </Typography>
-          <Select
-            value={ticketData.priority}
-            onChange={handlePriorityChange}
-            sx={{ mb: 2 }}
-            fullWidth
-            size="small"
+            onClick={handleUsePrevTicketValues}
           >
-            <MenuItem value="Low">Low Priority</MenuItem>
-            <MenuItem value="Medium">Medium Priority</MenuItem>
-            <MenuItem value="High">High Priority</MenuItem>
-          </Select>
-
-          <Typography variant="body1" fontWeight={700}>
-            Ticket Status
-          </Typography>
-          <Select
-            value={ticketData.status}
-            onChange={handleStatusChange}
-            sx={{ mb: 2 }}
-            fullWidth
-            size="small"
-          >
-            <MenuItem value="Resolved">Resolved</MenuItem>
-            <MenuItem value="Testing">Testing</MenuItem>
-            <MenuItem value="Development">Development</MenuItem>
-            <MenuItem value="Unassigned">Unassigned</MenuItem>
-          </Select>
-
-          <Grid container gap={2}>
-            <Button variant="contained" color="primary" size="small" onClick={handleSubmit}>
-              Save
-            </Button>
-            <Button variant="outlined" color="secondary" size="small" onClick={handleClear}>
-              Clear
-            </Button>
-            <Button
-              variant="outlined"
-              color="secondary"
-              size="small"
-              onClick={handleUsePrevTicketValues}
-            >
-              use default ticket values
-            </Button>
-          </Grid>
-        </form>
-      </Paper>
-    </>
+            use default ticket values
+          </Button>
+        </Grid>
+      </form>
+    </Paper>
   );
 };
 

@@ -55,60 +55,60 @@ const EditProject = () => {
   return loading ? (
     <CircularProgress color="inherit" />
   ) : (
-    <>
-      <Typography variant="h4">Editing Project Id: {id}</Typography>
+    <Paper sx={{ p: 3, maxWidth: { md: '700px' } }} elevation={3}>
+      <Typography variant="h5" fontWeight={700} marginBottom={1}>
+        Editing Project: {project.title}
+      </Typography>
 
-      <Paper sx={{ p: 3, maxWidth: { md: '700px' } }} elevation={3}>
-        <form autoComplete="off" noValidate onSubmit={handleSubmit} style={{}}>
-          <Typography variant="body1" fontWeight={700}>
-            Project Title
-          </Typography>
-          <TextField
-            name="title"
+      <form autoComplete="off" noValidate onSubmit={handleSubmit} style={{}}>
+        <Typography variant="body1" fontWeight={700}>
+          Project Title
+        </Typography>
+        <TextField
+          name="title"
+          variant="outlined"
+          fullWidth
+          multiline
+          size="small"
+          sx={{ mb: 2 }}
+          value={projectData.title}
+          onChange={(e) => setProjectData({ ...projectData, title: e.target.value })}
+        />
+
+        <Typography variant="body1" fontWeight={700}>
+          Project Description
+        </Typography>
+        <TextField
+          name="description"
+          variant="outlined"
+          fullWidth
+          multiline
+          size="small"
+          sx={{ mb: 2 }}
+          rows={4}
+          value={projectData.description}
+          onChange={(e) => setProjectData({ ...projectData, description: e.target.value })}
+        />
+
+        <Grid container gap={2}>
+          <Button variant="contained" color="primary" size="small" onClick={handleSubmit}>
+            Save
+          </Button>
+          <Button sx={{}} variant="outlined" color="secondary" size="small" onClick={handleClear}>
+            Clear
+          </Button>
+          <Button
             variant="outlined"
-            fullWidth
-            multiline
+            color="secondary"
             size="small"
-            sx={{ mb: 2 }}
-            value={projectData.title}
-            onChange={(e) => setProjectData({ ...projectData, title: e.target.value })}
-          />
-
-          <Typography variant="body1" fontWeight={700}>
-            Project Description
-          </Typography>
-          <TextField
-            name="description"
-            variant="outlined"
-            fullWidth
-            multiline
-            size="small"
-            sx={{ mb: 2 }}
-            rows={4}
-            value={projectData.description}
-            onChange={(e) => setProjectData({ ...projectData, description: e.target.value })}
-          />
-
-          <Grid container gap={2}>
-            <Button variant="contained" color="primary" size="small" onClick={handleSubmit}>
-              Save
-            </Button>
-            <Button sx={{}} variant="outlined" color="secondary" size="small" onClick={handleClear}>
-              Clear
-            </Button>
-            <Button
-              variant="outlined"
-              color="secondary"
-              size="small"
-              type="cancel"
-              onClick={handleUsePrevProjectValues}
-            >
-              use default tick values
-            </Button>
-          </Grid>
-        </form>
-      </Paper>
-    </>
+            type="cancel"
+            onClick={handleUsePrevProjectValues}
+          >
+            use default tick values
+          </Button>
+        </Grid>
+      </form>
+    </Paper>
   );
 };
 

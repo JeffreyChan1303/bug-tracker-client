@@ -48,7 +48,7 @@ const UnassignedTickets = () => {
   };
   const handleClaimTicket = async (ticketId) => {
     await dispatch(claimTicket({ ticketId }));
-    navigate('/ticketDetails/ticketId');
+    navigate(`/ticketDetails/${ticketId}`);
   };
 
   return loading ? (

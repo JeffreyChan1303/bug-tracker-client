@@ -97,7 +97,7 @@ export const moveTicketToArchive = createAsyncThunk(
       dispatch(
         handleAlerts({
           severity: 'success',
-          message: 'Ticket has been successfully deleted and moved to the Ticket Archive.',
+          message: data.message,
         })
       );
       return data;

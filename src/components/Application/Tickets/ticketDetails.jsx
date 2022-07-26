@@ -48,7 +48,7 @@ const TicketDetails = () => {
 
   const handleRecoverTicket = () => {
     dispatch(restoreTicketFromArchive(ticketId));
-    navigate('/allTickets');
+    navigate('/myTickets');
   };
 
   return loading ? (

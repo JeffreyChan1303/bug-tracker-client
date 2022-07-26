@@ -65,7 +65,7 @@ const MyTickets = () => {
           </Box>
         </Grid>
 
-        <TicketTable tickets={tickets} ticketDetails editTicket />
+        <TicketTable tickets={tickets} ticketDetails />
       </Box>
 
       <CustomPagination

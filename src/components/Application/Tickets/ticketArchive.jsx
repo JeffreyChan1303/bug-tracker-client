@@ -45,7 +45,7 @@ const TicketArchive = () => {
 
   const handleRestoreTicket = async (id) => {
     await dispatch(restoreTicketFromArchive(id));
-    navigate('/allTickets');
+    navigate('/myTickets');
   };
 
   return loading ? (

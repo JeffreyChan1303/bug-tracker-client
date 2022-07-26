@@ -166,7 +166,7 @@ export const deleteProjectFromArchive = createAsyncThunk(
   'project/deleteProjectFromArchive',
   async (projectId, { dispatch, rejectWithValue }) => {
     try {
-      const { data } = await api.moveProjectToArchive(projectId);
+      const { data } = await api.deleteProjectFromArchive(projectId);
 
       dispatch(
         handleAlerts({

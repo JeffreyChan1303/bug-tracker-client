@@ -18,7 +18,7 @@ const AddProject = () => {
   const [projectData, setProjectData] = useState(initialProjectData);
   const user = JSON.parse(localStorage.getItem('profile'));
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault(); // this stops the page from it's default refrash setting when clicking a button on the react form.
 
     if (projectData.title === '') {
@@ -29,7 +29,7 @@ const AddProject = () => {
     }
 
     if (projectData.title !== '' && projectData.description !== '') {
-      dispatch(createProject({ ...projectData, name: user?.userObject?.name }));
+      await dispatch(createProject({ ...projectData, name: user?.userObject?.name }));
       navigate('/myProjects');
     }
   };

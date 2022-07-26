@@ -94,6 +94,7 @@ const Navbar = ({ user }) => {
             <Typography sx={{ width: '33%', flexShrink: 0 }}>Projects</Typography>
           </StyledAccordionSummary>
 
+          {/* disabled all projects link
           <AccordionDetails sx={{ padding: '0' }}>
             <NavbarLink
               currentPath={pathname}
@@ -101,7 +102,7 @@ const Navbar = ({ user }) => {
               linkName="All Projects"
               icon={<ArrowRightAltIcon color="primary" />}
             />
-          </AccordionDetails>
+          </AccordionDetails> */}
 
           <AccordionDetails sx={{ padding: '0' }}>
             <NavbarLink
@@ -146,6 +147,7 @@ const Navbar = ({ user }) => {
             <Typography sx={{ width: '33%', flexShrink: 0 }}>Tickets</Typography>
           </StyledAccordionSummary>
 
+          {/* Disabled all tickets link
           <AccordionDetails sx={{ padding: '0' }}>
             <NavbarLink
               currentPath={pathname}
@@ -153,7 +155,7 @@ const Navbar = ({ user }) => {
               linkName="All Tickets"
               icon={<ArrowRightAltIcon color="primary" />}
             />
-          </AccordionDetails>
+          </AccordionDetails> */}
 
           <AccordionDetails sx={{ padding: '0' }}>
             <NavbarLink

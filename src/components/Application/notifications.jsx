@@ -185,7 +185,6 @@ const NotificationPage = () => {
                           {notification.description}
                         </Typography>
                         <Grid container justifyContent="right">
-                          {console.log(notification)}
                           {notification.notificationType === 'project invite' && (
                             <Button
                               variant="outlined"

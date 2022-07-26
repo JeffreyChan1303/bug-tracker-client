@@ -36,8 +36,6 @@ const Auth = () => {
   // uses google identity services
   useEffect(() => {
     /* global google */
-    console.log('running use effect');
-
     google?.accounts.id.initialize({
       client_id: '351304157120-mt2uc9pv4rqplrod4gkosjr8h8mqskj2.apps.googleusercontent.com',
       callback: handleCallbackResponse,
@@ -59,11 +57,14 @@ const Auth = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
 
     if (isSignup) {
       dispatch(signUp(formData));
-      navigate('/verification');
+      // only navigate if the signup succeeds. implement this
+      // navigate('/verification');
     } else {
       await dispatch(signIn(formData));
       navigate('/');
@@ -74,17 +75,25 @@ const Auth = () => {
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   // demo logins
-  const loginToDemoAdmin = () =>
-    dispatch(signIn({ email: 'Demo_Admin@bugtracker.com', password: 'DemoAdminPassword' }));
-  const loginToDemoDeveloper = () =>
-    dispatch(signIn({ email: 'Demo_Developer@bugtracker.com', password: 'DemoDeveloperPassword' }));
-  const loginToDemoProductManager = () =>
-    dispatch(
+  const loginToDemoAdmin = async () => {
+    await dispatch(signIn({ email: 'Demo_Admin@bugtracker.com', password: 'DemoAdminPassword' }));
+    navigate('/auth');
+  };
+  const loginToDemoDeveloper = async () => {
+    await dispatch(
+      signIn({ email: 'Demo_Developer@bugtracker.com', password: 'DemoDeveloperPassword' })
+    );
+    navigate('/auth');
+  };
+  const loginToDemoProductManager = async () => {
+    await dispatch(
       signIn({
         email: 'Demo_Project_Manager@bugtracker.com',
         password: 'DemoProjectManagerPassword',
       })
     );
+    navigate('/auth');
+  };
 
   return (
     <Grid container className="login-page-background" justifyContent="space-around">

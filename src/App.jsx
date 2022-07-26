@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Drawer, CssBaseline, Box, Toolbar } from '@mui/material';
 import decode from 'jwt-decode';
@@ -40,8 +40,6 @@ const App = () => {
   const user = JSON.parse(localStorage.getItem('profile'));
   const dispatch = useDispatch();
   const location = useLocation();
-  const { authData } = useSelector((state) => state.user);
-  console.log(authData);
 
   useEffect(() => {
     dispatch(setAuthData());
@@ -80,7 +78,7 @@ const App = () => {
     <>
       {!user ? (
         <Routes>
-          <Route exact path="/*" element={<Navigate to="/Auth" replace />} />
+          <Route exact path="/*" element={<Navigate to="/auth" replace />} />
           <Route exact path="/auth" element={<Auth />} />
           <Route exact path="/verification/:token" element={<EmailVerification />} />
         </Routes>

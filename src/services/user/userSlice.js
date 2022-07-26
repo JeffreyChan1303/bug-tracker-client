@@ -8,9 +8,11 @@ const initialState = {
     error: '',
   },
   emailVerification: {
+    success: false,
     loading: false,
     error: '',
   },
+
   authData: null,
 };
 
@@ -29,7 +31,7 @@ export const setAuthData = createAsyncThunk(
 );
 
 export const emailVerification = createAsyncThunk(
-  'user/emailVarification',
+  'user/emailVerification',
   async (token, { dispatch, rejectWithValue }) => {
     try {
       const { data } = await api.emailVerification(token);
@@ -39,6 +41,22 @@ export const emailVerification = createAsyncThunk(
     } catch (error) {
       console.log(error);
       dispatch(handleAlerts({ severity: 'error', message: `${error.response.data.message}` }));
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const sendNewVerificationLink = createAsyncThunk(
+  'user/sendNewVerificationLink',
+  async (email, { dispatch, rejectWithValue }) => {
+    try {
+      const { data } = await api.sendNewVerificationLink(email);
+
+      dispatch(handleAlerts({ severity: 'success', message: data.message }));
+      return data;
+    } catch (error) {
+      console.log(error);
+      dispatch(handleAlerts({ severity: 'error', message: error.response.data.message }));
       return rejectWithValue(error);
     }
   }
@@ -83,6 +101,7 @@ export const userSlice = createSlice({
     builder.addCase(emailVerification.fulfilled, (state) => {
       const currentState = state;
       currentState.emailVerification.loading = false;
+      currentState.emailVerification.success = true;
     });
     builder.addCase(emailVerification.rejected, (state, action) => {
       const currentState = state;

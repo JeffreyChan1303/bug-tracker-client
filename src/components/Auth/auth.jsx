@@ -3,6 +3,7 @@ import { Box, Typography, Paper, Button, Avatar, Grid } from '@mui/material';
 import jwtDecode from 'jwt-decode';
 import { useDispatch } from 'react-redux';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { useNavigate } from 'react-router-dom';
 
 // import store from '../../app/store';
 import { userActions } from '../../services/user/userSlice';
@@ -18,6 +19,7 @@ const Auth = () => {
   const [isSignup, setIsSignup] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleShowPassword = () => setShowPassword(!showPassword);
 
@@ -61,8 +63,10 @@ const Auth = () => {
 
     if (isSignup) {
       dispatch(signUp(formData));
+      navigate('/verification');
     } else {
-      dispatch(signIn(formData));
+      await dispatch(signIn(formData));
+      navigate('/');
     }
   };
 
@@ -149,6 +153,9 @@ const Auth = () => {
               <Grid item>
                 <Button onClick={switchMode}>
                   {isSignup ? 'Already have an account? Sign in' : "Don't have an account? Sign Up"}
+                </Button>
+                <Button onClick={() => navigate('/verification/auth')}>
+                  need to verify your account?
                 </Button>
               </Grid>
             </Grid>

@@ -56,15 +56,17 @@ const Auth = () => {
     setShowPassword(false);
   };
 
+  // const { signUpSuccess } = useSelector((state) => state.auth);
   const handleSubmit = async (e) => {
     if (e) {
       e.preventDefault();
     }
 
     if (isSignup) {
-      dispatch(signUp(formData));
-      // only navigate if the signup succeeds. implement this
-      // navigate('/verification');
+      await dispatch(signUp(formData));
+      // if (signUpSuccess) {
+      //   navigate('/verification');
+      // }
     } else {
       await dispatch(signIn(formData));
       navigate('/');

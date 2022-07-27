@@ -45,7 +45,7 @@ const EditProject = () => {
     }
 
     dispatch(updateProject({ ...projectData, _id: id }));
-    navigate('/allProjects');
+    navigate('/myProjects');
   };
 
   const handleClear = () => {

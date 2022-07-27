@@ -78,7 +78,7 @@ const EditTicket = () => {
 
     if (ticketData.title !== '' && ticketData.description !== '') {
       dispatch(updateTicket({ ...ticketData, ticketId }));
-      navigate('/allTickets');
+      navigate('/myTickets');
     }
   };
 

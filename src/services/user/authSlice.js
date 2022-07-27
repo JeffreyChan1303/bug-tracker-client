@@ -6,6 +6,7 @@ import { handleAlerts } from '../alertsSlice';
 const initialState = {
   loading: false,
   error: '',
+  signUpSuccess: false,
 };
 
 // generates pending, fulfilled, and rejected action types
@@ -79,7 +80,11 @@ const authSlice = createSlice({
     builder.addCase(signIn.rejected, (state, action) => isRejected(state, action));
     // sign up cases
     builder.addCase(signUp.pending, (state) => isPending(state));
-    builder.addCase(signUp.fulfilled, (state, action) => isFulfilled(state, action));
+    builder.addCase(signUp.fulfilled, (state) => {
+      const currentState = state;
+      currentState.loading = false;
+      currentState.signUpSuccess = true;
+    });
     builder.addCase(signUp.rejected, (state, action) => isRejected(state, action));
   },
 });

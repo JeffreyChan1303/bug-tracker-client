@@ -102,7 +102,7 @@ const Auth = () => {
       <Box className="login-page-background-cover" />
 
       <Grid item xs={12} lg={5} display="flex" alignItems="center" justifyContent="center">
-        <Paper elevation={20} sx={{ p: 2, maxWidth: '350px' }}>
+        <Paper elevation={20} sx={{ p: 2, minWidth: '350px', width: '30%' }}>
           <Box maxWidth sx={{ display: 'flex', justifyContent: 'center' }}>
             <Avatar sx={{ bgcolor: 'primary.main' }}>
               <LockOutlinedIcon />
@@ -161,12 +161,37 @@ const Auth = () => {
             <Box sx={{ display: 'flex', justifyContent: 'center' }} id="googleSignIn" />
 
             <Grid container justify="flex-end">
-              <Grid item>
-                <Button onClick={switchMode}>
-                  {isSignup ? 'Already have an account? Sign in' : "Don't have an account? Sign Up"}
-                </Button>
-                <Button onClick={() => navigate('/verification/auth')}>
-                  need to verify your account?
+              <Grid item sx={{ display: 'flex' }}>
+                {isSignup ? (
+                  <>
+                    <Typography variant="body1" padding={1}>
+                      Already have an account?
+                    </Typography>
+                    <Button sx={{ textTransform: 'none' }} onClick={switchMode}>
+                      Sign In
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Typography variant="body1" padding={1}>
+                      Don&apos;t have an account?
+                    </Typography>
+                    <Button sx={{ textTransform: 'none' }} onClick={switchMode}>
+                      Sign Up
+                    </Button>
+                  </>
+                )}
+              </Grid>
+              <Grid item sx={{ display: 'flex' }}>
+                <Typography variant="body1" padding={1}>
+                  Need to verify your account?
+                </Typography>
+                <Button
+                  onClick={() => navigate('/verification/auth')}
+                  sx={{ textTransform: 'none' }}
+                  variant="text"
+                >
+                  Click Here
                 </Button>
               </Grid>
             </Grid>
@@ -194,7 +219,7 @@ const Auth = () => {
         </Paper>
       </Grid>
 
-      <Grid
+      {/* <Grid
         item
         lg={7}
         alignItems="center"
@@ -204,7 +229,7 @@ const Auth = () => {
         <Typography variant="h2" fontWeight={700} sx={{ color: 'white' }}>
           Bug Tracker
         </Typography>
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 };

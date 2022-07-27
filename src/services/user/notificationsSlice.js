@@ -92,19 +92,20 @@ export const deleteUserNotification = createAsyncThunk(
 
 export const readNotification = createAsyncThunk(
   'user/readNotification',
-  async ({ createdAt }, { dispatch, rejectWithValue }) => {
+  async ({ createdAt }, { rejectWithValue }) => {
     try {
       const { data } = await api.readNotification(createdAt);
 
       return data;
     } catch (error) {
       console.log(error);
-      dispatch(
-        handleAlerts({
-          severity: 'error',
-          message: `failed to read notification. Error: ${error.message}`,
-        })
-      );
+      // Failing to read notification does not need an alert
+      // dispatch(
+      //   handleAlerts({
+      //     severity: 'error',
+      //     message: `failed to read notification. Error: ${error.response.data.message}`,
+      //   })
+      // );
       return rejectWithValue(error);
     }
   }

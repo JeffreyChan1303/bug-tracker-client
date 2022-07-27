@@ -55,7 +55,7 @@ const AddTicket = ({ support }) => {
     setTicketData({ ...ticketData, project: { _id: id, title } });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault(); // this stops the page from it's default refrash setting when clicking a button on the react form.
 
     if (!support && ticketData.project.title === '') {
@@ -73,10 +73,10 @@ const AddTicket = ({ support }) => {
     }
 
     if (!support && ticketData.project.title !== '') {
-      dispatch(createTicket({ ...ticketData, name: user?.userObject?.name }));
+      await dispatch(createTicket({ ...ticketData, name: user?.userObject?.name }));
       navigate('/myTickets');
     } else if (support && ticketData.project.title === '') {
-      dispatch(addSupportTicket({ ...ticketData, name: user?.userObject?.name }));
+      await dispatch(addSupportTicket({ ...ticketData, name: user?.userObject?.name }));
       navigate('/allSupportTickets');
     }
   };

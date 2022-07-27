@@ -53,13 +53,13 @@ const EmailVerification = () => {
               handleChange={(e) => setEmail(e.target.value)}
               type="email"
             />
-            <Button variant="outlined" onClick={handleSendNewVerificationLink}>
+            <Button variant="contained" onClick={handleSendNewVerificationLink}>
               Send new verification link
             </Button>
           </Grid>
         </form>
       </Paper>
-      <Button variant="contained" onClick={() => navigate('/auth')}>
+      <Button variant="outlined" onClick={() => navigate('/auth')}>
         Go Back To Login
       </Button>
     </Grid>

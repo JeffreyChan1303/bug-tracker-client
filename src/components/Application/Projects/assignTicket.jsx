@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Grid, Paper, Typography, Button, Box } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
@@ -12,11 +12,12 @@ import ProjectUsers from './projectUsers';
 const AssignTicket = () => {
   const { projectId } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [selectedUser, setSelectedUser] = useState({ _id: '', name: '' });
   const [selectedTicket, setSelectedTicket] = useState({ _id: '', title: '' });
 
-  const assignTicket = () => {
+  const assignTicket = async () => {
     if (!selectedUser.name) {
       dispatch(
         handleAlerts({ severity: 'warning', message: 'Please choose a user to assign a ticket to' })
@@ -29,7 +30,8 @@ const AssignTicket = () => {
 
     if (selectedUser.name && selectedTicket.title) {
       // make it so the user is in the body of the request. so we can assign someone a ticket by telling that the selected user wants to claim the ticket
-      dispatch(claimTicket({ userId: selectedUser._id, ticketId: selectedTicket._id }));
+      await dispatch(claimTicket({ userId: selectedUser._id, ticketId: selectedTicket._id }));
+      navigate(`/projectDetails/assignTicket/${projectId}`);
     }
   };
 

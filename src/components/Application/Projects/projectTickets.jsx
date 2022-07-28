@@ -18,6 +18,8 @@ import {
   IconButton,
   Pagination,
   PaginationItem,
+  Checkbox,
+  FormControlLabel,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
@@ -82,13 +84,11 @@ const ProjectTickets = ({ projectId, handleSelectTicket }) => {
       <Box sx={{ overflowX: 'scroll' }}>
         <Grid container justifyContent="space-between">
           <Typography variant="h6" fontWeight={700}>
-            {' '}
-            Project Tickets{' '}
+            Project Tickets
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'right' }}>
             <Typography align="right" variant="body1">
-              {' '}
-              Search:&nbsp;{' '}
+              Search:&nbsp;
             </Typography>
             <TextField
               size="small"
@@ -154,6 +154,11 @@ const ProjectTickets = ({ projectId, handleSelectTicket }) => {
           </TableBody>
         </Table>
       </Box>
+
+      <FormControlLabel
+        control={<Checkbox size="small" />}
+        label={<Typography variant="body2">show archived?</Typography>}
+      />
 
       <Pagination
         sx={{ ul: { justifyContent: 'space-around' }, mt: '20px' }}

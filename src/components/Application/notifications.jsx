@@ -114,7 +114,7 @@ const NotificationPage = () => {
       <Box sx={{ overflowX: 'scroll' }}>
         <Grid container justifyContent="space-between" sx={{ mb: 1 }}>
           <Typography variant="h5" fontWeight={700}>
-            All Notifications
+            Notifications
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'right' }}>
             <Button

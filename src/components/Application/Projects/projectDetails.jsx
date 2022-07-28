@@ -54,11 +54,10 @@ const ProjectDetails = () => {
     <CircularProgress color="inherit" />
   ) : (
     <>
-      <Typography variant="h4" marginBottom={1}>
-        Project Details
-      </Typography>
-
       <Paper sx={{ p: 3 }} elevation={1}>
+        <Typography variant="h5" fontWeight={700} marginBottom={1}>
+          Project Details
+        </Typography>
         <Paper sx={{ p: 3, mb: 2 }} elevation={3}>
           <Grid container>
             <Grid item xs={5}>

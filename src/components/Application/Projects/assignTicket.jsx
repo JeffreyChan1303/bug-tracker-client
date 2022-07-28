@@ -43,48 +43,48 @@ const AssignTicket = () => {
   };
 
   return (
-    <>
-      Assign ticket page
-      <Paper elevation={3} sx={{ p: 3 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={12} lg={5}>
-            <ProjectUsers projectId={projectId} handleSelectUser={handleSelectUser} />
-          </Grid>
-
-          <Grid item xs={12} lg={7}>
-            <ProjectTickets projectId={projectId} handleSelectTicket={handleSelectTicket} />
-          </Grid>
+    <Paper elevation={3} sx={{ p: 3 }}>
+      <Typography variant="h5" fontWeight={700} marginBottom={1}>
+        Assign Ticket
+      </Typography>
+      <Grid container spacing={2}>
+        <Grid item xs={12} lg={5}>
+          <ProjectUsers projectId={projectId} handleSelectUser={handleSelectUser} />
         </Grid>
 
-        {/* THIS IS WHERE I LEFT OFF!!! finish this page */}
-        <Grid
-          container
-          justifyContent="space-evenly"
-          alignItems="center"
-          sx={{ border: 1, borderRadius: 2, p: 1, mt: 3 }}
-        >
-          <Box>
-            <Typography>Selected User: {selectedUser.name}</Typography>
-
-            {/* maybe put a box here to wrap the selected user */}
-          </Box>
-
-          <ArrowForwardIcon />
-
-          <Box>
-            <Typography>Selected Ticket: {selectedTicket.title}</Typography>
-
-            {/* maybe put a box here to wrap the selected ticket */}
-          </Box>
-
-          <ArrowForwardIcon />
-
-          <Button variant="outlined" onClick={assignTicket}>
-            Assign Ticket
-          </Button>
+        <Grid item xs={12} lg={7}>
+          <ProjectTickets projectId={projectId} handleSelectTicket={handleSelectTicket} />
         </Grid>
-      </Paper>
-    </>
+      </Grid>
+
+      {/* THIS IS WHERE I LEFT OFF!!! finish this page */}
+      <Grid
+        container
+        justifyContent="space-evenly"
+        alignItems="center"
+        sx={{ border: 1, borderRadius: 2, p: 1, mt: 3 }}
+      >
+        <Box>
+          <Typography>Selected User: {selectedUser.name}</Typography>
+
+          {/* maybe put a box here to wrap the selected user */}
+        </Box>
+
+        <ArrowForwardIcon />
+
+        <Box>
+          <Typography>Selected Ticket: {selectedTicket.title}</Typography>
+
+          {/* maybe put a box here to wrap the selected ticket */}
+        </Box>
+
+        <ArrowForwardIcon />
+
+        <Button variant="outlined" onClick={assignTicket}>
+          Assign Ticket
+        </Button>
+      </Grid>
+    </Paper>
   );
 };
 

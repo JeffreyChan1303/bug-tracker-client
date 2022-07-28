@@ -25,6 +25,7 @@ import {
   UnassignedTickets,
   AssignTicket,
   Profile,
+  Settings,
   EmailVerification,
 } from './components/Application/index';
 import { userActions, setAuthData } from './services/user/userSlice';
@@ -182,6 +183,7 @@ const App = () => {
               {/* User Routes */}
 
               <Route exact path="/profile" element={<Profile />} />
+              <Route exact path="/settings" element={<Settings />} />
               <Route exact path="/notifications" element={<Notifications />} />
               <Route exact path="/notifications/search" element={<Notifications />} />
             </Routes>

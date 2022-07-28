@@ -70,7 +70,12 @@ const Header = ({ drawerWidth, handleDrawerToggle, handleLogOut }) => {
 
         <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">
           <Box>
-            <Typography variant="body1" noWrap fontWeight={500} sx={{ display: { xs: 'none', sm: 'block' } }}>
+            <Typography
+              variant="body1"
+              noWrap
+              fontWeight={500}
+              sx={{ display: { xs: 'none', sm: 'block' } }}
+            >
               {pathname}
             </Typography>
           </Box>
@@ -94,8 +99,8 @@ const Header = ({ drawerWidth, handleDrawerToggle, handleLogOut }) => {
               </Badge>
             </IconButton>
 
-            <Tooltip title="settings(in progress)" disableInteractive>
-              <IconButton sx={{ color: 'white' }}>
+            <Tooltip title="settings" disableInteractive>
+              <IconButton sx={{ color: 'white' }} onClick={() => navigate('/settings')}>
                 <SettingsIcon />
               </IconButton>
             </Tooltip>

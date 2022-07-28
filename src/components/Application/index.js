@@ -3,6 +3,7 @@ export { default as Navbar } from './Navbar/navbar';
 export { default as Dashboard } from './Dashboard/dashboard';
 export { default as Notifications } from './notifications';
 export { default as Profile } from './Users/profile';
+export { default as Settings } from './Users/settings';
 
 export { default as AddProject } from './Projects/addProject';
 export { default as AllProjects } from './Projects/allProjects';

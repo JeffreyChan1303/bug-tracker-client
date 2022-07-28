@@ -58,6 +58,7 @@ const ProjectTickets = ({ projectId, handleSelectTicket }) => {
     searchQuery: '',
     currentPage: 1,
     itemsPerPage: 5,
+    showArchived: false,
   });
 
   useEffect(() => {
@@ -70,6 +71,7 @@ const ProjectTickets = ({ projectId, handleSelectTicket }) => {
         searchQuery: assignedTickets.searchQuery,
         currentPage: assignedTickets.currentPage,
         itemsPerPage: assignedTickets.itemsPerPage,
+        showArchived: assignedTickets.showArchived,
       })
     );
   }, [assignedTickets, projectTickets.original]);
@@ -77,6 +79,12 @@ const ProjectTickets = ({ projectId, handleSelectTicket }) => {
   const handleAssignedTicketsPageChange = (page) => {
     setAssignedTickets({ ...assignedTickets, currentPage: page });
   };
+
+  const handleToggleShowArchived = () => {
+    console.log('test');
+    setAssignedTickets({ ...assignedTickets, showArchived: !assignedTickets.showArchived });
+  };
+
   return loading ? (
     <CircularProgress />
   ) : (
@@ -156,7 +164,13 @@ const ProjectTickets = ({ projectId, handleSelectTicket }) => {
       </Box>
 
       <FormControlLabel
-        control={<Checkbox size="small" />}
+        control={
+          <Checkbox
+            size="small"
+            checked={assignedTickets.showArchived}
+            onClick={handleToggleShowArchived}
+          />
+        }
         label={<Typography variant="body2">show archived?</Typography>}
       />
 

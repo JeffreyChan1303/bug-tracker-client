@@ -193,8 +193,16 @@ const projectDetailsSlice = createSlice({
   name: 'projectDetails',
   initialState,
   reducers: {
+    projectTicketsShowArchived: (state) => ({
+      // toggle the show archived property
+      ...state,
+      projectTickets: {
+        ...state.projectTickets,
+        showArchived: !state.projectTickets.showArchived,
+      },
+    }),
     searchProjectTickets: (state, action) => {
-      const { searchQuery, currentPage, itemsPerPage } = action.payload;
+      const { searchQuery, currentPage, itemsPerPage, showArchived } = action.payload;
       const search = searchQuery.toLowerCase();
 
       const ticketArr = state.projectTickets.original;
@@ -206,7 +214,10 @@ const projectDetailsSlice = createSlice({
 
         // if the search is in the name or the email of the user, add to object
         if (ticketDetails.title.toLowerCase().includes(search.toLowerCase())) {
-          newTickets.push(ticketDetails);
+          // if dont show archive, and the ticket is archived, it would skip the ticket
+          if (showArchived || ticketDetails.status !== 'Archived') {
+            newTickets.push(ticketDetails);
+          }
         }
       }
 
@@ -340,4 +351,5 @@ const projectDetailsSlice = createSlice({
 });
 
 export default projectDetailsSlice.reducer;
-export const { searchProjectTickets, searchUnassignedProjectTickets } = projectDetailsSlice.actions;
+export const { searchProjectTickets, searchUnassignedProjectTickets, projectTicketsShowArchived } =
+  projectDetailsSlice.actions;

@@ -6,7 +6,20 @@ Ticketing software for small teams to organize and work on issues efficiently.
 
 ## Project Description
 
-Users are able to create projects and tickets within the app.
+Keep track of your personal and professional projects.
+Make use of tickets to work efficiently with your team.
+
+### Features
+
+- Authentification and Authorization
+- Role management
+- Ticket management
+
+#### Challenges
+
+- Global State
+- Relationship between Users, Projects, and Tickets reguarding the backend logic
+- Authentification
 
 ## Technologies
 

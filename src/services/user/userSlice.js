@@ -75,7 +75,7 @@ export const userSlice = createSlice({
     },
     logout: (state) => {
       localStorage.clear();
-      window.location.reload();
+      // window.location.reload();
       return { ...state, authData: null };
     },
   },

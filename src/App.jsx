@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { Drawer, CssBaseline, Box, Toolbar } from '@mui/material';
+import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { Drawer, CssBaseline, Box, Toolbar, Button } from '@mui/material';
 import decode from 'jwt-decode';
 import {
   Header,
@@ -41,6 +41,7 @@ const App = () => {
   const user = JSON.parse(localStorage.getItem('profile'));
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(setAuthData());
@@ -53,6 +54,7 @@ const App = () => {
 
   const handleLogOut = () => {
     dispatch(userActions.logout());
+    navigate('/');
   };
 
   // this is the guard for a user that doesn't have a valid token while on the app.
@@ -128,6 +130,9 @@ const App = () => {
           {/* Here is the content and the routes */}
           <Box sx={{ flexGrow: 1, p: 3, width: { md: `calc(100% - ${drawerWidth}px)` } }}>
             <Toolbar />
+            <Button variant="contained" onClick={handleLogOut}>
+              button{' '}
+            </Button>
             <Routes>
               <Route exact path="/*" element={<Navigate to="/dashboard" replace />} />
               <Route exact path="/dashboard" element={<Dashboard />} />

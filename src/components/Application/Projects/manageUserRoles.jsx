@@ -42,11 +42,9 @@ const ManageUserRoles = () => {
   };
 
   const handleDelete = (userId) => {
-    // if the index is not equal, we filter that item out
-    // setSelectedUsers(selectedUsers.filter((user, i) => i != index));
-
     setSelectedUsers((current) => {
-      const copy = { ...current }; // we need to do this because not spreading and just using 'current' will make it configure or mutate the original state of the app
+      // this is needed because not spreading and just using 'current' will make it configure or mutate the original state of the app
+      const copy = { ...current }; 
       delete copy[userId];
       return copy;
     });
@@ -170,7 +168,7 @@ const ManageUserRoles = () => {
         </Button>
       </Grid>
 
-      {/* All Users Section... this section should be made into its own component */}
+      {/* All Users Section */}
       <Grid item xs={12} lg={7}>
         <SelectFromAllUsers
           path={`/projectDetails/manageUserRoles/${projectId}`}

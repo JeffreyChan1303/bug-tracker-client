@@ -15,9 +15,7 @@ function useQuery() {
 const ProjectArchive = () => {
   const query = useQuery();
   const navigate = useNavigate();
-  // const location = useLocation();
   const page = query.get('page');
-  // const searchQuery = query.get('searchQuery');
   const [search, setSearch] = useState('');
   const { loading, projects, currentPage, numberOfPages } = useSelector((state) => state.projectArchive);
   const dispatch = useDispatch();
@@ -52,13 +50,11 @@ const ProjectArchive = () => {
     <Paper sx={{ p: 3 }} elevation={3}>
       <Box sx={{ overflowX: 'scroll' }}>
         <Typography variant="h5" fontWeight={700}>
-          {' '}
-          Archived Projects{' '}
+          Archived Projects
         </Typography>
         <Box sx={{ display: 'flex', justifyContent: 'right' }}>
           <Typography align="right" variant="body1">
-            {' '}
-            Search:&nbsp;{' '}
+            Search:&nbsp;
           </Typography>
           <TextField
             size="small"

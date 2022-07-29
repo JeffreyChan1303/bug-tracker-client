@@ -66,16 +66,12 @@ const AssignTicket = () => {
       >
         <Box>
           <Typography>Selected User: {selectedUser.name}</Typography>
-
-          {/* maybe put a box here to wrap the selected user */}
         </Box>
 
         <ArrowForwardIcon />
 
         <Box>
           <Typography>Selected Ticket: {selectedTicket.title}</Typography>
-
-          {/* maybe put a box here to wrap the selected ticket */}
         </Box>
 
         <ArrowForwardIcon />

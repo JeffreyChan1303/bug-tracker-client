@@ -14,9 +14,7 @@ function useQuery() {
 const AllProjects = () => {
   const query = useQuery();
   const navigate = useNavigate();
-  // const location = useLocation();
   const page = query.get('page');
-  // const searchQuery = query.get('searchQuery');
   const [search, setSearch] = useState('');
   const { loading, projects, currentPage, numberOfPages } = useSelector(
     (state) => state.allProjects

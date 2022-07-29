@@ -90,7 +90,6 @@ const ProjectUsers = ({ projectId, handleSelectUser }) => {
           <TableBody>
             {projectUsers.searched &&
               projectUsers.searched.map((user) => (
-                // change the key to the id. Have to add the id tot he search user objects
                 <TableRow
                   key={user.email}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

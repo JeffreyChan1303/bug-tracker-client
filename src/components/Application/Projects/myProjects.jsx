@@ -16,7 +16,6 @@ const MyProjects = () => {
   const navigate = useNavigate();
   const page = query.get('page');
   const [search, setSearch] = useState('');
-  // useSelector may be useful when we implement the dashboard which requires multiple api calls
   const { loading, projects, currentPage, numberOfPages } = useSelector(
     (state) => state.myProjects
   );
@@ -24,14 +23,12 @@ const MyProjects = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // this fetches data every time the page is changed
+    // gets data every time page is changed
     dispatch(getMyProjectsBySearch({ search, page }));
   }, [page]);
 
   const searchMyProjects = () => {
     if (search.trim()) {
-      // dispatch an action
-
       dispatch(getMyProjectsBySearch({ search, page: 1 }));
 
       navigate(`/myProjects?searchQuery=${search || 'none'}&page=1`);
@@ -42,7 +39,6 @@ const MyProjects = () => {
 
   const handleKeyPress = (e) => {
     if (e.keyCode === 13) {
-      // search for post... probably a dispatch or something here
       searchMyProjects();
     }
   };

@@ -93,7 +93,6 @@ const Header = ({ drawerWidth, handleDrawerToggle, handleLogOut }) => {
             </Button>
 
             <IconButton sx={{ color: 'white' }} onClick={() => navigate('/notifications')}>
-              {/* Change the badge content to the user.unreadNotifications! I will need to implement this in the backend too */}
               <Badge color="error" badgeContent={numberOfUnreadNotifications}>
                 <NotificationsRoundedIcon />
               </Badge>

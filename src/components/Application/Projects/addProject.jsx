@@ -7,7 +7,7 @@ import { handleAlerts } from '../../../services/alertsSlice';
 import { createProject } from '../../../services/project/addProjectSlice';
 
 const initialProjectData = {
-  creator: '', // this state will be taken from the redux store where Login information is stored
+  creator: '',
   title: '',
   description: '',
 };
@@ -19,7 +19,8 @@ const AddProject = () => {
   const user = JSON.parse(localStorage.getItem('profile'));
 
   const handleSubmit = async (event) => {
-    event.preventDefault(); // this stops the page from it's default refrash setting when clicking a button on the react form.
+    // this stops the page from it's default refrash setting when clicking a button on the react form.
+    event.preventDefault();
 
     if (projectData.title === '') {
       dispatch(handleAlerts({ severity: 'warning', message: 'Invalid title' }));

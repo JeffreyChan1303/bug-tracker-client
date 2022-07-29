@@ -12,25 +12,16 @@ import {
   TableHead,
   TableRow,
   TableBody,
-  TableCell,
   Tooltip,
   IconButton,
   Pagination,
   PaginationItem,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import AddIcon from '@mui/icons-material/Add';
 import { getProjectUsers, searchProjectUsers } from '../../../services/project/projectUsersSlice';
+import { BoldedTableCell, ContentTableCell } from '../../Utility/tableCellStyles';
 
-const BoldedTableCell = styled(TableCell)(({ theme }) => ({
-  fontWeight: theme.typography.fontWeightBold,
-  padding: '8px 5px',
-}));
-
-const ContentTableCell = styled(TableCell)(() => ({
-  padding: '5px',
-}));
 
 const ProjectUsers = ({ projectId, handleSelectUser }) => {
   const dispatch = useDispatch();

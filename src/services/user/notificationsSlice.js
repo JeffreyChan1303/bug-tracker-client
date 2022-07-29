@@ -7,10 +7,6 @@ const initialState = {
     loading: false,
     error: '',
   },
-  createUsersNotification: {
-    loading: false,
-    error: '',
-  },
   deleteUserNotification: {
     loading: false,
     error: '',
@@ -43,26 +39,6 @@ export const getUserNotificationsBySearch = createAsyncThunk(
         handleAlerts({
           severity: 'error',
           message: `User notifications were not able to be fetched. Error: ${error.message}`,
-        })
-      );
-      return rejectWithValue(error);
-    }
-  }
-);
-
-export const createUsersNotification = createAsyncThunk(
-  'user/createUsersNotifications',
-  async ({ users, title, description }, { dispatch, rejectWithValue }) => {
-    try {
-      const { data } = await api.createUsersNotification({ users, title, description });
-
-      return data;
-    } catch (error) {
-      console.log(error);
-      dispatch(
-        handleAlerts({
-          severity: 'error',
-          message: `Users notification was not able to be created. Error: ${error.message}`,
         })
       );
       return rejectWithValue(error);
@@ -155,21 +131,6 @@ const notificationsSlice = createSlice({
       const currentState = state;
       currentState.getUserNotificationsBySearch.loading = false;
       currentState.getUserNotificationsBySearch.error = action.payload.message;
-    });
-
-    // Create Users Notification
-    builder.addCase(createUsersNotification.pending, (state) => {
-      const currentState = state;
-      currentState.createUsersNotification.loading = true;
-    });
-    builder.addCase(createUsersNotification.fulfilled, (state) => {
-      const currentState = state;
-      currentState.createUsersNotification.loading = false;
-    });
-    builder.addCase(createUsersNotification.rejected, (state, action) => {
-      const currentState = state;
-      currentState.createUsersNotification.loading = false;
-      currentState.createUsersNotification.error = action.payload.message;
     });
 
     // Delete User Notification

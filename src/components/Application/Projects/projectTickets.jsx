@@ -12,7 +12,6 @@ import {
   TableHead,
   TableRow,
   TableBody,
-  TableCell,
   Chip,
   Tooltip,
   IconButton,
@@ -21,7 +20,6 @@ import {
   Checkbox,
   FormControlLabel,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
@@ -30,21 +28,10 @@ import {
   getProjectTickets,
   searchProjectTickets,
 } from '../../../services/project/projectDetailsSlice';
+import { getDateFromISODate } from '../../Utility/formatDate';
+import { BoldedTableCell, ContentTableCell } from '../../Utility/tableCellStyles';
 
-const BoldedTableCell = styled(TableCell)(({ theme }) => ({
-  fontWeight: theme.typography.fontWeightBold,
-  padding: '8px 5px',
-}));
 
-const ContentTableCell = styled(TableCell)(() => ({
-  padding: '5px',
-}));
-
-const getDateFromISODate = (ISODate) => {
-  const date = new Date(ISODate);
-  const string = `${date.getMonth()}-${date.getDate()}-${date.getFullYear()}  ${date.getHours()}:${date.getMinutes()}`;
-  return string;
-};
 
 const ProjectTickets = ({ projectId, handleSelectTicket }) => {
   const dispatch = useDispatch();

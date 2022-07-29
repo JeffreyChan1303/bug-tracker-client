@@ -6,6 +6,6 @@ export const getDateFromISODate = (ISODate) => {
 
 export const getTimeFromISODate = (ISODate) => {
   const date = new Date(ISODate);
-  const string = `${date.getHours()}:${date.getMinutes()}-${date.getSeconds()}`;
+  const string = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
   return string;
 };

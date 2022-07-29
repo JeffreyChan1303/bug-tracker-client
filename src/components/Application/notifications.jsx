@@ -3,7 +3,6 @@ import {
   Typography,
   CircularProgress,
   Grid,
-  TableCell,
   IconButton,
   Box,
   TextField,
@@ -19,7 +18,7 @@ import {
   Paper,
   Badge,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
+
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -33,26 +32,12 @@ import {
 } from '../../services/user/notificationsSlice';
 import CustomPagination from './pagination';
 import { acceptProjectInvite } from '../../services/project/projectUsersSlice';
-
-const BoldedTableCell = styled(TableCell)(({ theme }) => ({
-  fontWeight: theme.typography.fontWeightBold,
-  padding: '8px 5px',
-}));
-
-const ContentTableCell = styled(TableCell)(() => ({
-  padding: '5px',
-}));
+import { BoldedTableCell, ContentTableCell } from '../Utility/tableCellStyles';
+import { getDateFromISODate, getTimeFromISODate } from '../Utility/formatDate';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
-
-const getDateFromISODate = (ISODate) => {
-  const date = new Date(ISODate);
-  // prettier-ignore
-  const string = `${date.getMonth()}-${date.getDate()}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-  return string;
-};
 
 const NotificationPage = () => {
   const query = useQuery();
@@ -200,7 +185,7 @@ const NotificationPage = () => {
                   </ContentTableCell>
 
                   <ContentTableCell align="right">
-                    {getDateFromISODate(notification.createdAt)}
+                    {getDateFromISODate(notification.createdAt)} {getTimeFromISODate(notification.createdAt)}
                   </ContentTableCell>
                   <ContentTableCell align="center">
                     <Tooltip title="Delete" disableInteractive>

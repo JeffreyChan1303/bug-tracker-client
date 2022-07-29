@@ -3,22 +3,6 @@ import * as api from '../../api/index';
 import { handleAlerts } from '../alertsSlice';
 
 const initialState = {
-  updateUsersRoles: {
-    loading: false,
-    error: '',
-  },
-  deleteUsersFromProject: {
-    loading: false,
-    error: '',
-  },
-  inviteUsersToProject: {
-    loading: false,
-    error: '',
-  },
-  acceptProjectInvite: {
-    loading: false,
-    error: '',
-  },
   getProjectUsers: {
     loading: false,
     error: '',
@@ -208,66 +192,6 @@ const projectUsersSlice = createSlice({
       currentState.getProjectUsers.error = action.payload.message;
     });
 
-    // Update Users Roles
-    builder.addCase(updateUsersRoles.pending, (state) => {
-      const currentState = state;
-      currentState.updateUsersRoles.loading = true;
-    });
-    builder.addCase(updateUsersRoles.fulfilled, (state) => {
-      const currentState = state;
-      currentState.updateUsersRoles.loading = false;
-    });
-    builder.addCase(updateUsersRoles.rejected, (state, action) => {
-      const currentState = state;
-      currentState.updateUsersRoles.loading = false;
-      currentState.updateUsersRoles.error = action.payload.message;
-    });
-
-    // Invite Users To Project
-    builder.addCase(acceptProjectInvite.pending, (state) => {
-      const currentState = state;
-      currentState.acceptProjectInvite.loading = true;
-    });
-    builder.addCase(acceptProjectInvite.fulfilled, (state) => {
-      const currentState = state;
-      currentState.acceptProjectInvite.loading = false;
-    });
-    builder.addCase(acceptProjectInvite.rejected, (state, action) => {
-      const currentState = state;
-      currentState.acceptProjectInvite.loading = false;
-      currentState.acceptProjectInvite.error = action.payload.message;
-    });
-
-    // Accpet Project Invite
-
-    builder.addCase(inviteUsersToProject.pending, (state) => {
-      const currentState = state;
-      currentState.inviteUsersToProject.loading = true;
-    });
-    builder.addCase(inviteUsersToProject.fulfilled, (state) => {
-      const currentState = state;
-      currentState.inviteUsersToProject.loading = false;
-    });
-    builder.addCase(inviteUsersToProject.rejected, (state, action) => {
-      const currentState = state;
-      currentState.inviteUsersToProject.loading = false;
-      currentState.inviteUsersToProject.error = action.payload.message;
-    });
-
-    // Delete Users From Project
-    builder.addCase(deleteUsersFromProject.pending, (state) => {
-      const currentState = state;
-      currentState.deleteUsersFromProject.loading = true;
-    });
-    builder.addCase(deleteUsersFromProject.fulfilled, (state) => {
-      const currentState = state;
-      currentState.deleteUsersFromProject.loading = false;
-    });
-    builder.addCase(deleteUsersFromProject.rejected, (state, action) => {
-      const currentState = state;
-      currentState.deleteUsersFromProject.loading = false;
-      currentState.deleteUsersFromProject.error = action.payload.message;
-    });
   },
 });
 

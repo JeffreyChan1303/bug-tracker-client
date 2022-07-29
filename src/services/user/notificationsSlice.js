@@ -7,18 +7,6 @@ const initialState = {
     loading: false,
     error: '',
   },
-  deleteUserNotification: {
-    loading: false,
-    error: '',
-  },
-  readNotification: {
-    loading: false,
-    error: '',
-  },
-  readAllNotifications: {
-    loading: false,
-    error: '',
-  },
   notifications: [],
   currentPage: null,
   numberOfPages: null,
@@ -131,51 +119,6 @@ const notificationsSlice = createSlice({
       const currentState = state;
       currentState.getUserNotificationsBySearch.loading = false;
       currentState.getUserNotificationsBySearch.error = action.payload.message;
-    });
-
-    // Delete User Notification
-    builder.addCase(deleteUserNotification.pending, (state) => {
-      const currentState = state;
-      currentState.deleteUserNotification.loading = true;
-    });
-    builder.addCase(deleteUserNotification.fulfilled, (state) => {
-      const currentState = state;
-      currentState.deleteUserNotification.loading = false;
-    });
-    builder.addCase(deleteUserNotification.rejected, (state, action) => {
-      const currentState = state;
-      currentState.deleteUserNotification.loading = false;
-      currentState.deleteUserNotification.error = action.payload.message;
-    });
-
-    // Read Notification
-    builder.addCase(readNotification.pending, (state) => {
-      const currentState = state;
-      currentState.readNotification.loading = true;
-    });
-    builder.addCase(readNotification.fulfilled, (state) => {
-      const currentState = state;
-      currentState.readNotification.loading = false;
-    });
-    builder.addCase(readNotification.rejected, (state, action) => {
-      const currentState = state;
-      currentState.readNotification.loading = false;
-      currentState.readNotification.error = action.payload.message;
-    });
-
-    // Read All Notifications
-    builder.addCase(readAllNotifications.pending, (state) => {
-      const currentState = state;
-      currentState.readAllNotifications.loading = true;
-    });
-    builder.addCase(readAllNotifications.fulfilled, (state) => {
-      const currentState = state;
-      currentState.readAllNotifications.loading = false;
-    });
-    builder.addCase(readAllNotifications.rejected, (state, action) => {
-      const currentState = state;
-      currentState.readAllNotifications.loading = false;
-      currentState.readAllNotifications.error = action.payload.message;
     });
   },
 });

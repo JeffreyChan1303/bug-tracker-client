@@ -7,30 +7,6 @@ const initialState = {
     loading: false,
     error: '',
   },
-  updateTicket: {
-    loading: false,
-    error: '',
-  },
-  moveTicketToArchive: {
-    loading: false,
-    error: '',
-  },
-  restoreTicketFromArchive: {
-    loading: false,
-    error: '',
-  },
-  deleteTicketFromArchive: {
-    loading: false,
-    error: '',
-  },
-  addTicketComment: {
-    loading: false,
-    error: '',
-  },
-  deleteTicketComment: {
-    loading: false,
-    error: '',
-  },
   ticket: {
     comments: [],
     searchedComments: [],
@@ -260,101 +236,11 @@ const ticketDetailsSlice = createSlice({
       const currentState = state;
       currentState.getTicketDetails.loading = false;
       currentState.ticket = action.payload;
-      // currentState.ticket.searchedComments = action.payload.comments;
     });
     builder.addCase(getTicketDetails.rejected, (state, action) => {
       const currentState = state;
       currentState.getTicketDetails.loading = false;
       currentState.getTicketDetails.error = action.payload.message;
-    });
-    // Update Ticket
-    builder.addCase(updateTicket.pending, (state) => {
-      const currentState = state;
-      currentState.updateTicket.loading = true;
-    });
-    builder.addCase(updateTicket.fulfilled, (state) => {
-      const currentState = state;
-      currentState.updateTicket.loading = false;
-    });
-    builder.addCase(updateTicket.rejected, (state, action) => {
-      const currentState = state;
-      currentState.updateTicket.loading = false;
-      currentState.updateTicket.error = action.payload.message;
-    });
-
-    // Move Ticket To Archive
-    builder.addCase(moveTicketToArchive.pending, (state) => {
-      const currentState = state;
-      currentState.moveTicketToArchive.loading = true;
-    });
-    builder.addCase(moveTicketToArchive.fulfilled, (state) => {
-      const currentState = state;
-      currentState.moveTicketToArchive.loading = false;
-    });
-    builder.addCase(moveTicketToArchive.rejected, (state, action) => {
-      const currentState = state;
-      currentState.moveTicketToArchive.loading = false;
-      currentState.moveTicketToArchive.error = action.payload.message;
-    });
-
-    // Restore Ticket From Archive
-    builder.addCase(restoreTicketFromArchive.pending, (state) => {
-      const currentState = state;
-      currentState.restoreTicketFromArchive.loading = true;
-    });
-    builder.addCase(restoreTicketFromArchive.fulfilled, (state) => {
-      const currentState = state;
-      currentState.restoreTicketFromArchive.loading = false;
-    });
-    builder.addCase(restoreTicketFromArchive.rejected, (state, action) => {
-      const currentState = state;
-      currentState.restoreTicketFromArchive.loading = false;
-      currentState.restoreTicketFromArchive.error = action.payload.message;
-    });
-
-    // Delete Ticket From Archive
-    builder.addCase(deleteTicketFromArchive.pending, (state) => {
-      const currentState = state;
-      currentState.deleteTicketFromArchive.loading = true;
-    });
-    builder.addCase(deleteTicketFromArchive.fulfilled, (state) => {
-      const currentState = state;
-      currentState.deleteTicketFromArchive.loading = false;
-    });
-    builder.addCase(deleteTicketFromArchive.rejected, (state, action) => {
-      const currentState = state;
-      currentState.deleteTicketFromArchive.loading = false;
-      currentState.deleteTicketFromArchive.error = action.payload.message;
-    });
-
-    // Add Ticket Comment
-    builder.addCase(addTicketComment.pending, (state) => {
-      const currentState = state;
-      currentState.addTicketComment.loading = true;
-    });
-    builder.addCase(addTicketComment.fulfilled, (state) => {
-      const currentState = state;
-      currentState.addTicketComment.loading = false;
-    });
-    builder.addCase(addTicketComment.rejected, (state, action) => {
-      const currentState = state;
-      currentState.addTicketComment.loading = false;
-      currentState.addTicketComment.error = action.payload.message;
-    });
-
-    // Delete Ticket Comment
-    builder.addCase(deleteTicketComment.pending, (state) => {
-      const currentState = state;
-      currentState.deleteTicketComment.loading = true;
-    });
-    builder.addCase(deleteTicketComment.fulfilled, (state) => {
-      const currentState = state;
-      currentState.deleteTicketComment.loading = false;
-    });
-    builder.addCase(deleteTicketComment.rejected, (state, action) => {
-      const currentState = state;
-      currentState.deleteTicketComment.loading = false;
-      currentState.deleteTicketComment.error = action.payload.message;
     });
   },
 });

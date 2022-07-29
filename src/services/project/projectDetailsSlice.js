@@ -7,22 +7,6 @@ const initialState = {
     loading: false,
     error: '',
   },
-  updateProject: {
-    loading: false,
-    error: '',
-  },
-  moveProjectToArchive: {
-    loading: false,
-    error: '',
-  },
-  restoreProjectFromArchive: {
-    loading: false,
-    error: '',
-  },
-  deleteProjectFromArchive: {
-    loading: false,
-    error: '',
-  },
   getProjectTickets: {
     loading: false,
     error: '',
@@ -288,65 +272,7 @@ const projectDetailsSlice = createSlice({
       currentState.getProjectTickets.loading = false;
       currentState.getProjectTickets.error = action.payload.message;
     });
-    // Update Project
-    builder.addCase(updateProject.pending, (state) => {
-      const currentState = state;
-      currentState.updateProject.loading = true;
-    });
-    builder.addCase(updateProject.fulfilled, (state) => {
-      const currentState = state;
-      currentState.updateProject.loading = false;
-    });
-    builder.addCase(updateProject.rejected, (state, action) => {
-      const currentState = state;
-      currentState.updateProject.loading = false;
-      currentState.updateProject.error = action.payload.message;
-    });
 
-    // Move Project To Archive
-    builder.addCase(moveProjectToArchive.pending, (state) => {
-      const currentState = state;
-      currentState.moveProjectToArchive.loading = true;
-    });
-    builder.addCase(moveProjectToArchive.fulfilled, (state) => {
-      const currentState = state;
-      currentState.moveProjectToArchive.loading = false;
-    });
-    builder.addCase(moveProjectToArchive.rejected, (state, action) => {
-      const currentState = state;
-      currentState.moveProjectToArchive.loading = false;
-      currentState.moveProjectToArchive.error = action.payload.message;
-    });
-
-    // restore Project From Archive
-    builder.addCase(restoreProjectFromArchive.pending, (state) => {
-      const currentState = state;
-      currentState.restoreProjectFromArchive.loading = true;
-    });
-    builder.addCase(restoreProjectFromArchive.fulfilled, (state) => {
-      const currentState = state;
-      currentState.restoreProjectFromArchive.loading = false;
-    });
-    builder.addCase(restoreProjectFromArchive.rejected, (state, action) => {
-      const currentState = state;
-      currentState.restoreProjectFromArchive.loading = false;
-      currentState.restoreProjectFromArchive.error = action.payload.message;
-    });
-
-    // Delete Project From Archive
-    builder.addCase(deleteProjectFromArchive.pending, (state) => {
-      const currentState = state;
-      currentState.deleteProjectFromArchive.loading = true;
-    });
-    builder.addCase(deleteProjectFromArchive.fulfilled, (state) => {
-      const currentState = state;
-      currentState.deleteProjectFromArchive.loading = false;
-    });
-    builder.addCase(deleteProjectFromArchive.rejected, (state, action) => {
-      const currentState = state;
-      currentState.deleteProjectFromArchive.loading = false;
-      currentState.deleteProjectFromArchive.error = action.payload.message;
-    });
   },
 });
 

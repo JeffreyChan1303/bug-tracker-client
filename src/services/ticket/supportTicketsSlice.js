@@ -7,10 +7,6 @@ const initialState = {
     loading: false,
     error: '',
   },
-  addSupportTicket: {
-    loading: false,
-    error: '',
-  },
   tickets: [],
   currentPage: null,
   numberOfPages: null,
@@ -78,21 +74,6 @@ const supportTicketsSlice = createSlice({
       const currentState = state;
       currentState.getSupportTicketsBySearch.loading = false;
       currentState.getSupportTicketsBySearch.error = action.payload.message;
-    });
-
-    // add support ticket
-    builder.addCase(addSupportTicket.pending, (state) => {
-      const currentState = state;
-      currentState.addSupportTicket.loading = true;
-    });
-    builder.addCase(addSupportTicket.fulfilled, (state) => {
-      const currentState = state;
-      currentState.addSupportTicket.loading = false;
-    });
-    builder.addCase(addSupportTicket.rejected, (state, action) => {
-      const currentState = state;
-      currentState.addSupportTicket.loading = false;
-      currentState.addSupportTicket.error = action.payload.message;
     });
   },
 });

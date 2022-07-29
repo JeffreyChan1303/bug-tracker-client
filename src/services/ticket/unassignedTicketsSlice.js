@@ -7,16 +7,10 @@ const initialState = {
     loading: false,
     error: '',
   },
-  claimTicket: {
-    loading: false,
-    error: '',
-  },
   tickets: [],
   numberOfTickets: 0,
   currentPage: null,
   numberOfPages: null,
-  loading: false,
-  error: '',
 };
 
 export const getUnassignedTickets = createAsyncThunk(
@@ -87,21 +81,6 @@ const unassignedTicketsSlice = createSlice({
       const currentState = state;
       currentState.getUnassignedTickets.loading = false;
       currentState.getUnassignedTickets.error = action.payload.message;
-    });
-
-    // claim ticket
-    builder.addCase(claimTicket.pending, (state) => {
-      const currentState = state;
-      currentState.claimTicket.loading = true;
-    });
-    builder.addCase(claimTicket.fulfilled, (state) => {
-      const currentState = state;
-      currentState.claimTicket.loading = false;
-    });
-    builder.addCase(claimTicket.rejected, (state, action) => {
-      const currentState = state;
-      currentState.claimTicket.loading = false;
-      currentState.claimTicket.error = action.payload.message;
     });
   },
 });

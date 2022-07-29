@@ -94,6 +94,8 @@ export const userSlice = createSlice({
       currentState.setAuthData.loading = false;
       currentState.setAuthData.error = action.payload.message;
     });
+
+    // email verification
     builder.addCase(emailVerification.pending, (state) => {
       const currentState = state;
       currentState.emailVerification.loading = true;

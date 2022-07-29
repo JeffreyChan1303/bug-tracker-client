@@ -22,7 +22,6 @@ const EmailVerification = () => {
     }
   }, []);
 
-  console.log(verified);
   if (verified) {
     navigate('/auth');
   }
@@ -45,7 +44,7 @@ const EmailVerification = () => {
         <form>
           <Grid container justifyContent="center" direction="column" gap={1}>
             <Typography variant="h6" textAlign="center">
-              Enter your email and password here to send another verification email.
+              Enter your email here to send another verification email.
             </Typography>
             <Input
               name="email"

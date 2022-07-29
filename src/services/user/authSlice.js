@@ -73,6 +73,9 @@ const isRejected = (state, action) => {
 const authSlice = createSlice({
   name: 'Auth',
   initialState,
+  reducers: {
+    revertSignUpSuccess: (state) => ({ ...state, signUpSuccess: false }),
+  },
   extraReducers: (builder) => {
     // sign in cases
     builder.addCase(signIn.pending, (state) => isPending(state));
@@ -90,4 +93,4 @@ const authSlice = createSlice({
 });
 
 export default authSlice.reducer;
-export const authActions = authSlice.actions;
+export const { revertSignUpSuccess } = authSlice.actions;

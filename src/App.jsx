@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { Drawer, CssBaseline, Box, Toolbar, Button } from '@mui/material';
+import { Drawer, CssBaseline, Box, Toolbar } from '@mui/material';
 import decode from 'jwt-decode';
 import {
   Header,
@@ -130,9 +130,6 @@ const App = () => {
           {/* Here is the content and the routes */}
           <Box sx={{ flexGrow: 1, p: 3, width: { md: `calc(100% - ${drawerWidth}px)` } }}>
             <Toolbar />
-            <Button variant="contained" onClick={handleLogOut}>
-              button{' '}
-            </Button>
             <Routes>
               <Route exact path="/*" element={<Navigate to="/dashboard" replace />} />
               <Route exact path="/dashboard" element={<Dashboard />} />

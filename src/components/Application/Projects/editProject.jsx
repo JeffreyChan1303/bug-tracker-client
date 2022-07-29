@@ -34,6 +34,14 @@ const EditProject = () => {
     dispatch(getProjectDetails(id));
   }, []);
 
+  useEffect(() => {
+    setProjectData({
+      ...projectData,
+      title: project.title,
+      description: project.description,
+    });
+  }, [project]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -101,7 +109,6 @@ const EditProject = () => {
             variant="outlined"
             color="secondary"
             size="small"
-            type="cancel"
             onClick={handleUsePrevProjectValues}
           >
             use default tick values

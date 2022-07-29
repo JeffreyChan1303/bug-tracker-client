@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, Paper, Button, Avatar, Grid } from '@mui/material';
 import jwtDecode from 'jwt-decode';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useNavigate } from 'react-router-dom';
 
 // import store from '../../app/store';
 import { userActions } from '../../services/user/userSlice';
-import { signIn, signUp } from '../../services/user/authSlice';
+import { revertSignUpSuccess, signIn, signUp } from '../../services/user/authSlice';
 
 import Input from './input';
 import './background.css';
@@ -56,7 +56,11 @@ const Auth = () => {
     setShowPassword(false);
   };
 
-  // const { signUpSuccess } = useSelector((state) => state.auth);
+  const { signUpSuccess } = useSelector((state) => state.auth);
+  if (signUpSuccess) {
+    navigate('/verification/auth');
+    dispatch(revertSignUpSuccess());
+  }
   const handleSubmit = async (e) => {
     if (e) {
       e.preventDefault();
@@ -64,9 +68,6 @@ const Auth = () => {
 
     if (isSignup) {
       await dispatch(signUp(formData));
-      // if (signUpSuccess) {
-      //   navigate('/verification');
-      // }
     } else {
       await dispatch(signIn(formData));
       navigate('/');

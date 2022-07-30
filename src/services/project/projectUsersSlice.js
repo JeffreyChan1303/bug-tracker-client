@@ -131,7 +131,7 @@ export const deleteUsersFromProject = createAsyncThunk(
       dispatch(
         handleAlerts({
           severity: 'error',
-          message: `Users were unable to be deleted form the project. Error: ${error.response.data.message}`,
+          message: error.response.data.message,
         })
       );
       return rejectWithValue(error);
@@ -191,7 +191,6 @@ const projectUsersSlice = createSlice({
       currentState.getProjectUsers.loading = false;
       currentState.getProjectUsers.error = action.payload.message;
     });
-
   },
 });
 

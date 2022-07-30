@@ -14,6 +14,7 @@ import {
 } from '../../../services/project/projectDetailsSlice';
 
 import { getDateFromISODate, getTimeFromISODate } from '../../Utility/formatDate';
+import { deleteUsersFromProject } from '../../../services/project/projectUsersSlice';
 
 const ProjectDetails = () => {
   const { projectId } = useParams();
@@ -47,6 +48,11 @@ const ProjectDetails = () => {
 
   const handleRestoreProject = async (projectId) => {
     await dispatch(restoreProjectFromArchive(projectId));
+    navigate('/myProjects');
+  };
+
+  const handleLeaveProject = async () => {
+    await dispatch(deleteUsersFromProject({ projectId }));
     navigate('/myProjects');
   };
 
@@ -141,6 +147,10 @@ const ProjectDetails = () => {
             onClick={handleDeleteProject}
           >
             Delete
+          </Button>
+
+          <Button variant="outlined" onClick={handleLeaveProject}>
+            Leave Project
           </Button>
         </Grid>
       </Paper>

@@ -8,11 +8,7 @@ import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsActiveOutlined';
 
-import {
-  getActiveProjects,
-  getActiveTickets,
-  getUnreadNotifications,
-} from '../../../services/dashboardSlice';
+import { getActiveProjects, getActiveTickets } from '../../../services/dashboardSlice';
 import { getUnassignedTickets } from '../../../services/ticket/unassignedTicketsSlice';
 
 const StyledButton = styled(Button)(() => ({
@@ -28,7 +24,7 @@ const DashboardCards = () => {
     dispatch(getActiveProjects());
     dispatch(getActiveTickets());
     dispatch(getUnassignedTickets({}));
-    dispatch(getUnreadNotifications());
+    // dispatch(getUnreadNotifications()); this call is initialized in the header of the app
   }, []);
   const {
     getActiveProjects: activeProjects,

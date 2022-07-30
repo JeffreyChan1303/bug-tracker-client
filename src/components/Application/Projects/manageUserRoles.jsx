@@ -44,7 +44,7 @@ const ManageUserRoles = () => {
   const handleDelete = (userId) => {
     setSelectedUsers((current) => {
       // this is needed because not spreading and just using 'current' will make it configure or mutate the original state of the app
-      const copy = { ...current }; 
+      const copy = { ...current };
       delete copy[userId];
       return copy;
     });
@@ -95,9 +95,26 @@ const ManageUserRoles = () => {
   };
 
   const handleDeleteUsersFromProject = async () => {
-    await dispatch(deleteUsersFromProject({ projectId, users: { ...selectedUsers } }));
-    dispatch(getProjectUsers(projectId));
-    setSelectedUsers({});
+    const userArr = Object.keys(selectedUsers);
+    if (userArr.length <= 0) {
+      dispatch(
+        handleAlerts({
+          severity: 'warning',
+          message: 'Plase select a user to delete',
+        })
+      );
+    } else if (userArr.length > 1) {
+      dispatch(
+        handleAlerts({
+          severity: 'warning',
+          message: 'Plase only select 1 user to delete',
+        })
+      );
+    } else {
+      await dispatch(deleteUsersFromProject({ projectId, users: { ...selectedUsers } }));
+      dispatch(getProjectUsers(projectId));
+      setSelectedUsers({});
+    }
   };
 
   return loading ? (
@@ -164,7 +181,7 @@ const ManageUserRoles = () => {
           Clear Selected Users
         </Button>
         <Button variant="outlined" color="warning" onClick={handleDeleteUsersFromProject}>
-          Delete Users From Project
+          Kick Users From Project
         </Button>
       </Grid>
 

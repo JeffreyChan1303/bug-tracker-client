@@ -69,7 +69,6 @@ export const userSlice = createSlice({
     auth: (state, action) => {
       // put into local storage so computer remembers device
       localStorage.setItem('profile', JSON.stringify({ ...action?.payload }));
-      console.log(action?.payload);
       // change the current state
       return { ...state, authData: action?.payload };
     },

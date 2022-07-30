@@ -36,13 +36,13 @@ import Auth from './components/Auth/auth';
 const drawerWidth = 260;
 
 const App = () => {
-  // maybe make the alerts in the file so it always shows even on the auth page,
   // we can change this user constant into auth data to check if the user is loged in or not
   const user = JSON.parse(localStorage.getItem('profile'));
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
+  // if the user is already stored in local storage, this wouth set the userObject as a global state
   useEffect(() => {
     dispatch(setAuthData());
   }, []);

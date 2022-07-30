@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Box, Typography, Paper, Button, Avatar, Grid } from '@mui/material';
-import jwtDecode from 'jwt-decode';
 import { useDispatch, useSelector } from 'react-redux';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useNavigate } from 'react-router-dom';
 
 // import store from '../../app/store';
-import { userActions } from '../../services/user/userSlice';
 import { revertSignUpSuccess, signIn, signUp } from '../../services/user/authSlice';
 
 import Input from './input';
 import './background.css';
+import GoogleLogin from './googleLogin';
 
 const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
 
@@ -22,33 +21,6 @@ const Auth = () => {
   const navigate = useNavigate();
 
   const handleShowPassword = () => setShowPassword(!showPassword);
-
-  function handleCallbackResponse(response) {
-    console.log('Embedded JWT Token: ', response.credential);
-    const userObject = jwtDecode(response.credential);
-    const token = response.credential;
-    console.log(userObject);
-    console.log(response);
-    dispatch(userActions.auth({ userObject, token }));
-    window.location.reload();
-  }
-
-  // uses google identity services
-  useEffect(() => {
-    /* global google */
-    google?.accounts.id.initialize({
-      client_id: '351304157120-mt2uc9pv4rqplrod4gkosjr8h8mqskj2.apps.googleusercontent.com',
-      callback: handleCallbackResponse,
-    });
-    google?.accounts.id.renderButton(document.getElementById('googleSignIn'), {
-      type: 'standard',
-      theme: 'outline',
-      size: 'medium',
-      shape: 'circle',
-      text: 'signin_with',
-    });
-    google?.accounts.id.prompt();
-  }, []);
 
   const switchMode = () => {
     setFormData(initialState);
@@ -159,7 +131,7 @@ const Auth = () => {
               {isSignup ? 'Sign Up' : 'Sign In'}
             </Button>
 
-            <Box sx={{ display: 'flex', justifyContent: 'center' }} id="googleSignIn" />
+            <GoogleLogin />
 
             <Grid container justify="flex-end">
               <Grid item sx={{ display: 'flex' }}>
@@ -219,18 +191,6 @@ const Auth = () => {
           </form>
         </Paper>
       </Grid>
-
-      {/* <Grid
-        item
-        lg={7}
-        alignItems="center"
-        justifyContent="center"
-        sx={{ display: { xs: 'none', lg: 'flex' } }}
-      >
-        <Typography variant="h2" fontWeight={700} sx={{ color: 'white' }}>
-          Bug Tracker
-        </Typography>
-      </Grid> */}
     </Grid>
   );
 };

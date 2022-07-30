@@ -38,6 +38,7 @@ export const googleSignin = createAsyncThunk(
   async ({ userObject, token }, { dispatch, rejectWithValue }) => {
     try {
       // this should check if the user is in the database, if so, log them in by returning the user object in the database!
+      console.log(userObject, token);
       const { data } = await api.googleSignin(userObject, token);
 
       dispatch(userActions.auth(data));
@@ -52,7 +53,7 @@ export const googleSignin = createAsyncThunk(
     } catch (error) {
       console.log(error);
       dispatch(
-        handleAlerts({ severity: 'error', message: 'Failed to sign in using google credentials' })
+        handleAlerts({ severity: 'error', message: `Failed to sign in. Error: ${error.response.data.message}` })
       );
       return rejectWithValue(error);
     }
@@ -107,7 +108,7 @@ const authSlice = createSlice({
     builder.addCase(signIn.pending, (state) => isPending(state));
     builder.addCase(signIn.fulfilled, (state, action) => isFulfilled(state, action));
     builder.addCase(signIn.rejected, (state, action) => isRejected(state, action));
-    // google sign in 
+    // google sign in
     builder.addCase(googleSignin.pending, (state) => isPending(state));
     builder.addCase(googleSignin.fulfilled, (state, action) => isFulfilled(state, action));
     builder.addCase(googleSignin.rejected, (state, action) => isRejected(state, action));

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const API = axios.create({ baseURL: 'http://localhost:9000' });
-const API = axios.create({ baseURL: 'https://juicy-bug-tracker.herokuapp.com/' });
+const API = axios.create({ baseURL: 'http://localhost:9000' });
+// const API = axios.create({ baseURL: 'https://juicy-bug-tracker.herokuapp.com/' });
 
 
 // this puts the token as the header for the backend to verify
@@ -20,7 +20,7 @@ export const getUnreadNotifications = () => API.get('/users/unreadNotifications'
 
 // User APIs
 export const signIn = (formData) => API.post('/users/signin', formData);
-export const googleSignin = (userData, token) => API.post('/users/googleSignin', { userData, token })
+export const googleSignin = (userObject, token) => API.post('/users/googleSignin', { userObject, token })
 export const signUp = (formData) => API.post('/users/signup', formData);
 export const emailVerification = (token) => API.patch(`/users/verification/${token}`);
 export const sendNewVerificationLink = (email) => API.post(`/users/sendVerification`, { email });

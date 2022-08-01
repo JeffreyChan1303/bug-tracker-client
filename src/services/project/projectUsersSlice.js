@@ -139,6 +139,20 @@ export const deleteUsersFromProject = createAsyncThunk(
   }
 );
 
+export const leaveProject = createAsyncThunk('project/leaveProject', async ({ projectId }, {dispatch, rejectWithValue }) => {
+  try {
+    const { data } = await api.leaveProject(projectId);    
+
+    dispatch(handleAlerts({ serverity: 'success', message: data.message }));
+    
+    return data
+  } catch (error) {
+    console.log(error);
+    dispatch(handleAlerts({ severity: 'error', message: error.response.data.message }));
+    return rejectWithValue(error);
+  }
+})
+
 const projectUsersSlice = createSlice({
   name: 'Project Users',
   initialState,

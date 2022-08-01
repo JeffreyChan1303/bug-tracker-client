@@ -73,6 +73,8 @@ export const restoreProjectFromArchive = (projectId) => API.put(`/projects/resto
 export const deleteProjectFromArchive = (projectId) => API.delete(`/projects/deleteProjectFromArchive/${projectId}`);
 
 export const updateUsersRoles = (projectId, users) => API.put(`/projects/updateUsersRoles/${projectId}`, users);
+export const leaveProject = (projectId) => API.put(`/projects/leaveProject/${projectId}`);
 export const deleteUsersFromProject = (projectId, users) => API.put(`/projects/deleteUsersFromProject/${projectId}`, users);
 export const inviteUsersToProject = (projectId, users, role) => API.patch(`/projects/inviteUsersToProject/${projectId}`, { users, role });
 export const acceptProjectInvite = (notification) => API.patch(`/projects/acceptProjectInvite`, notification);
+

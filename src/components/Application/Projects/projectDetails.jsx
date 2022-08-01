@@ -14,7 +14,7 @@ import {
 } from '../../../services/project/projectDetailsSlice';
 
 import { getDateFromISODate, getTimeFromISODate } from '../../Utility/formatDate';
-import { deleteUsersFromProject } from '../../../services/project/projectUsersSlice';
+import { leaveProject } from '../../../services/project/projectUsersSlice';
 
 const ProjectDetails = () => {
   const { projectId } = useParams();
@@ -52,7 +52,7 @@ const ProjectDetails = () => {
   };
 
   const handleLeaveProject = async () => {
-    await dispatch(deleteUsersFromProject({ projectId }));
+    await dispatch(leaveProject({ projectId }));
     navigate('/myProjects');
   };
 

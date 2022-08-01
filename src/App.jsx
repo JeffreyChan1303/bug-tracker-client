@@ -27,6 +27,7 @@ import {
   Profile,
   Settings,
   EmailVerification,
+  AboutPage,
 } from './components/Application/index';
 import { userActions, setAuthData } from './services/user/userSlice';
 import { handleAlerts } from './services/alertsSlice';
@@ -135,6 +136,7 @@ const App = () => {
               <Route exact path="/dashboard" element={<Dashboard />} />
               <Route exact path="/allSupportTickets" element={<AllSupportTickets />} />
               <Route exact path="/addSupportTicket" element={<AddTicket support />} />
+              <Route exact path="/about" element={<AboutPage />} />
 
               {/* Project Routes */}
               <Route exact path="/allProjects" element={<AllProjects />} />

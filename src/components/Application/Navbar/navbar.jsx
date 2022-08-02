@@ -9,6 +9,7 @@ import {
   AccordionDetails,
   AccordionSummary,
   Container,
+  Box,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useLocation } from 'react-router-dom';
@@ -20,6 +21,7 @@ import FolderIcon from '@mui/icons-material/Folder';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import NavbarLink from './navbarLink';
 
 const StyledAccordion = styled(Accordion)(() => ({
@@ -231,6 +233,17 @@ const Navbar = ({ user }) => {
 
         <Divider />
       </List>
+
+      <Box position="absolute" width="100%" marginBottom={3} sx={{ bottom: 0 }}>
+        <Divider />
+        <NavbarLink
+          currentPath={pathname}
+          targetPath="/about"
+          linkName="About Page"
+          icon={<HelpOutlineIcon color="primary" />}
+        />
+        <Divider />
+      </Box>
     </>
   );
 };

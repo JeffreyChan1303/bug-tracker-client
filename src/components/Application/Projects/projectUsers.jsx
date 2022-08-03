@@ -22,7 +22,6 @@ import AddIcon from '@mui/icons-material/Add';
 import { getProjectUsers, searchProjectUsers } from '../../../services/project/projectUsersSlice';
 import { BoldedTableCell, ContentTableCell } from '../../Utility/tableCellStyles';
 
-
 const ProjectUsers = ({ projectId, handleSelectUser }) => {
   const dispatch = useDispatch();
 
@@ -104,7 +103,9 @@ const ProjectUsers = ({ projectId, handleSelectUser }) => {
                     <ContentTableCell align="center">
                       <Tooltip title="Select User" disableInteractive>
                         <IconButton
-                          onClick={() => handleSelectUser({ _id: user._id, name: user.name })}
+                          onClick={() =>
+                            handleSelectUser({ _id: user._id, name: user.name, email: user.email })
+                          }
                         >
                           <AddIcon />
                         </IconButton>

@@ -1,41 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import {
-  Grid,
-  Typography,
-  Box,
-  CircularProgress,
-  Divider,
-  Select,
-  MenuItem,
-  Chip,
-  Button,
-} from '@mui/material';
+import React, { useState } from 'react';
+import { Grid, Typography, Box, Divider, Select, MenuItem, Chip, Button } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import {
-  updateUsersRoles,
+  // updateUsersRoles,
   deleteUsersFromProject,
   getProjectUsers,
-  inviteUsersToProject,
+  // inviteUsersToProject,
+  addUsersToProject,
 } from '../../../services/project/projectUsersSlice';
 import { handleAlerts } from '../../../services/alertsSlice';
 import SelectFromAllUsers from '../Users/selectFromAllUsers';
+import ProjectUsers from './projectUsers';
 
 const ManageUserRoles = () => {
   const { projectId } = useParams();
   const [role, setRole] = useState('');
   const dispatch = useDispatch();
-  const {
-    projectUsers: { original: currentProjectUsers },
-    getProjectUsers: { loading },
-  } = useSelector((state) => state.projectUsers);
 
   const [selectedUsers, setSelectedUsers] = useState({});
-
-  useEffect(() => {
-    dispatch(getProjectUsers(projectId));
-  }, []);
 
   const handleRoleChange = (e) => {
     setRole(e.target.value);
@@ -59,23 +43,7 @@ const ManageUserRoles = () => {
         })
       );
     } else {
-      // this parses the selected users that are in the project and not in the project
-      const selectedProjectUsers = {};
-      const selectedNonProjectUsers = {};
-      Object.keys(selectedUsers).map((userId) => {
-        if (currentProjectUsers[userId]) {
-          selectedProjectUsers[userId] = selectedUsers[userId];
-        } else {
-          selectedNonProjectUsers[userId] = selectedUsers[userId];
-        }
-      });
-
-      if (Object.keys(selectedProjectUsers).length !== 0) {
-        await dispatch(updateUsersRoles({ projectId, users: selectedProjectUsers, role }));
-      }
-      if (Object.keys(selectedNonProjectUsers).length !== 0) {
-        await dispatch(inviteUsersToProject({ projectId, users: selectedNonProjectUsers, role }));
-      }
+      await dispatch(addUsersToProject({ projectId, selectedUsers, role }));
       dispatch(getProjectUsers(projectId));
     }
   };
@@ -84,13 +52,13 @@ const ManageUserRoles = () => {
     setSelectedUsers({});
   };
 
-  const handleAddUser = (userId, name, email) => {
-    if (selectedUsers[userId]) {
+  const handleSelectUser = ({ _id, name, email }) => {
+    if (selectedUsers[_id]) {
       dispatch(
         handleAlerts({ severity: 'warning', message: 'This user has already been selected' })
       );
     } else {
-      setSelectedUsers({ ...selectedUsers, [userId]: { name, email } });
+      setSelectedUsers({ ...selectedUsers, [_id]: { name, email } });
     }
   };
 
@@ -117,36 +85,10 @@ const ManageUserRoles = () => {
     }
   };
 
-  return loading ? (
-    <CircularProgress color="inherit" />
-  ) : (
+  return (
     <Grid container spacing="30px">
       <Grid item xs={12} lg={5}>
-        <Typography fontWeight={700}>Current Project Users</Typography>
-        <Box
-          sx={{ border: 1, borderColor: 'black', borderRadius: '1px', p: '10px' }}
-          maxHeight="200px"
-        >
-          {currentProjectUsers &&
-            Object.keys(currentProjectUsers).map((userId) => (
-              <Button
-                key={userId}
-                size="small"
-                fullWidth
-                sx={{ justifyContent: 'space-between', p: '0 5px' }}
-                onClick={() =>
-                  handleAddUser(
-                    userId,
-                    currentProjectUsers[userId].name,
-                    currentProjectUsers[userId].email
-                  )
-                }
-              >
-                <Typography variant="inherit">Name: {currentProjectUsers[userId].name}</Typography>
-                <Typography variant="inherit">Role: {currentProjectUsers[userId].role}</Typography>
-              </Button>
-            ))}
-        </Box>
+        <ProjectUsers projectId={projectId} handleSelectUser={handleSelectUser} />
 
         <Divider sx={{ m: '20px' }} />
 
@@ -189,7 +131,7 @@ const ManageUserRoles = () => {
       <Grid item xs={12} lg={7}>
         <SelectFromAllUsers
           path={`/projectDetails/manageUserRoles/${projectId}`}
-          handleAddSelectedUser={handleAddUser}
+          handleSelectUser={handleSelectUser}
         />
       </Grid>
     </Grid>

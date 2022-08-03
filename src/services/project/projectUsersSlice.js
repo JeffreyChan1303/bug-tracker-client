@@ -91,6 +91,43 @@ export const inviteUsersToProject = createAsyncThunk(
   }
 );
 
+export const addUsersToProject = createAsyncThunk(
+  'project/addUsersToProject',
+  async ({ projectId, selectedUsers, role }, { dispatch, getState }) => {
+    try {
+      // this parses the selected users that are in the project and not in the project
+      const selectedProjectUsers = {};
+      const selectedNonProjectUsers = {};
+      const {
+        projectUsers: { original },
+      } = getState().projectUsers;
+
+      Object.keys(selectedUsers).map((userId) => {
+        if (original[userId]) {
+          selectedProjectUsers[userId] = selectedUsers[userId];
+        } else {
+          selectedNonProjectUsers[userId] = selectedUsers[userId];
+        }
+      });
+
+      if (Object.keys(selectedProjectUsers).length !== 0) {
+        await dispatch(updateUsersRoles({ projectId, users: selectedProjectUsers, role }));
+      }
+      if (Object.keys(selectedNonProjectUsers).length !== 0) {
+        await dispatch(inviteUsersToProject({ projectId, users: selectedNonProjectUsers, role }));
+      }
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        handleAlerts({
+          severity: 'error',
+          message: 'something went wrong in the addUsersToProject function',
+        })
+      );
+    }
+  }
+);
+
 export const acceptProjectInvite = createAsyncThunk(
   'project/acceptProjectInvite',
   async (notification, { dispatch, rejectWithValue }) => {
@@ -139,19 +176,22 @@ export const deleteUsersFromProject = createAsyncThunk(
   }
 );
 
-export const leaveProject = createAsyncThunk('project/leaveProject', async ({ projectId }, {dispatch, rejectWithValue }) => {
-  try {
-    const { data } = await api.leaveProject(projectId);    
+export const leaveProject = createAsyncThunk(
+  'project/leaveProject',
+  async ({ projectId }, { dispatch, rejectWithValue }) => {
+    try {
+      const { data } = await api.leaveProject(projectId);
 
-    dispatch(handleAlerts({ serverity: 'success', message: data.message }));
-    
-    return data
-  } catch (error) {
-    console.log(error);
-    dispatch(handleAlerts({ severity: 'error', message: error.response.data.message }));
-    return rejectWithValue(error);
+      dispatch(handleAlerts({ serverity: 'success', message: data.message }));
+
+      return data;
+    } catch (error) {
+      console.log(error);
+      dispatch(handleAlerts({ severity: 'error', message: error.response.data.message }));
+      return rejectWithValue(error);
+    }
   }
-})
+);
 
 const projectUsersSlice = createSlice({
   name: 'Project Users',

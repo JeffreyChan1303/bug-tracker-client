@@ -34,7 +34,7 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-const SelectFromAllUsers = ({ path, handleAddSelectedUser }) => {
+const SelectFromAllUsers = ({ path, handleSelectUser }) => {
   const query = useQuery();
   const page = query.get('page');
   const navigate = useNavigate();
@@ -107,7 +107,9 @@ const SelectFromAllUsers = ({ path, handleAddSelectedUser }) => {
                   <ContentTableCell align="left">{user.email}</ContentTableCell>
                   <ContentTableCell align="center">
                     <IconButton
-                      onClick={() => handleAddSelectedUser(user._id, user.name, user.email)}
+                      onClick={() =>
+                        handleSelectUser({ _id: user._id, name: user.name, email: user.email })
+                      }
                     >
                       <AddIcon />
                     </IconButton>

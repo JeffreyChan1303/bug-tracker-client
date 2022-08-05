@@ -43,7 +43,7 @@ const App = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // if the user is already stored in local storage, this wouth set the userObject as a global state
+  // if the user is already stored in local storage, this would set the userObject as a global state with redux
   useEffect(() => {
     dispatch(setAuthData());
   }, []);

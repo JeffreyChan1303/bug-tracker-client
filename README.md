@@ -1,6 +1,7 @@
-# Project Title
+# Juicy Bug Tracker
 
-Ticketing software for small teams to organize and work on issues efficiently.
+Juicy Bug Tracker is a full stack application for 
+small teams to organize and work on issues efficiently.
 
 - [Website Link](www.juicybugtracker.com)
 

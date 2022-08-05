@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Typography, Link } from '@mui/material';
+import { Container, Typography, Link, List, ListItem } from '@mui/material';
 
 const AboutPage = () => (
   <Container>
@@ -7,10 +7,19 @@ const AboutPage = () => (
       About Me Page
     </Typography>
     <Typography variant="h5">Hello, I am Jeffrey, the creator of Juicy Bug Tracker.</Typography>
-    <Typography variant="h6">Created by Jeffrey Chan</Typography>
-    <Link target="_blank" href="https://jeffreychan1303.github.io/">
-      Come check out my portfolio website
-    </Link>
+    {/* <Typography variant="h6">Created by Jeffrey Chan</Typography> */}
+    <List>
+      <ListItem>
+        <Link target="_blank" href="https://jeffreychan1303.github.io/">
+          Come check out my portfolio website
+        </Link>
+      </ListItem>
+      <ListItem>
+        <Link target="_blank" href="https://github.com/JeffreyChan1303">
+          Come check out my Github
+        </Link>
+      </ListItem>
+    </List>
   </Container>
 );
 

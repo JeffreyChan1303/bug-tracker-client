@@ -54,6 +54,7 @@ export const claimTicket = (ticketId, userId) => API.patch(`tickets/claimTicket/
 
 export const getSupportTicketsBySearch = (page, searchQuery) => API.get(`/tickets/supportTickets/search?searchQuery=${searchQuery || ''}&page=${page}`);
 export const addSupportTicket = (ticketData) => API.post(`/tickets/createSupportTicket`, ticketData);
+export const deleteSupportTicket = (ticketId) => API.delete(`/tickets/deleteSupportTicket/${ticketId}`);
 
 // Project APIs
 export const getAllProjectsBySearch = (page, searchQuery) => API.get(`/projects/allProjects/search?searchQuery=${searchQuery || ''}&page=${page}`);

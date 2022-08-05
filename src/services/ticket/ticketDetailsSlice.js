@@ -143,6 +143,20 @@ export const deleteTicketFromArchive = createAsyncThunk(
   }
 );
 
+export const deleteSupportTicket = createAsyncThunk(
+  'ticket/deleteSupportTicket',
+  async (ticketId, { dispatch, rejectWithValue }) => {
+    try {
+      const { data } = await api.deleteSupportTicket(ticketId);
+      return data;
+    } catch (error) {
+      console.log(error);
+      dispatch(handleAlerts({ severity: 'error', message: error.response.data.message }));
+      return rejectWithValue(error);
+    }
+  }
+);
+
 export const addTicketComment = createAsyncThunk(
   'ticket/addTicketComment',
   async ({ ticketId, comment }, { dispatch, rejectWithValue }) => {

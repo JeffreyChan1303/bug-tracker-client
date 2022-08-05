@@ -8,6 +8,7 @@ import {
   moveTicketToArchive,
   deleteTicketFromArchive,
   restoreTicketFromArchive,
+  deleteSupportTicket,
 } from '../../../services/ticket/ticketDetailsSlice';
 
 import TicketInformation from './ticketInformation';
@@ -38,7 +39,7 @@ const TicketDetails = () => {
       await dispatch(deleteTicketFromArchive(ticketId));
       navigate('/ticketArchive');
     } else if (ticket.type === 'Support') {
-      await dispatch(moveTicketToArchive(ticketId));
+      await dispatch(deleteSupportTicket(ticketId));
       navigate('/allSupportTickets');
     } else {
       await dispatch(moveTicketToArchive(ticketId));

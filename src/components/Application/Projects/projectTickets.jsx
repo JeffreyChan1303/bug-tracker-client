@@ -20,7 +20,7 @@ import {
   Checkbox,
   FormControlLabel,
 } from '@mui/material';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import AddIcon from '@mui/icons-material/Add';
@@ -35,6 +35,7 @@ const ProjectTickets = ({ handleSelectTicket }) => {
   const { projectId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const {
     projectTickets,
     getProjectTickets: { loading },
@@ -149,16 +150,31 @@ const ProjectTickets = ({ handleSelectTicket }) => {
         </Table>
       </Box>
 
-      <FormControlLabel
-        control={
-          <Checkbox
-            size="small"
-            checked={assignedTickets.showArchived}
-            onClick={handleToggleShowArchived}
-          />
-        }
-        label={<Typography variant="body2">show archived?</Typography>}
-      />
+      <Grid container justifyContent="space-between">
+        <FormControlLabel
+          control={
+            <Checkbox
+              size="small"
+              checked={assignedTickets.showArchived}
+              onClick={handleToggleShowArchived}
+            />
+          }
+          label={<Typography variant="body2">show archived?</Typography>}
+        />
+
+        {!location.pathname.includes('/projectDetails/projectTickets') && (
+          <Box display="flex" justifyContent="right" alignItems="center">
+            <Button
+              variant="text"
+              size="small"
+              sx={{ textTransform: 'none', p: '0', color: 'black' }}
+              onClick={() => navigate(`/projectDetails/projectTickets/${projectId}`)}
+            >
+              view project tickets
+            </Button>
+          </Box>
+        )}
+      </Grid>
 
       <Pagination
         sx={{ ul: { justifyContent: 'space-around' }, mt: '20px' }}

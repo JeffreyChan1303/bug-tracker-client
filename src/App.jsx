@@ -155,12 +155,12 @@ const App = () => {
               <Route exact path="/projectDetails/:projectId" element={<ProjectDetails />} />
               <Route
                 exact
-                path="/projectDetails/:projectId/projectUsers"
+                path="/projectDetails/projectUsers/:projectId"
                 element={<ProjectUsers />}
               />
               <Route
                 exact
-                path="/projectDetails/:projectId/projectTickets"
+                path="/projectDetails/projectTickets/:projectId"
                 element={<ProjectTickets />}
               />
 

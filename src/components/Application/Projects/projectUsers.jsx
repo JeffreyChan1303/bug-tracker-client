@@ -17,7 +17,7 @@ import {
   Pagination,
   PaginationItem,
 } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import AddIcon from '@mui/icons-material/Add';
 import { getProjectUsers, searchProjectUsers } from '../../../services/project/projectUsersSlice';
@@ -26,6 +26,9 @@ import { BoldedTableCell, ContentTableCell } from '../../Utility/tableCellStyles
 const ProjectUsers = ({ handleSelectUser }) => {
   const { projectId } = useParams();
   const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+  console.log(location);
 
   const [assignedUsers, setAssignedUsers] = useState({
     searchQuery: '',
@@ -119,6 +122,19 @@ const ProjectUsers = ({ handleSelectUser }) => {
           </TableBody>
         </Table>
       </Box>
+
+      {!location.pathname.includes('/projectDetails/projectUsers') && (
+        <Grid container justifyContent="right" marginTop={1}>
+          <Button
+            variant="text"
+            size="small"
+            sx={{ textTransform: 'none', p: '0', color: 'black' }}
+            onClick={() => navigate(`/projectDetails/projectUsers/${projectId}`)}
+          >
+            view project users
+          </Button>
+        </Grid>
+      )}
 
       <Pagination
         sx={{ ul: { justifyContent: 'space-around' }, mt: '20px' }}

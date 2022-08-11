@@ -72,8 +72,6 @@ const Auth = () => {
 
   return (
     <Grid container className="login-page-background" justifyContent="space-around">
-      <Box className="login-page-background-cover" />
-
       <Grid item xs={12} lg={5} display="flex" alignItems="center" justifyContent="center">
         <Paper elevation={20} sx={{ p: 2, minWidth: '350px', width: '30%' }}>
           <Box maxWidth sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -134,13 +132,17 @@ const Auth = () => {
             <GoogleLogin />
 
             <Grid container justify="flex-end">
-              <Grid item sx={{ display: 'flex' }}>
+              <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
                 {isSignup ? (
                   <>
                     <Typography variant="body1" padding={1}>
                       Already have an account?
                     </Typography>
-                    <Button sx={{ textTransform: 'none' }} onClick={switchMode}>
+                    <Button
+                      sx={{ textTransform: 'none', p: '1px 5px' }}
+                      onClick={switchMode}
+                      variant="outlined"
+                    >
                       Sign In
                     </Button>
                   </>
@@ -149,22 +151,26 @@ const Auth = () => {
                     <Typography variant="body1" padding={1}>
                       Don&apos;t have an account?
                     </Typography>
-                    <Button sx={{ textTransform: 'none' }} onClick={switchMode}>
+                    <Button
+                      sx={{ textTransform: 'none', p: '0px 6px' }}
+                      onClick={switchMode}
+                      variant="outlined"
+                    >
                       Sign Up
                     </Button>
                   </>
                 )}
               </Grid>
-              <Grid item sx={{ display: 'flex' }}>
+              <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
                 <Typography variant="body1" padding={1}>
                   Need to verify your account?
                 </Typography>
                 <Button
                   onClick={() => navigate('/verification/auth')}
-                  sx={{ textTransform: 'none' }}
-                  variant="text"
+                  sx={{ textTransform: 'none', p: '1px 5px' }}
+                  variant="outlined"
                 >
-                  Click Here
+                  Verify Here
                 </Button>
               </Grid>
             </Grid>

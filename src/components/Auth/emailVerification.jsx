@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Grid, Paper, Typography } from '@mui/material';
+import { Box, Button, Grid, Paper, Typography } from '@mui/material';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -37,8 +37,8 @@ const EmailVerification = () => {
       alignItems="center"
       justifyContent="center"
       gap={3}
-      position="absolute"
-      sx={{ left: 0, right: 0, top: 0, bottom: '10vh' }}
+      paddingBottom={3}
+      className="login-page-background"
     >
       <Paper sx={{ p: 3, maxWidth: '350px' }} elevation={1}>
         <form>
@@ -55,12 +55,14 @@ const EmailVerification = () => {
             <Button variant="contained" onClick={handleSendNewVerificationLink}>
               Send new verification link
             </Button>
+            <Box display="flex" justifyContent="center">
+              <Button variant="outlined" sx={{ m: '0 auto' }} onClick={() => navigate('/auth')}>
+                Go Back To Login
+              </Button>
+            </Box>
           </Grid>
         </form>
       </Paper>
-      <Button variant="outlined" onClick={() => navigate('/auth')}>
-        Go Back To Login
-      </Button>
     </Grid>
   );
 };

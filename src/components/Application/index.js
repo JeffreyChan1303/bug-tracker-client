@@ -12,6 +12,8 @@ export { default as MyProjects } from './Projects/myProjects';
 export { default as ProjectArchive } from './Projects/projectArchive';
 export { default as ProjectDetails } from './Projects/projectDetails';
 export { default as AssignTicket } from './Projects/assignTicket';
+export { default as ProjectUsers } from './Projects/projectUsers';
+export { default as ProjectTickets } from './Projects/projectTickets';
 
 export { default as AddTicket } from './Tickets/addTicket';
 export { default as AllTickets } from './Tickets/allTickets';

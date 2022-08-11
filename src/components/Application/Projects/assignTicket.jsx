@@ -49,20 +49,19 @@ const AssignTicket = () => {
       </Typography>
       <Grid container spacing={2}>
         <Grid item xs={12} lg={5}>
-          <ProjectUsers projectId={projectId} handleSelectUser={handleSelectUser} />
+          <ProjectUsers handleSelectUser={handleSelectUser} />
         </Grid>
 
         <Grid item xs={12} lg={7}>
-          <ProjectTickets projectId={projectId} handleSelectTicket={handleSelectTicket} />
+          <ProjectTickets handleSelectTicket={handleSelectTicket} />
         </Grid>
       </Grid>
 
-      {/* THIS IS WHERE I LEFT OFF!!! finish this page */}
       <Grid
         container
         justifyContent="space-evenly"
         alignItems="center"
-        sx={{ border: 1, borderRadius: 2, p: 1, mt: 3 }}
+        sx={{ border: 1, borderRadius: 1, p: 1, mt: 3 }}
       >
         <Box>
           <Typography>Selected User: {selectedUser.name}</Typography>

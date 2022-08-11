@@ -17,12 +17,14 @@ import {
   Pagination,
   PaginationItem,
 } from '@mui/material';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import AddIcon from '@mui/icons-material/Add';
 import { getProjectUsers, searchProjectUsers } from '../../../services/project/projectUsersSlice';
 import { BoldedTableCell, ContentTableCell } from '../../Utility/tableCellStyles';
 
-const ProjectUsers = ({ projectId, handleSelectUser }) => {
+const ProjectUsers = ({ handleSelectUser }) => {
+  const { projectId } = useParams();
   const dispatch = useDispatch();
 
   const [assignedUsers, setAssignedUsers] = useState({

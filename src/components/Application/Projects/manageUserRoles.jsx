@@ -88,7 +88,7 @@ const ManageUserRoles = () => {
   return (
     <Grid container spacing="30px">
       <Grid item xs={12} lg={5}>
-        <ProjectUsers projectId={projectId} handleSelectUser={handleSelectUser} />
+        <ProjectUsers handleSelectUser={handleSelectUser} />
 
         <Divider sx={{ m: '20px' }} />
 

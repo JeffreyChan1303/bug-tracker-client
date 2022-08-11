@@ -20,7 +20,7 @@ import {
   Checkbox,
   FormControlLabel,
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import AddIcon from '@mui/icons-material/Add';
@@ -31,9 +31,8 @@ import {
 import { getDateFromISODate } from '../../Utility/formatDate';
 import { BoldedTableCell, ContentTableCell } from '../../Utility/tableCellStyles';
 
-
-
-const ProjectTickets = ({ projectId, handleSelectTicket }) => {
+const ProjectTickets = ({ handleSelectTicket }) => {
+  const { projectId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {

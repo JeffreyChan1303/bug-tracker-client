@@ -97,11 +97,11 @@ const ProjectDetails = () => {
 
         <Grid container spacing={2}>
           <Grid item xs={12} lg={5}>
-            <ProjectUsers projectId={projectId} />
+            <ProjectUsers />
           </Grid>
 
           <Grid item xs={12} lg={7}>
-            <ProjectTickets projectId={projectId} />
+            <ProjectTickets />
           </Grid>
         </Grid>
 

@@ -28,6 +28,8 @@ import {
   Settings,
   EmailVerification,
   AboutPage,
+  ProjectUsers,
+  ProjectTickets,
 } from './components/Application/index';
 import { userActions, setAuthData } from './services/user/userSlice';
 import { handleAlerts } from './services/alertsSlice';
@@ -151,6 +153,16 @@ const App = () => {
               <Route exact path="/addProject" element={<AddProject />} />
               <Route exact path="/editProject/:id" element={<EditProject />} />
               <Route exact path="/projectDetails/:projectId" element={<ProjectDetails />} />
+              <Route
+                exact
+                path="/projectDetails/:projectId/projectUsers"
+                element={<ProjectUsers />}
+              />
+              <Route
+                exact
+                path="/projectDetails/:projectId/projectTickets"
+                element={<ProjectTickets />}
+              />
 
               <Route
                 exact

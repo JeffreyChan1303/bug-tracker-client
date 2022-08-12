@@ -48,8 +48,7 @@ const Navbar = ({ user }) => {
   return (
     <>
       <Toolbar>
-        {/* make a logo and put it here here */}
-        <Typography variant="h5">Juicy Bug Tracker</Typography>
+        <Typography variant="h5">Track My Projects</Typography>
       </Toolbar>
       <Divider sx={{ mb: '8px' }} />
 

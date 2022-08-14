@@ -19,8 +19,9 @@ Make use of tickets to work efficiently with your team.
 #### Challenges
 
 - Global State
-- Relationship between Users, Projects, and Tickets reguarding the backend logic
-- Authentification
+- Relationship between Users, Projects, and Tickets regarding the backend logic
+- Authentification of user roles within projects
+- Error handling
 
 ## Technologies
 

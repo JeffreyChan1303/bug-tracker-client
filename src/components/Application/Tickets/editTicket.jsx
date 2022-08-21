@@ -28,7 +28,7 @@ const EditTicket = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
-    updateTicket: { loading },
+    getTicketDetails: { loading },
     ticket,
   } = useSelector((state) => state.ticketDetails);
   const [ticketData, setTicketData] = useState(initialTicketData);

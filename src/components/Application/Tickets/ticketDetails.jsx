@@ -73,7 +73,7 @@ const TicketDetails = () => {
                     variant="outlined"
                     onClick={() => navigate(`/editTicket/${ticketId}`)}
                     disabled={
-                      ticket.type === 'Support' ||
+                      (ticket.type === 'Support' && ticket.creator !== authData?.userObject._id) ||
                       (authData?.userObject._id !== ticket.creator &&
                         authData?.userObject._id !== ticket.developer?._id)
                     }

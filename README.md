@@ -1,9 +1,9 @@
-# Trach My Projects
+# Track My Projects
 
 Track My Projects is a full stack application for
 small teams to organize and work on issues efficiently.
 
-- [Website Link](www.trackmyprojects.org)
+- [Website Link](https://www.trackmyprojects.org)
 
 ## Project Description
 

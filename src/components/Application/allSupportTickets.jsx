@@ -31,9 +31,9 @@ const AllSupportTickets = () => {
   const searchAllTickets = () => {
     if (search.trim()) {
       dispatch(getSupportTicketsBySearch({ search, page: 1 }));
-      navigate(`/supportTickets?searchQuery=${search || 'none'}&page=1`);
+      navigate(`/allSupportTickets?searchQuery=${search || 'none'}&page=1`);
     } else {
-      navigate('/supportTickets');
+      navigate('/allSupportTickets');
     }
   };
 
@@ -71,7 +71,7 @@ const AllSupportTickets = () => {
       </Box>
 
       <CustomPagination
-        path={`/allTickets${search.trim() ? `?searchQuery=${search}&` : `?`}`}
+        path={`/allSupportTickets${search.trim() ? `?searchQuery=${search}&` : `?`}`}
         page={page}
         currentPage={currentPage}
         numberOfPages={numberOfPages}

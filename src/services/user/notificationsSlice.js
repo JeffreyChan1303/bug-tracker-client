@@ -46,7 +46,7 @@ export const deleteUserNotification = createAsyncThunk(
       dispatch(
         handleAlerts({
           severity: 'error',
-          message: `User notification was not able to be deleted. Error: ${error.message}`,
+          message: `User notification was not able to be deleted. Error: ${error.response.data.message}`,
         })
       );
       return rejectWithValue(error);
@@ -64,12 +64,6 @@ export const readNotification = createAsyncThunk(
     } catch (error) {
       console.log(error);
       // Failing to read notification does not need an alert
-      // dispatch(
-      //   handleAlerts({
-      //     severity: 'error',
-      //     message: `failed to read notification. Error: ${error.response.data.message}`,
-      //   })
-      // );
       return rejectWithValue(error);
     }
   }

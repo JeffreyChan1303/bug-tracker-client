@@ -56,11 +56,11 @@ const NotificationPage = () => {
     dispatch(getUserNotificationsBySearch({ search, page }));
   }, [page]);
 
-  const handleDeleteNotification = (createdAt) => {
+  const handleDeleteNotification = async (createdAt) => {
     // we will just use an array method and shift from the bottom for now!!!
     // we wil need to implement specific ids for the notifications soon though
-    dispatch(deleteUserNotification({ createdAt }));
-    window.location.reload();
+    await dispatch(deleteUserNotification({ createdAt }));
+    dispatch(getUserNotificationsBySearch({ search, page }));
   };
 
   const searchAllNotifications = () => {

@@ -35,7 +35,7 @@ Created with:
 - react-router-dom version 6.3.0
 - Redux Toolkit version 1.8.1
 
-# Features I hope to implement in the future
+## Features I hope to implement in the future
 
 - adding user profile
 - adding user settings

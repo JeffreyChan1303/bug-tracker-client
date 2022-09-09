@@ -33,7 +33,7 @@ const Header = ({ drawerWidth, handleDrawerToggle, handleLogOut }) => {
 
   useEffect(() => {
     dispatch(getUnreadNotifications());
-  }, [numberOfUnreadNotifications]);
+  }, [pathname]);
 
   const handleAvatarOpen = (event) => {
     setAvatarOpen(event.currentTarget);

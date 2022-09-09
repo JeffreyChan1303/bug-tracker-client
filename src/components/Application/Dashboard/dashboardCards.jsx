@@ -144,11 +144,7 @@ const DashboardCards = () => {
               </Typography>
               <Typography variant="h5" fontWeight={700}>
                 {console.log(unreadNotifications.loading)}
-                {unreadNotifications.loading ? (
-                  <CircularProgress color="inherit" />
-                ) : (
-                  unreadNotifications.data
-                )}
+                  {unreadNotifications.data}
               </Typography>
             </Grid>
             <Grid item>

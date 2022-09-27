@@ -17,7 +17,7 @@ const EditProject = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
-    updateProject: { loading },
+    getProjectDetails: { loading },
     project,
   } = useSelector((state) => state.projectDetails);
   const [projectData, setProjectData] = useState(initialProjectData);

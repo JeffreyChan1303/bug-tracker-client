@@ -4,7 +4,7 @@ const initialState = {
   alerts: [],
 };
 
-// we need to have unique id numbers to delete cirtain object
+// we need to have unique id numbers to delete certain object
 export const alertsSlice = createSlice({
   name: 'Alert',
   initialState,
